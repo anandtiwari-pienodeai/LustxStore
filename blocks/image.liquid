@@ -41,7 +41,17 @@
 %}
 
 {% capture image %}
-  {%- if block_settings.image -%}
+  {%- if block_settings.asset_filename != blank -%}
+    <img
+      src="{{ block_settings.asset_filename | asset_url }}"
+      alt=""
+      width="{{ block_settings.asset_width | default: 1600 }}"
+      height="{{ block_settings.asset_height | default: 1000 }}"
+      class="image-block__image border-style"
+      style="{{ image_border_style }}"
+      loading="lazy"
+    >
+  {%- elsif block_settings.image -%}
     {{
       block_settings.image
       | image_url: width: 3840
@@ -121,6 +131,24 @@
       "type": "image_picker",
       "id": "image",
       "label": "t:settings.image"
+    },
+    {
+      "type": "text",
+      "id": "asset_filename",
+      "label": "Static asset filename (advanced)",
+      "info": "Overrides the image picker with a file from the theme's assets folder, e.g. leaf-left.png"
+    },
+    {
+      "type": "number",
+      "id": "asset_width",
+      "label": "Static asset width (px)",
+      "visible_if": "{{ block.settings.asset_filename != blank }}"
+    },
+    {
+      "type": "number",
+      "id": "asset_height",
+      "label": "Static asset height (px)",
+      "visible_if": "{{ block.settings.asset_filename != blank }}"
     },
     {
       "type": "url",

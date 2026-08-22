@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "t:names.footer",
@@ -5,298 +14,93 @@
     "footer_m9NzUG": {
       "type": "footer",
       "blocks": {
-        "brand_col": {
+        "group_H6VpwJ": {
           "type": "group",
-          "name": "t:names.group",
           "settings": {
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
-            "gap": 20,
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 6,
             "width": "fill",
-            "height": "fit"
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           },
           "blocks": {
-            "wordmark_main": {
+            "text_LWt8Pz": {
               "type": "text",
-              "name": "t:names.text",
               "settings": {
-                "text": "<p>BodyArc</p>",
-                "text_color": "#F2EDE7",
-                "width": "fit-content",
+                "text": "<h2>Join our email list</h2>",
+                "width": "100%",
+                "max_width": "normal",
                 "alignment": "left",
                 "type_preset": "h4",
-                "line_height": "tight",
-                "letter_spacing": "normal",
-                "case": "none",
-                "font": "var(--font-heading--family)"
-              },
-              "blocks": {}
-            },
-            "wordmark_sub": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>PROFESSIONAL</p>",
-                "text_color": "#F2EDE7",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "custom",
-                "font_size": "0.75rem",
-                "line_height": "tight",
-                "letter_spacing": "loose",
-                "case": "none",
-                "font": "var(--font-heading--family)"
-              },
-              "blocks": {}
-            },
-            "contact_stack": {
-              "type": "group",
-              "name": "t:names.group",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "gap": 10,
-                "width": "fit-content",
-                "height": "fit"
-              },
-              "blocks": {
-                "address_row": {
-                  "type": "group",
-                  "name": "t:names.group",
-                  "settings": {
-                    "content_direction": "row",
-                    "vertical_on_mobile": true,
-                    "horizontal_alignment": "flex-start",
-                    "vertical_alignment": "center",
-                    "gap": 8,
-                    "width": "fit-content",
-                    "height": "fit"
-                  },
-                  "blocks": {
-                    "icon": {
-                      "type": "icon",
-                      "settings": {
-                        "icon": "map_pin",
-                        "width": 18,
-                        "icon_color": "#F2EDE7"
-                      },
-                      "blocks": {}
-                    },
-                    "label": {
-                      "type": "text",
-                      "name": "t:names.text",
-                      "settings": {
-                        "text": "<p>PLACEHOLDER — add your store address</p>",
-                        "text_color": "#F2EDE7",
-                        "width": "fit-content",
-                        "alignment": "left",
-                        "type_preset": "paragraph",
-                        "font_size": "0.875rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none"
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "icon",
-                    "label"
-                  ]
-                },
-                "email_row": {
-                  "type": "group",
-                  "name": "t:names.group",
-                  "settings": {
-                    "content_direction": "row",
-                    "vertical_on_mobile": true,
-                    "horizontal_alignment": "flex-start",
-                    "vertical_alignment": "center",
-                    "gap": 8,
-                    "width": "fit-content",
-                    "height": "fit"
-                  },
-                  "blocks": {
-                    "icon": {
-                      "type": "icon",
-                      "settings": {
-                        "icon": "chat_bubble",
-                        "width": 18,
-                        "icon_color": "#F2EDE7"
-                      },
-                      "blocks": {}
-                    },
-                    "label": {
-                      "type": "text",
-                      "name": "t:names.text",
-                      "settings": {
-                        "text": "<p>PLACEHOLDER — add your contact email</p>",
-                        "text_color": "#F2EDE7",
-                        "width": "fit-content",
-                        "alignment": "left",
-                        "type_preset": "paragraph",
-                        "font_size": "0.875rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none"
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "icon",
-                    "label"
-                  ]
-                },
-                "phone_row": {
-                  "type": "group",
-                  "name": "t:names.group",
-                  "settings": {
-                    "content_direction": "row",
-                    "vertical_on_mobile": true,
-                    "horizontal_alignment": "flex-start",
-                    "vertical_alignment": "center",
-                    "gap": 8,
-                    "width": "fit-content",
-                    "height": "fit"
-                  },
-                  "blocks": {
-                    "icon": {
-                      "type": "icon",
-                      "settings": {
-                        "icon": "lightning_bolt",
-                        "width": 18,
-                        "icon_color": "#F2EDE7"
-                      },
-                      "blocks": {}
-                    },
-                    "label": {
-                      "type": "text",
-                      "name": "t:names.text",
-                      "settings": {
-                        "text": "<p>PLACEHOLDER — add your phone number</p>",
-                        "text_color": "#F2EDE7",
-                        "width": "fit-content",
-                        "alignment": "left",
-                        "type_preset": "paragraph",
-                        "font_size": "0.875rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none"
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "icon",
-                    "label"
-                  ]
-                }
-              },
-              "block_order": [
-                "address_row",
-                "email_row",
-                "phone_row"
-              ]
-            },
-            "social_links_footer": {
-              "type": "social-links",
-              "name": "t:names.social_links",
-              "settings": {
-                "icon_color": "#F2EDE7",
-                "facebook_url": "https://www.facebook.com/",
-                "instagram_url": "https://www.instagram.com/",
-                "youtube_url": "https://www.youtube.com/",
-                "linkedin_url": "https://www.linkedin.com/"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "wordmark_main",
-            "wordmark_sub",
-            "contact_stack",
-            "social_links_footer"
-          ]
-        },
-        "shop_col": {
-          "type": "menu",
-          "name": "t:names.menu",
-          "settings": {
-            "menu": "footer-shop",
-            "heading": "Shop",
-            "menu_spacing": 10,
-            "show_as_accordion": false,
-            "text_color": "#F2EDE7",
-            "heading_preset": "h6",
-            "link_preset": "paragraph"
-          },
-          "blocks": {}
-        },
-        "discover_col": {
-          "type": "menu",
-          "name": "t:names.menu",
-          "settings": {
-            "menu": "footer-discover",
-            "heading": "Discover",
-            "menu_spacing": 10,
-            "show_as_accordion": false,
-            "text_color": "#F2EDE7",
-            "heading_preset": "h6",
-            "link_preset": "paragraph"
-          },
-          "blocks": {}
-        },
-        "policies_col": {
-          "type": "menu",
-          "name": "t:names.menu",
-          "settings": {
-            "menu": "footer-help-policies",
-            "heading": "Help &amp; Policies",
-            "menu_spacing": 10,
-            "show_as_accordion": false,
-            "text_color": "#F2EDE7",
-            "heading_preset": "h6",
-            "link_preset": "paragraph"
-          },
-          "blocks": {}
-        },
-        "newsletter_col": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "gap": 10,
-            "width": "fit-content",
-            "height": "fit"
-          },
-          "blocks": {
-            "subtext": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>Get 10% off your first order + wellness tips</p>",
-                "text_color": "#F2EDE7",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font_size": "0.9375rem",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
-                "case": "none"
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_f9CFLH": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Get exclusive deals and early access to new products.</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
               "blocks": {}
             }
           },
           "block_order": [
-            "subtext"
+            "text_LWt8Pz",
+            "text_f9CFLH"
           ]
         },
         "email_signup_crihX7": {
@@ -304,14 +108,14 @@
           "settings": {
             "width": "fill",
             "custom_width": 100,
-            "heading_preset": "h6",
+            "heading_preset": "h3",
             "border_style": "all",
             "input_style": "custom",
             "border_width": 1,
             "border_radius": 100,
-            "input_background_color": "#FFFFFF",
-            "input_text_color": "#1F1E1C",
-            "input_border_color": "#F2EDE7",
+            "input_background_color": "{{ settings.color_palette.background }}",
+            "input_text_color": "{{ settings.color_palette.color1 }}",
+            "input_border_color": "{{ settings.color_palette.color2 }}",
             "input_type_preset": "paragraph",
             "style_class": "button-unstyled",
             "display_type": "arrow",
@@ -321,28 +125,22 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "heading": "Newsletter",
-            "heading_text_color": "#F2EDE7"
+            "padding-inline-end": 0
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "brand_col",
-        "shop_col",
-        "discover_col",
-        "policies_col",
-        "newsletter_col",
+        "group_H6VpwJ",
         "email_signup_crihX7"
       ],
       "name": "t:names.footer",
       "settings": {
         "section_width": "page-width",
-        "gap": 40,
-        "background_color": "#B3703F",
-        "padding-block-start": 56,
-        "padding-block-end": 40
+        "gap": 20,
+        "background_color": "{{ settings.color_palette.background }}",
+        "padding-block-start": 30,
+        "padding-block-end": 30
       }
     },
     "footer_utilities_jLGE8U": {
@@ -353,8 +151,7 @@
           "settings": {
             "show_powered_by": true,
             "font_size": "0.75rem",
-            "case": "none",
-            "text_color": "#F2EDE7"
+            "case": "none"
           },
           "blocks": {}
         },
@@ -362,23 +159,34 @@
           "type": "footer-policy-list",
           "settings": {
             "font_size": "0.75rem",
-            "case": "none",
-            "text_color": "#F2EDE7"
+            "case": "none"
+          },
+          "blocks": {}
+        },
+        "social_links_Ew63Kq": {
+          "type": "social-links",
+          "settings": {
+            "facebook_url": "https://www.facebook.com/",
+            "instagram_url": "https://www.instagram.com/",
+            "youtube_url": "https://www.youtube.com/",
+            "tiktok_url": "https://www.tiktok.com/",
+            "twitter_url": "https://x.com/"
           },
           "blocks": {}
         }
       },
       "block_order": [
         "footer_copyright_jweRK8",
-        "footer_policy_list_VCdnpa"
+        "footer_policy_list_VCdnpa",
+        "social_links_Ew63Kq"
       ],
       "name": "t:names.utilities",
       "settings": {
         "section_width": "page-width",
         "gap": 24,
         "divider_thickness": 1,
-        "divider_color": "#F2EDE7",
-        "background_color": "#B3703F",
+        "divider_color": "{{ settings.color_palette.color2 }}",
+        "background_color": "{{ settings.color_palette.background }}",
         "padding-block-start": 20,
         "padding-block-end": 48
       }

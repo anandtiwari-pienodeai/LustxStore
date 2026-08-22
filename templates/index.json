@@ -8,6 +8,2721 @@
  * ------------------------------------------------------------
  */{
   "sections": {
+    "hero_wellness": {
+      "type": "hero",
+      "blocks": {
+            "eyebrow": {
+              "type": "text",
+              "settings": {
+                "text": "<p>A Premium Women's Wellness Program</p>",
+                "text_color": "#C1707A",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.875rem",
+                "line_height": "normal",
+                "letter_spacing": "loose",
+                "case": "uppercase",
+                "wrap": "pretty"
+              }
+            },
+            "heading_main": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<p>Feel Balanced.<br>Feel Confident.</p>",
+                "text_color": "#2F4A3D",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "h1"
+              }
+            },
+            "heading_accent": {
+              "type": "text",
+              "settings": {
+                "text": "<p><em>Feel Like You.</em></p>",
+                "text_color": "#C1707A",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "h1",
+                "padding-block-end": 4
+              }
+            },
+            "icon_accent": {
+              "type": "icon",
+              "settings": {
+                "icon": "leaf",
+                "width": 22,
+                "icon_color": "#C1707A"
+              }
+            },
+            "body": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Every woman deserves a wellness routine that feels simple, supportive and beautifully organised. BODY अर्क WOMEN is a thoughtfully designed <strong>45-Day Premium Women's Wellness Program</strong> that combines carefully selected botanical ingredients, science-informed formulations and a structured <strong>Morning • Afternoon • Evening</strong> wellness ritual.</p>",
+                "text_color": "#3F3F3F",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "paragraph"
+              }
+            },
+            "buttons": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "gap": 16,
+                "width": "fit-content",
+                "height": "fit",
+                "padding-block-start": 8
+              },
+              "blocks": {
+                "shop_button": {
+                  "type": "button",
+                  "settings": {
+                    "label": "Begin Your 45-Day Wellness Journey →",
+                    "link": "shopify://collections/all",
+                    "style_class": "button-custom",
+                    "custom_button_background": "#C1707A",
+                    "custom_button_text": "#FFFFFF",
+                    "custom_button_border": "#C1707A",
+                    "width": "fit-content",
+                    "width_mobile": "fit-content"
+                  }
+                },
+                "learn_button": {
+                  "type": "button",
+                  "settings": {
+                    "label": "Discover the Program",
+                    "style_class": "button-custom",
+                    "custom_button_background": "rgba(0,0,0,0)",
+                    "custom_button_text": "#C1707A",
+                    "custom_button_border": "#C1707A",
+                    "width": "fit-content",
+                    "width_mobile": "fit-content"
+                  }
+                }
+              },
+              "block_order": ["shop_button", "learn_button"]
+            },
+            "trust_pill": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "gap": 28,
+                "width": "fit-content",
+                "height": "fit",
+                "background_media": "none",
+                "background_color": "#FFFFFF99",
+                "border_radius": 40,
+                "padding-block-start": 16,
+                "padding-block-end": 16,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24
+              },
+              "blocks": {
+                "trust_1": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": {
+                      "type": "icon",
+                      "settings": {
+                        "icon": "leaf",
+                        "width": 26,
+                        "icon_color": "#4C7A5E"
+                      }
+                    },
+                    "label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Plant-Based<br>Wellness</p>",
+                        "text_color": "#2B2B2B",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "label"]
+                },
+                "trust_2": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": {
+                      "type": "icon",
+                      "settings": {
+                        "icon": "bottle",
+                        "width": 26,
+                        "icon_color": "#C1707A"
+                      }
+                    },
+                    "label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Science-Informed<br>Formulations</p>",
+                        "text_color": "#2B2B2B",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "label"]
+                },
+                "trust_3": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": {
+                      "type": "icon",
+                      "settings": {
+                        "icon": "star",
+                        "width": 26,
+                        "icon_color": "#D19A4B"
+                      }
+                    },
+                    "label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Premium Wellness<br>Experience</p>",
+                        "text_color": "#2B2B2B",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "label"]
+                },
+                "trust_4": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": {
+                      "type": "icon",
+                      "settings": {
+                        "icon": "clipboard",
+                        "width": 26,
+                        "icon_color": "#3E7B7A"
+                      }
+                    },
+                    "label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Education &<br>Support</p>",
+                        "text_color": "#2B2B2B",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "label"]
+                }
+              },
+              "block_order": ["trust_1", "trust_2", "trust_3", "trust_4"]
+            },
+            "scroll_indicator": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Explore Your Wellness Journey ↓</p>",
+                "text_color": "#C1707A",
+                "width": "fit-content",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.8125rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "padding-block-start": 16
+              }
+            }
+      },
+      "block_order": ["eyebrow", "heading_main", "heading_accent", "icon_accent", "body", "buttons", "trust_pill", "scroll_indicator"],
+      "name": "t:names.hero",
+      "settings": {
+        "static_bg_asset": "hero-women-wellness.png",
+        "static_bg_asset_width": 1625,
+        "static_bg_asset_height": 968,
+        "media_type_1": "image",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 20,
+        "section_width": "page-width",
+        "section_height": "large",
+        "section_height_custom": 50,
+        "toggle_overlay": false,
+        "overlay_color": "#12121266",
+        "overlay_style": "solid",
+        "gradient_direction": "to bottom",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 60,
+        "padding-block-end": 60
+      }
+    },
+    "hero_moment": {
+      "type": "hero",
+      "blocks": {
+            "eyebrow": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Designed For Modern Women</p>",
+                "text_color": "#C1707A",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.875rem",
+                "line_height": "normal",
+                "letter_spacing": "loose",
+                "case": "uppercase",
+                "wrap": "pretty"
+              }
+            },
+            "heading_group": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 0,
+                "width": "fit-content",
+                "height": "fit"
+              },
+              "blocks": {
+                "line_1": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<p>When Life Moves Fast,</p>",
+                    "text_color": "#2F4A3D",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "type_preset": "h1"
+                  }
+                },
+                "line_2": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><em>Your Wellbeing Deserves</em></p>",
+                    "text_color": "#C1707A",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "type_preset": "h1"
+                  }
+                },
+                "line_3": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>a Moment.</p>",
+                    "text_color": "#2F4A3D",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "type_preset": "h1"
+                  }
+                }
+              },
+              "block_order": ["line_1", "line_2", "line_3"]
+            },
+            "icon_accent": {
+              "type": "icon",
+              "settings": {
+                "icon": "leaf",
+                "width": 20,
+                "icon_color": "#C1707A"
+              }
+            },
+            "body_1": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Modern life asks women to balance careers, relationships, responsibilities and personal ambitions every single day. Amidst these demands, personal wellbeing often becomes the last priority.</p>",
+                "text_color": "#3F3F3F",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "paragraph"
+              }
+            },
+            "body_2": {
+              "type": "text",
+              "settings": {
+                "text": "<p><strong>BODY अर्क WOMEN</strong> has been thoughtfully designed to make everyday wellness simple, structured and sustainable through a guided <strong>Morning • Afternoon • Evening</strong> wellness routine that naturally fits into modern lifestyles. Because when wellness becomes part of your daily rhythm, taking care of yourself no longer feels like another task — it becomes a habit.</p>",
+                "text_color": "#3F3F3F",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "paragraph"
+              }
+            },
+            "buttons": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "gap": 16,
+                "width": "fit-content",
+                "height": "fit",
+                "padding-block-start": 8
+              },
+              "blocks": {
+                "shop_button": {
+                  "type": "button",
+                  "settings": {
+                    "label": "Begin Your 45-Day Wellness Journey →",
+                    "link": "shopify://collections/all",
+                    "style_class": "button-custom",
+                    "custom_button_background": "#C1707A",
+                    "custom_button_text": "#FFFFFF",
+                    "custom_button_border": "#C1707A",
+                    "width": "fit-content",
+                    "width_mobile": "fit-content"
+                  }
+                },
+                "explore_button": {
+                  "type": "button",
+                  "settings": {
+                    "label": "Explore the Program",
+                    "style_class": "button-custom",
+                    "custom_button_background": "rgba(0,0,0,0)",
+                    "custom_button_text": "#C1707A",
+                    "custom_button_border": "#C1707A",
+                    "width": "fit-content",
+                    "width_mobile": "fit-content"
+                  }
+                }
+              },
+              "block_order": ["shop_button", "explore_button"]
+            },
+            "wellness_card": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "space-between",
+                "vertical_alignment": "center",
+                "gap": 8,
+                "width": "fill",
+                "height": "fit",
+                "background_media": "none",
+                "background_color": "",
+                "border": "solid",
+                "border_width": 1,
+                "border_opacity": 60,
+                "border_color": "#F0D9CD",
+                "border_radius": 24,
+                "padding-block-start": 10,
+                "padding-block-end": 10,
+                "padding-inline-start": 10,
+                "padding-inline-end": 10
+              },
+              "blocks": {
+                "leaf_left": {
+                  "type": "image",
+                  "settings": {
+                    "asset_filename": "leaf-left.png",
+                    "asset_width": 1536,
+                    "asset_height": 1024,
+                    "image_ratio": "adapt",
+                    "width": "custom",
+                    "custom_width": 8,
+                    "width_mobile": "fit-content",
+                    "height": "fit"
+                  }
+                },
+                "center_content": {
+                  "type": "group",
+                  "name": "t:names.group",
+                  "settings": {
+                    "content_direction": "column",
+                    "horizontal_alignment_flex_direction_column": "center",
+                    "vertical_alignment_flex_direction_column": "center",
+                    "gap": 2,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon_top": {
+                      "type": "icon",
+                      "settings": {
+                        "icon": "leaf",
+                        "width": 12,
+                        "icon_color": "#C1707A"
+                      }
+                    },
+                    "eyebrow": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>Our Wellness Philosophy</strong></p>",
+                        "text_color": "#B5556A",
+                        "width": "100%",
+                        "alignment": "center",
+                        "max_width": "normal",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.6875rem",
+                        "line_height": "normal",
+                        "letter_spacing": "loose",
+                        "case": "uppercase",
+                        "wrap": "pretty"
+                      }
+                    },
+                    "body_1": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>True wellness is built through small, consistent daily rituals rather than occasional efforts.</p>",
+                        "text_color": "#3F3F3F",
+                        "width": "100%",
+                        "alignment": "center",
+                        "max_width": "narrow",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.75rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    },
+                    "body_2": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><em>Every carefully designed wellness moment supports your journey towards feeling more balanced, confident and connected with yourself.</em></p>",
+                        "text_color": "#C1707A",
+                        "width": "100%",
+                        "alignment": "center",
+                        "max_width": "narrow",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.75rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    },
+                    "focus_label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>✦ Our Wellness Focus Areas ✦</strong></p>",
+                        "text_color": "#B5556A",
+                        "width": "100%",
+                        "alignment": "center",
+                        "max_width": "normal",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.625rem",
+                        "line_height": "normal",
+                        "letter_spacing": "loose",
+                        "case": "uppercase",
+                        "wrap": "pretty",
+                        "padding-block-start": 2
+                      }
+                    }
+                  },
+                  "block_order": ["icon_top", "eyebrow", "body_1", "body_2", "focus_label"]
+                },
+                "leaf_right": {
+                  "type": "image",
+                  "settings": {
+                    "asset_filename": "leaf-right.png",
+                    "asset_width": 1536,
+                    "asset_height": 1024,
+                    "image_ratio": "adapt",
+                    "width": "custom",
+                    "custom_width": 8,
+                    "width_mobile": "fit-content",
+                    "height": "fit"
+                  }
+                }
+              },
+              "block_order": ["leaf_left", "center_content", "leaf_right"]
+            }
+      },
+      "block_order": ["eyebrow", "heading_group", "icon_accent", "body_1", "body_2", "buttons", "wellness_card"],
+      "name": "t:names.hero",
+      "settings": {
+        "static_bg_asset": "girl-with-cup.png",
+        "static_bg_asset_width": 1536,
+        "static_bg_asset_height": 1024,
+        "static_bg_position": "right center",
+        "static_bg_fade": true,
+        "background_color": "#F7EDE8",
+        "media_type_1": "image",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 24,
+        "section_width": "page-width",
+        "section_height": "medium",
+        "section_height_custom": 50,
+        "toggle_overlay": false,
+        "overlay_color": "#12121266",
+        "overlay_style": "solid",
+        "gradient_direction": "to bottom",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 60,
+        "padding-block-end": 60
+      }
+    },
+    "wellness_focus_areas": {
+      "type": "carousel",
+      "blocks": {
+        "static-header": {
+          "type": "group",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "center",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 24,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "heading": {
+              "type": "text",
+              "name": "t:names.header",
+              "settings": {
+                "text": "<p><strong>✦ Our Wellness Focus Areas ✦</strong></p>",
+                "text_color": "#2A2A2A",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.9375rem",
+                "line_height": "normal",
+                "letter_spacing": "loose",
+                "case": "uppercase",
+                "wrap": "pretty",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "center"
+              }
+            }
+          },
+          "block_order": ["heading"]
+        },
+        "static-carousel-content": {
+          "type": "_carousel-content",
+          "name": "t:names.carousel_content",
+          "static": true,
+          "settings": {
+            "position": "top",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "height": "fit"
+          },
+          "blocks": {
+            "card_1": {
+              "type": "_card",
+              "name": "t:names.card",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 10,
+                "background_media": "none",
+                "background_color": "#FDF3F4",
+                "border": "none",
+                "border_radius": 20,
+                "padding-block-start": 20,
+                "padding-block-end": 20,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
+              },
+              "blocks": {
+                "badge_row": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 0,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "badge": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>01</strong></p>",
+                        "text_color": "#B5556A",
+                        "background": true,
+                        "background_color": "#F3D9DB",
+                        "corner_radius": 50,
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.75rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "padding-block-start": 4,
+                        "padding-block-end": 4,
+                        "padding-inline-start": 10,
+                        "padding-inline-end": 10
+                      }
+                    }
+                  },
+                  "block_order": ["badge"]
+                },
+                "icon_1": {
+                  "type": "icon",
+                  "settings": {
+                    "icon": "silhouette",
+                    "width": 40,
+                    "icon_color": "#C1707A"
+                  }
+                },
+                "title_1": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<p>Feminine<br>Confidence</p>",
+                    "text_color": "#2A2A2A",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "normal",
+                    "type_preset": "h5"
+                  }
+                },
+                "text_1": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Support your everyday wellbeing through a thoughtfully designed wellness routine.</p>",
+                    "text_color": "#5A5A5A",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "narrow",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.8125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none"
+                  }
+                }
+              },
+              "block_order": ["badge_row", "icon_1", "title_1", "text_1"]
+            },
+            "card_2": {
+              "type": "_card",
+              "name": "t:names.card",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 10,
+                "background_media": "none",
+                "background_color": "#FDF3EC",
+                "border": "none",
+                "border_radius": 20,
+                "padding-block-start": 20,
+                "padding-block-end": 20,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
+              },
+              "blocks": {
+                "badge_row": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 0,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "badge": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>02</strong></p>",
+                        "text_color": "#B5651F",
+                        "background": true,
+                        "background_color": "#F5DEC9",
+                        "corner_radius": 50,
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.75rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "padding-block-start": 4,
+                        "padding-block-end": 4,
+                        "padding-inline-start": 10,
+                        "padding-inline-end": 10
+                      }
+                    }
+                  },
+                  "block_order": ["badge"]
+                },
+                "icon_2": {
+                  "type": "icon",
+                  "settings": {
+                    "icon": "heart",
+                    "width": 40,
+                    "icon_color": "#C97B3D"
+                  }
+                },
+                "title_2": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<p>Everyday<br>Intimate Wellness</p>",
+                    "text_color": "#2A2A2A",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "normal",
+                    "type_preset": "h5"
+                  }
+                },
+                "text_2": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Encourage simple daily self-care habits for comfort & confidence.</p>",
+                    "text_color": "#5A5A5A",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "narrow",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.8125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none"
+                  }
+                }
+              },
+              "block_order": ["badge_row", "icon_2", "title_2", "text_2"]
+            },
+            "card_3": {
+              "type": "_card",
+              "name": "t:names.card",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 10,
+                "background_media": "none",
+                "background_color": "#F5F1FA",
+                "border": "none",
+                "border_radius": 20,
+                "padding-block-start": 20,
+                "padding-block-end": 20,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
+              },
+              "blocks": {
+                "badge_row": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 0,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "badge": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>03</strong></p>",
+                        "text_color": "#6B4FA0",
+                        "background": true,
+                        "background_color": "#E4DBF0",
+                        "corner_radius": 50,
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.75rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "padding-block-start": 4,
+                        "padding-block-end": 4,
+                        "padding-inline-start": 10,
+                        "padding-inline-end": 10
+                      }
+                    }
+                  },
+                  "block_order": ["badge"]
+                },
+                "icon_3": {
+                  "type": "icon",
+                  "settings": {
+                    "icon": "plant",
+                    "width": 40,
+                    "icon_color": "#8B6BC7"
+                  }
+                },
+                "title_3": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<p>Healthy<br>Intimate Flora</p>",
+                    "text_color": "#2A2A2A",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "normal",
+                    "type_preset": "h5"
+                  }
+                },
+                "text_3": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Support intimate wellness as part of a complete daily routine.</p>",
+                    "text_color": "#5A5A5A",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "narrow",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.8125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none"
+                  }
+                }
+              },
+              "block_order": ["badge_row", "icon_3", "title_3", "text_3"]
+            },
+            "card_4": {
+              "type": "_card",
+              "name": "t:names.card",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 10,
+                "background_media": "none",
+                "background_color": "#F0F7F1",
+                "border": "none",
+                "border_radius": 20,
+                "padding-block-start": 20,
+                "padding-block-end": 20,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
+              },
+              "blocks": {
+                "badge_row": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 0,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "badge": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>04</strong></p>",
+                        "text_color": "#3F6B4A",
+                        "background": true,
+                        "background_color": "#DCEBDD",
+                        "corner_radius": 50,
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.75rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "padding-block-start": 4,
+                        "padding-block-end": 4,
+                        "padding-inline-start": 10,
+                        "padding-inline-end": 10
+                      }
+                    }
+                  },
+                  "block_order": ["badge"]
+                },
+                "icon_4": {
+                  "type": "icon",
+                  "settings": {
+                    "icon": "recycle",
+                    "width": 40,
+                    "icon_color": "#5C8F68"
+                  }
+                },
+                "title_4": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<p>Daily<br>Gut Wellness</p>",
+                    "text_color": "#2A2A2A",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "normal",
+                    "type_preset": "h5"
+                  }
+                },
+                "text_4": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Place digestive wellness at the foundation of your overall wellbeing.</p>",
+                    "text_color": "#5A5A5A",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "narrow",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.8125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none"
+                  }
+                }
+              },
+              "block_order": ["badge_row", "icon_4", "title_4", "text_4"]
+            },
+            "card_5": {
+              "type": "_card",
+              "name": "t:names.card",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 10,
+                "background_media": "none",
+                "background_color": "#FBF4E9",
+                "border": "none",
+                "border_radius": 20,
+                "padding-block-start": 20,
+                "padding-block-end": 20,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
+              },
+              "blocks": {
+                "badge_row": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 0,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "badge": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>05</strong></p>",
+                        "text_color": "#9C6B1F",
+                        "background": true,
+                        "background_color": "#F6E3C4",
+                        "corner_radius": 50,
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.75rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "padding-block-start": 4,
+                        "padding-block-end": 4,
+                        "padding-inline-start": 10,
+                        "padding-inline-end": 10
+                      }
+                    }
+                  },
+                  "block_order": ["badge"]
+                },
+                "icon_5": {
+                  "type": "icon",
+                  "settings": {
+                    "icon": "lightning_bolt",
+                    "width": 40,
+                    "icon_color": "#D19A4B"
+                  }
+                },
+                "title_5": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<p>Everyday<br>Vitality</p>",
+                    "text_color": "#2A2A2A",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "normal",
+                    "type_preset": "h5"
+                  }
+                },
+                "text_5": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Support an active lifestyle through structured daily wellness moments.</p>",
+                    "text_color": "#5A5A5A",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "narrow",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.8125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none"
+                  }
+                }
+              },
+              "block_order": ["badge_row", "icon_5", "title_5", "text_5"]
+            },
+            "card_6": {
+              "type": "_card",
+              "name": "t:names.card",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 10,
+                "background_media": "none",
+                "background_color": "#F3F0FA",
+                "border": "none",
+                "border_radius": 20,
+                "padding-block-start": 20,
+                "padding-block-end": 20,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
+              },
+              "blocks": {
+                "badge_row": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 0,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "badge": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>06</strong></p>",
+                        "text_color": "#6B4FA0",
+                        "background": true,
+                        "background_color": "#E6DEF2",
+                        "corner_radius": 50,
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.75rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "padding-block-start": 4,
+                        "padding-block-end": 4,
+                        "padding-inline-start": 10,
+                        "padding-inline-end": 10
+                      }
+                    }
+                  },
+                  "block_order": ["badge"]
+                },
+                "icon_6": {
+                  "type": "icon",
+                  "settings": {
+                    "icon": "star",
+                    "width": 40,
+                    "icon_color": "#9B7FD1"
+                  }
+                },
+                "title_6": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<p>Whole-Body<br>Balance</p>",
+                    "text_color": "#2A2A2A",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "normal",
+                    "type_preset": "h5"
+                  }
+                },
+                "text_6": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Bring consistency into your lifestyle with a complete wellness system.</p>",
+                    "text_color": "#5A5A5A",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "narrow",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.8125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none"
+                  }
+                }
+              },
+              "block_order": ["badge_row", "icon_6", "title_6", "text_6"]
+            }
+          },
+          "block_order": ["card_1", "card_2", "card_3", "card_4", "card_5", "card_6"]
+        }
+      },
+      "name": "t:names.carousel",
+      "settings": {
+        "columns": 4,
+        "mobile_columns": "1",
+        "section_width": "page-width",
+        "columns_gap": 16,
+        "background_color": "#F7EDE8",
+        "icons_style": "arrow",
+        "icons_shape": "circle",
+        "padding-block-start": 40,
+        "padding-block-end": 16
+      }
+    },
+    "wellness_program_overview": {
+      "type": "section",
+      "blocks": {
+        "top_row": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-start",
+            "gap": 40,
+            "width": "fill",
+            "height": "fit"
+          },
+          "blocks": {
+            "left_col": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "height": "fit"
+              },
+              "blocks": {
+                "eyebrow": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>One Simple Routine. Three Daily Wellness Moments.</p>",
+                    "text_color": "#C1707A",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.875rem",
+                    "line_height": "normal",
+                    "letter_spacing": "loose",
+                    "case": "uppercase",
+                    "wrap": "pretty"
+                  }
+                },
+                "heading_group": {
+                  "type": "group",
+                  "name": "t:names.group",
+                  "settings": {
+                    "content_direction": "column",
+                    "horizontal_alignment_flex_direction_column": "flex-start",
+                    "vertical_alignment_flex_direction_column": "center",
+                    "gap": 0,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "line_1": {
+                      "type": "text",
+                      "name": "t:names.heading",
+                      "settings": {
+                        "text": "<p>One Day. One Ritual.</p>",
+                        "text_color": "#2F4A3D",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "type_preset": "h2"
+                      }
+                    },
+                    "line_2": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><em>One Complete Wellness Program.</em></p>",
+                        "text_color": "#C1707A",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "type_preset": "h2"
+                      }
+                    }
+                  },
+                  "block_order": ["line_1", "line_2"]
+                },
+                "body": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>BODY अर्क WOMEN brings five thoughtfully designed wellness formulations together into three beautifully organised wellness moments. Instead of managing multiple bottles and complicated schedules, your wellness journey is simplified into an easy-to-follow <strong>Morning • Afternoon • Evening</strong> routine that naturally becomes part of everyday life.</p>",
+                    "text_color": "#3F3F3F",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "type_preset": "paragraph"
+                  }
+                },
+                "subtext": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><em>Simple to follow. Beautifully organised. Designed for consistency.</em></p>",
+                    "text_color": "#B5556A",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none"
+                  }
+                }
+              },
+              "block_order": ["eyebrow", "heading_group", "body", "subtext"]
+            },
+            "right_col": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 14,
+                "width": "fit-content",
+                "height": "fit"
+              },
+              "blocks": {
+                "row_1": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": { "type": "icon", "settings": { "icon": "leaf", "width": 22, "icon_color": "#4C7A5E" } },
+                    "label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Plant-Based Wellness</p>",
+                        "text_color": "#2B2B2B",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "label"]
+                },
+                "row_2": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": { "type": "icon", "settings": { "icon": "bottle", "width": 22, "icon_color": "#C1707A" } },
+                    "label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Science-Informed Formulations</p>",
+                        "text_color": "#2B2B2B",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "label"]
+                },
+                "row_3": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": { "type": "icon", "settings": { "icon": "clipboard", "width": 22, "icon_color": "#3E7B7A" } },
+                    "label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Structured Daily<br>Wellness Routine</p>",
+                        "text_color": "#2B2B2B",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "label"]
+                },
+                "row_4": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": { "type": "icon", "settings": { "icon": "silhouette", "width": 22, "icon_color": "#B5556A" } },
+                    "label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Designed for<br>Modern Women</p>",
+                        "text_color": "#2B2B2B",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "label"]
+                },
+                "row_5": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": { "type": "icon", "settings": { "icon": "star", "width": 22, "icon_color": "#D19A4B" } },
+                    "label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Premium Wellness<br>Experience</p>",
+                        "text_color": "#2B2B2B",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "label"]
+                }
+              },
+              "block_order": ["row_1", "row_2", "row_3", "row_4", "row_5"]
+            }
+          },
+          "block_order": ["left_col", "right_col"]
+        },
+        "cards_row": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-start",
+            "gap": 20,
+            "width": "fill",
+            "height": "fit"
+          },
+          "blocks": {
+            "card_morning": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 14,
+                "width": "fill",
+                "height": "fit",
+                "background_media": "none",
+                "background_color": "#EDF3EA",
+                "border": "none",
+                "border_radius": 24,
+                "padding-block-start": 26,
+                "padding-block-end": 26,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24
+              },
+              "blocks": {
+                "badge": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><strong>01</strong></p>",
+                    "text_color": "#FFFFFF",
+                    "background": true,
+                    "background_color": "#2F4A3D",
+                    "corner_radius": 8,
+                    "width": "fit-content",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.75rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "padding-block-start": 5,
+                    "padding-block-end": 5,
+                    "padding-inline-start": 12,
+                    "padding-inline-end": 12
+                  }
+                },
+                "header_row": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": false,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 12,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": { "type": "icon", "settings": { "icon": "lightning_bolt", "width": 30, "icon_color": "#2F4A3D" } },
+                    "title": {
+                      "type": "text",
+                      "name": "t:names.heading",
+                      "settings": {
+                        "text": "<p>Morning<br>Balance</p>",
+                        "text_color": "#2A2A2A",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "type_preset": "h4"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "title"]
+                },
+                "body": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Begin your day with a wellness ritual designed to establish consistency and create the foundation of your daily wellness routine. Morning focuses on digestive wellness and everyday balance, helping you start each day with a structured approach to wellbeing.</p>",
+                    "text_color": "#5A5A5A",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.8125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none"
+                  }
+                },
+                "inside_box": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "space-between",
+                    "vertical_alignment": "center",
+                    "gap": 12,
+                    "width": "fill",
+                    "height": "fit",
+                    "background_media": "none",
+                    "background_color": "#FFFFFFB3",
+                    "border": "none",
+                    "border_radius": 14,
+                    "padding-block-start": 14,
+                    "padding-block-end": 14,
+                    "padding-inline-start": 16,
+                    "padding-inline-end": 16
+                  },
+                  "blocks": {
+                    "left": {
+                      "type": "group",
+                      "settings": {
+                        "content_direction": "column",
+                        "horizontal_alignment_flex_direction_column": "flex-start",
+                        "vertical_alignment_flex_direction_column": "center",
+                        "gap": 6,
+                        "width": "fill",
+                        "height": "fit"
+                      },
+                      "blocks": {
+                        "label": {
+                          "type": "text",
+                          "settings": {
+                            "text": "<p><strong>Inside the Morning Pouch:</strong></p>",
+                            "text_color": "#2F4A3D",
+                            "width": "fit-content",
+                            "type_preset": "custom",
+                            "font": "var(--font-body--family)",
+                            "font_size": "0.75rem",
+                            "line_height": "normal",
+                            "letter_spacing": "normal",
+                            "case": "none"
+                          }
+                        },
+                        "ingredients": {
+                          "type": "group",
+                          "settings": {
+                            "content_direction": "row",
+                            "vertical_on_mobile": true,
+                            "horizontal_alignment": "flex-start",
+                            "vertical_alignment": "center",
+                            "gap": 14,
+                            "width": "fit-content",
+                            "height": "fit"
+                          },
+                          "blocks": {
+                            "item_1": {
+                              "type": "group",
+                              "settings": {
+                                "content_direction": "row",
+                                "horizontal_alignment": "flex-start",
+                                "vertical_alignment": "center",
+                                "gap": 6,
+                                "width": "fit-content",
+                                "height": "fit"
+                              },
+                              "blocks": {
+                                "icon": { "type": "icon", "settings": { "icon": "leaf", "width": 16, "icon_color": "#4C7A5E" } },
+                                "label": {
+                                  "type": "text",
+                                  "settings": {
+                                    "text": "<p>Gut Prime</p>",
+                                    "text_color": "#3F3F3F",
+                                    "width": "fit-content",
+                                    "type_preset": "custom",
+                                    "font": "var(--font-body--family)",
+                                    "font_size": "0.75rem",
+                                    "line_height": "normal",
+                                    "letter_spacing": "normal",
+                                    "case": "none"
+                                  }
+                                }
+                              },
+                              "block_order": ["icon", "label"]
+                            },
+                            "item_2": {
+                              "type": "group",
+                              "settings": {
+                                "content_direction": "row",
+                                "horizontal_alignment": "flex-start",
+                                "vertical_alignment": "center",
+                                "gap": 6,
+                                "width": "fit-content",
+                                "height": "fit"
+                              },
+                              "blocks": {
+                                "icon": { "type": "icon", "settings": { "icon": "heart", "width": 16, "icon_color": "#4C7A5E" } },
+                                "label": {
+                                  "type": "text",
+                                  "settings": {
+                                    "text": "<p>Hormone Balance</p>",
+                                    "text_color": "#3F3F3F",
+                                    "width": "fit-content",
+                                    "type_preset": "custom",
+                                    "font": "var(--font-body--family)",
+                                    "font_size": "0.75rem",
+                                    "line_height": "normal",
+                                    "letter_spacing": "normal",
+                                    "case": "none"
+                                  }
+                                }
+                              },
+                              "block_order": ["icon", "label"]
+                            }
+                          },
+                          "block_order": ["item_1", "item_2"]
+                        }
+                      },
+                      "block_order": ["label", "ingredients"]
+                    },
+                    "right": {
+                      "type": "group",
+                      "settings": {
+                        "content_direction": "row",
+                        "horizontal_alignment": "flex-end",
+                        "vertical_alignment": "center",
+                        "gap": 8,
+                        "width": "fit-content",
+                        "height": "fit"
+                      },
+                      "blocks": {
+                        "count": {
+                          "type": "text",
+                          "settings": {
+                            "text": "<p><strong>2</strong></p>",
+                            "text_color": "#2F4A3D",
+                            "width": "fit-content",
+                            "type_preset": "custom",
+                            "font": "var(--font-body--family)",
+                            "font_size": "1.75rem",
+                            "line_height": "normal",
+                            "letter_spacing": "normal",
+                            "case": "none"
+                          }
+                        },
+                        "count_label": {
+                          "type": "text",
+                          "settings": {
+                            "text": "<p>Individually packed blister tablets</p>",
+                            "text_color": "#5A5A5A",
+                            "width": "fit-content",
+                            "max_width": "narrow",
+                            "type_preset": "custom",
+                            "font": "var(--font-body--family)",
+                            "font_size": "0.6875rem",
+                            "line_height": "tight",
+                            "letter_spacing": "normal",
+                            "case": "none"
+                          }
+                        }
+                      },
+                      "block_order": ["count", "count_label"]
+                    }
+                  },
+                  "block_order": ["left", "right"]
+                }
+              },
+              "block_order": ["badge", "header_row", "body", "inside_box"]
+            },
+            "card_afternoon": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 14,
+                "width": "fill",
+                "height": "fit",
+                "background_media": "none",
+                "background_color": "#FBEEE3",
+                "border": "none",
+                "border_radius": 24,
+                "padding-block-start": 26,
+                "padding-block-end": 26,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24
+              },
+              "blocks": {
+                "badge": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><strong>02</strong></p>",
+                    "text_color": "#FFFFFF",
+                    "background": true,
+                    "background_color": "#C97B3D",
+                    "corner_radius": 8,
+                    "width": "fit-content",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.75rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "padding-block-start": 5,
+                    "padding-block-end": 5,
+                    "padding-inline-start": 12,
+                    "padding-inline-end": 12
+                  }
+                },
+                "header_row": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": false,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 12,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": { "type": "icon", "settings": { "icon": "fire", "width": 30, "icon_color": "#C97B3D" } },
+                    "title": {
+                      "type": "text",
+                      "name": "t:names.heading",
+                      "settings": {
+                        "text": "<p>Afternoon<br>Glow</p>",
+                        "text_color": "#2A2A2A",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "type_preset": "h4"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "title"]
+                },
+                "body": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Continue your wellness routine with formulations thoughtfully designed to complement your active lifestyle and support feminine wellbeing throughout the day.</p>",
+                    "text_color": "#5A5A5A",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.8125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none"
+                  }
+                },
+                "inside_box": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "space-between",
+                    "vertical_alignment": "center",
+                    "gap": 12,
+                    "width": "fill",
+                    "height": "fit",
+                    "background_media": "none",
+                    "background_color": "#FFFFFFB3",
+                    "border": "none",
+                    "border_radius": 14,
+                    "padding-block-start": 14,
+                    "padding-block-end": 14,
+                    "padding-inline-start": 16,
+                    "padding-inline-end": 16
+                  },
+                  "blocks": {
+                    "left": {
+                      "type": "group",
+                      "settings": {
+                        "content_direction": "column",
+                        "horizontal_alignment_flex_direction_column": "flex-start",
+                        "vertical_alignment_flex_direction_column": "center",
+                        "gap": 6,
+                        "width": "fill",
+                        "height": "fit"
+                      },
+                      "blocks": {
+                        "label": {
+                          "type": "text",
+                          "settings": {
+                            "text": "<p><strong>Inside the Afternoon Pouch:</strong></p>",
+                            "text_color": "#8A4F1F",
+                            "width": "fit-content",
+                            "type_preset": "custom",
+                            "font": "var(--font-body--family)",
+                            "font_size": "0.75rem",
+                            "line_height": "normal",
+                            "letter_spacing": "normal",
+                            "case": "none"
+                          }
+                        },
+                        "ingredients": {
+                          "type": "group",
+                          "settings": {
+                            "content_direction": "row",
+                            "vertical_on_mobile": true,
+                            "horizontal_alignment": "flex-start",
+                            "vertical_alignment": "center",
+                            "gap": 14,
+                            "width": "fit-content",
+                            "height": "fit"
+                          },
+                          "blocks": {
+                            "item_1": {
+                              "type": "group",
+                              "settings": {
+                                "content_direction": "row",
+                                "horizontal_alignment": "flex-start",
+                                "vertical_alignment": "center",
+                                "gap": 6,
+                                "width": "fit-content",
+                                "height": "fit"
+                              },
+                              "blocks": {
+                                "icon": { "type": "icon", "settings": { "icon": "heart", "width": 16, "icon_color": "#C97B3D" } },
+                                "label": {
+                                  "type": "text",
+                                  "settings": {
+                                    "text": "<p>Fertility Support</p>",
+                                    "text_color": "#3F3F3F",
+                                    "width": "fit-content",
+                                    "type_preset": "custom",
+                                    "font": "var(--font-body--family)",
+                                    "font_size": "0.75rem",
+                                    "line_height": "normal",
+                                    "letter_spacing": "normal",
+                                    "case": "none"
+                                  }
+                                }
+                              },
+                              "block_order": ["icon", "label"]
+                            },
+                            "item_2": {
+                              "type": "group",
+                              "settings": {
+                                "content_direction": "row",
+                                "horizontal_alignment": "flex-start",
+                                "vertical_alignment": "center",
+                                "gap": 6,
+                                "width": "fit-content",
+                                "height": "fit"
+                              },
+                              "blocks": {
+                                "icon": { "type": "icon", "settings": { "icon": "leaf", "width": 16, "icon_color": "#C97B3D" } },
+                                "label": {
+                                  "type": "text",
+                                  "settings": {
+                                    "text": "<p>Femme Desire</p>",
+                                    "text_color": "#3F3F3F",
+                                    "width": "fit-content",
+                                    "type_preset": "custom",
+                                    "font": "var(--font-body--family)",
+                                    "font_size": "0.75rem",
+                                    "line_height": "normal",
+                                    "letter_spacing": "normal",
+                                    "case": "none"
+                                  }
+                                }
+                              },
+                              "block_order": ["icon", "label"]
+                            }
+                          },
+                          "block_order": ["item_1", "item_2"]
+                        }
+                      },
+                      "block_order": ["label", "ingredients"]
+                    },
+                    "right": {
+                      "type": "group",
+                      "settings": {
+                        "content_direction": "row",
+                        "horizontal_alignment": "flex-end",
+                        "vertical_alignment": "center",
+                        "gap": 8,
+                        "width": "fit-content",
+                        "height": "fit"
+                      },
+                      "blocks": {
+                        "count": {
+                          "type": "text",
+                          "settings": {
+                            "text": "<p><strong>2</strong></p>",
+                            "text_color": "#8A4F1F",
+                            "width": "fit-content",
+                            "type_preset": "custom",
+                            "font": "var(--font-body--family)",
+                            "font_size": "1.75rem",
+                            "line_height": "normal",
+                            "letter_spacing": "normal",
+                            "case": "none"
+                          }
+                        },
+                        "count_label": {
+                          "type": "text",
+                          "settings": {
+                            "text": "<p>Individually packed blister tablets</p>",
+                            "text_color": "#5A5A5A",
+                            "width": "fit-content",
+                            "max_width": "narrow",
+                            "type_preset": "custom",
+                            "font": "var(--font-body--family)",
+                            "font_size": "0.6875rem",
+                            "line_height": "tight",
+                            "letter_spacing": "normal",
+                            "case": "none"
+                          }
+                        }
+                      },
+                      "block_order": ["count", "count_label"]
+                    }
+                  },
+                  "block_order": ["left", "right"]
+                }
+              },
+              "block_order": ["badge", "header_row", "body", "inside_box"]
+            },
+            "card_evening": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 14,
+                "width": "fill",
+                "height": "fit",
+                "background_media": "none",
+                "background_color": "#F3F0FA",
+                "border": "none",
+                "border_radius": 24,
+                "padding-block-start": 26,
+                "padding-block-end": 26,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24
+              },
+              "blocks": {
+                "badge": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><strong>03</strong></p>",
+                    "text_color": "#FFFFFF",
+                    "background": true,
+                    "background_color": "#6B4FA0",
+                    "corner_radius": 8,
+                    "width": "fit-content",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.75rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "padding-block-start": 5,
+                    "padding-block-end": 5,
+                    "padding-inline-start": 12,
+                    "padding-inline-end": 12
+                  }
+                },
+                "header_row": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": false,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 12,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": { "type": "icon", "settings": { "icon": "leaf", "width": 30, "icon_color": "#6B4FA0" } },
+                    "title": {
+                      "type": "text",
+                      "name": "t:names.heading",
+                      "settings": {
+                        "text": "<p>Evening<br>Restore</p>",
+                        "text_color": "#2A2A2A",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "type_preset": "h4"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "title"]
+                },
+                "body": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Complete your day with a calming wellness ritual focused on healthy intimate flora and overnight restoration as part of your daily wellness routine.</p>",
+                    "text_color": "#5A5A5A",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.8125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none"
+                  }
+                },
+                "inside_box": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "space-between",
+                    "vertical_alignment": "center",
+                    "gap": 12,
+                    "width": "fill",
+                    "height": "fit",
+                    "background_media": "none",
+                    "background_color": "#FFFFFFB3",
+                    "border": "none",
+                    "border_radius": 14,
+                    "padding-block-start": 14,
+                    "padding-block-end": 14,
+                    "padding-inline-start": 16,
+                    "padding-inline-end": 16
+                  },
+                  "blocks": {
+                    "left": {
+                      "type": "group",
+                      "settings": {
+                        "content_direction": "column",
+                        "horizontal_alignment_flex_direction_column": "flex-start",
+                        "vertical_alignment_flex_direction_column": "center",
+                        "gap": 6,
+                        "width": "fill",
+                        "height": "fit"
+                      },
+                      "blocks": {
+                        "label": {
+                          "type": "text",
+                          "settings": {
+                            "text": "<p><strong>Inside the Evening Pouch:</strong></p>",
+                            "text_color": "#4E3B77",
+                            "width": "fit-content",
+                            "type_preset": "custom",
+                            "font": "var(--font-body--family)",
+                            "font_size": "0.75rem",
+                            "line_height": "normal",
+                            "letter_spacing": "normal",
+                            "case": "none"
+                          }
+                        },
+                        "ingredients": {
+                          "type": "group",
+                          "settings": {
+                            "content_direction": "row",
+                            "vertical_on_mobile": true,
+                            "horizontal_alignment": "flex-start",
+                            "vertical_alignment": "center",
+                            "gap": 14,
+                            "width": "fit-content",
+                            "height": "fit"
+                          },
+                          "blocks": {
+                            "item_1": {
+                              "type": "group",
+                              "settings": {
+                                "content_direction": "row",
+                                "horizontal_alignment": "flex-start",
+                                "vertical_alignment": "center",
+                                "gap": 6,
+                                "width": "fit-content",
+                                "height": "fit"
+                              },
+                              "blocks": {
+                                "icon": { "type": "icon", "settings": { "icon": "plant", "width": 16, "icon_color": "#6B4FA0" } },
+                                "label": {
+                                  "type": "text",
+                                  "settings": {
+                                    "text": "<p>Intimate Flora</p>",
+                                    "text_color": "#3F3F3F",
+                                    "width": "fit-content",
+                                    "type_preset": "custom",
+                                    "font": "var(--font-body--family)",
+                                    "font_size": "0.75rem",
+                                    "line_height": "normal",
+                                    "letter_spacing": "normal",
+                                    "case": "none"
+                                  }
+                                }
+                              },
+                              "block_order": ["icon", "label"]
+                            }
+                          },
+                          "block_order": ["item_1"]
+                        }
+                      },
+                      "block_order": ["label", "ingredients"]
+                    },
+                    "right": {
+                      "type": "group",
+                      "settings": {
+                        "content_direction": "row",
+                        "horizontal_alignment": "flex-end",
+                        "vertical_alignment": "center",
+                        "gap": 8,
+                        "width": "fit-content",
+                        "height": "fit"
+                      },
+                      "blocks": {
+                        "count": {
+                          "type": "text",
+                          "settings": {
+                            "text": "<p><strong>1</strong></p>",
+                            "text_color": "#4E3B77",
+                            "width": "fit-content",
+                            "type_preset": "custom",
+                            "font": "var(--font-body--family)",
+                            "font_size": "1.75rem",
+                            "line_height": "normal",
+                            "letter_spacing": "normal",
+                            "case": "none"
+                          }
+                        },
+                        "count_label": {
+                          "type": "text",
+                          "settings": {
+                            "text": "<p>Individually packed blister tablet</p>",
+                            "text_color": "#5A5A5A",
+                            "width": "fit-content",
+                            "max_width": "narrow",
+                            "type_preset": "custom",
+                            "font": "var(--font-body--family)",
+                            "font_size": "0.6875rem",
+                            "line_height": "tight",
+                            "letter_spacing": "normal",
+                            "case": "none"
+                          }
+                        }
+                      },
+                      "block_order": ["count", "count_label"]
+                    }
+                  },
+                  "block_order": ["left", "right"]
+                }
+              },
+              "block_order": ["badge", "header_row", "body", "inside_box"]
+            }
+          },
+          "block_order": ["card_morning", "card_afternoon", "card_evening"]
+        },
+        "bottom_row": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-start",
+            "gap": 24,
+            "width": "fill",
+            "height": "fit"
+          },
+          "blocks": {
+            "why_box": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 16,
+                "width": "fill",
+                "height": "fit",
+                "background_media": "none",
+                "background_color": "#FFFFFF",
+                "border": "solid",
+                "border_width": 1,
+                "border_opacity": 60,
+                "border_color": "#F0D9CD",
+                "border_radius": 20,
+                "padding-block-start": 28,
+                "padding-block-end": 28,
+                "padding-inline-start": 28,
+                "padding-inline-end": 28
+              },
+              "blocks": {
+                "header_row": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": false,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": { "type": "icon", "settings": { "icon": "leaf", "width": 22, "icon_color": "#4C7A5E" } },
+                    "heading": {
+                      "type": "text",
+                      "name": "t:names.heading",
+                      "settings": {
+                        "text": "<p>Why Morning • Afternoon • Evening?</p>",
+                        "text_color": "#2F4A3D",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "type_preset": "h4"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "heading"]
+                },
+                "subheading": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><em>Designed Around Your Daily Rhythm.</em></p>",
+                    "text_color": "#C1707A",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.9375rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none"
+                  }
+                },
+                "three_col": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "space-between",
+                    "vertical_alignment": "flex-start",
+                    "gap": 20,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "col_morning": {
+                      "type": "group",
+                      "settings": {
+                        "content_direction": "column",
+                        "horizontal_alignment_flex_direction_column": "flex-start",
+                        "vertical_alignment_flex_direction_column": "flex-start",
+                        "gap": 8,
+                        "width": "fill",
+                        "height": "fit"
+                      },
+                      "blocks": {
+                        "icon": { "type": "icon", "settings": { "icon": "lightning_bolt", "width": 22, "icon_color": "#2F4A3D" } },
+                        "text": {
+                          "type": "text",
+                          "settings": {
+                            "text": "<p>Morning helps establish your daily foundation.</p>",
+                            "text_color": "#3F3F3F",
+                            "width": "100%",
+                            "max_width": "normal",
+                            "type_preset": "custom",
+                            "font": "var(--font-body--family)",
+                            "font_size": "0.8125rem",
+                            "line_height": "normal",
+                            "letter_spacing": "normal",
+                            "case": "none"
+                          }
+                        }
+                      },
+                      "block_order": ["icon", "text"]
+                    },
+                    "col_afternoon": {
+                      "type": "group",
+                      "settings": {
+                        "content_direction": "column",
+                        "horizontal_alignment_flex_direction_column": "flex-start",
+                        "vertical_alignment_flex_direction_column": "flex-start",
+                        "gap": 8,
+                        "width": "fill",
+                        "height": "fit"
+                      },
+                      "blocks": {
+                        "icon": { "type": "icon", "settings": { "icon": "fire", "width": 22, "icon_color": "#C97B3D" } },
+                        "text": {
+                          "type": "text",
+                          "settings": {
+                            "text": "<p>Afternoon helps you stay consistent throughout your day.</p>",
+                            "text_color": "#3F3F3F",
+                            "width": "100%",
+                            "max_width": "normal",
+                            "type_preset": "custom",
+                            "font": "var(--font-body--family)",
+                            "font_size": "0.8125rem",
+                            "line_height": "normal",
+                            "letter_spacing": "normal",
+                            "case": "none"
+                          }
+                        }
+                      },
+                      "block_order": ["icon", "text"]
+                    },
+                    "col_evening": {
+                      "type": "group",
+                      "settings": {
+                        "content_direction": "column",
+                        "horizontal_alignment_flex_direction_column": "flex-start",
+                        "vertical_alignment_flex_direction_column": "flex-start",
+                        "gap": 8,
+                        "width": "fill",
+                        "height": "fit"
+                      },
+                      "blocks": {
+                        "icon": { "type": "icon", "settings": { "icon": "leaf", "width": 22, "icon_color": "#6B4FA0" } },
+                        "text": {
+                          "type": "text",
+                          "settings": {
+                            "text": "<p>Evening completes your wellness ritual with a calm and structured finish.</p>",
+                            "text_color": "#3F3F3F",
+                            "width": "100%",
+                            "max_width": "normal",
+                            "type_preset": "custom",
+                            "font": "var(--font-body--family)",
+                            "font_size": "0.8125rem",
+                            "line_height": "normal",
+                            "letter_spacing": "normal",
+                            "case": "none"
+                          }
+                        }
+                      },
+                      "block_order": ["icon", "text"]
+                    }
+                  },
+                  "block_order": ["col_morning", "col_afternoon", "col_evening"]
+                },
+                "closing": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>By following the same rhythm each day, wellness can become a habit rather than another task.</p>",
+                    "text_color": "#5A5A5A",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "0.8125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none"
+                  }
+                }
+              },
+              "block_order": ["header_row", "subheading", "three_col", "closing"]
+            },
+            "cta_box": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 14,
+                "width": "fill",
+                "height": "fit",
+                "background_media": "none",
+                "background_color": "#FFFFFF",
+                "border": "solid",
+                "border_width": 1,
+                "border_opacity": 60,
+                "border_color": "#F0D9CD",
+                "border_radius": 20,
+                "padding-block-start": 28,
+                "padding-block-end": 28,
+                "padding-inline-start": 28,
+                "padding-inline-end": 28
+              },
+              "blocks": {
+                "icon": { "type": "icon", "settings": { "icon": "leaf", "width": 22, "icon_color": "#C1707A" } },
+                "quote": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><em>A structured wellness routine is easier to follow, easier to remember and easier to maintain.</em></p>",
+                    "text_color": "#2F4A3D",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "normal",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1.0625rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none"
+                  }
+                },
+                "body": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Now that you understand the daily wellness system, discover what is included in your complete <strong>BODY अर्क WOMEN</strong> Premium Wellness Kit.</p>",
+                    "text_color": "#3F3F3F",
+                    "width": "100%",
+                    "alignment": "center",
+                    "max_width": "normal",
+                    "type_preset": "paragraph"
+                  }
+                },
+                "buttons": {
+                  "type": "group",
+                  "name": "t:names.group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "center",
+                    "vertical_alignment": "center",
+                    "gap": 12,
+                    "width": "fit-content",
+                    "height": "fit",
+                    "padding-block-start": 4
+                  },
+                  "blocks": {
+                    "shop_button": {
+                      "type": "button",
+                      "settings": {
+                        "label": "Explore Your 45-Day Wellness Journey →",
+                        "link": "shopify://collections/all",
+                        "style_class": "button-custom",
+                        "custom_button_background": "#C1707A",
+                        "custom_button_text": "#FFFFFF",
+                        "custom_button_border": "#C1707A",
+                        "width": "fit-content",
+                        "width_mobile": "fit-content"
+                      }
+                    },
+                    "kit_button": {
+                      "type": "button",
+                      "settings": {
+                        "label": "Discover What's Inside the Kit",
+                        "style_class": "button-custom",
+                        "custom_button_background": "rgba(0,0,0,0)",
+                        "custom_button_text": "#C1707A",
+                        "custom_button_border": "#C1707A",
+                        "width": "fit-content",
+                        "width_mobile": "fit-content"
+                      }
+                    }
+                  },
+                  "block_order": ["shop_button", "kit_button"]
+                }
+              },
+              "block_order": ["icon", "quote", "body", "buttons"]
+            }
+          },
+          "block_order": ["why_box", "cta_box"]
+        }
+      },
+      "block_order": ["top_row", "cards_row", "bottom_row"],
+      "name": "t:names.section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 32,
+        "section_width": "page-width",
+        "section_height": "",
+        "background_media": "none",
+        "background_color": "#FCF3EE",
+        "border": "none",
+        "border_radius": 0,
+        "padding-block-start": 56,
+        "padding-block-end": 56
+      }
+    },
+    "wellness_focus_footer": {
+      "type": "section",
+      "blocks": {
+        "left_group": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "gap": 10,
+            "width": "fill",
+            "height": "fit"
+          },
+          "blocks": {
+            "icon": {
+              "type": "icon",
+              "settings": {
+                "icon": "leaf",
+                "width": 18,
+                "icon_color": "#5C8F68"
+              }
+            },
+            "text": {
+              "type": "text",
+              "settings": {
+                "text": "<p>That's why we created a premium wellness program designed to work with your day — not against it.</p>",
+                "text_color": "#3F3F3F",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.8125rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none"
+              }
+            }
+          },
+          "block_order": ["icon", "text"]
+        },
+        "right_group": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-end",
+            "vertical_alignment": "center",
+            "gap": 10,
+            "width": "fill",
+            "height": "fit"
+          },
+          "blocks": {
+            "text": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Discover how the <strong>BODY अर्क</strong> Morning • Afternoon • Evening Wellness System fits naturally into your everyday life.</p>",
+                "text_color": "#C1707A",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.8125rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none"
+              }
+            },
+            "icon": {
+              "type": "icon",
+              "settings": {
+                "icon": "arrow",
+                "width": 16,
+                "icon_color": "#C1707A"
+              }
+            }
+          },
+          "block_order": ["text", "icon"]
+        }
+      },
+      "block_order": ["left_group", "right_group"],
+      "name": "t:names.section",
+      "settings": {
+        "content_direction": "row",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "space-between",
+        "vertical_alignment": "center",
+        "gap": 16,
+        "section_width": "page-width",
+        "section_height": "",
+        "background_media": "none",
+        "background_color": "#F5EEF6",
+        "border": "none",
+        "border_radius": 20,
+        "padding-block-start": 16,
+        "padding-block-end": 16
+      }
+    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -47,7 +2762,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>Featured Products</h3>",
+                "text": "<h3>{{ closest.collection.title }}</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -178,7 +2893,7 @@
         "collection": "all",
         "layout_type": "grid",
         "carousel_on_mobile": false,
-        "max_products": 4,
+        "max_products": 8,
         "columns": 4,
         "mobile_columns": "2",
         "mobile_card_size": "60cqw",
@@ -189,2054 +2904,18 @@
         "section_width": "page-width",
         "horizontal_alignment": "flex-start",
         "gap": 28,
-        "background_color": "#FFF9EE",
+        "background_color": "{{ settings.color_palette.background }}",
         "padding-block-start": 48,
         "padding-block-end": 48
-      }
-    },
-    "media_with_content_wellness": {
-      "type": "media-with-content",
-      "blocks": {
-        "media": {
-          "type": "_media-without-appearance",
-          "static": true,
-          "settings": {
-            "media_type": "image",
-            "image_position": "cover"
-          }
-        },
-        "content": {
-          "type": "_content-without-appearance",
-          "static": true,
-          "settings": {
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 28
-          },
-          "blocks": {
-            "heading": {
-              "type": "text",
-              "name": "t:names.heading",
-              "settings": {
-                "text": "<p>Balance • Nourish • Restore</p>",
-                "text_color": "#B2502E",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h2",
-                "font": "var(--font-heading--family)",
-                "line_height": "tight",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty"
-              }
-            },
-            "paragraph": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>Designed for women’s unique biological rhythm, supporting hormone balance, gut health, fertility, energy, and daily confidence through a structured Morning–Afternoon–Evening wellness routine.</p>",
-                "text_color": "#2B2B2B",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "loose",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty"
-              }
-            },
-            "button_group": {
-              "type": "group",
-              "name": "t:names.group",
-              "settings": {
-                "content_direction": "row",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "gap": 12,
-                "width": "fit-content",
-                "width_mobile": "fill",
-                "height": "fit",
-                "padding-block-start": 8,
-                "padding-block-end": 0
-              },
-              "blocks": {
-                "shop_button": {
-                  "type": "button",
-                  "name": "t:names.button",
-                  "settings": {
-                    "label": "Shop Women's System",
-                    "link": "shopify://collections/all",
-                    "open_in_new_tab": false,
-                    "style_class": "button",
-                    "width": "fit-content",
-                    "width_mobile": "fill"
-                  }
-                },
-                "learn_more_button": {
-                  "type": "button",
-                  "name": "t:names.button",
-                  "settings": {
-                    "label": "Learn More",
-                    "link": "shopify://pages/wellness-hub",
-                    "open_in_new_tab": false,
-                    "style_class": "button-secondary",
-                    "width": "fit-content",
-                    "width_mobile": "fill"
-                  }
-                }
-              },
-              "block_order": [
-                "shop_button",
-                "learn_more_button"
-              ]
-            },
-            "feature_row": {
-              "type": "group",
-              "name": "t:names.group",
-              "settings": {
-                "content_direction": "row",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "gap": 28,
-                "width": "fill",
-                "height": "fit",
-                "padding-block-start": 20,
-                "padding-block-end": 0
-              },
-              "blocks": {
-                "feature_1": {
-                  "type": "group",
-                  "name": "t:names.group",
-                  "settings": {
-                    "content_direction": "row",
-                    "horizontal_alignment": "flex-start",
-                    "vertical_alignment": "center",
-                    "gap": 8,
-                    "width": "fit-content",
-                    "height": "fit"
-                  },
-                  "blocks": {
-                    "icon": {
-                      "type": "icon",
-                      "settings": {
-                        "icon": "leaf",
-                        "width": 18,
-                        "icon_color": "#2B2B2B"
-                      }
-                    },
-                    "label": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<p>Ayurvedic Inspired</p>",
-                        "text_color": "#2B2B2B",
-                        "width": "fit-content",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "custom",
-                        "font_size": "0.875rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "nowrap"
-                      }
-                    }
-                  },
-                  "block_order": [
-                    "icon",
-                    "label"
-                  ]
-                },
-                "feature_2": {
-                  "type": "group",
-                  "name": "t:names.group",
-                  "settings": {
-                    "content_direction": "row",
-                    "horizontal_alignment": "flex-start",
-                    "vertical_alignment": "center",
-                    "gap": 8,
-                    "width": "fit-content",
-                    "height": "fit"
-                  },
-                  "blocks": {
-                    "icon": {
-                      "type": "icon",
-                      "settings": {
-                        "icon": "silhouette",
-                        "width": 18,
-                        "icon_color": "#2B2B2B"
-                      }
-                    },
-                    "label": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<p>Backed by Science</p>",
-                        "text_color": "#2B2B2B",
-                        "width": "fit-content",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "custom",
-                        "font_size": "0.875rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "nowrap"
-                      }
-                    }
-                  },
-                  "block_order": [
-                    "icon",
-                    "label"
-                  ]
-                },
-                "feature_3": {
-                  "type": "group",
-                  "name": "t:names.group",
-                  "settings": {
-                    "content_direction": "row",
-                    "horizontal_alignment": "flex-start",
-                    "vertical_alignment": "center",
-                    "gap": 8,
-                    "width": "fit-content",
-                    "height": "fit"
-                  },
-                  "blocks": {
-                    "icon": {
-                      "type": "icon",
-                      "settings": {
-                        "icon": "stopwatch",
-                        "width": 18,
-                        "icon_color": "#2B2B2B"
-                      }
-                    },
-                    "label": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<p>Daily Wellness Routine</p>",
-                        "text_color": "#2B2B2B",
-                        "width": "fit-content",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "custom",
-                        "font_size": "0.875rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "nowrap"
-                      }
-                    }
-                  },
-                  "block_order": [
-                    "icon",
-                    "label"
-                  ]
-                }
-              },
-              "block_order": [
-                "feature_1",
-                "feature_2",
-                "feature_3"
-              ]
-            }
-          },
-          "block_order": [
-            "heading",
-            "paragraph",
-            "button_group",
-            "feature_row"
-          ]
-        }
-      },
-      "name": "t:names.media_with_text",
-      "settings": {
-        "media_position": "right",
-        "media_width": "wide",
-        "media_height": "60svh",
-        "section_width": "full-width",
-        "extend_media": true,
-        "background_color": "#FBF3E7",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
-    "cert_badges_bodyarc": {
-      "type": "section",
-      "name": "t:names.section",
-      "blocks": {
-        "cert_1": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "gap": 8,
-            "width": "fit-content",
-            "height": "fit"
-          },
-          "blocks": {
-            "icon": {
-              "type": "icon",
-              "settings": {
-                "icon": "check_box",
-                "width": 20,
-                "icon_color": "#B2502E"
-              },
-              "blocks": {}
-            },
-            "label": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>FSSAI Certified</p>",
-                "text_color": "#2B2B2B",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font_size": "0.8125rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "nowrap"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "icon",
-            "label"
-          ]
-        },
-        "cert_2": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "gap": 8,
-            "width": "fit-content",
-            "height": "fit"
-          },
-          "blocks": {
-            "icon": {
-              "type": "icon",
-              "settings": {
-                "icon": "lock",
-                "width": 20,
-                "icon_color": "#B2502E"
-              },
-              "blocks": {}
-            },
-            "label": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>GMP Certified</p>",
-                "text_color": "#2B2B2B",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font_size": "0.8125rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "nowrap"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "icon",
-            "label"
-          ]
-        },
-        "cert_3": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "gap": 8,
-            "width": "fit-content",
-            "height": "fit"
-          },
-          "blocks": {
-            "icon": {
-              "type": "icon",
-              "settings": {
-                "icon": "eye",
-                "width": 20,
-                "icon_color": "#B2502E"
-              },
-              "blocks": {}
-            },
-            "label": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>Lab-Tested For Purity</p>",
-                "text_color": "#2B2B2B",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font_size": "0.8125rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "nowrap"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "icon",
-            "label"
-          ]
-        },
-        "cert_4": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "gap": 8,
-            "width": "fit-content",
-            "height": "fit"
-          },
-          "blocks": {
-            "icon": {
-              "type": "icon",
-              "settings": {
-                "icon": "leaf",
-                "width": 20,
-                "icon_color": "#B2502E"
-              },
-              "blocks": {}
-            },
-            "label": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>100% Vegetarian</p>",
-                "text_color": "#2B2B2B",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font_size": "0.8125rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "nowrap"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "icon",
-            "label"
-          ]
-        },
-        "cert_5": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "gap": 8,
-            "width": "fit-content",
-            "height": "fit"
-          },
-          "blocks": {
-            "icon": {
-              "type": "icon",
-              "settings": {
-                "icon": "plant",
-                "width": 20,
-                "icon_color": "#B2502E"
-              },
-              "blocks": {}
-            },
-            "label": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>No Added Preservatives</p>",
-                "text_color": "#2B2B2B",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font_size": "0.8125rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "nowrap"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "icon",
-            "label"
-          ]
-        },
-        "cert_6": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "gap": 8,
-            "width": "fit-content",
-            "height": "fit"
-          },
-          "blocks": {
-            "icon": {
-              "type": "icon",
-              "settings": {
-                "icon": "map_pin",
-                "width": 20,
-                "icon_color": "#B2502E"
-              },
-              "blocks": {}
-            },
-            "label": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>Made in India</p>",
-                "text_color": "#2B2B2B",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font_size": "0.8125rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "nowrap"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "icon",
-            "label"
-          ]
-        }
-      },
-      "block_order": [
-        "cert_1",
-        "cert_2",
-        "cert_3",
-        "cert_4",
-        "cert_5",
-        "cert_6"
-      ],
-      "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "center",
-        "vertical_alignment": "center",
-        "gap": 40,
-        "section_width": "page-width",
-        "section_height": "fit",
-        "background_color": "#FBF3E7",
-        "padding-block-start": 24,
-        "padding-block-end": 24,
-        "wrap": "wrap",
-        "border": "all",
-        "border_width": 1,
-        "border_color": "#E5D9C8",
-        "border_radius": 12
-      }
-    },
-    "ingredient_transparency_bodyarc": {
-      "type": "media-with-content",
-      "blocks": {
-        "media": {
-          "type": "_media-without-appearance",
-          "static": true,
-          "settings": {
-            "media_type": "image",
-            "image_position": "cover"
-          }
-        },
-        "content": {
-          "type": "_content-without-appearance",
-          "static": true,
-          "settings": {
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16
-          },
-          "blocks": {
-            "eyebrow": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>INGREDIENT TRANSPARENCY</p>",
-                "text_color": "#B2502E",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font_size": "0.75rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "upper"
-              },
-              "blocks": {}
-            },
-            "heading": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>Know exactly what's inside.</p>",
-                "text_color": "#1F1E1C",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "h2",
-                "line_height": "tight",
-                "letter_spacing": "normal",
-                "case": "none",
-                "font": "var(--font-heading--family)"
-              },
-              "blocks": {}
-            },
-            "ingredient_name": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>Shatavari Extract</p>",
-                "text_color": "#B2502E",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "h4",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "font": "var(--font-heading--family)"
-              },
-              "blocks": {}
-            },
-            "sourced": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p><strong>SOURCED FROM:</strong> Organic farms of Madhya Pradesh, India</p>",
-                "text_color": "#2B2B2B",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none"
-              },
-              "blocks": {}
-            },
-            "benefit": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p><strong>BENEFIT FOR WOMEN:</strong> Supports hormonal balance, reproductive health, menstrual comfort, and overall vitality.</p>",
-                "text_color": "#2B2B2B",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none"
-              },
-              "blocks": {}
-            },
-            "dosage": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p><strong>CLINICAL DOSAGE:</strong> 500 mg standardized extract per serving (equivalent to 5,000 mg of raw Shatavari)</p>",
-                "text_color": "#2B2B2B",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none"
-              },
-              "blocks": {}
-            },
-            "cta_link": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p><a href=\"#\">See Full Ingredient List &#8594;</a></p>",
-                "text_color": "#B2502E",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "weight": "bold"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "eyebrow",
-            "heading",
-            "ingredient_name",
-            "sourced",
-            "benefit",
-            "dosage",
-            "cta_link"
-          ]
-        }
-      },
-      "name": "t:names.media_with_text",
-      "settings": {
-        "media_position": "left",
-        "media_width": "medium",
-        "media_height": "50svh",
-        "section_width": "page-width",
-        "extend_media": false,
-        "background_color": "#FFF9EE",
-        "padding-block-start": 56,
-        "padding-block-end": 56
-      }
-    },
-    "expert_review_bodyarc": {
-      "type": "section",
-      "name": "t:names.section",
-      "blocks": {
-        "photo": {
-          "type": "image",
-          "settings": {
-            "image_width": 72,
-            "image_ratio": "square",
-            "corner_radius": 999
-          },
-          "blocks": {}
-        },
-        "text_stack": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "gap": 4,
-            "width": "fill",
-            "height": "fit"
-          },
-          "blocks": {
-            "eyebrow": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>EXPERT REVIEWED</p>",
-                "text_color": "#B2502E",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font_size": "0.75rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "upper"
-              },
-              "blocks": {}
-            },
-            "heading": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>Reviewed by Dr. Neha Sharma</p>",
-                "text_color": "#1F1E1C",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "h4",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "font": "var(--font-heading--family)"
-              },
-              "blocks": {}
-            },
-            "subtitle": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>BAMS, Clinical Nutritionist</p>",
-                "text_color": "#7A7266",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font_size": "0.8125rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none"
-              },
-              "blocks": {}
-            },
-            "quote": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>&ldquo;The BODY अर्क Morning&ndash;Afternoon&ndash;Evening system aligns with a woman's natural rhythm and supports long-term hormonal and gut health.&rdquo;</p>",
-                "text_color": "#2B2B2B",
-                "width": "fit-content",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "eyebrow",
-            "heading",
-            "subtitle",
-            "quote"
-          ]
-        }
-      },
-      "block_order": [
-        "photo",
-        "text_stack"
-      ],
-      "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "fit",
-        "background_color": "#FFF9EE",
-        "padding-block-start": 32,
-        "padding-block-end": 32,
-        "border": "all",
-        "border_width": 1,
-        "border_color": "#E5D9C8",
-        "border_radius": 16
-      }
-    },
-    "stats_reviews_bodyarc": {
-      "type": "section",
-      "name": "t:names.section",
-      "blocks": {
-        "heading": {
-          "type": "text",
-          "name": "t:names.text",
-          "settings": {
-            "text": "<p>Loved by women across India.</p>",
-            "text_color": "#1F1E1C",
-            "width": "fill",
-            "alignment": "center",
-            "type_preset": "h2",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "font": "var(--font-heading--family)"
-          },
-          "blocks": {}
-        },
-        "rating": {
-          "type": "text",
-          "name": "t:names.text",
-          "settings": {
-            "text": "<p>&#9733;&#9733;&#9733;&#9733;&#9733;&nbsp; 4.8/5 from 2,300+ reviews</p>",
-            "text_color": "#B2502E",
-            "width": "fill",
-            "alignment": "center",
-            "type_preset": "paragraph",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "weight": "bold"
-          },
-          "blocks": {}
-        },
-        "cards_row": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "gap": 20,
-            "width": "fill",
-            "height": "fit",
-            "wrap": "wrap"
-          },
-          "blocks": {
-            "testimonial_1": {
-              "type": "group",
-              "name": "t:names.group",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "gap": 6,
-                "width": "fill",
-                "height": "fit",
-                "border": "all",
-                "border_width": 1,
-                "border_color": "#E5D9C8",
-                "border_radius": 12,
-                "padding-block-start": 20,
-                "padding-block-end": 20,
-                "padding-inline-start": 20,
-                "padding-inline-end": 20,
-                "background_color": "#FFFDF8"
-              },
-              "blocks": {
-                "stars": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>&#9733;&#9733;&#9733;&#9733;&#9733;</p>",
-                    "text_color": "#B2502E",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.875rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                },
-                "quote": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>&ldquo;My energy, skin and digestion have improved so much. Finally a routine that actually works!&rdquo;</p>",
-                    "text_color": "#2B2B2B",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.875rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                },
-                "name": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Priya Sharma</p>",
-                    "text_color": "#1F1E1C",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.875rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "weight": "bold"
-                  },
-                  "blocks": {}
-                },
-                "location": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Bangalore, Karnataka</p>",
-                    "text_color": "#7A7266",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.75rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                },
-                "verified": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>&#10003; Verified Buyer</p>",
-                    "text_color": "#3F7D4F",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.75rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "stars",
-                "quote",
-                "name",
-                "location",
-                "verified"
-              ]
-            },
-            "testimonial_2": {
-              "type": "group",
-              "name": "t:names.group",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "gap": 6,
-                "width": "fill",
-                "height": "fit",
-                "border": "all",
-                "border_width": 1,
-                "border_color": "#E5D9C8",
-                "border_radius": 12,
-                "padding-block-start": 20,
-                "padding-block-end": 20,
-                "padding-inline-start": 20,
-                "padding-inline-end": 20,
-                "background_color": "#FFFDF8"
-              },
-              "blocks": {
-                "stars": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>&#9733;&#9733;&#9733;&#9733;&#9733;</p>",
-                    "text_color": "#B2502E",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.875rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                },
-                "quote": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>&ldquo;Periods are more comfortable, and I feel more balanced throughout the month. Highly recommend!&rdquo;</p>",
-                    "text_color": "#2B2B2B",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.875rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                },
-                "name": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Ananya Iyer</p>",
-                    "text_color": "#1F1E1C",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.875rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "weight": "bold"
-                  },
-                  "blocks": {}
-                },
-                "location": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Pune, Maharashtra</p>",
-                    "text_color": "#7A7266",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.75rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                },
-                "verified": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>&#10003; Verified Buyer</p>",
-                    "text_color": "#3F7D4F",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.75rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "stars",
-                "quote",
-                "name",
-                "location",
-                "verified"
-              ]
-            },
-            "testimonial_3": {
-              "type": "group",
-              "name": "t:names.group",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "gap": 6,
-                "width": "fill",
-                "height": "fit",
-                "border": "all",
-                "border_width": 1,
-                "border_color": "#E5D9C8",
-                "border_radius": 12,
-                "padding-block-start": 20,
-                "padding-block-end": 20,
-                "padding-inline-start": 20,
-                "padding-inline-end": 20,
-                "background_color": "#FFFDF8"
-              },
-              "blocks": {
-                "stars": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>&#9733;&#9733;&#9733;&#9733;&#9733;</p>",
-                    "text_color": "#B2502E",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.875rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                },
-                "quote": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>&ldquo;I love how simple the 3-step system is. It fits perfectly into my daily routine.&rdquo;</p>",
-                    "text_color": "#2B2B2B",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.875rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                },
-                "name": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Ritika Malhotra</p>",
-                    "text_color": "#1F1E1C",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.875rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "weight": "bold"
-                  },
-                  "blocks": {}
-                },
-                "location": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Delhi, Delhi</p>",
-                    "text_color": "#7A7266",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.75rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                },
-                "verified": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>&#10003; Verified Buyer</p>",
-                    "text_color": "#3F7D4F",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.75rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "stars",
-                "quote",
-                "name",
-                "location",
-                "verified"
-              ]
-            },
-            "testimonial_4": {
-              "type": "group",
-              "name": "t:names.group",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "gap": 6,
-                "width": "fill",
-                "height": "fit",
-                "border": "all",
-                "border_width": 1,
-                "border_color": "#E5D9C8",
-                "border_radius": 12,
-                "padding-block-start": 20,
-                "padding-block-end": 20,
-                "padding-inline-start": 20,
-                "padding-inline-end": 20,
-                "background_color": "#FFFDF8"
-              },
-              "blocks": {
-                "stars": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>&#9733;&#9733;&#9733;&#9733;&#9733;</p>",
-                    "text_color": "#B2502E",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.875rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                },
-                "quote": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>&ldquo;Better gut health, glowing skin and steady energy — this is now a part of my life.&rdquo;</p>",
-                    "text_color": "#2B2B2B",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.875rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                },
-                "name": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Meghana Reddy</p>",
-                    "text_color": "#1F1E1C",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.875rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "weight": "bold"
-                  },
-                  "blocks": {}
-                },
-                "location": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Hyderabad, Telangana</p>",
-                    "text_color": "#7A7266",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.75rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                },
-                "verified": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>&#10003; Verified Buyer</p>",
-                    "text_color": "#3F7D4F",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.75rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "stars",
-                "quote",
-                "name",
-                "location",
-                "verified"
-              ]
-            }
-          },
-          "block_order": [
-            "testimonial_1",
-            "testimonial_2",
-            "testimonial_3",
-            "testimonial_4"
-          ]
-        }
-      },
-      "block_order": [
-        "heading",
-        "rating",
-        "cards_row"
-      ],
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "center",
-        "vertical_alignment": "center",
-        "gap": 16,
-        "section_width": "page-width",
-        "section_height": "fit",
-        "background_color": "#FFF9EE",
-        "padding-block-start": 56,
-        "padding-block-end": 56
-      }
-    },
-    "trust_icons_bodyarc": {
-      "type": "section",
-      "name": "t:names.section",
-      "blocks": {
-        "trust_1": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "center",
-            "vertical_alignment": "center",
-            "gap": 8,
-            "width": "fill",
-            "height": "fit"
-          },
-          "blocks": {
-            "icon": {
-              "type": "icon",
-              "settings": {
-                "icon": "stopwatch",
-                "width": 26,
-                "icon_color": "#B2502E"
-              },
-              "blocks": {}
-            },
-            "title": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>45-Day Structured Plan</p>",
-                "text_color": "#1F1E1C",
-                "width": "fill",
-                "alignment": "center",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "weight": "bold"
-              },
-              "blocks": {}
-            },
-            "desc": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>Follow the Morning–Afternoon–Evening routine for visible, lasting results.</p>",
-                "text_color": "#7A7266",
-                "width": "fill",
-                "alignment": "center",
-                "type_preset": "paragraph",
-                "font_size": "0.8125rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "icon",
-            "title",
-            "desc"
-          ]
-        },
-        "trust_2": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "center",
-            "vertical_alignment": "center",
-            "gap": 8,
-            "width": "fill",
-            "height": "fit"
-          },
-          "blocks": {
-            "icon": {
-              "type": "icon",
-              "settings": {
-                "icon": "truck",
-                "width": 26,
-                "icon_color": "#B2502E"
-              },
-              "blocks": {}
-            },
-            "title": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>Free Shipping Across India</p>",
-                "text_color": "#1F1E1C",
-                "width": "fill",
-                "alignment": "center",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "weight": "bold"
-              },
-              "blocks": {}
-            },
-            "desc": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>We deliver safe and fast, right to your doorstep.</p>",
-                "text_color": "#7A7266",
-                "width": "fill",
-                "alignment": "center",
-                "type_preset": "paragraph",
-                "font_size": "0.8125rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "icon",
-            "title",
-            "desc"
-          ]
-        },
-        "trust_3": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "center",
-            "vertical_alignment": "center",
-            "gap": 8,
-            "width": "fill",
-            "height": "fit"
-          },
-          "blocks": {
-            "icon": {
-              "type": "icon",
-              "settings": {
-                "icon": "return",
-                "width": 26,
-                "icon_color": "#B2502E"
-              },
-              "blocks": {}
-            },
-            "title": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>Easy Returns / Money-Back</p>",
-                "text_color": "#1F1E1C",
-                "width": "fill",
-                "alignment": "center",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "weight": "bold"
-              },
-              "blocks": {}
-            },
-            "desc": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>Not satisfied? Get a full refund within 45 days. No questions asked.</p>",
-                "text_color": "#7A7266",
-                "width": "fill",
-                "alignment": "center",
-                "type_preset": "paragraph",
-                "font_size": "0.8125rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "icon",
-            "title",
-            "desc"
-          ]
-        }
-      },
-      "block_order": [
-        "trust_1",
-        "trust_2",
-        "trust_3"
-      ],
-      "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "center",
-        "vertical_alignment": "flex-start",
-        "gap": 32,
-        "section_width": "page-width",
-        "section_height": "fit",
-        "background_color": "#FBF3E7",
-        "padding-block-start": 40,
-        "padding-block-end": 40,
-        "wrap": "wrap"
-      }
-    },
-    "faq_bodyarc": {
-      "type": "section",
-      "name": "t:names.section",
-      "blocks": {
-        "faq_heading": {
-          "type": "text",
-          "name": "t:names.text",
-          "settings": {
-            "text": "<p>Your questions, answered.</p>",
-            "text_color": "#1F1E1C",
-            "width": "fill",
-            "alignment": "center",
-            "type_preset": "h2",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "font": "var(--font-heading--family)"
-          },
-          "blocks": {}
-        },
-        "accordion_main": {
-          "type": "accordion",
-          "settings": {
-            "icon": "plus",
-            "dividers": "all",
-            "divider_color": "#E5D9C8",
-            "type_preset": "paragraph",
-            "background_color": "#FFFDF8",
-            "text_color": "#1F1E1C",
-            "border": "all",
-            "border_width": 1,
-            "border_color": "#E5D9C8",
-            "border_radius": 12,
-            "padding-block-start": 8,
-            "padding-block-end": 8,
-            "padding-inline-start": 16,
-            "padding-inline-end": 16
-          },
-          "blocks": {
-            "faq_1": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "Is it safe for daily use?",
-                "open_by_default": false,
-                "icon": "none"
-              },
-              "blocks": {
-                "answer": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>PLACEHOLDER — replace with reviewed, compliant copy from your clinical/legal team before launch.</p>",
-                    "text_color": "#7A7266",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "answer"
-              ]
-            },
-            "faq_2": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "Are there any side effects?",
-                "open_by_default": false,
-                "icon": "none"
-              },
-              "blocks": {
-                "answer": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>PLACEHOLDER — replace with reviewed, compliant copy from your clinical/legal team before launch.</p>",
-                    "text_color": "#7A7266",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "answer"
-              ]
-            },
-            "faq_3": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "When will I see results?",
-                "open_by_default": false,
-                "icon": "none"
-              },
-              "blocks": {
-                "answer": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>PLACEHOLDER — replace with reviewed, compliant copy from your clinical/legal team before launch.</p>",
-                    "text_color": "#7A7266",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "answer"
-              ]
-            },
-            "faq_4": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "Is it suitable during pregnancy or breastfeeding?",
-                "open_by_default": false,
-                "icon": "none"
-              },
-              "blocks": {
-                "answer": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>PLACEHOLDER — replace with reviewed, compliant copy from your clinical/legal team before launch.</p>",
-                    "text_color": "#7A7266",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "answer"
-              ]
-            },
-            "faq_5": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "Is it 100% vegetarian?",
-                "open_by_default": false,
-                "icon": "none"
-              },
-              "blocks": {
-                "answer": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>PLACEHOLDER — replace with reviewed, compliant copy from your clinical/legal team before launch.</p>",
-                    "text_color": "#7A7266",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "answer"
-              ]
-            },
-            "faq_6": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "How is it different from regular supplements?",
-                "open_by_default": false,
-                "icon": "none"
-              },
-              "blocks": {
-                "answer": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>PLACEHOLDER — replace with reviewed, compliant copy from your clinical/legal team before launch.</p>",
-                    "text_color": "#7A7266",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "answer"
-              ]
-            }
-          },
-          "block_order": [
-            "faq_1",
-            "faq_2",
-            "faq_3",
-            "faq_4",
-            "faq_5",
-            "faq_6"
-          ]
-        }
-      },
-      "block_order": [
-        "faq_heading",
-        "accordion_main"
-      ],
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "center",
-        "vertical_alignment": "center",
-        "gap": 24,
-        "section_width": "narrow",
-        "section_height": "fit",
-        "background_color": "#FFF9EE",
-        "padding-block-start": 56,
-        "padding-block-end": 56
-      }
-    },
-    "cta_banner_bodyarc": {
-      "type": "section",
-      "name": "t:names.section",
-      "blocks": {
-        "heading": {
-          "type": "text",
-          "name": "t:names.text",
-          "settings": {
-            "text": "<p>Start your 45-day journey with confidence.</p>",
-            "text_color": "#FFFDF8",
-            "width": "fill",
-            "alignment": "center",
-            "type_preset": "h2",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "font": "var(--font-heading--family)"
-          },
-          "blocks": {}
-        },
-        "subtext": {
-          "type": "text",
-          "name": "t:names.text",
-          "settings": {
-            "text": "<p>Backed by science, rooted in Ayurveda, and trusted by thousands of women.</p>",
-            "text_color": "#F5E7D6",
-            "width": "fill",
-            "alignment": "center",
-            "type_preset": "paragraph",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none"
-          },
-          "blocks": {}
-        },
-        "button": {
-          "type": "button",
-          "name": "t:names.button",
-          "settings": {
-            "label": "Shop Women's System",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-custom",
-            "custom_button_background": "#1F1E1C",
-            "custom_button_text": "#FFFDF8",
-            "custom_button_border": "#1F1E1C",
-            "width": "fit-content"
-          },
-          "blocks": {}
-        },
-        "badges_row": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "center",
-            "vertical_alignment": "center",
-            "gap": 24,
-            "width": "fit-content",
-            "height": "fit"
-          },
-          "blocks": {
-            "badge_1": {
-              "type": "group",
-              "name": "t:names.group",
-              "settings": {
-                "content_direction": "row",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "gap": 6,
-                "width": "fit-content",
-                "height": "fit"
-              },
-              "blocks": {
-                "icon": {
-                  "type": "icon",
-                  "settings": {
-                    "icon": "leaf",
-                    "width": 16,
-                    "icon_color": "#FFFDF8"
-                  },
-                  "blocks": {}
-                },
-                "label": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Ayurvedic Inspired</p>",
-                    "text_color": "#FFFDF8",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.75rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "nowrap"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "icon",
-                "label"
-              ]
-            },
-            "badge_2": {
-              "type": "group",
-              "name": "t:names.group",
-              "settings": {
-                "content_direction": "row",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "gap": 6,
-                "width": "fit-content",
-                "height": "fit"
-              },
-              "blocks": {
-                "icon": {
-                  "type": "icon",
-                  "settings": {
-                    "icon": "silhouette",
-                    "width": 16,
-                    "icon_color": "#FFFDF8"
-                  },
-                  "blocks": {}
-                },
-                "label": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Backed by Science</p>",
-                    "text_color": "#FFFDF8",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.75rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "nowrap"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "icon",
-                "label"
-              ]
-            },
-            "badge_3": {
-              "type": "group",
-              "name": "t:names.group",
-              "settings": {
-                "content_direction": "row",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "gap": 6,
-                "width": "fit-content",
-                "height": "fit"
-              },
-              "blocks": {
-                "icon": {
-                  "type": "icon",
-                  "settings": {
-                    "icon": "stopwatch",
-                    "width": 16,
-                    "icon_color": "#FFFDF8"
-                  },
-                  "blocks": {}
-                },
-                "label": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Daily Wellness Routine</p>",
-                    "text_color": "#FFFDF8",
-                    "width": "fit-content",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font_size": "0.75rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "nowrap"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "icon",
-                "label"
-              ]
-            }
-          },
-          "block_order": [
-            "badge_1",
-            "badge_2",
-            "badge_3"
-          ]
-        }
-      },
-      "block_order": [
-        "heading",
-        "subtext",
-        "button",
-        "badges_row"
-      ],
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "center",
-        "vertical_alignment": "center",
-        "gap": 16,
-        "section_width": "full-width",
-        "section_height": "fit",
-        "background_color": "#B2502E",
-        "padding-block-start": 56,
-        "padding-block-end": 56
       }
     }
   },
   "order": [
-    "media_with_content_wellness",
-    "product_list_fa6P9H",
-    "cert_badges_bodyarc",
-    "ingredient_transparency_bodyarc",
-    "expert_review_bodyarc",
-    "stats_reviews_bodyarc",
-    "trust_icons_bodyarc",
-    "faq_bodyarc",
-    "cta_banner_bodyarc"
+    "hero_wellness",
+    "hero_moment",
+    "wellness_focus_areas",
+    "wellness_program_overview",
+    "wellness_focus_footer",
+    "product_list_fa6P9H"
   ]
 }

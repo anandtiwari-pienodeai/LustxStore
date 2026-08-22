@@ -59,6 +59,17 @@
     assign has_only_video_mobile = true
   endif
 
+  # Static asset background override (theme asset file used as a full-bleed background image)
+  assign static_bg_asset = section.settings.static_bg_asset
+  if static_bg_asset != blank
+    assign media_1 = 'image'
+    assign media_count = 1
+    assign media_count_mobile = 1
+    assign fallback_to_desktop = true
+    assign has_only_video = false
+    assign has_only_video_mobile = false
+  endif
+
   assign media_wrapper_desktop_class = 'hero__media-wrapper hero__media-wrapper--desktop'
   assign media_wrapper_mobile_class = 'hero__media-wrapper hero__media-wrapper--mobile'
   # If there is no custom mobile media to show, we add the mobile class to the desktop classes so content is always shown on mobile.
@@ -323,12 +334,26 @@
 {% endcapture %}
 
 {% capture media %}
-  {{ media_slot_1 }}
-  {{ media_slot_2 }}
+  {% if static_bg_asset != blank %}
+    <div class="{{ media_wrapper_desktop_class }}">
+      <img
+        src="{{ static_bg_asset | asset_url }}"
+        alt=""
+        width="{{ section.settings.static_bg_asset_width | default: 1600 }}"
+        height="{{ section.settings.static_bg_asset_height | default: 1000 }}"
+        class="hero__media{% if section.settings.static_bg_fade %} hero__media--fade{% endif %}"
+        style="object-position: {{ section.settings.static_bg_position | default: 'center center' }};"
+        fetchpriority="{{ fetch_priority }}"
+      >
+    </div>
+  {% else %}
+    {{ media_slot_1 }}
+    {{ media_slot_2 }}
 
-  {% if media_count == 0 %}
-    {{ 'hero-apparel-1' | placeholder_svg_tag: 'hero__media' }}
-  {%- endif -%}
+    {% if media_count == 0 %}
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'hero__media' }}
+    {%- endif -%}
+  {% endif %}
 {% endcapture %}
 
 {% capture media_blurred %}
@@ -633,6 +658,16 @@
     z-index: var(--layer-base);
   }
 
+  .hero__media--fade {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 8%, black 55%, black 100%);
+    mask-image: linear-gradient(to right, transparent 0%, transparent 8%, black 55%, black 100%);
+
+    @media screen and (max-width: 749px) {
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 8%, black 55%, black 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, transparent 8%, black 55%, black 100%);
+    }
+  }
+
   /* Mobile/Desktop media visibility */
 
   .hero__media-wrapper--mobile {
@@ -787,6 +822,50 @@
     "groups": ["header"]
   },
   "settings": [
+    {
+      "type": "header",
+      "content": "Background image (advanced)"
+    },
+    {
+      "type": "text",
+      "id": "static_bg_asset",
+      "label": "Static asset filename",
+      "info": "Overrides Media 1/2 below with a full-bleed background image from the theme's assets folder, e.g. hero-women-wellness.png"
+    },
+    {
+      "type": "number",
+      "id": "static_bg_asset_width",
+      "label": "Static asset width (px)",
+      "info": "Actual pixel width of the static asset file, used to prevent layout shift.",
+      "visible_if": "{{ section.settings.static_bg_asset != blank }}"
+    },
+    {
+      "type": "number",
+      "id": "static_bg_asset_height",
+      "label": "Static asset height (px)",
+      "info": "Actual pixel height of the static asset file, used to prevent layout shift.",
+      "visible_if": "{{ section.settings.static_bg_asset != blank }}"
+    },
+    {
+      "type": "select",
+      "id": "static_bg_position",
+      "label": "Static asset focal point",
+      "options": [
+        { "value": "left center", "label": "Left" },
+        { "value": "center center", "label": "Center" },
+        { "value": "right center", "label": "Right" }
+      ],
+      "default": "center center",
+      "visible_if": "{{ section.settings.static_bg_asset != blank }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "static_bg_fade",
+      "label": "Fade image into background color",
+      "info": "Blends the image's leading edge into the section's background color instead of a hard edge.",
+      "default": false,
+      "visible_if": "{{ section.settings.static_bg_asset != blank }}"
+    },
     {
       "type": "header",
       "content": "t:content.media_1"

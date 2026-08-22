@@ -8,60 +8,300 @@
  * ------------------------------------------------------------
  */{
   "sections": {
-    "hero_jVaWmY": {
+    "hero_wellness": {
       "type": "hero",
       "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
-          "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "text_color": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
-          "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-custom",
-            "custom_button_background": "rgba(0,0,0,0)",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
-        }
+            "eyebrow": {
+              "type": "text",
+              "settings": {
+                "text": "<p>A Premium Women's Wellness Program</p>",
+                "text_color": "#C1707A",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.875rem",
+                "line_height": "normal",
+                "letter_spacing": "loose",
+                "case": "uppercase",
+                "wrap": "pretty"
+              }
+            },
+            "heading_main": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<p>Feel Balanced.<br>Feel Confident.</p>",
+                "text_color": "#2F4A3D",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "h1"
+              }
+            },
+            "heading_accent": {
+              "type": "text",
+              "settings": {
+                "text": "<p><em>Feel Like You.</em></p>",
+                "text_color": "#C1707A",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "h1",
+                "padding-block-end": 4
+              }
+            },
+            "icon_accent": {
+              "type": "icon",
+              "settings": {
+                "icon": "leaf",
+                "width": 22,
+                "icon_color": "#C1707A"
+              }
+            },
+            "body": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Every woman deserves a wellness routine that feels simple, supportive and beautifully organised. BODY अर्क WOMEN is a thoughtfully designed <strong>45-Day Premium Women's Wellness Program</strong> that combines carefully selected botanical ingredients, science-informed formulations and a structured <strong>Morning • Afternoon • Evening</strong> wellness ritual.</p>",
+                "text_color": "#3F3F3F",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "paragraph"
+              }
+            },
+            "buttons": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "gap": 16,
+                "width": "fit-content",
+                "height": "fit",
+                "padding-block-start": 8
+              },
+              "blocks": {
+                "shop_button": {
+                  "type": "button",
+                  "settings": {
+                    "label": "Begin Your 45-Day Wellness Journey →",
+                    "link": "shopify://collections/all",
+                    "style_class": "button-custom",
+                    "custom_button_background": "#C1707A",
+                    "custom_button_text": "#FFFFFF",
+                    "custom_button_border": "#C1707A",
+                    "width": "fit-content",
+                    "width_mobile": "fit-content"
+                  }
+                },
+                "learn_button": {
+                  "type": "button",
+                  "settings": {
+                    "label": "Discover the Program",
+                    "style_class": "button-custom",
+                    "custom_button_background": "rgba(0,0,0,0)",
+                    "custom_button_text": "#C1707A",
+                    "custom_button_border": "#C1707A",
+                    "width": "fit-content",
+                    "width_mobile": "fit-content"
+                  }
+                }
+              },
+              "block_order": ["shop_button", "learn_button"]
+            },
+            "trust_pill": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "gap": 28,
+                "width": "fit-content",
+                "height": "fit",
+                "background_media": "none",
+                "background_color": "#FFFFFF99",
+                "border_radius": 40,
+                "padding-block-start": 16,
+                "padding-block-end": 16,
+                "padding-inline-start": 24,
+                "padding-inline-end": 24
+              },
+              "blocks": {
+                "trust_1": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": {
+                      "type": "icon",
+                      "settings": {
+                        "icon": "leaf",
+                        "width": 26,
+                        "icon_color": "#4C7A5E"
+                      }
+                    },
+                    "label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Plant-Based<br>Wellness</p>",
+                        "text_color": "#2B2B2B",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "label"]
+                },
+                "trust_2": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": {
+                      "type": "icon",
+                      "settings": {
+                        "icon": "bottle",
+                        "width": 26,
+                        "icon_color": "#C1707A"
+                      }
+                    },
+                    "label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Science-Informed<br>Formulations</p>",
+                        "text_color": "#2B2B2B",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "label"]
+                },
+                "trust_3": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": {
+                      "type": "icon",
+                      "settings": {
+                        "icon": "star",
+                        "width": 26,
+                        "icon_color": "#D19A4B"
+                      }
+                    },
+                    "label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Premium Wellness<br>Experience</p>",
+                        "text_color": "#2B2B2B",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "label"]
+                },
+                "trust_4": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "row",
+                    "vertical_on_mobile": true,
+                    "horizontal_alignment": "flex-start",
+                    "vertical_alignment": "center",
+                    "gap": 10,
+                    "width": "fit-content",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon": {
+                      "type": "icon",
+                      "settings": {
+                        "icon": "clipboard",
+                        "width": 26,
+                        "icon_color": "#3E7B7A"
+                      }
+                    },
+                    "label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Education &<br>Support</p>",
+                        "text_color": "#2B2B2B",
+                        "width": "fit-content",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    }
+                  },
+                  "block_order": ["icon", "label"]
+                }
+              },
+              "block_order": ["trust_1", "trust_2", "trust_3", "trust_4"]
+            },
+            "scroll_indicator": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Explore Your Wellness Journey ↓</p>",
+                "text_color": "#C1707A",
+                "width": "fit-content",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.8125rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "padding-block-start": 16
+              }
+            }
       },
-      "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
-      ],
+      "block_order": ["eyebrow", "heading_main", "heading_accent", "icon_accent", "body", "buttons", "trust_pill", "scroll_indicator"],
       "name": "t:names.hero",
       "settings": {
+        "static_bg_asset": "hero-women-wellness.png",
+        "static_bg_asset_width": 1625,
+        "static_bg_asset_height": 968,
         "media_type_1": "image",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
@@ -71,24 +311,333 @@
         "open_in_new_tab": false,
         "content_direction": "column",
         "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 20,
         "section_width": "page-width",
-        "section_height": "medium",
+        "section_height": "large",
         "section_height_custom": 50,
-        "background_color": "rgba(0,0,0,0)",
-        "toggle_overlay": true,
+        "toggle_overlay": false,
         "overlay_color": "#12121266",
         "overlay_style": "solid",
         "gradient_direction": "to bottom",
         "blurred_reflection": false,
         "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
+        "padding-block-start": 60,
+        "padding-block-end": 60
+      }
+    },
+    "hero_moment": {
+      "type": "hero",
+      "blocks": {
+            "eyebrow": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Designed For Modern Women</p>",
+                "text_color": "#C1707A",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.875rem",
+                "line_height": "normal",
+                "letter_spacing": "loose",
+                "case": "uppercase",
+                "wrap": "pretty"
+              }
+            },
+            "heading_group": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 0,
+                "width": "fit-content",
+                "height": "fit"
+              },
+              "blocks": {
+                "line_1": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<p>When Life Moves Fast,</p>",
+                    "text_color": "#2F4A3D",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "type_preset": "h1"
+                  }
+                },
+                "line_2": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><em>Your Wellbeing Deserves</em></p>",
+                    "text_color": "#C1707A",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "type_preset": "h1"
+                  }
+                },
+                "line_3": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>a Moment.</p>",
+                    "text_color": "#2F4A3D",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "type_preset": "h1"
+                  }
+                }
+              },
+              "block_order": ["line_1", "line_2", "line_3"]
+            },
+            "icon_accent": {
+              "type": "icon",
+              "settings": {
+                "icon": "leaf",
+                "width": 20,
+                "icon_color": "#C1707A"
+              }
+            },
+            "body_1": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Modern life asks women to balance careers, relationships, responsibilities and personal ambitions every single day. Amidst these demands, personal wellbeing often becomes the last priority.</p>",
+                "text_color": "#3F3F3F",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "paragraph"
+              }
+            },
+            "body_2": {
+              "type": "text",
+              "settings": {
+                "text": "<p><strong>BODY अर्क WOMEN</strong> has been thoughtfully designed to make everyday wellness simple, structured and sustainable through a guided <strong>Morning • Afternoon • Evening</strong> wellness routine that naturally fits into modern lifestyles. Because when wellness becomes part of your daily rhythm, taking care of yourself no longer feels like another task — it becomes a habit.</p>",
+                "text_color": "#3F3F3F",
+                "width": "fit-content",
+                "max_width": "normal",
+                "type_preset": "paragraph"
+              }
+            },
+            "buttons": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "gap": 16,
+                "width": "fit-content",
+                "height": "fit",
+                "padding-block-start": 8
+              },
+              "blocks": {
+                "shop_button": {
+                  "type": "button",
+                  "settings": {
+                    "label": "Begin Your 45-Day Wellness Journey →",
+                    "link": "shopify://collections/all",
+                    "style_class": "button-custom",
+                    "custom_button_background": "#C1707A",
+                    "custom_button_text": "#FFFFFF",
+                    "custom_button_border": "#C1707A",
+                    "width": "fit-content",
+                    "width_mobile": "fit-content"
+                  }
+                },
+                "explore_button": {
+                  "type": "button",
+                  "settings": {
+                    "label": "Explore the Program",
+                    "style_class": "button-custom",
+                    "custom_button_background": "rgba(0,0,0,0)",
+                    "custom_button_text": "#C1707A",
+                    "custom_button_border": "#C1707A",
+                    "width": "fit-content",
+                    "width_mobile": "fit-content"
+                  }
+                }
+              },
+              "block_order": ["shop_button", "explore_button"]
+            },
+            "wellness_card": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "space-between",
+                "vertical_alignment": "center",
+                "gap": 12,
+                "width": "fill",
+                "height": "fit",
+                "background_media": "none",
+                "background_color": "#FDF6F2",
+                "border": "solid",
+                "border_width": 1,
+                "border_opacity": 60,
+                "border_color": "#F0D9CD",
+                "border_radius": 20,
+                "padding-block-start": 20,
+                "padding-block-end": 20,
+                "padding-inline-start": 20,
+                "padding-inline-end": 20
+              },
+              "blocks": {
+                "leaf_left": {
+                  "type": "image",
+                  "settings": {
+                    "asset_filename": "leaf-left.png",
+                    "asset_width": 1536,
+                    "asset_height": 1024,
+                    "image_ratio": "adapt",
+                    "width": "custom",
+                    "custom_width": 12,
+                    "width_mobile": "fit-content",
+                    "height": "fit"
+                  }
+                },
+                "center_content": {
+                  "type": "group",
+                  "name": "t:names.group",
+                  "settings": {
+                    "content_direction": "column",
+                    "horizontal_alignment_flex_direction_column": "center",
+                    "vertical_alignment_flex_direction_column": "center",
+                    "gap": 4,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "icon_top": {
+                      "type": "icon",
+                      "settings": {
+                        "icon": "leaf",
+                        "width": 16,
+                        "icon_color": "#C1707A"
+                      }
+                    },
+                    "eyebrow": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>Our Wellness Philosophy</strong></p>",
+                        "text_color": "#B5556A",
+                        "width": "100%",
+                        "alignment": "center",
+                        "max_width": "normal",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.75rem",
+                        "line_height": "normal",
+                        "letter_spacing": "loose",
+                        "case": "uppercase",
+                        "wrap": "pretty"
+                      }
+                    },
+                    "body_1": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>True wellness is built through small, consistent daily rituals rather than occasional efforts.</p>",
+                        "text_color": "#3F3F3F",
+                        "width": "100%",
+                        "alignment": "center",
+                        "max_width": "narrow",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    },
+                    "body_2": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><em>Every carefully designed wellness moment supports your journey towards feeling more balanced, confident and connected with yourself.</em></p>",
+                        "text_color": "#C1707A",
+                        "width": "100%",
+                        "alignment": "center",
+                        "max_width": "narrow",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.8125rem",
+                        "line_height": "tight",
+                        "letter_spacing": "normal",
+                        "case": "none"
+                      }
+                    },
+                    "focus_label": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>✦ Our Wellness Focus Areas ✦</strong></p>",
+                        "text_color": "#B5556A",
+                        "width": "100%",
+                        "alignment": "center",
+                        "max_width": "normal",
+                        "type_preset": "custom",
+                        "font": "var(--font-body--family)",
+                        "font_size": "0.6875rem",
+                        "line_height": "normal",
+                        "letter_spacing": "loose",
+                        "case": "uppercase",
+                        "wrap": "pretty",
+                        "padding-block-start": 4
+                      }
+                    }
+                  },
+                  "block_order": ["icon_top", "eyebrow", "body_1", "body_2", "focus_label"]
+                },
+                "leaf_right": {
+                  "type": "image",
+                  "settings": {
+                    "asset_filename": "leaf-right.png",
+                    "asset_width": 1536,
+                    "asset_height": 1024,
+                    "image_ratio": "adapt",
+                    "width": "custom",
+                    "custom_width": 12,
+                    "width_mobile": "fit-content",
+                    "height": "fit"
+                  }
+                }
+              },
+              "block_order": ["leaf_left", "center_content", "leaf_right"]
+            }
+      },
+      "block_order": ["eyebrow", "heading_group", "icon_accent", "body_1", "body_2", "buttons", "wellness_card"],
+      "name": "t:names.hero",
+      "settings": {
+        "static_bg_asset": "girl-with-cup.png",
+        "static_bg_asset_width": 1536,
+        "static_bg_asset_height": 1024,
+        "static_bg_position": "right center",
+        "static_bg_fade": true,
+        "background_color": "#F7EDE8",
+        "media_type_1": "image",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 24,
+        "section_width": "page-width",
+        "section_height": "medium",
+        "section_height_custom": 50,
+        "toggle_overlay": false,
+        "overlay_color": "#12121266",
+        "overlay_style": "solid",
+        "gradient_direction": "to bottom",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     },
     "product_list_fa6P9H": {
@@ -279,7 +828,8 @@
     }
   },
   "order": [
-    "hero_jVaWmY",
+    "hero_wellness",
+    "hero_moment",
     "product_list_fa6P9H"
   ]
 }

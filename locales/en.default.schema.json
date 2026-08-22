@@ -766,6 +766,7 @@
     // Display type selection for popup content (modal vs drawer)
     "behavior": "Behavior",
     "blog": "Blog",
+    "blog_posts_to_show": "Blog posts to show",
     "blur": "Shadow blur",
     "blurred_reflection": "Blurred reflection",
     "border": "Border",

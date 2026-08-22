@@ -41,8 +41,8 @@
                   "type": "image",
                   "settings": {
                     "asset_filename": "body-arc-logo.png",
-                    "asset_width": 2073,
-                    "asset_height": 758,
+                    "asset_width": 900,
+                    "asset_height": 329,
                     "image_ratio": "adapt",
                     "width": "custom",
                     "custom_width": 65
@@ -483,8 +483,8 @@
               "type": "image",
               "settings": {
                 "asset_filename": "body-arc-logo.png",
-                "asset_width": 2073,
-                "asset_height": 758,
+                "asset_width": 900,
+                "asset_height": 329,
                 "image_ratio": "adapt",
                 "width": "custom",
                 "custom_width": 15,

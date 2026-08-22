@@ -330,7 +330,7 @@
       ],
       "name": "t:names.hero",
       "settings": {
-        "static_bg_asset": "hero-women-wellness.png",
+        "static_bg_asset": "hero-women-wellness.jpg",
         "static_bg_asset_width": 1625,
         "static_bg_asset_height": 968,
         "link": "",
@@ -512,8 +512,8 @@
               "type": "image",
               "settings": {
                 "asset_filename": "leaf-left.png",
-                "asset_width": 1536,
-                "asset_height": 1024,
+                "asset_width": 480,
+                "asset_height": 320,
                 "link": "",
                 "width": "custom",
                 "custom_width": 12,
@@ -619,8 +619,8 @@
               "type": "image",
               "settings": {
                 "asset_filename": "leaf-right.png",
-                "asset_width": 1536,
-                "asset_height": 1024,
+                "asset_width": 480,
+                "asset_height": 320,
                 "link": "",
                 "width": "custom",
                 "custom_width": 12,
@@ -648,7 +648,7 @@
       ],
       "name": "t:names.hero",
       "settings": {
-        "static_bg_asset": "girl-with-cup.png",
+        "static_bg_asset": "girl-with-cup.jpg",
         "static_bg_asset_width": 1536,
         "static_bg_asset_height": 1024,
         "static_bg_position": "right center",

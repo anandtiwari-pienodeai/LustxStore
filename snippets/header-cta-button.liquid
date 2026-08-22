@@ -1,0 +1,41 @@
+{%- doc -%}
+  Renders a pill-styled call-to-action button in the header actions row.
+
+  @param {string} label - The button text
+  @param {string} [link] - The button link
+{%- enddoc -%}
+
+<a
+  href="{{ link | default: '#' }}"
+  class="header-cta-button"
+>
+  {{ label }}
+</a>
+
+{% stylesheet %}
+  .header-cta-button {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    background-color: var(--header-cta-background, #C1707A);
+    color: var(--header-cta-text, #FFFFFF);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.65rem 1.25rem;
+    border-radius: var(--style-border-radius-buttons, 999px);
+    text-decoration: none;
+    transition: opacity var(--duration-short) ease;
+  }
+
+  .header-cta-button:hover {
+    opacity: 0.85;
+    text-decoration: none;
+    color: var(--header-cta-text, #FFFFFF);
+  }
+
+  @media screen and (max-width: 749px) {
+    .header-cta-button {
+      display: none;
+    }
+  }
+{% endstylesheet %}

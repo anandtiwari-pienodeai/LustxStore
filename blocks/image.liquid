@@ -10,7 +10,11 @@
     when 'portrait'
       assign ratio = '4 / 5'
     when 'adapt'
-      assign ratio = block_settings.image.aspect_ratio
+      if block_settings.asset_filename != blank and block_settings.asset_width > 0 and block_settings.asset_height > 0
+        assign ratio = block_settings.asset_width | times: 1.0 | divided_by: block_settings.asset_height
+      else
+        assign ratio = block_settings.image.aspect_ratio
+      endif
   endcase
 
   if ratio == 0 or ratio == null
@@ -41,7 +45,17 @@
 %}
 
 {% capture image %}
-  {%- if block_settings.image -%}
+  {%- if block_settings.asset_filename != blank -%}
+    <img
+      src="{{ block_settings.asset_filename | asset_url }}"
+      alt=""
+      width="{{ block_settings.asset_width | default: 1600 }}"
+      height="{{ block_settings.asset_height | default: 1000 }}"
+      class="image-block__image border-style"
+      style="{{ image_border_style }}"
+      loading="lazy"
+    >
+  {%- elsif block_settings.image -%}
     {{
       block_settings.image
       | image_url: width: 3840
@@ -121,6 +135,24 @@
       "type": "image_picker",
       "id": "image",
       "label": "t:settings.image"
+    },
+    {
+      "type": "text",
+      "id": "asset_filename",
+      "label": "Static asset filename (advanced)",
+      "info": "Overrides the image picker with a file from the theme's assets folder, e.g. leaf-left.png"
+    },
+    {
+      "type": "number",
+      "id": "asset_width",
+      "label": "Static asset width (px)",
+      "visible_if": "{{ block.settings.asset_filename != blank }}"
+    },
+    {
+      "type": "number",
+      "id": "asset_height",
+      "label": "Static asset height (px)",
+      "visible_if": "{{ block.settings.asset_filename != blank }}"
     },
     {
       "type": "url",

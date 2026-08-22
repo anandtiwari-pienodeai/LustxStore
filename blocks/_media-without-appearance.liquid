@@ -36,6 +36,27 @@
       "visible_if": "{{ block.settings.media_type == 'image' }}"
     },
     {
+      "type": "text",
+      "id": "asset_filename",
+      "label": "Static asset filename (advanced)",
+      "info": "Overrides the image picker with a file from the theme's assets folder, e.g. hero-women-wellness.png",
+      "visible_if": "{{ block.settings.media_type == 'image' }}"
+    },
+    {
+      "type": "number",
+      "id": "asset_width",
+      "label": "Static asset width (px)",
+      "info": "Actual pixel width of the static asset file, used to prevent layout shift.",
+      "visible_if": "{{ block.settings.media_type == 'image' and block.settings.asset_filename != blank }}"
+    },
+    {
+      "type": "number",
+      "id": "asset_height",
+      "label": "Static asset height (px)",
+      "info": "Actual pixel height of the static asset file, used to prevent layout shift.",
+      "visible_if": "{{ block.settings.media_type == 'image' and block.settings.asset_filename != blank }}"
+    },
+    {
       "type": "url",
       "id": "link",
       "label": "t:settings.link",

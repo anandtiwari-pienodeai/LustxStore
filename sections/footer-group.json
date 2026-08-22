@@ -114,7 +114,7 @@
                     "newsletter_heading": {
                       "type": "text",
                       "settings": {
-                        "text": "<h3>Stay Connected With <strong>BODY अर्क</strong>.</h3>",
+                        "text": "<h3>Stay Connected With <strong>LustX Store</strong>.</h3>",
                         "width": "100%",
                         "type_preset": "h4",
                         "text_color": "#3a0a1f"
@@ -202,7 +202,7 @@
                 "links_explore": {
                   "type": "text",
                   "settings": {
-                    "text": "<p><a href=\"#\">BODY अर्क WOMEN</a></p><p><a href=\"#\">BODY अर्क MEN</a></p><p><a href=\"#\">Shop</a></p><p><a href=\"#\">Wellness Hub</a></p>",
+                    "text": "<p><a href=\"#\">LustX Store WOMEN</a></p><p><a href=\"#\">LustX Store MEN</a></p><p><a href=\"#\">Shop</a></p><p><a href=\"#\">Wellness Hub</a></p>",
                     "width": "100%",
                     "type_preset": "paragraph"
                   }
@@ -240,7 +240,7 @@
                 "links_company": {
                   "type": "text",
                   "settings": {
-                    "text": "<p><a href=\"#\">About BODY अर्क</a></p><p><a href=\"#\">Privacy Policy</a></p><p><a href=\"#\">Terms & Conditions</a></p><p><a href=\"#\">Disclaimer</a></p>",
+                    "text": "<p><a href=\"#\">About LustX Store</a></p><p><a href=\"#\">Privacy Policy</a></p><p><a href=\"#\">Terms & Conditions</a></p><p><a href=\"#\">Disclaimer</a></p>",
                     "width": "100%",
                     "type_preset": "paragraph"
                   }
@@ -504,7 +504,7 @@
             "bottom_copyright": {
               "type": "text",
               "settings": {
-                "text": "<p>© 2026 BODY अर्क™<br>Marketed by Lust Xstore Pvt. Ltd.<br>All Rights Reserved.</p>",
+                "text": "<p>© 2026 LustX Store™<br>Marketed by Lust Xstore Pvt. Ltd.<br>All Rights Reserved.</p>",
                 "type_preset": "paragraph",
                 "font_size": "0.75rem"
               }

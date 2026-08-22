@@ -1,199 +1,529 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "type": "footer",
   "name": "t:names.footer",
   "sections": {
-    "footer_m9NzUG": {
+    "footer_brand_news_01": {
       "type": "footer",
+      "name": "t:names.footer",
+      "settings": {
+        "section_width": "page-width",
+        "gap": 32,
+        "background_color": "#1c0512",
+        "padding-block-start": 48,
+        "padding-block-end": 8
+      },
+      "block_order": ["brand_newsletter_row"],
       "blocks": {
-        "group_H6VpwJ": {
+        "brand_newsletter_row": {
           "type": "group",
           "settings": {
-            "content_direction": "column",
+            "content_direction": "row",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 6,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "vertical_alignment": "flex-start",
+            "gap": 32,
+            "width": "fill"
           },
+          "block_order": ["brand_col", "newsletter_card"],
           "blocks": {
-            "text_LWt8Pz": {
-              "type": "text",
+            "brand_col": {
+              "type": "group",
               "settings": {
-                "text": "<h2>Join our email list</h2>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "content_direction": "column",
+                "gap": 14,
+                "width": "custom",
+                "custom_width": 30,
+                "width_mobile": "fill"
               },
-              "blocks": {}
+              "block_order": ["brand_logo", "brand_tagline", "brand_desc"],
+              "blocks": {
+                "brand_logo": {
+                  "type": "image",
+                  "settings": {
+                    "asset_filename": "body-arc-logo.png",
+                    "asset_width": 2073,
+                    "asset_height": 758,
+                    "image_ratio": "adapt",
+                    "width": "custom",
+                    "custom_width": 65
+                  }
+                },
+                "brand_tagline": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><em>Because Wellness Isn't A Destination.<br>It's A Way Of Living.</em></p>",
+                    "width": "100%",
+                    "type_preset": "paragraph",
+                    "text_color": "#e7b8c9"
+                  }
+                },
+                "brand_desc": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Thoughtfully designed wellness experiences inspired by nature, guided by science and created for everyday life.</p>",
+                    "width": "100%",
+                    "type_preset": "paragraph"
+                  }
+                }
+              }
             },
-            "text_f9CFLH": {
-              "type": "text",
+            "newsletter_card": {
+              "type": "group",
               "settings": {
-                "text": "<p>Get exclusive deals and early access to new products.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "vertical_alignment": "center",
+                "gap": 20,
+                "width": "fill",
+                "background_media": "none",
+                "background_color": "#fbeee7",
+                "border_radius": 24,
+                "padding-block-start": 24,
+                "padding-block-end": 24,
+                "padding-inline-start": 28,
+                "padding-inline-end": 28
               },
-              "blocks": {}
+              "block_order": ["newsletter_icon", "newsletter_copy", "newsletter_product"],
+              "blocks": {
+                "newsletter_icon": {
+                  "type": "icon",
+                  "settings": {
+                    "icon": "plant",
+                    "width": 64,
+                    "icon_color": "#c2185b"
+                  }
+                },
+                "newsletter_copy": {
+                  "type": "group",
+                  "settings": {
+                    "content_direction": "column",
+                    "gap": 10,
+                    "width": "fill"
+                  },
+                  "block_order": ["newsletter_heading", "newsletter_text", "newsletter_form"],
+                  "blocks": {
+                    "newsletter_heading": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<h3>Stay Connected With <strong>BODY अर्क</strong>.</h3>",
+                        "width": "100%",
+                        "type_preset": "h4",
+                        "text_color": "#3a0a1f"
+                      }
+                    },
+                    "newsletter_text": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Receive wellness insights, educational articles, product updates and exclusive wellness content.</p>",
+                        "width": "100%",
+                        "type_preset": "paragraph",
+                        "text_color": "#6b3346"
+                      }
+                    },
+                    "newsletter_form": {
+                      "type": "email-signup",
+                      "settings": {
+                        "width": "fill",
+                        "border_style": "all",
+                        "input_style": "custom",
+                        "border_width": 1,
+                        "border_radius": 100,
+                        "input_background_color": "#ffffff",
+                        "input_text_color": "#3a0a1f",
+                        "input_border_color": "#e7b8c9",
+                        "input_type_preset": "paragraph",
+                        "style_class": "button-custom",
+                        "custom_button_background": "#c2185b",
+                        "custom_button_text": "#ffffff",
+                        "custom_button_border": "#c2185b",
+                        "display_type": "text",
+                        "label": "Subscribe →",
+                        "integrated_button": false
+                      }
+                    }
+                  }
+                },
+                "newsletter_product": {
+                  "type": "image",
+                  "settings": {
+                    "image_ratio": "square",
+                    "width": "custom",
+                    "custom_width": 26,
+                    "border_radius": 12
+                  }
+                }
+              }
             }
-          },
-          "block_order": [
-            "text_LWt8Pz",
-            "text_f9CFLH"
-          ]
-        },
-        "email_signup_crihX7": {
-          "type": "email-signup",
-          "settings": {
-            "width": "fill",
-            "custom_width": 100,
-            "heading_preset": "h3",
-            "border_style": "all",
-            "input_style": "custom",
-            "border_width": 1,
-            "border_radius": 100,
-            "input_background_color": "{{ settings.color_palette.background }}",
-            "input_text_color": "{{ settings.color_palette.color1 }}",
-            "input_border_color": "{{ settings.color_palette.color2 }}",
-            "input_type_preset": "paragraph",
-            "style_class": "button-unstyled",
-            "display_type": "arrow",
-            "label": "Sign up",
-            "integrated_button": true,
-            "button_type_preset": "paragraph",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+          }
         }
+      }
+    },
+    "footer_links_02": {
+      "type": "footer",
+      "name": "t:names.footer",
+      "settings": {
+        "section_width": "page-width",
+        "gap": 32,
+        "background_color": "#1c0512",
+        "padding-block-start": 40,
+        "padding-block-end": 40
       },
-      "block_order": [
-        "group_H6VpwJ",
-        "email_signup_crihX7"
-      ],
+      "block_order": ["links_row"],
+      "blocks": {
+        "links_row": {
+          "type": "group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "vertical_alignment": "flex-start",
+            "gap": 28,
+            "width": "fill"
+          },
+          "block_order": ["col_explore", "col_support", "col_company", "col_resources", "col_contact"],
+          "blocks": {
+            "col_explore": {
+              "type": "group",
+              "settings": { "content_direction": "column", "gap": 12, "width": "fill" },
+              "block_order": ["heading_explore", "links_explore"],
+              "blocks": {
+                "heading_explore": {
+                  "type": "text",
+                  "settings": { "text": "<h4>EXPLORE</h4>", "width": "100%", "type_preset": "h5" }
+                },
+                "links_explore": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><a href=\"#\">BODY अर्क WOMEN</a></p><p><a href=\"#\">BODY अर्क MEN</a></p><p><a href=\"#\">Shop</a></p><p><a href=\"#\">Wellness Hub</a></p>",
+                    "width": "100%",
+                    "type_preset": "paragraph"
+                  }
+                }
+              }
+            },
+            "col_support": {
+              "type": "group",
+              "settings": { "content_direction": "column", "gap": 12, "width": "fill" },
+              "block_order": ["heading_support", "links_support"],
+              "blocks": {
+                "heading_support": {
+                  "type": "text",
+                  "settings": { "text": "<h4>SUPPORT</h4>", "width": "100%", "type_preset": "h5" }
+                },
+                "links_support": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><a href=\"#\">Confidence Promise</a></p><p><a href=\"#\">FAQs</a></p><p><a href=\"#\">Shipping Policy</a></p><p><a href=\"#\">Returns & Refund Policy</a></p><p><a href=\"#\">Contact Us</a></p>",
+                    "width": "100%",
+                    "type_preset": "paragraph"
+                  }
+                }
+              }
+            },
+            "col_company": {
+              "type": "group",
+              "settings": { "content_direction": "column", "gap": 12, "width": "fill" },
+              "block_order": ["heading_company", "links_company"],
+              "blocks": {
+                "heading_company": {
+                  "type": "text",
+                  "settings": { "text": "<h4>COMPANY</h4>", "width": "100%", "type_preset": "h5" }
+                },
+                "links_company": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><a href=\"#\">About BODY अर्क</a></p><p><a href=\"#\">Privacy Policy</a></p><p><a href=\"#\">Terms & Conditions</a></p><p><a href=\"#\">Disclaimer</a></p>",
+                    "width": "100%",
+                    "type_preset": "paragraph"
+                  }
+                }
+              }
+            },
+            "col_resources": {
+              "type": "group",
+              "settings": { "content_direction": "column", "gap": 12, "width": "fill" },
+              "block_order": ["heading_resources", "links_resources"],
+              "blocks": {
+                "heading_resources": {
+                  "type": "text",
+                  "settings": { "text": "<h4>RESOURCES</h4>", "width": "100%", "type_preset": "h5" }
+                },
+                "links_resources": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><a href=\"#\">Ingredient Library</a></p><p><a href=\"#\">Educational Articles</a></p><p><a href=\"#\">Wellness Guides</a></p><p><a href=\"#\">Community</a></p>",
+                    "width": "100%",
+                    "type_preset": "paragraph"
+                  }
+                }
+              }
+            },
+            "col_contact": {
+              "type": "group",
+              "settings": { "content_direction": "column", "gap": 14, "width": "fill" },
+              "block_order": ["heading_contact", "row_support", "row_business", "row_hours"],
+              "blocks": {
+                "heading_contact": {
+                  "type": "text",
+                  "settings": { "text": "<h4>SUPPORT & CONTACT</h4>", "width": "100%", "type_preset": "h5" }
+                },
+                "row_support": {
+                  "type": "group",
+                  "settings": { "content_direction": "row", "vertical_alignment": "flex-start", "gap": 10, "width": "fill" },
+                  "block_order": ["icon_support_row", "text_support_row"],
+                  "blocks": {
+                    "icon_support_row": { "type": "icon", "settings": { "icon": "chat_bubble", "width": 20, "icon_color": "#e0287a" } },
+                    "text_support_row": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>Customer Support:</strong><br>support@bodyark.in</p>",
+                        "width": "100%",
+                        "type_preset": "paragraph"
+                      }
+                    }
+                  }
+                },
+                "row_business": {
+                  "type": "group",
+                  "settings": { "content_direction": "row", "vertical_alignment": "flex-start", "gap": 10, "width": "fill" },
+                  "block_order": ["icon_business_row", "text_business_row"],
+                  "blocks": {
+                    "icon_business_row": { "type": "icon", "settings": { "icon": "question_mark", "width": 20, "icon_color": "#e0287a" } },
+                    "text_business_row": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>Business Enquiries:</strong><br>business@bodyark.in</p>",
+                        "width": "100%",
+                        "type_preset": "paragraph"
+                      }
+                    }
+                  }
+                },
+                "row_hours": {
+                  "type": "group",
+                  "settings": { "content_direction": "row", "vertical_alignment": "flex-start", "gap": 10, "width": "fill" },
+                  "block_order": ["icon_hours_row", "text_hours_row"],
+                  "blocks": {
+                    "icon_hours_row": { "type": "icon", "settings": { "icon": "stopwatch", "width": 20, "icon_color": "#e0287a" } },
+                    "text_hours_row": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>Support Hours:</strong><br>Monday – Saturday<br>10:00 AM – 6:00 PM</p>",
+                        "width": "100%",
+                        "type_preset": "paragraph"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "footer_trust_03": {
+      "type": "footer",
+      "name": "t:names.footer",
+      "settings": {
+        "section_width": "page-width",
+        "gap": 24,
+        "background_color": "#1c0512",
+        "padding-block-start": 32,
+        "padding-block-end": 32
+      },
+      "block_order": ["trust_wrap"],
+      "blocks": {
+        "trust_wrap": {
+          "type": "group",
+          "settings": { "content_direction": "column", "gap": 24, "width": "fill" },
+          "block_order": ["top_divider", "trust_row"],
+          "blocks": {
+            "top_divider": {
+              "type": "_divider",
+              "settings": { "thickness": 1, "divider_color": "#4a2033", "width_percent": 100 }
+            },
+            "trust_row": {
+              "type": "group",
+              "settings": { "content_direction": "row", "vertical_on_mobile": true, "vertical_alignment": "flex-start", "gap": 28, "width": "fill" },
+              "block_order": ["badges_group", "middle_group", "quote_group"],
+              "blocks": {
+                "badges_group": {
+                  "type": "group",
+                  "settings": { "content_direction": "row", "vertical_on_mobile": false, "gap": 20, "width": "custom", "custom_width": 40, "width_mobile": "fill" },
+                  "block_order": ["badge_1", "badge_2", "badge_3", "badge_4", "badge_5", "badge_6"],
+                  "blocks": {
+                    "badge_1": {
+                      "type": "group",
+                      "settings": { "content_direction": "column", "horizontal_alignment_flex_direction_column": "center", "gap": 6, "width": "fit-content" },
+                      "block_order": ["icon_badge_1", "label_badge_1"],
+                      "blocks": {
+                        "icon_badge_1": { "type": "icon", "settings": { "icon": "star", "width": 26, "icon_color": "#e0287a" } },
+                        "label_badge_1": { "type": "text", "settings": { "text": "<p>Premium Quality</p>", "type_preset": "paragraph", "font_size": "0.625rem" } }
+                      }
+                    },
+                    "badge_2": {
+                      "type": "group",
+                      "settings": { "content_direction": "column", "horizontal_alignment_flex_direction_column": "center", "gap": 6, "width": "fit-content" },
+                      "block_order": ["icon_badge_2", "label_badge_2"],
+                      "blocks": {
+                        "icon_badge_2": { "type": "icon", "settings": { "icon": "leaf", "width": 26, "icon_color": "#e0287a" } },
+                        "label_badge_2": { "type": "text", "settings": { "text": "<p>Plant-Based Formulations</p>", "type_preset": "paragraph", "font_size": "0.625rem" } }
+                      }
+                    },
+                    "badge_3": {
+                      "type": "group",
+                      "settings": { "content_direction": "column", "horizontal_alignment_flex_direction_column": "center", "gap": 6, "width": "fit-content" },
+                      "block_order": ["icon_badge_3", "label_badge_3"],
+                      "blocks": {
+                        "icon_badge_3": { "type": "icon", "settings": { "icon": "lock", "width": 26, "icon_color": "#e0287a" } },
+                        "label_badge_3": { "type": "text", "settings": { "text": "<p>Secure Payments</p>", "type_preset": "paragraph", "font_size": "0.625rem" } }
+                      }
+                    },
+                    "badge_4": {
+                      "type": "group",
+                      "settings": { "content_direction": "column", "horizontal_alignment_flex_direction_column": "center", "gap": 6, "width": "fit-content" },
+                      "block_order": ["icon_badge_4", "label_badge_4"],
+                      "blocks": {
+                        "icon_badge_4": { "type": "icon", "settings": { "icon": "check_box", "width": 26, "icon_color": "#e0287a" } },
+                        "label_badge_4": { "type": "text", "settings": { "text": "<p>Confidence Promise</p>", "type_preset": "paragraph", "font_size": "0.625rem" } }
+                      }
+                    },
+                    "badge_5": {
+                      "type": "group",
+                      "settings": { "content_direction": "column", "horizontal_alignment_flex_direction_column": "center", "gap": 6, "width": "fit-content" },
+                      "block_order": ["icon_badge_5", "label_badge_5"],
+                      "blocks": {
+                        "icon_badge_5": { "type": "icon", "settings": { "icon": "clipboard", "width": 26, "icon_color": "#e0287a" } },
+                        "label_badge_5": { "type": "text", "settings": { "text": "<p>FSSAI Licensed</p>", "type_preset": "paragraph", "font_size": "0.625rem" } }
+                      }
+                    },
+                    "badge_6": {
+                      "type": "group",
+                      "settings": { "content_direction": "column", "horizontal_alignment_flex_direction_column": "center", "gap": 6, "width": "fit-content" },
+                      "block_order": ["icon_badge_6", "label_badge_6"],
+                      "blocks": {
+                        "icon_badge_6": { "type": "icon", "settings": { "icon": "map_pin", "width": 26, "icon_color": "#e0287a" } },
+                        "label_badge_6": { "type": "text", "settings": { "text": "<p>Made in India</p>", "type_preset": "paragraph", "font_size": "0.625rem" } }
+                      }
+                    }
+                  }
+                },
+                "middle_group": {
+                  "type": "group",
+                  "settings": { "content_direction": "column", "gap": 14, "width": "custom", "custom_width": 32, "width_mobile": "fill" },
+                  "block_order": ["fssai_box", "social_row"],
+                  "blocks": {
+                    "fssai_box": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>FSSAI</strong><br>FSSAI LICENCE NUMBER:<br>(To Be Updated)</p>",
+                        "width": "100%",
+                        "type_preset": "paragraph",
+                        "background": true,
+                        "background_color": "#2a0a1a",
+                        "corner_radius": 10,
+                        "padding-block-start": 10,
+                        "padding-block-end": 10,
+                        "padding-inline-start": 14,
+                        "padding-inline-end": 14
+                      }
+                    },
+                    "social_row": {
+                      "type": "social-links",
+                      "settings": {
+                        "icon_color": "#e0287a",
+                        "facebook_url": "https://www.facebook.com/",
+                        "instagram_url": "https://www.instagram.com/",
+                        "youtube_url": "https://www.youtube.com/",
+                        "linkedin_url": "https://www.linkedin.com/"
+                      }
+                    }
+                  }
+                },
+                "quote_group": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p><em>“Crafted with Care. Guided by Purpose. Inspired by Your Wellness Journey.”</em></p>",
+                    "width": "100%",
+                    "alignment": "right",
+                    "type_preset": "paragraph",
+                    "text_color": "#d8b26a"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "footer_bottom_04": {
+      "type": "footer",
       "name": "t:names.footer",
       "settings": {
         "section_width": "page-width",
         "gap": 20,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 30,
-        "padding-block-end": 30
-      }
-    },
-    "footer_utilities_jLGE8U": {
-      "type": "footer-utilities",
-      "blocks": {
-        "footer_copyright_jweRK8": {
-          "type": "footer-copyright",
-          "settings": {
-            "show_powered_by": true,
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        },
-        "footer_policy_list_VCdnpa": {
-          "type": "footer-policy-list",
-          "settings": {
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        },
-        "social_links_Ew63Kq": {
-          "type": "social-links",
-          "settings": {
-            "facebook_url": "https://www.facebook.com/",
-            "instagram_url": "https://www.instagram.com/",
-            "youtube_url": "https://www.youtube.com/",
-            "tiktok_url": "https://www.tiktok.com/",
-            "twitter_url": "https://x.com/"
-          },
-          "blocks": {}
-        }
+        "background_color": "#150310",
+        "padding-block-start": 24,
+        "padding-block-end": 24
       },
-      "block_order": [
-        "footer_copyright_jweRK8",
-        "footer_policy_list_VCdnpa",
-        "social_links_Ew63Kq"
-      ],
-      "name": "t:names.utilities",
-      "settings": {
-        "section_width": "page-width",
-        "gap": 24,
-        "divider_thickness": 1,
-        "divider_color": "{{ settings.color_palette.color2 }}",
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 20,
-        "padding-block-end": 48
+      "block_order": ["bottom_row"],
+      "blocks": {
+        "bottom_row": {
+          "type": "group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "center",
+            "gap": 20,
+            "width": "fill"
+          },
+          "block_order": ["bottom_logo", "bottom_copyright", "bottom_tagline", "bottom_emblem"],
+          "blocks": {
+            "bottom_logo": {
+              "type": "image",
+              "settings": {
+                "asset_filename": "body-arc-logo.png",
+                "asset_width": 2073,
+                "asset_height": 758,
+                "image_ratio": "adapt",
+                "width": "custom",
+                "custom_width": 15,
+                "width_mobile": "custom",
+                "custom_width_mobile": 45
+              }
+            },
+            "bottom_copyright": {
+              "type": "text",
+              "settings": {
+                "text": "<p>© 2026 BODY अर्क™<br>Marketed by Lust Xstore Pvt. Ltd.<br>All Rights Reserved.</p>",
+                "type_preset": "paragraph",
+                "font_size": "0.75rem"
+              }
+            },
+            "bottom_tagline": {
+              "type": "text",
+              "settings": {
+                "text": "<p><em>Because Wellness Isn't A Destination.<br>It's A Way Of Living.</em></p>",
+                "type_preset": "paragraph",
+                "font_size": "0.75rem",
+                "text_color": "#e7b8c9"
+              }
+            },
+            "bottom_emblem": {
+              "type": "image",
+              "settings": {
+                "image_ratio": "square",
+                "width": "custom",
+                "custom_width": 9,
+                "width_mobile": "custom",
+                "custom_width_mobile": 18,
+                "border_radius": 100
+              }
+            }
+          }
+        }
       }
     }
   },
-  "order": [
-    "footer_m9NzUG",
-    "footer_utilities_jLGE8U"
-  ]
+  "order": ["footer_brand_news_01", "footer_links_02", "footer_trust_03", "footer_bottom_04"]
 }

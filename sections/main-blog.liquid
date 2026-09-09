@@ -29,10 +29,6 @@
   >
     {% content_for 'blocks' %}
 
-    {% liquid
-      assign posts_per_page = section.settings.blog_posts_to_show | default: 12
-    %}
-    {% paginate blog.articles by posts_per_page %}
     <div
       ref="grid"
       class="blog-posts-container"
@@ -118,9 +114,6 @@
         </div>
       {% endfor %}
     </div>
-
-    {% render 'pagination-controls', paginate: paginate %}
-    {% endpaginate %}
   </div>
 </blog-posts-list>
 
@@ -207,15 +200,6 @@
     "groups": ["header"]
   },
   "settings": [
-    {
-      "type": "range",
-      "id": "blog_posts_to_show",
-      "label": "t:settings.blog_posts_to_show",
-      "min": 6,
-      "max": 30,
-      "step": 1,
-      "default": 12
-    },
     {
       "type": "color",
       "id": "background_color",

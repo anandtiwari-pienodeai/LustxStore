@@ -1,0 +1,806 @@
+{%- liquid
+  assign trust = section.settings.trust_items | newline_to_br | split: '<br />'
+  assign shipping = section.settings.shipping_items | newline_to_br | split: '<br />'
+-%}
+
+<section
+  class="home-sec home-focus"
+  id="home-focus-{{ section.id }}"
+  style="--h-sec-bg: {{ section.settings.bg_color }}; --h-pbs: {{ section.settings.padding_block_start }}px; --h-pbe: {{ section.settings.padding_block_end }}px;"
+>
+  <div class="home-wrap">
+    <hr class="home-rule">
+    <h2 class="home-kicker">{{ section.settings.heading }}</h2>
+
+    <div class="home-focus__grid home-hscroll">
+      {%- for block in section.blocks -%}
+        <div
+          class="home-focus__card"
+          role="button"
+          tabindex="0"
+          data-fa-open="{{ forloop.index0 }}"
+          aria-haspopup="dialog"
+          {{ block.shopify_attributes }}
+        >
+          <div class="home-focus__media" style="--fa-bg: {{ block.settings.image_bg }};">
+            {%- if block.settings.image -%}
+              {%- assign fa_alt = block.settings.title | escape -%}
+              {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 900px) 30vw, 80vw', widths: '300, 450, 600, 700', alt: fa_alt, class: 'home-focus__img' }}
+            {%- endif -%}
+            {%- if block.settings.tagline != blank -%}
+              <span class="home-focus__tag">{{ block.settings.tagline }}</span>
+            {%- endif -%}
+            {%- if block.settings.icon != blank -%}
+              <span class="home-focus__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+            {%- endif -%}
+            <button type="button" class="home-focus__wish" data-fa-wish aria-label="Save to wishlist">♡</button>
+          </div>
+          <div class="home-focus__body">
+            <p class="home-focus__eyebrow">{{ section.settings.card_eyebrow }}</p>
+            <h4 class="home-focus__title">{{ block.settings.title }}</h4>
+            <p class="home-focus__desc">{{ block.settings.description }}</p>
+            <span class="home-focus__arrow" aria-hidden="true">→</span>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- comment -%} ---------- MODALS ---------- {%- endcomment -%}
+  <div class="home-focus__overlay" id="home-focus-overlay-{{ section.id }}" data-fa-overlay hidden>
+    {%- for block in section.blocks -%}
+      {%- assign p = block.settings.product -%}
+      {%- assign v = p.selected_or_first_available_variant -%}
+      {%- assign benefits = block.settings.benefits | newline_to_br | split: '<br />' -%}
+      <div
+        class="home-focus__modal"
+        data-fa-modal="{{ forloop.index0 }}"
+        role="dialog"
+        aria-modal="true"
+        aria-label="{{ block.settings.title | escape }}"
+        hidden
+      >
+        <button type="button" class="home-focus__close" data-fa-close aria-label="Close">&times;</button>
+        <div class="home-focus__modal-grid">
+          <div class="home-focus__modal-media">
+            <div class="home-focus__modal-hero" style="--fa-bg: {{ block.settings.image_bg }};">
+              {%- if block.settings.image -%}
+                {%- assign m_alt = block.settings.title | escape -%}
+                {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 900px) 40vw, 90vw', widths: '400, 600, 800, 900', alt: m_alt, class: 'home-focus__modal-img' }}
+              {%- else -%}
+                <span class="home-focus__modal-heroicon" aria-hidden="true">{{ block.settings.icon | default: '♡' }}</span>
+                <span class="home-focus__modal-herolabel">Lifestyle photo placeholder</span>
+              {%- endif -%}
+            </div>
+
+            <div class="home-focus__modal-thumbs">
+              <span style="--t: {{ block.settings.image_bg }};"></span>
+              <span style="--t: #EEF4EA;"></span>
+              <span style="--t: #FAEDD8;"></span>
+              <span style="--t: #EAE5F5;"></span>
+            </div>
+
+            {%- if trust.size > 0 -%}
+              <div class="home-focus__modal-trust">
+                {%- for item in trust -%}
+                  {%- assign it = item | strip_newlines | strip -%}
+                  {%- if it != blank -%}
+                    {%- assign parts = it | split: '|' -%}
+                    <div class="home-focus__modal-trust-item">
+                      <span aria-hidden="true">{{ parts[0] | strip }}</span>
+                      <span>{{ parts[1] | strip }}</span>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </div>
+
+          <div class="home-focus__modal-info">
+            <p class="home-focus__eyebrow">{{ section.settings.card_eyebrow }}</p>
+            <h3 class="home-focus__modal-title">{{ block.settings.title }}</h3>
+            <p class="home-focus__modal-desc">{{ block.settings.modal_description | default: block.settings.description }}</p>
+
+            {%- if block.settings.rating != blank -%}
+              <div class="home-focus__modal-rating">
+                <span class="home-focus__stars" aria-hidden="true">★★★★★</span>
+                <span>{{ block.settings.rating }}
+                  {%- if block.settings.rating_count != blank -%}
+                    <a href="{{ section.settings.reviews_url | default: '#reviews' }}">({{ block.settings.rating_count }} reviews)</a>
+                  {%- endif -%}
+                </span>
+              </div>
+            {%- endif -%}
+
+            {%- if benefits.size > 0 -%}
+              <ul class="home-focus__modal-benefits" role="list">
+                {%- for b in benefits -%}
+                  {%- assign bt = b | strip_newlines | strip -%}
+                  {%- if bt != blank -%}
+                    {%- assign bp = bt | split: '|' -%}
+                    <li>
+                      <span class="home-focus__modal-bicon" style="--fa-bg: {{ block.settings.image_bg }};" aria-hidden="true">{{ bp[0] | strip }}</span>
+                      <span>{{ bp[1] | strip }}</span>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+            {%- if p != blank -%}
+              <div class="home-focus__modal-price">
+                <span class="home-focus__modal-now">{{ v.price | money }}</span>
+                {%- if v.compare_at_price > v.price -%}
+                  <s class="home-focus__modal-was">{{ v.compare_at_price | money }}</s>
+                  <span class="home-focus__modal-off">{{ v.compare_at_price | minus: v.price | times: 100.0 | divided_by: v.compare_at_price | round }}% OFF</span>
+                {%- endif -%}
+              </div>
+            {%- elsif block.settings.price_text != blank -%}
+              <div class="home-focus__modal-price">
+                <span class="home-focus__modal-now">{{ block.settings.price_text }}</span>
+                {%- if block.settings.compare_text != blank -%}<s class="home-focus__modal-was">{{ block.settings.compare_text }}</s>{%- endif -%}
+                {%- if block.settings.discount_label != blank -%}<span class="home-focus__modal-off">{{ block.settings.discount_label }}</span>{%- endif -%}
+              </div>
+            {%- endif -%}
+
+            <div class="home-focus__modal-buy">
+              {%- if p != blank -%}
+                {%- form 'product', p, class: 'home-focus__modal-form' -%}
+                  <input type="hidden" name="id" value="{{ v.id }}">
+                  <button type="submit" name="add" class="home-focus__atc" {% unless v.available %}disabled{% endunless %}>
+                    {%- if v.available -%}Add to Cart <span aria-hidden="true">→</span>{%- else -%}Sold out{%- endif -%}
+                  </button>
+                {%- endform -%}
+              {%- else -%}
+                <a class="home-focus__atc" href="{{ block.settings.link | default: '#' }}">Add to Cart <span aria-hidden="true">→</span></a>
+              {%- endif -%}
+              <button type="button" class="home-focus__wish home-focus__wish--lg" data-fa-wish aria-label="Save to wishlist">♡</button>
+            </div>
+
+            {%- if shipping.size > 0 -%}
+              <div class="home-focus__modal-ship">
+                {%- for item in shipping -%}
+                  {%- assign si = item | strip_newlines | strip -%}
+                  {%- if si != blank -%}
+                    {%- assign sp = si | split: '|' -%}
+                    <div>
+                      <span aria-hidden="true">{{ sp[0] | strip }}</span>
+                      <span>{{ sp[1] | strip }}</span>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+
+            <div class="home-focus__modal-acc">
+              {%- if block.settings.details_body != blank -%}
+                <details open>
+                  <summary>{{ block.settings.details_title | default: 'Product Details' }}<span class="home-focus__acc-sign" aria-hidden="true"></span></summary>
+                  <div>{{ block.settings.details_body }}</div>
+                </details>
+              {%- endif -%}
+              {%- if block.settings.howto_body != blank -%}
+                <details>
+                  <summary>{{ block.settings.howto_title | default: 'How to Use' }}<span class="home-focus__acc-sign" aria-hidden="true"></span></summary>
+                  <div>{{ block.settings.howto_body }}</div>
+                </details>
+              {%- endif -%}
+              {%- if block.settings.ingredients_body != blank -%}
+                <details>
+                  <summary>{{ block.settings.ingredients_title | default: 'Ingredients' }}<span class="home-focus__acc-sign" aria-hidden="true"></span></summary>
+                  <div>{{ block.settings.ingredients_body }}</div>
+                </details>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .home-focus .home-kicker { margin-bottom: 40px; }
+
+  .home-focus__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .home-focus__card {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--h-line-2);
+    border-radius: 24px;
+    overflow: hidden;
+    color: inherit;
+    cursor: pointer;
+    box-shadow: 0 10px 28px rgba(80, 50, 40, 0.06);
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
+  }
+
+  .home-focus__card:hover,
+  .home-focus__card:focus-visible {
+    box-shadow: 0 22px 48px rgba(80, 50, 40, 0.12);
+    transform: translateY(-4px);
+    outline: none;
+  }
+
+  .home-focus__media {
+    position: relative;
+    height: 220px;
+    background: var(--fa-bg, #f6e6de);
+    overflow: hidden;
+  }
+
+  .home-focus__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .home-focus__tag {
+    position: absolute;
+    top: 22px;
+    left: 20px;
+    font-family: var(--h-font-script);
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.15;
+    color: #8a3a4a;
+    max-width: 150px;
+    z-index: 2;
+  }
+
+  .home-focus__icon {
+    position: absolute;
+    bottom: 14px;
+    right: 16px;
+    font-size: 26px;
+    opacity: 0.4;
+  }
+
+  .home-focus__wish {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    font-size: 14px;
+    color: var(--h-accent);
+    cursor: pointer;
+    z-index: 3;
+    line-height: 1;
+  }
+
+  .home-focus__wish[aria-pressed="true"] { background: var(--h-pink-soft-2); }
+
+  .home-focus__body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .home-focus__eyebrow {
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--h-accent);
+    margin: 0 0 8px;
+  }
+
+  .home-focus__title {
+    font-family: var(--h-font-head);
+    font-size: 19px;
+    margin: 0 0 8px;
+    color: #2f1f22;
+  }
+
+  .home-focus__desc {
+    font-size: 12.5px;
+    color: var(--h-muted-2);
+    line-height: 1.55;
+    margin: 0 0 16px;
+  }
+
+  .home-focus__arrow {
+    display: flex;
+    width: 38px;
+    height: 38px;
+    align-self: flex-end;
+    border-radius: 50%;
+    background: var(--h-pink-soft-2);
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #2f1f22;
+  }
+
+  @media (min-width: 750px) and (max-width: 1000px) {
+    .home-focus__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ---------- modal ---------- */
+  .home-focus__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(40, 20, 20, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow-y: auto;
+  }
+
+  .home-focus__overlay[hidden] { display: none; }
+
+  .home-focus__modal {
+    position: relative;
+    background: var(--h-bg);
+    border-radius: 24px;
+    max-width: 980px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.35);
+  }
+
+  .home-focus__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 5;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--h-green-deep);
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    line-height: 1;
+  }
+
+  .home-focus__modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .home-focus__modal-media {
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .home-focus__modal-hero {
+    position: relative;
+    border-radius: 18px;
+    aspect-ratio: 1 / 1;
+    background: var(--fa-bg, var(--h-pink-soft));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .home-focus__modal-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .home-focus__modal-heroicon {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+  }
+
+  .home-focus__modal-herolabel {
+    position: absolute;
+    bottom: 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--h-muted);
+    opacity: 0.75;
+  }
+
+  .home-focus__modal-thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .home-focus__modal-thumbs span {
+    display: block;
+    height: 64px;
+    border-radius: 12px;
+    background: var(--t, var(--h-pink-soft));
+  }
+
+  .home-focus__modal-trust {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px 8px;
+    margin-top: 4px;
+  }
+
+  .home-focus__modal-trust-item {
+    text-align: center;
+    font-size: 11px;
+    color: #5c4c50;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .home-focus__modal-info {
+    padding: 36px 40px 40px 8px;
+  }
+
+  .home-focus__modal-title {
+    font-family: var(--h-font-head);
+    font-size: clamp(24px, 3vw, 28px);
+    margin: 8px 0 14px;
+    color: var(--h-green-deep);
+  }
+
+  .home-focus__modal-desc {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--h-muted);
+    margin: 0 0 16px;
+  }
+
+  .home-focus__modal-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+    font-size: 13px;
+    color: var(--h-muted);
+  }
+
+  .home-focus__stars { color: #e0a83c; font-size: 15px; letter-spacing: 1px; }
+  .home-focus__modal-rating a { color: inherit; text-decoration: underline; }
+
+  .home-focus__modal-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .home-focus__modal-benefits li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 13.5px;
+    color: var(--h-ink);
+    line-height: 1.5;
+  }
+
+  .home-focus__modal-bicon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--fa-bg, var(--h-pink-soft));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .home-focus__modal-price {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .home-focus__modal-now {
+    font-family: var(--h-font-head);
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--h-green-deep);
+  }
+
+  .home-focus__modal-was { font-size: 14px; color: #a8949c; }
+
+  .home-focus__modal-off {
+    background: var(--h-accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  .home-focus__modal-buy {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .home-focus__modal-form { flex: 1; margin: 0; }
+
+  .home-focus__atc {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--h-accent);
+    color: #fff;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 999px;
+    font-family: var(--h-font-body);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .home-focus__atc:hover:not([disabled]) { background: var(--h-accent-dark); }
+  .home-focus__atc[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+  .home-focus__wish--lg {
+    position: static;
+    width: 52px;
+    height: 52px;
+    border: 1px solid #e6b8c6;
+    box-shadow: none;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .home-focus__modal-ship {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--h-line);
+  }
+
+  .home-focus__modal-ship > div {
+    text-align: center;
+    font-size: 10.5px;
+    color: var(--h-muted-2);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .home-focus__modal-acc details {
+    border-bottom: 1px solid var(--h-line);
+  }
+
+  .home-focus__modal-acc summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 0;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13.5px;
+    color: var(--h-green-deep);
+    list-style: none;
+  }
+
+  .home-focus__modal-acc summary::-webkit-details-marker { display: none; }
+
+  .home-focus__acc-sign {
+    position: relative;
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+    color: var(--h-accent);
+  }
+
+  .home-focus__acc-sign::before,
+  .home-focus__acc-sign::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+    inset: 0;
+    margin: auto;
+  }
+
+  .home-focus__acc-sign::before { width: 100%; height: 2px; }
+  .home-focus__acc-sign::after { width: 2px; height: 100%; transition: transform 0.2s ease; }
+  .home-focus__modal-acc details[open] .home-focus__acc-sign::after { transform: scaleY(0); }
+
+  .home-focus__modal-acc details > div {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--h-muted);
+    padding: 0 0 16px;
+  }
+
+  .home-focus__modal-acc details > div > :first-child { margin-top: 0; }
+  .home-focus__modal-acc details > div > :last-child { margin-bottom: 0; }
+
+  body.home-focus-modal-open { overflow: hidden; }
+
+  @media (max-width: 800px) {
+    .home-focus__modal-grid { grid-template-columns: 1fr; }
+    .home-focus__modal-media { padding: 24px 24px 8px; }
+    .home-focus__modal-info { padding: 8px 24px 32px; }
+    .home-focus__close { top: 14px; right: 14px; }
+  }
+{% endstylesheet %}
+
+<script>
+  (function () {
+    var root = document.getElementById('home-focus-{{ section.id }}');
+    if (!root || root.dataset.faInit === '1') return;
+    root.dataset.faInit = '1';
+
+    var overlayId = 'home-focus-overlay-{{ section.id }}';
+    var existing = document.getElementById(overlayId);
+    if (existing && existing.parentElement === document.body) existing.remove();
+    var overlay = root.querySelector('[data-fa-overlay]');
+    if (overlay) document.body.appendChild(overlay);
+    var modals = overlay ? overlay.querySelectorAll('[data-fa-modal]') : [];
+    var lastFocus = null;
+
+    function openModal(i) {
+      if (!overlay) return;
+      overlay.hidden = false;
+      modals.forEach(function (m) { m.hidden = String(m.dataset.faModal) !== String(i); });
+      document.body.classList.add('home-focus-modal-open');
+      var close = overlay.querySelector('[data-fa-modal]:not([hidden]) [data-fa-close]');
+      if (close) close.focus();
+    }
+
+    function closeModal() {
+      if (!overlay) return;
+      overlay.hidden = true;
+      modals.forEach(function (m) { m.hidden = true; });
+      document.body.classList.remove('home-focus-modal-open');
+      if (lastFocus) lastFocus.focus();
+    }
+
+    root.querySelectorAll('[data-fa-open]').forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        if (e.target.closest('[data-fa-wish]')) return;
+        lastFocus = card;
+        openModal(card.dataset.faOpen);
+      });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          lastFocus = card;
+          openModal(card.dataset.faOpen);
+        }
+      });
+    });
+
+    if (overlay) {
+      overlay.querySelectorAll('[data-fa-close]').forEach(function (b) {
+        b.addEventListener('click', closeModal);
+      });
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeModal();
+      });
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay && !overlay.hidden) closeModal();
+    });
+
+    function wire(scope) {
+      scope.querySelectorAll('[data-fa-wish]').forEach(function (b) {
+        if (b.dataset.faWishInit === '1') return;
+        b.dataset.faWishInit = '1';
+        b.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var on = b.getAttribute('aria-pressed') === 'true';
+          b.setAttribute('aria-pressed', on ? 'false' : 'true');
+          b.textContent = on ? '♡' : '♥';
+        });
+      });
+    }
+    wire(root);
+    if (overlay) wire(overlay);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Home — Focus areas",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Our Wellness Focus Areas" },
+    { "type": "text", "id": "card_eyebrow", "label": "Card eyebrow", "default": "Wellness Focus Area" },
+    { "type": "url", "id": "reviews_url", "label": "Reviews link" },
+    { "type": "textarea", "id": "trust_items", "label": "Modal trust strip (icon | label per line)", "default": "🌿 | Natural Ingredients\n✓ | No Artificial Additives\n🛡 | Trusted & Safe" },
+    { "type": "textarea", "id": "shipping_items", "label": "Modal shipping strip (icon | label per line)", "default": "🚚 | Free Shipping above ₹999\n📦 | Secure Packaging\n✅ | 100% Genuine Lab-Tested" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#FDF4EF" },
+    { "type": "range", "id": "padding_block_start", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_block_end", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 100 }
+  ],
+  "blocks": [
+    {
+      "type": "area",
+      "name": "Focus area",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "color", "id": "image_bg", "label": "Image background", "default": "#F4E4DC" },
+        { "type": "text", "id": "tagline", "label": "Handwritten tagline", "default": "Feel Your Best" },
+        { "type": "text", "id": "icon", "label": "Icon (emoji)", "default": "🌿" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Energy & Vitality" },
+        { "type": "textarea", "id": "description", "label": "Card description", "default": "Support steady, natural energy through the day without the crash." },
+        { "type": "header", "content": "Modal" },
+        { "type": "textarea", "id": "modal_description", "label": "Modal description", "info": "Falls back to card description." },
+        { "type": "product", "id": "product", "label": "Linked product", "info": "Enables real Add to Cart + live price. Optional." },
+        { "type": "url", "id": "link", "label": "Fallback link", "info": "Used for Add to Cart when no product is set." },
+        { "type": "text", "id": "rating", "label": "Rating", "default": "4.8" },
+        { "type": "text", "id": "rating_count", "label": "Review count", "default": "324" },
+        { "type": "text", "id": "price_text", "label": "Price (no product)", "default": "₹2,499" },
+        { "type": "text", "id": "compare_text", "label": "Compare-at price (no product)", "default": "₹2,999" },
+        { "type": "text", "id": "discount_label", "label": "Discount label (no product)", "default": "17% OFF" },
+        { "type": "textarea", "id": "benefits", "label": "Benefits (icon | text per line)", "default": "🌿 | Encourages a positive daily mindset\n♥ | Builds self-care into your routine, not around it\n✷ | Supported by the Morning & Afternoon formulas" },
+        { "type": "text", "id": "details_title", "label": "Accordion 1 title", "default": "Product Details" },
+        { "type": "richtext", "id": "details_body", "label": "Accordion 1 body", "default": "<p>Part of the BODY अर्क WOMEN 45-Day Wellness System — individually packed, plant-based tablets delivered through the Morning, Afternoon and Evening pouches.</p>" },
+        { "type": "text", "id": "howto_title", "label": "Accordion 2 title", "default": "How to Use" },
+        { "type": "richtext", "id": "howto_body", "label": "Accordion 2 body", "default": "<p>Take with your daily pouch, as guided in your ritual booklet.</p>" },
+        { "type": "text", "id": "ingredients_title", "label": "Accordion 3 title", "default": "Ingredients" },
+        { "type": "richtext", "id": "ingredients_body", "label": "Accordion 3 body", "default": "<p>Standardised botanical extracts and actives. Full list on the pack.</p>" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Home — Focus areas",
+      "blocks": [
+        { "type": "area", "settings": { "title": "Energy & Vitality", "tagline": "Feel Your Best", "icon": "🌿", "image_bg": "#EEF2E6" } },
+        { "type": "area", "settings": { "title": "Hormonal Balance", "tagline": "In Rhythm", "icon": "❀", "image_bg": "#FAEDD8" } },
+        { "type": "area", "settings": { "title": "Calm & Sleep", "tagline": "Rest Well", "icon": "☾", "image_bg": "#EAE5F5" } },
+        { "type": "area", "settings": { "title": "Gut & Digestion", "tagline": "Cleanse Within", "icon": "🍃", "image_bg": "#EEF2E6" } },
+        { "type": "area", "settings": { "title": "Skin & Glow", "tagline": "Natural Glow", "icon": "✦", "image_bg": "#FAEDD8" } },
+        { "type": "area", "settings": { "title": "Intimate Wellness", "tagline": "Feel Confident", "icon": "♡", "image_bg": "#EAE5F5" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

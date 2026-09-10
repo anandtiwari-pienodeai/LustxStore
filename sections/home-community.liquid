@@ -1,0 +1,240 @@
+{%- liquid
+  assign stats = section.blocks | where: 'type', 'stat'
+  assign cards = section.blocks | where: 'type', 'card'
+-%}
+
+<section class="home-sec home-community" id="{{ section.settings.anchor | default: 'community' }}" style="--h-sec-bg: {{ section.settings.bg_color }}; --h-pbs: {{ section.settings.padding_block_start }}px; --h-pbe: {{ section.settings.padding_block_end }}px;">
+  <div class="home-wrap">
+    <div class="home-community__head">
+      <div class="home-community__intro">
+        {%- if section.settings.eyebrow != blank -%}<p class="home-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="home-h2">{{ section.settings.heading }}</h2>{%- endif -%}
+        {%- if section.settings.body != blank -%}<p class="home-community__body">{{ section.settings.body }}</p>{%- endif -%}
+      </div>
+      {%- if stats.size > 0 -%}
+        <div class="home-community__stats">
+          {%- for block in stats -%}
+            <div class="home-community__stat" {{ block.shopify_attributes }}>
+              <span class="home-community__stat-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+              <span>
+                <span class="home-community__stat-value">{{ block.settings.value }}</span>
+                <span class="home-community__stat-label">{{ block.settings.label }}</span>
+              </span>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="home-community__grid home-hscroll">
+      {%- for block in cards -%}
+        <div class="home-community__card" style="--c-bg: {{ block.settings.bg }}; --c-border: {{ block.settings.border }};" {{ block.shopify_attributes }}>
+          <span class="home-community__card-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+          <h4 class="home-community__card-title">{{ block.settings.title }}</h4>
+          <p class="home-community__card-desc">{{ block.settings.description }}</p>
+          <div class="home-community__card-foot">
+            <a class="home-community__card-link" href="{{ block.settings.link | default: '#' }}">Learn more →</a>
+            <span class="home-community__card-arrow" aria-hidden="true">→</span>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .home-community__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 52px;
+    flex-wrap: wrap;
+  }
+
+  .home-community__intro { max-width: 600px; }
+
+  .home-community__body {
+    font-size: 14px;
+    color: var(--h-muted);
+    line-height: 1.7;
+    margin: 14px 0 0;
+  }
+
+  .home-community__stats {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .home-community__stat {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px 26px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 8px 22px rgba(80, 50, 40, 0.05);
+  }
+
+  .home-community__stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--h-pink-soft-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--h-accent);
+  }
+
+  .home-community__stat-value {
+    display: block;
+    font-family: var(--h-font-head);
+    font-size: 22px;
+    color: var(--h-accent);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .home-community__stat-label {
+    display: block;
+    font-size: 12px;
+    color: var(--h-muted-2);
+    margin-top: 2px;
+  }
+
+  .home-community__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+  }
+
+  .home-community__card {
+    background: var(--c-bg, #fff);
+    border: 1px solid var(--c-border, var(--h-line));
+    border-radius: 20px;
+    padding: 28px 22px;
+    box-shadow: 0 8px 22px rgba(80, 50, 40, 0.05);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .home-community__card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--h-pink-soft-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #8a3a4a;
+    margin-bottom: 20px;
+  }
+
+  .home-community__card-title {
+    font-family: var(--h-font-head);
+    font-size: 16px;
+    margin: 0 0 8px;
+    color: #2f1f22;
+  }
+
+  .home-community__card-desc {
+    font-size: 12.5px;
+    color: var(--h-muted-2);
+    line-height: 1.5;
+    margin: 0 0 18px;
+    flex: 1;
+  }
+
+  .home-community__card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .home-community__card-link {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--h-accent);
+    text-decoration: none;
+  }
+
+  .home-community__card-arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--h-pink-soft);
+    color: var(--h-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 1001px) and (max-width: 1240px) {
+    .home-community__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 750px) and (max-width: 1000px) {
+    .home-community__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Home — Community",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "community" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "You're Never Alone On Your Wellness Journey" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Join the BODY अर्क <em>Community</em></p>" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "BODY अर्क is more than a wellness program — it's a growing community built around education, consistency and everyday wellbeing." },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#FDF4EF" },
+    { "type": "range", "id": "padding_block_start", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 },
+    { "type": "range", "id": "padding_block_end", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "👥" },
+        { "type": "text", "id": "value", "label": "Value", "default": "25K+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Women & Growing" }
+      ]
+    },
+    {
+      "type": "card",
+      "name": "Community card",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "📚" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Wellness Hub" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Educational articles and guides for everyday wellbeing." },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "color", "id": "bg", "label": "Background", "default": "#FFFFFF" },
+        { "type": "color", "id": "border", "label": "Border", "default": "#F0E4DC" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home — Community",
+      "blocks": [
+        { "type": "stat", "settings": { "icon": "👥", "value": "25K+", "label": "Women & Growing" } },
+        { "type": "stat", "settings": { "icon": "📈", "value": "15K+", "label": "Journeys In Progress" } },
+        { "type": "card", "settings": { "icon": "📚", "title": "Wellness Hub", "description": "Educational articles and guides for everyday wellbeing." } },
+        { "type": "card", "settings": { "icon": "💬", "title": "Community Circle", "description": "Connect with women following the same daily ritual." } },
+        { "type": "card", "settings": { "icon": "🎯", "title": "Guided Journeys", "description": "Stay on track with gentle 45-day check-ins." } },
+        { "type": "card", "settings": { "icon": "🧑‍⚕️", "title": "Expert Answers", "description": "Ask questions and learn from wellness experts." } },
+        { "type": "card", "settings": { "icon": "📝", "title": "Ritual Journal", "description": "Track how you feel across your 45-day cycle." } },
+        { "type": "card", "settings": { "icon": "🎁", "title": "Member Perks", "description": "Early access and rewards for consistent members." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

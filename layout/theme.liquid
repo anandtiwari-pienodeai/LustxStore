@@ -42,6 +42,9 @@
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-palette' -%}
     {%- render 'arka-fonts' -%}
+    {%- if template.name == 'index' -%}
+      {%- render 'home-fonts' -%}
+    {%- endif -%}
 
     {% if request.design_mode %}
       {%- render 'theme-editor' -%}

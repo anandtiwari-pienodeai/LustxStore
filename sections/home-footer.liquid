@@ -1,0 +1,175 @@
+<section class="home-footer" id="{{ section.settings.anchor | default: 'faqs' }}" style="--h-pbs: {{ section.settings.padding_block_start }}px;">
+  <div class="home-footer__wrap">
+    <div class="home-footer__cols">
+      <div class="home-footer__brand">
+        <div class="home-footer__logo">{{ section.settings.brand_name }}</div>
+        {%- if section.settings.brand_suffix != blank -%}<div class="home-footer__suffix">{{ section.settings.brand_suffix }}</div>{%- endif -%}
+        {%- if section.settings.brand_blurb != blank -%}<p class="home-footer__blurb">{{ section.settings.brand_blurb }}</p>{%- endif -%}
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'menu' -%}
+          <div class="home-footer__col" {{ block.shopify_attributes }}>
+            <div class="home-footer__col-title">{{ block.settings.heading }}</div>
+            <div class="home-footer__links">{{ block.settings.links }}</div>
+          </div>
+        {%- elsif block.type == 'contact' -%}
+          <div class="home-footer__col" {{ block.shopify_attributes }}>
+            <div class="home-footer__col-title">{{ block.settings.heading }}</div>
+            {%- if block.settings.line1 != blank -%}<p class="home-footer__contact">{{ block.settings.line1 }}</p>{%- endif -%}
+            {%- if block.settings.line2 != blank -%}<p class="home-footer__contact">{{ block.settings.line2 }}</p>{%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="home-footer__bar">
+      <span class="home-footer__copy">{{ section.settings.copyright }}</span>
+      {%- if section.settings.tagline != blank -%}<span class="home-footer__tagline">{{ section.settings.tagline }}</span>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .home-footer {
+    background: var(--h-footer-bg);
+    color: #e6dfc9;
+    font-family: var(--h-font-body);
+    padding: var(--h-pbs, 56px) clamp(20px, 5vw, 48px) 28px;
+  }
+
+  .home-footer__wrap {
+    max-width: var(--h-max);
+    margin-inline: auto;
+  }
+
+  .home-footer__cols {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+
+  .home-footer__logo {
+    font-family: var(--h-font-head);
+    font-weight: 700;
+    font-size: 20px;
+    color: #fff;
+  }
+
+  .home-footer__suffix {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--h-accent);
+    margin: 2px 0 16px;
+  }
+
+  .home-footer__blurb {
+    font-size: 12px;
+    color: #a8949c;
+    line-height: 1.6;
+    max-width: 220px;
+    margin: 0;
+  }
+
+  .home-footer__col-title {
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--h-accent);
+    margin-bottom: 14px;
+  }
+
+  .home-footer__links a {
+    display: block;
+    color: #c9b8bd;
+    text-decoration: none;
+    font-size: 12.5px;
+    margin-bottom: 10px;
+  }
+
+  .home-footer__links a:hover { color: #fff; }
+  .home-footer__links p { margin: 0 0 10px; }
+
+  .home-footer__contact {
+    font-size: 12px;
+    color: #c9b8bd;
+    margin: 0 0 8px;
+  }
+
+  .home-footer__bar {
+    border-top: 1px solid #3a2530;
+    padding-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .home-footer__copy { font-size: 12px; color: #8a747c; }
+
+  .home-footer__tagline {
+    font-family: var(--h-font-head);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--h-accent);
+  }
+
+  @media (max-width: 900px) {
+    .home-footer__cols { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 520px) {
+    .home-footer__cols { grid-template-columns: 1fr; gap: 24px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Home — Footer",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "faqs" },
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "BODY अर्क" },
+    { "type": "text", "id": "brand_suffix", "label": "Brand suffix", "default": "WOMEN" },
+    { "type": "textarea", "id": "brand_blurb", "label": "Brand blurb", "default": "Thoughtfully designed wellness experiences inspired by nature, guided by science." },
+    { "type": "text", "id": "copyright", "label": "Copyright", "default": "© 2026 BODY अर्क. Marketed by Lust Xstore Pvt. Ltd. All Rights Reserved." },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Because Wellness Isn't A Destination. It's A Way Of Living." },
+    { "type": "range", "id": "padding_block_start", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Explore" },
+        { "type": "richtext", "id": "links", "label": "Links", "default": "<p><a href='/'>Shop</a></p><p><a href='/'>Wellness Hub</a></p>" }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Contact" },
+        { "type": "text", "id": "line1", "label": "Line 1", "default": "support@bodyark.in" },
+        { "type": "text", "id": "line2", "label": "Line 2", "default": "Mon–Sat, 10am–6pm" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Home — Footer",
+      "blocks": [
+        { "type": "menu", "settings": { "heading": "Explore", "links": "<p><a href='/'>BODY अर्क Women</a></p><p><a href='/'>BODY अर्क Men</a></p><p><a href='/'>Shop</a></p><p><a href='/'>Wellness Hub</a></p>" } },
+        { "type": "menu", "settings": { "heading": "Support", "links": "<p><a href='/'>FAQs</a></p><p><a href='/'>Shipping Policy</a></p><p><a href='/'>Returns & Refunds</a></p><p><a href='/'>Contact Us</a></p>" } },
+        { "type": "menu", "settings": { "heading": "Company", "links": "<p><a href='/'>About BODY अर्क</a></p><p><a href='/'>Privacy Policy</a></p><p><a href='/'>Terms & Conditions</a></p>" } },
+        { "type": "contact", "settings": { "heading": "Contact", "line1": "support@bodyark.in", "line2": "Mon–Sat, 10am–6pm" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

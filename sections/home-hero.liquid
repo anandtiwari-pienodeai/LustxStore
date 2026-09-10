@@ -1,0 +1,523 @@
+{%- liquid
+  assign trust = section.blocks | where: 'type', 'trust'
+  assign chips = section.blocks | where: 'type', 'moment_chip'
+  assign stats = section.blocks | where: 'type', 'stat'
+-%}
+
+<section class="home-sec home-hero" style="--h-sec-bg: {{ section.settings.bg_color }}; --h-pbs: {{ section.settings.padding_block_start }}px; --h-pbe: {{ section.settings.padding_block_end }}px;">
+  <span class="home-hero__leaf home-hero__leaf--1" aria-hidden="true">🌿</span>
+  <span class="home-hero__leaf home-hero__leaf--2" aria-hidden="true">🌿</span>
+
+  <div class="home-wrap">
+    <div class="home-hero__grid">
+      <div class="home-hero__col">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="home-eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h1 class="home-hero__title">{{ section.settings.heading }}</h1>
+        {%- endif -%}
+        {%- if section.settings.body != blank -%}
+          <div class="home-hero__body">{{ section.settings.body }}</div>
+        {%- endif -%}
+
+        {%- if trust.size > 0 -%}
+          <div class="home-hero__trust">
+            {%- for block in trust -%}
+              <div class="home-hero__trust-item" {{ block.shopify_attributes }}>
+                <span class="home-hero__trust-icon">{{ block.settings.icon }}</span>
+                <span class="home-hero__trust-label">{{ block.settings.label }}</span>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <div class="home-hero__cta">
+          {%- if section.settings.cta_primary_label != blank -%}
+            <a class="home-btn" href="{{ section.settings.cta_primary_link | default: '#' }}">{{ section.settings.cta_primary_label }}</a>
+          {%- endif -%}
+          {%- if section.settings.cta_secondary_label != blank -%}
+            <a class="home-btn home-btn--ghost" href="{{ section.settings.cta_secondary_link | default: '#' }}">{{ section.settings.cta_secondary_label }}</a>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.quote != blank -%}
+          <div class="home-hero__quote">
+            <span class="home-hero__quote-line" aria-hidden="true"></span>
+            <p>{{ section.settings.quote }}</p>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="home-hero__col">
+        <div class="home-hero__card">
+          {%- assign hero_alt = section.settings.image.alt | default: 'BODY अर्क Women' | escape -%}
+          <div class="home-hero__media">
+            {%- if section.settings.image -%}
+              {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'eager', sizes: '(min-width: 900px) 55vw, 100vw', widths: '500, 700, 900, 1100, 1200', alt: hero_alt }}
+            {%- else -%}
+              {{ 'hero-apparel-1' | placeholder_svg_tag: 'home-hero__ph' }}
+            {%- endif -%}
+          </div>
+
+          {%- if section.settings.script_top != blank -%}
+            <span class="home-hero__script home-hero__script--tl">{{ section.settings.script_top }}</span>
+          {%- endif -%}
+
+          {%- if chips.size > 0 -%}
+            <div class="home-hero__chips">
+              {%- for block in chips -%}
+                <div class="home-hero__chip" style="--chip-bg: {{ block.settings.bg }}; --chip-fg: {{ block.settings.accent }};" {{ block.shopify_attributes }}>
+                  <span class="home-hero__chip-icon">{{ block.settings.icon }}</span>
+                  <span>
+                    <span class="home-hero__chip-name">{{ block.settings.name }}</span>
+                    <span class="home-hero__chip-note">{{ block.settings.note }}</span>
+                  </span>
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.badge_number != blank -%}
+            <div class="home-hero__badge">
+              <span class="home-hero__badge-num">{{ section.settings.badge_number }}</span>
+              <span class="home-hero__badge-text">{{ section.settings.badge_text }}</span>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.script_bottom != blank -%}
+            <span class="home-hero__script home-hero__script--br">{{ section.settings.script_bottom }}</span>
+          {%- endif -%}
+
+          {%- if stats.size > 0 -%}
+            <div class="home-hero__statbar">
+              {%- for block in stats -%}
+                <div class="home-hero__stat" {{ block.shopify_attributes }}>
+                  <span class="home-hero__stat-icon">{{ block.settings.icon }}</span>
+                  <span class="home-hero__stat-label">{{ block.settings.label }}</span>
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    {%- if section.settings.philosophy_body != blank or section.settings.philosophy_quote != blank -%}
+      <div class="home-hero__philosophy">
+        {%- if section.settings.philosophy_eyebrow != blank -%}
+          <p class="home-eyebrow">{{ section.settings.philosophy_eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.philosophy_body != blank -%}
+          <p class="home-hero__phil-body">{{ section.settings.philosophy_body }}</p>
+        {%- endif -%}
+        {%- if section.settings.philosophy_quote != blank -%}
+          <p class="home-hero__phil-quote">{{ section.settings.philosophy_quote }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .home-hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .home-hero__leaf {
+    position: absolute;
+    color: #c6d4b0;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .home-hero__leaf--1 {
+    top: -30px;
+    right: 60px;
+    font-size: 160px;
+    opacity: 0.35;
+    transform: rotate(25deg);
+  }
+
+  .home-hero__leaf--2 {
+    bottom: 10px;
+    left: 20px;
+    font-size: 90px;
+    opacity: 0.3;
+    transform: rotate(-15deg);
+  }
+
+  .home-hero__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(2rem, 5vw, 64px);
+    align-items: center;
+  }
+
+  .home-hero__title {
+    font-family: var(--h-font-head);
+    font-weight: 600;
+    font-size: clamp(34px, 4.4vw, 54px);
+    line-height: 1.14;
+    letter-spacing: -0.01em;
+    margin: 0 0 24px;
+    color: var(--h-green-deep);
+  }
+
+  .home-hero__title em {
+    color: var(--h-accent);
+    font-style: italic;
+  }
+
+  .home-hero__body {
+    font-size: 15.5px;
+    line-height: 1.8;
+    color: var(--h-muted);
+    max-width: 440px;
+    margin: 0 0 30px;
+  }
+
+  .home-hero__body :first-child { margin-top: 0; }
+  .home-hero__body :last-child { margin-bottom: 0; }
+
+  .home-hero__trust {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 440px;
+    margin-bottom: 28px;
+  }
+
+  .home-hero__trust-item {
+    text-align: center;
+  }
+
+  .home-hero__trust-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    box-shadow: 0 6px 16px rgba(80, 50, 40, 0.08);
+  }
+
+  .home-hero__trust-label {
+    display: block;
+    font-size: 11px;
+    color: var(--h-muted);
+    line-height: 1.3;
+  }
+
+  .home-hero__cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+  }
+
+  .home-hero__quote {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .home-hero__quote-line {
+    width: 32px;
+    height: 1.5px;
+    background: var(--h-accent);
+    flex-shrink: 0;
+  }
+
+  .home-hero__quote p {
+    font-family: var(--h-font-head);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--h-muted);
+    margin: 0;
+  }
+
+  /* image card */
+  .home-hero__card {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    aspect-ratio: 1.06 / 1;
+    background: linear-gradient(160deg, #f6e6de, #ecd3c6);
+    box-shadow: 0 30px 70px rgba(109, 51, 69, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .home-hero__media,
+  .home-hero__media img,
+  .home-hero__media svg,
+  .home-hero__ph {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .home-hero__script {
+    position: absolute;
+    font-family: var(--h-font-script);
+    font-weight: 700;
+    line-height: 1.15;
+    z-index: 3;
+  }
+
+  .home-hero__script--tl {
+    top: 22px;
+    left: 26px;
+    font-size: 26px;
+    color: #8a3a4a;
+  }
+
+  .home-hero__script--br {
+    bottom: 96px;
+    right: 10px;
+    font-size: 18px;
+    color: var(--h-muted);
+    background: #fff;
+    padding: 10px 14px;
+    border-radius: 10px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 150px;
+  }
+
+  .home-hero__chips {
+    position: absolute;
+    top: 52px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 172px;
+    z-index: 3;
+  }
+
+  .home-hero__chip {
+    background: var(--chip-bg, rgba(255, 255, 255, 0.95));
+    border-radius: 12px;
+    padding: 10px 14px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .home-hero__chip-name {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--chip-fg, var(--h-green-deep));
+  }
+
+  .home-hero__chip-note {
+    display: block;
+    font-size: 10px;
+    color: var(--h-muted);
+  }
+
+  .home-hero__badge {
+    position: absolute;
+    top: 210px;
+    right: 6px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #fbe0e8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    z-index: 4;
+  }
+
+  .home-hero__badge-num {
+    font-family: var(--h-font-head);
+    font-weight: 700;
+    font-size: 17px;
+    color: #8a3a4a;
+  }
+
+  .home-hero__badge-text {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #8a3a4a;
+  }
+
+  .home-hero__statbar {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 18px;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 18px;
+    padding: 16px 8px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    box-shadow: 0 16px 34px rgba(80, 50, 40, 0.14);
+    z-index: 3;
+  }
+
+  .home-hero__stat {
+    text-align: center;
+  }
+
+  .home-hero__stat-icon {
+    font-size: 16px;
+  }
+
+  .home-hero__stat-label {
+    display: block;
+    font-size: 10.5px;
+    color: var(--h-ink);
+    margin-top: 4px;
+    line-height: 1.3;
+  }
+
+  .home-hero__philosophy {
+    max-width: 1000px;
+    margin: clamp(2.5rem, 6vw, 64px) auto 0;
+    background: var(--h-pink-soft);
+    border-radius: 24px;
+    padding: clamp(1.75rem, 4vw, 36px) clamp(1.5rem, 5vw, 44px);
+    text-align: center;
+  }
+
+  .home-hero__phil-body {
+    font-size: 15px;
+    color: #5c4c50;
+    margin: 8px 0;
+  }
+
+  .home-hero__phil-quote {
+    font-family: var(--h-font-head);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--h-accent-bright);
+    margin: 0;
+  }
+
+  @media (max-width: 899px) {
+    .home-hero__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .home-hero__card {
+      aspect-ratio: 3 / 4;
+      max-height: 560px;
+    }
+
+    .home-hero__leaf--1 { font-size: 110px; right: 10px; }
+  }
+
+  @media (max-width: 560px) {
+    .home-hero__trust {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .home-hero__cta .home-btn {
+      flex: 1 1 100%;
+      justify-content: center;
+    }
+
+    .home-hero__chips { width: 150px; top: 16px; right: 14px; }
+    .home-hero__badge { top: auto; bottom: 130px; }
+    .home-hero__script--br { display: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Home — Hero",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Designed For Modern Women" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>When Life Moves Fast, <em>Your Wellbeing Deserves</em> a Moment.</p>" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Modern life asks women to balance careers, relationships, responsibilities and personal ambitions every single day. BODY अर्क WOMEN makes everyday wellness simple, structured and sustainable through a guided Morning · Afternoon · Evening routine.</p>" },
+    { "type": "text", "id": "cta_primary_label", "label": "Primary button", "default": "Begin Your 45-Day Journey →" },
+    { "type": "url", "id": "cta_primary_link", "label": "Primary link" },
+    { "type": "text", "id": "cta_secondary_label", "label": "Secondary button", "default": "Explore The Program" },
+    { "type": "url", "id": "cta_secondary_link", "label": "Secondary link" },
+    { "type": "text", "id": "quote", "label": "Quote", "default": "\"A stronger, calmer, happier you. Every day.\"" },
+
+    { "type": "header", "content": "Image card" },
+    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "text", "id": "script_top", "label": "Handwritten note (top-left)", "default": "Good Habits Brighter Days" },
+    { "type": "text", "id": "script_bottom", "label": "Handwritten note (bottom-right)", "default": "Small Rituals Big Change" },
+    { "type": "text", "id": "badge_number", "label": "Badge number", "default": "45" },
+    { "type": "text", "id": "badge_text", "label": "Badge text", "default": "DAY SYSTEM" },
+
+    { "type": "header", "content": "Philosophy card" },
+    { "type": "text", "id": "philosophy_eyebrow", "label": "Eyebrow", "default": "Our Wellness Philosophy" },
+    { "type": "text", "id": "philosophy_body", "label": "Line 1", "default": "True wellness is built through small, consistent daily rituals rather than occasional efforts." },
+    { "type": "textarea", "id": "philosophy_quote", "label": "Line 2 (italic)", "default": "Every carefully designed wellness moment supports your journey towards feeling more balanced, confident and connected with yourself." },
+
+    { "type": "header", "content": "Style" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#FDF4EF" },
+    { "type": "range", "id": "padding_block_start", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 88 },
+    { "type": "range", "id": "padding_block_end", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "Trust badge",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon (emoji)", "default": "🌿" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Natural Ingredients" }
+      ]
+    },
+    {
+      "type": "moment_chip",
+      "name": "Moment chip",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "☼" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Morning" },
+        { "type": "text", "id": "note", "label": "Note", "default": "Energy & Focus" },
+        { "type": "color", "id": "bg", "label": "Background", "default": "#EEF2E6" },
+        { "type": "color", "id": "accent", "label": "Text", "default": "#3D4F2E" }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Bottom stat",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "❀" },
+        { "type": "text", "id": "label", "label": "Label", "default": "More Energy For Your Day" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Home — Hero",
+      "blocks": [
+        { "type": "trust", "settings": { "icon": "🌿", "label": "Natural Ingredients" } },
+        { "type": "trust", "settings": { "icon": "❀", "label": "Holistic Wellness" } },
+        { "type": "trust", "settings": { "icon": "🛡", "label": "Trusted & Safe" } },
+        { "type": "trust", "settings": { "icon": "♡", "label": "Made for Modern Women" } },
+        { "type": "moment_chip", "settings": { "icon": "☼", "name": "Morning", "note": "Energy & Focus", "bg": "#EEF2E6", "accent": "#3D4F2E" } },
+        { "type": "moment_chip", "settings": { "icon": "☀", "name": "Afternoon", "note": "Balance & Vitality", "bg": "#FAEDD8", "accent": "#8A4E1F" } },
+        { "type": "moment_chip", "settings": { "icon": "☾", "name": "Evening", "note": "Calm & Restore", "bg": "#EAE5F5", "accent": "#463178" } },
+        { "type": "stat", "settings": { "icon": "❀", "label": "More Energy For Your Day" } },
+        { "type": "stat", "settings": { "icon": "♥", "label": "Better Balance In Your Life" } },
+        { "type": "stat", "settings": { "icon": "🌿", "label": "Healthier Habits That Last" } },
+        { "type": "stat", "settings": { "icon": "☼", "label": "A Brighter You" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

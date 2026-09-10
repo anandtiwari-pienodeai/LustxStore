@@ -1,0 +1,339 @@
+<section class="home-sec home-moments" id="{{ section.settings.anchor | default: 'program' }}" style="--h-sec-bg: {{ section.settings.bg_color }}; --h-pbs: {{ section.settings.padding_block_start }}px; --h-pbe: {{ section.settings.padding_block_end }}px;">
+  <div class="home-wrap">
+    <div class="home-sec__head">
+      {%- if section.settings.eyebrow != blank -%}<p class="home-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="home-h2">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.subtext != blank -%}<p class="home-moments__sub">{{ section.settings.subtext }}</p>{%- endif -%}
+    </div>
+
+    <div class="home-moments__grid home-hscroll">
+      {%- for block in section.blocks -%}
+        {%- assign m_alt = block.settings.title | escape -%}
+        <details class="home-moment" style="--m-accent: {{ block.settings.accent }}; --m-border: {{ block.settings.border }}; --m-soft: {{ block.settings.soft_bg }};" {{ block.shopify_attributes }}>
+          <summary class="home-moment__summary">
+            <div class="home-moment__media" style="--m-grad1: {{ block.settings.grad_from }}; --m-grad2: {{ block.settings.grad_to }};">
+              {%- if block.settings.image -%}
+                {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '(min-width: 900px) 30vw, 80vw', widths: '260, 400, 520, 600', alt: m_alt, class: 'home-moment__img' }}
+              {%- endif -%}
+              <span class="home-moment__badge" aria-hidden="true">{{ block.settings.icon }}</span>
+            </div>
+            <div class="home-moment__body">
+              <h4 class="home-moment__title">{{ block.settings.title }}</h4>
+              <p class="home-moment__tags">{{ block.settings.tags }}</p>
+              <div class="home-moment__toggle">
+                <span>{{ block.settings.toggle_label | default: "What's inside" }}</span>
+                <span class="home-moment__sign" aria-hidden="true"></span>
+              </div>
+            </div>
+          </summary>
+          <div class="home-moment__reveal">
+            {%- if block.settings.detail != blank -%}<p>{{ block.settings.detail }}</p>{%- endif -%}
+            <div class="home-moment__inside">
+              <span><strong>Inside:</strong> {{ block.settings.inside }}</span>
+              <span>{{ block.settings.dose }}</span>
+            </div>
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.card1_heading != blank or section.settings.card2_body != blank -%}
+      <div class="home-moments__notes">
+        <div class="home-moments__note">
+          {%- if section.settings.card1_heading != blank -%}<h4>{{ section.settings.card1_heading }}</h4>{%- endif -%}
+          {%- if section.settings.card1_italic != blank -%}<p class="home-moments__note-italic">{{ section.settings.card1_italic }}</p>{%- endif -%}
+          <div class="home-moments__note-cols">
+            {%- if section.settings.card1_col1 != blank -%}<p style="color: var(--h-morning);">{{ section.settings.card1_col1 }}</p>{%- endif -%}
+            {%- if section.settings.card1_col2 != blank -%}<p style="color: var(--h-afternoon-dark);">{{ section.settings.card1_col2 }}</p>{%- endif -%}
+            {%- if section.settings.card1_col3 != blank -%}<p style="color: var(--h-evening-dark);">{{ section.settings.card1_col3 }}</p>{%- endif -%}
+          </div>
+          {%- if section.settings.card1_footer != blank -%}<p class="home-moments__note-foot">{{ section.settings.card1_footer }}</p>{%- endif -%}
+        </div>
+        <div class="home-moments__note home-moments__note--cta">
+          {%- if section.settings.card2_body != blank -%}<p class="home-moments__note-italic">{{ section.settings.card2_body }}</p>{%- endif -%}
+          <div class="home-moments__note-btns">
+            {%- if section.settings.card2_cta1 != blank -%}<a class="home-btn" href="{{ section.settings.card2_cta1_link | default: '#' }}">{{ section.settings.card2_cta1 }}</a>{%- endif -%}
+            {%- if section.settings.card2_cta2 != blank -%}<a class="home-btn home-btn--ghost" href="{{ section.settings.card2_cta2_link | default: '#' }}">{{ section.settings.card2_cta2 }}</a>{%- endif -%}
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .home-moments__sub {
+    font-size: 14px;
+    color: var(--h-muted-2);
+    max-width: 640px;
+    margin: 14px auto 0;
+  }
+
+  .home-moments__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-bottom: 44px;
+  }
+
+  .home-moment {
+    border-radius: 24px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--m-border, var(--h-line));
+    box-shadow: 0 10px 28px rgba(80, 50, 40, 0.06);
+  }
+
+  .home-moment__summary {
+    cursor: pointer;
+    list-style: none;
+    display: block;
+  }
+
+  .home-moment__summary::-webkit-details-marker { display: none; }
+
+  .home-moment__media {
+    position: relative;
+    height: 300px;
+    background: linear-gradient(160deg, var(--m-grad1, #eef2e6), var(--m-grad2, #dbe4cc));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .home-moment__img {
+    width: 60%;
+    max-width: 190px;
+    object-fit: contain;
+  }
+
+  .home-moment__badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--m-accent, var(--h-accent));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .home-moment__body {
+    padding: 28px;
+  }
+
+  .home-moment__title {
+    font-family: var(--h-font-head);
+    font-size: 22px;
+    margin: 0 0 8px;
+    color: var(--m-accent, var(--h-green-deep));
+  }
+
+  .home-moment__tags {
+    font-size: 13px;
+    color: var(--h-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .home-moment__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--m-accent, var(--h-green-deep));
+  }
+
+  .home-moment__sign {
+    position: relative;
+    width: 12px;
+    height: 12px;
+  }
+
+  .home-moment__sign::before,
+  .home-moment__sign::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+    inset: 0;
+    margin: auto;
+  }
+
+  .home-moment__sign::before { width: 100%; height: 2px; }
+  .home-moment__sign::after { width: 2px; height: 100%; transition: transform 0.2s ease; }
+  .home-moment[open] .home-moment__sign::after { transform: scaleY(0); }
+
+  .home-moment__reveal {
+    padding: 0 28px 28px;
+  }
+
+  .home-moment__reveal p {
+    font-size: 13px;
+    color: var(--h-muted);
+    line-height: 1.65;
+    margin: 0 0 12px;
+  }
+
+  .home-moment__inside {
+    background: var(--m-soft, #f3f7ee);
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--m-accent, var(--h-green-deep));
+  }
+
+  .home-moments__notes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .home-moments__note {
+    border: 1px solid var(--h-line);
+    border-radius: 20px;
+    padding: 28px;
+  }
+
+  .home-moments__note h4 {
+    font-family: var(--h-font-head);
+    font-size: 17px;
+    margin: 0 0 6px;
+    color: var(--h-green-deep);
+  }
+
+  .home-moments__note-italic {
+    font-family: var(--h-font-head);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--h-accent);
+    margin: 0 0 16px;
+  }
+
+  .home-moments__note-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
+  .home-moments__note-cols p {
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .home-moments__note-foot {
+    font-size: 12px;
+    color: var(--h-muted-2);
+    margin: 0;
+  }
+
+  .home-moments__note--cta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .home-moments__note--cta .home-moments__note-italic {
+    color: #3d322f;
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .home-moments__note-btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 750px) and (max-width: 1000px) {
+    .home-moments__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 860px) {
+    .home-moments__notes { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 560px) {
+    .home-moments__note-cols { grid-template-columns: 1fr; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Home — Three moments",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "program" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "One Simple Routine. Three Daily Wellness Moments." },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>One Day. One Ritual. <em>One Complete Wellness Program.</em></p>" },
+    { "type": "text", "id": "subtext", "label": "Subtext", "default": "Tap a moment to see what's inside." },
+
+    { "type": "header", "content": "Info card — left" },
+    { "type": "text", "id": "card1_heading", "label": "Heading", "default": "Why Morning · Afternoon · Evening?" },
+    { "type": "text", "id": "card1_italic", "label": "Italic line", "default": "Designed Around Your Daily Rhythm." },
+    { "type": "text", "id": "card1_col1", "label": "Column 1", "default": "Morning helps establish your daily foundation." },
+    { "type": "text", "id": "card1_col2", "label": "Column 2", "default": "Afternoon helps you stay consistent throughout your day." },
+    { "type": "text", "id": "card1_col3", "label": "Column 3", "default": "Evening completes your ritual with a calm, structured finish." },
+    { "type": "textarea", "id": "card1_footer", "label": "Footer line", "default": "By following the same rhythm each day, wellness can become a habit rather than another task." },
+
+    { "type": "header", "content": "Info card — right (CTA)" },
+    { "type": "textarea", "id": "card2_body", "label": "Body", "default": "A structured wellness routine is easier to follow, easier to remember and easier to maintain." },
+    { "type": "text", "id": "card2_cta1", "label": "Button 1", "default": "Explore Your 45-Day Journey →" },
+    { "type": "url", "id": "card2_cta1_link", "label": "Button 1 link" },
+    { "type": "text", "id": "card2_cta2", "label": "Button 2", "default": "Discover What's Inside" },
+    { "type": "url", "id": "card2_cta2_link", "label": "Button 2 link" },
+
+    { "type": "header", "content": "Style" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#FFFFFF" },
+    { "type": "range", "id": "padding_block_start", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 },
+    { "type": "range", "id": "padding_block_end", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 }
+  ],
+  "blocks": [
+    {
+      "type": "moment",
+      "name": "Moment",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Sachet image" },
+        { "type": "text", "id": "icon", "label": "Icon", "default": "☀" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Morning Balance" },
+        { "type": "text", "id": "tags", "label": "Tags line", "default": "Cleanse Within · Stay Active" },
+        { "type": "text", "id": "toggle_label", "label": "Toggle label", "default": "What's inside" },
+        { "type": "textarea", "id": "detail", "label": "Detail paragraph", "default": "Begin your day with a wellness ritual designed to establish consistency and create the foundation of your daily routine." },
+        { "type": "text", "id": "inside", "label": "Inside (contents)", "default": "Gut Prime, Hormone Balance" },
+        { "type": "text", "id": "dose", "label": "Dose", "default": "2 tablets" },
+        { "type": "color", "id": "accent", "label": "Accent", "default": "#3D4F2E" },
+        { "type": "color", "id": "border", "label": "Card border", "default": "#DBE4CC" },
+        { "type": "color", "id": "soft_bg", "label": "Detail background", "default": "#F3F7EE" },
+        { "type": "color", "id": "grad_from", "label": "Gradient from", "default": "#EEF2E6" },
+        { "type": "color", "id": "grad_to", "label": "Gradient to", "default": "#DBE4CC" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Home — Three moments",
+      "blocks": [
+        { "type": "moment", "settings": { "title": "Morning Balance", "icon": "☀", "tags": "Cleanse Within · Stay Active", "inside": "Gut Prime, Hormone Balance", "dose": "2 tablets", "accent": "#3D4F2E", "border": "#DBE4CC", "soft_bg": "#F3F7EE", "grad_from": "#EEF2E6", "grad_to": "#DBE4CC" } },
+        { "type": "moment", "settings": { "title": "Afternoon Glow", "icon": "☀", "tags": "Healthy Sugars · Hormonal Harmony", "detail": "Continue your wellness routine with formulations designed to complement your active lifestyle and support feminine wellbeing.", "inside": "Fertility Support, Femme Desire", "dose": "2 tablets", "accent": "#8A4E1F", "border": "#F3D9AE", "soft_bg": "#FDF3E2", "grad_from": "#FAEDD8", "grad_to": "#F3D9AE" } },
+        { "type": "moment", "settings": { "title": "Evening Restore", "icon": "☾", "tags": "Stress Relief · Better Sleep", "detail": "Complete your day with a calming wellness ritual focused on healthy intimate flora and overnight restoration.", "inside": "Intimate Flora", "dose": "1 tablet", "accent": "#463178", "border": "#D3C6EC", "soft_bg": "#F3F0FA", "grad_from": "#EAE5F5", "grad_to": "#D3C6EC" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

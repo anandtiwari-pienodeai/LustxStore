@@ -1,0 +1,165 @@
+<section class="home-sec home-kit" id="{{ section.settings.anchor | default: 'kit' }}" style="--h-sec-bg: {{ section.settings.bg_color }}; --h-pbs: {{ section.settings.padding_block_start }}px; --h-pbe: {{ section.settings.padding_block_end }}px;">
+  <div class="home-wrap">
+    <div class="home-sec__head">
+      {%- if section.settings.eyebrow != blank -%}<p class="home-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="home-h2">{{ section.settings.heading }}</h2>{%- endif -%}
+    </div>
+
+    <hr class="home-rule" style="background: var(--h-afternoon); margin-top: 24px;">
+    <h3 class="home-kicker">{{ section.settings.kicker }}</h3>
+
+    <div class="home-kit__grid home-hscroll">
+      {%- for block in section.blocks -%}
+        <div class="home-kit__card" {{ block.shopify_attributes }}>
+          <div class="home-kit__top">
+            <span class="home-kit__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+            {%- if block.settings.badge != blank -%}
+              <span class="home-kit__badge">{{ block.settings.badge }}</span>
+            {%- endif -%}
+          </div>
+          <h4 class="home-kit__title">{{ block.settings.title }}</h4>
+          <p class="home-kit__desc">{{ block.settings.description }}</p>
+          <div class="home-kit__foot">
+            <a class="home-kit__link" href="{{ block.settings.link | default: '#' }}">Learn more →</a>
+            <span class="home-kit__arrow" aria-hidden="true">→</span>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .home-kit .home-kicker { margin-bottom: 32px; }
+
+  .home-kit__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .home-kit__card {
+    background: #fff;
+    border: 1px solid var(--h-line);
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: 0 8px 22px rgba(80, 50, 40, 0.05);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .home-kit__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+
+  .home-kit__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--h-pink-soft);
+    color: var(--h-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .home-kit__badge {
+    background: var(--h-pink-soft-2);
+    color: var(--h-accent-dark);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 11px;
+    border-radius: 999px;
+  }
+
+  .home-kit__title {
+    font-family: var(--h-font-head);
+    font-size: 19px;
+    margin: 0 0 8px;
+    color: #2f1f22;
+  }
+
+  .home-kit__desc {
+    font-size: 12.5px;
+    color: var(--h-muted-2);
+    line-height: 1.55;
+    margin: 0 0 18px;
+    flex: 1;
+  }
+
+  .home-kit__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .home-kit__link {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--h-accent);
+    text-decoration: none;
+  }
+
+  .home-kit__arrow {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--h-pink-soft);
+    color: var(--h-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+  }
+
+  @media (min-width: 750px) and (max-width: 1000px) {
+    .home-kit__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Home — Inside the kit",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "kit" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Designed Around Your Daily Ritual" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>A Wellness Experience, <em>Thoughtfully Designed Around You.</em></p>" },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Inside Your Wellness Experience" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#FDF4EF" },
+    { "type": "range", "id": "padding_block_start", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 },
+    { "type": "range", "id": "padding_block_end", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Kit item",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "🌿" },
+        { "type": "text", "id": "badge", "label": "Badge", "default": "01" },
+        { "type": "text", "id": "title", "label": "Title", "default": "45 Daily Pouches" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "A full 45-day supply, pre-sorted so you never miss a moment." },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Home — Inside the kit",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "🗓", "badge": "01", "title": "45 Daily Pouches", "description": "A full 45-day supply, pre-sorted so you never miss a moment." } },
+        { "type": "item", "settings": { "icon": "☀", "badge": "02", "title": "Morning Balance", "description": "Gut Prime + Hormone Balance to start the day steady." } },
+        { "type": "item", "settings": { "icon": "❀", "badge": "03", "title": "Afternoon Glow", "description": "Fertility Support + Femme Desire for midday harmony." } },
+        { "type": "item", "settings": { "icon": "☾", "badge": "04", "title": "Evening Restore", "description": "Intimate Flora for calm, overnight restoration." } },
+        { "type": "item", "settings": { "icon": "📖", "badge": "05", "title": "Ritual Guide", "description": "A simple booklet to help the routine become a habit." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

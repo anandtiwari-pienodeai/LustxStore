@@ -1,0 +1,240 @@
+{%- liquid
+  assign phases = section.blocks | where: 'type', 'phase'
+  assign milestones = section.blocks | where: 'type', 'milestone'
+-%}
+
+<section class="home-sec home-journey" id="{{ section.settings.anchor | default: 'journey' }}" style="--h-sec-bg: {{ section.settings.bg_color }}; --h-pbs: {{ section.settings.padding_block_start }}px; --h-pbe: {{ section.settings.padding_block_end }}px;">
+  <div class="home-wrap">
+    <div class="home-sec__head">
+      {%- if section.settings.eyebrow != blank -%}<p class="home-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="home-h2">{{ section.settings.heading }}</h2>{%- endif -%}
+    </div>
+
+    <h3 class="home-kicker home-journey__kicker">{{ section.settings.kicker }}</h3>
+
+    <div class="home-journey__phases home-hscroll">
+      {%- for block in phases -%}
+        <div class="home-journey__phase" style="--p-bg: {{ block.settings.bg }}; --p-badge: {{ block.settings.badge_bg }}; --p-text: {{ block.settings.text_color }}; --p-muted: {{ block.settings.muted_color }};" {{ block.shopify_attributes }}>
+          <div class="home-journey__phase-top">
+            <span class="home-journey__phase-badge">{{ block.settings.range }}</span>
+            <span class="home-journey__phase-days">{{ block.settings.range_label }}</span>
+          </div>
+          <h4 class="home-journey__phase-title">{{ block.settings.title }}</h4>
+          <p class="home-journey__phase-desc">{{ block.settings.description }}</p>
+          <div class="home-journey__phase-foot">
+            <span class="home-journey__phase-tags">{{ block.settings.tags }}</span>
+            <span class="home-journey__phase-arrow" aria-hidden="true">→</span>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if milestones.size > 0 -%}
+      <div class="home-journey__milestones home-hscroll">
+        {%- for block in milestones -%}
+          <div class="home-journey__milestone" {{ block.shopify_attributes }}>
+            <span class="home-journey__milestone-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+            <h4 class="home-journey__milestone-title">{{ block.settings.title }}</h4>
+            <p class="home-journey__milestone-desc">{{ block.settings.description }}</p>
+            <a class="home-journey__milestone-link" href="{{ block.settings.link | default: '#' }}">Learn more →</a>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .home-journey__kicker {
+    margin-bottom: 36px;
+  }
+
+  .home-journey__phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .home-journey__phase {
+    border-radius: 22px;
+    padding: 28px;
+    background: var(--p-bg, var(--h-pink-soft));
+    overflow: hidden;
+  }
+
+  .home-journey__phase-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .home-journey__phase-badge {
+    background: var(--p-badge, var(--h-accent));
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+
+  .home-journey__phase-days {
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--p-text, var(--h-green-deep));
+  }
+
+  .home-journey__phase-title {
+    font-family: var(--h-font-head);
+    font-size: 22px;
+    margin: 0 0 12px;
+    color: var(--p-text, var(--h-green-deep));
+    line-height: 1.2;
+  }
+
+  .home-journey__phase-desc {
+    font-size: 13px;
+    color: var(--p-muted, var(--h-muted));
+    line-height: 1.6;
+    margin: 0 0 28px;
+  }
+
+  .home-journey__phase-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .home-journey__phase-tags {
+    font-size: 11px;
+    color: var(--p-muted, var(--h-muted));
+    line-height: 1.4;
+  }
+
+  .home-journey__phase-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--p-badge, var(--h-accent));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .home-journey__milestones {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+
+  .home-journey__milestone {
+    background: var(--h-bg);
+    border-radius: 18px;
+    padding: 24px 20px;
+    box-shadow: 0 8px 22px rgba(80, 50, 40, 0.05);
+  }
+
+  .home-journey__milestone-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--h-pink-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .home-journey__milestone-title {
+    font-family: var(--h-font-head);
+    font-size: 15px;
+    margin: 0 0 8px;
+    color: var(--h-green-deep);
+  }
+
+  .home-journey__milestone-desc {
+    font-size: 11.5px;
+    color: var(--h-muted-2);
+    line-height: 1.5;
+    margin: 0 0 14px;
+  }
+
+  .home-journey__milestone-link {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--h-accent);
+    text-decoration: none;
+  }
+
+  @media (min-width: 750px) and (max-width: 1050px) {
+    .home-journey__phases { grid-template-columns: 1fr; }
+    .home-journey__milestones { grid-template-columns: repeat(2, 1fr); }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Home — 45-day journey",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "journey" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A Journey Built On Consistency" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Small Daily Rituals. <em>Meaningful Long-Term Wellness.</em></p>" },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Your 45-Day Wellness Journey — Three Phases" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#FFFFFF" },
+    { "type": "range", "id": "padding_block_start", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 },
+    { "type": "range", "id": "padding_block_end", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 }
+  ],
+  "blocks": [
+    {
+      "type": "phase",
+      "name": "Phase",
+      "settings": [
+        { "type": "text", "id": "range", "label": "Range badge", "default": "1–15" },
+        { "type": "text", "id": "range_label", "label": "Days label", "default": "Days 1–15" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Build The Foundation" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Establish the rhythm and let your body settle into a consistent daily routine." },
+        { "type": "text", "id": "tags", "label": "Tags line", "default": "Routine · Consistency · Base" },
+        { "type": "color", "id": "bg", "label": "Card background", "default": "#EEF2E6" },
+        { "type": "color", "id": "badge_bg", "label": "Badge / arrow", "default": "#4D6B3A" },
+        { "type": "color", "id": "text_color", "label": "Text", "default": "#3D4F2E" },
+        { "type": "color", "id": "muted_color", "label": "Muted text", "default": "#5C6650" }
+      ]
+    },
+    {
+      "type": "milestone",
+      "name": "Milestone",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "✨" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Week 1" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Settle into the routine and notice small shifts in energy." },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home — 45-day journey",
+      "blocks": [
+        { "type": "phase", "settings": { "range": "1–15", "range_label": "Days 1–15", "title": "Build The Foundation", "description": "Establish the rhythm and let your body settle into a consistent daily routine.", "tags": "Routine · Consistency · Base", "bg": "#EEF2E6", "badge_bg": "#4D6B3A", "text_color": "#3D4F2E", "muted_color": "#5C6650" } },
+        { "type": "phase", "settings": { "range": "16–30", "range_label": "Days 16–30", "title": "Find Your Balance", "description": "The routine becomes second nature as balance and vitality build day by day.", "tags": "Balance · Vitality · Flow", "bg": "#FAEDD8", "badge_bg": "#C9752E", "text_color": "#8A4E1F", "muted_color": "#8A6A45" } },
+        { "type": "phase", "settings": { "range": "31–45", "range_label": "Days 31–45", "title": "Feel The Difference", "description": "Consistency compounds — calmer evenings, steadier energy, a routine that lasts.", "tags": "Calm · Restore · Sustain", "bg": "#EAE5F5", "badge_bg": "#5B3FA8", "text_color": "#463178", "muted_color": "#5F5478" } },
+        { "type": "milestone", "settings": { "icon": "🌱", "title": "Week 1", "description": "Settle into the routine and notice small shifts in energy." } },
+        { "type": "milestone", "settings": { "icon": "☀", "title": "Week 2", "description": "Mornings feel easier; the ritual starts to stick." } },
+        { "type": "milestone", "settings": { "icon": "❀", "title": "Week 4", "description": "Balance and vitality build through the day." } },
+        { "type": "milestone", "settings": { "icon": "☾", "title": "Week 5", "description": "Calmer evenings and more restful sleep." } },
+        { "type": "milestone", "settings": { "icon": "✨", "title": "Day 45", "description": "A routine you can carry forward for life." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

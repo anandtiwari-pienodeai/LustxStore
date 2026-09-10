@@ -1,0 +1,336 @@
+<section class="home-sec home-why" style="--h-sec-bg: {{ section.settings.bg_color }}; --h-pbs: {{ section.settings.padding_block_start }}px; --h-pbe: {{ section.settings.padding_block_end }}px;">
+  <div class="home-wrap">
+    <div class="home-why__grid">
+      <div class="home-why__col">
+        {%- if section.settings.eyebrow != blank -%}<p class="home-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="home-h2">{{ section.settings.heading }}</h2>{%- endif -%}
+        <span class="home-why__rule" aria-hidden="true"></span>
+
+        <div class="home-why__list">
+          {%- for block in section.blocks -%}
+            {%- assign tags = block.settings.tags | newline_to_br | split: '<br />' -%}
+            <details class="home-why__item" {{ block.shopify_attributes }}>
+              <summary class="home-why__row">
+                <span class="home-why__num">{{ block.settings.num }}</span>
+                <span class="home-why__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+                <span class="home-why__text">
+                  <span class="home-why__title">{{ block.settings.title }}</span>
+                  <span class="home-why__desc">{{ block.settings.description }}</span>
+                </span>
+                <span class="home-why__sign" aria-hidden="true"></span>
+              </summary>
+              {%- if block.settings.tags != blank -%}
+                <div class="home-why__tags">
+                  {%- for tag in tags -%}
+                    {%- assign t = tag | strip_newlines | strip -%}
+                    {%- if t != blank -%}<span class="home-why__tag"><span class="home-why__check" aria-hidden="true">✓</span>{{ t }}</span>{%- endif -%}
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </details>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="home-why__thanks">
+        <span class="home-why__thanks-leaf home-why__thanks-leaf--1" aria-hidden="true">🌿</span>
+        <span class="home-why__thanks-leaf home-why__thanks-leaf--2" aria-hidden="true">🌿</span>
+        {%- if section.settings.thanks_icon != blank -%}<span class="home-why__thanks-icon" aria-hidden="true">{{ section.settings.thanks_icon }}</span>{%- endif -%}
+        {%- if section.settings.thanks_title != blank -%}<h3 class="home-why__thanks-title">{{ section.settings.thanks_title }}</h3>{%- endif -%}
+        <span class="home-why__thanks-divider" aria-hidden="true"></span>
+        {%- if section.settings.thanks_body != blank -%}<p class="home-why__thanks-body">{{ section.settings.thanks_body }}</p>{%- endif -%}
+        {%- if section.settings.thanks_cta != blank -%}<a class="home-why__thanks-btn" href="{{ section.settings.thanks_cta_link | default: '#' }}">{{ section.settings.thanks_cta }}</a>{%- endif -%}
+        {%- if section.settings.thanks_footnote != blank -%}<span class="home-why__thanks-foot">{{ section.settings.thanks_footnote }}</span>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .home-why__grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 40px;
+    align-items: stretch;
+  }
+
+  .home-why__rule {
+    display: block;
+    width: 36px;
+    height: 2px;
+    background: #f0c2d0;
+    margin: 12px 0 26px;
+  }
+
+  .home-why__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .home-why__item {
+    border: 1px solid var(--h-line);
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px 22px;
+  }
+
+  .home-why__item[open] {
+    background: var(--h-pink-soft);
+  }
+
+  .home-why__row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .home-why__row::-webkit-details-marker { display: none; }
+
+  .home-why__num {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--h-pink-soft-2);
+    color: var(--h-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .home-why__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--h-pink-soft);
+    color: var(--h-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .home-why__text { flex: 1; }
+
+  .home-why__title {
+    display: block;
+    font-family: var(--h-font-head);
+    font-size: 18px;
+    color: #2f1f22;
+    margin-bottom: 4px;
+  }
+
+  .home-why__desc {
+    display: block;
+    font-size: 13px;
+    color: var(--h-muted-2);
+    line-height: 1.5;
+  }
+
+  .home-why__sign {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    color: var(--h-accent);
+  }
+
+  .home-why__sign::before,
+  .home-why__sign::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+    inset: 0;
+    margin: auto;
+  }
+
+  .home-why__sign::before { width: 100%; height: 2px; }
+  .home-why__sign::after { width: 2px; height: 100%; transition: transform 0.2s ease; }
+  .home-why__item[open] .home-why__sign::after { transform: scaleY(0); }
+
+  .home-why__tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 16px 0 2px 78px;
+  }
+
+  .home-why__tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: #8a3a4a;
+    font-weight: 600;
+  }
+
+  .home-why__check {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--h-accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+  }
+
+  .home-why__thanks {
+    position: relative;
+    background: linear-gradient(155deg, #c9376a, #8a2148);
+    border-radius: 24px;
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .home-why__thanks-leaf {
+    position: absolute;
+    color: #fff;
+    opacity: 0.08;
+    pointer-events: none;
+    font-size: 120px;
+  }
+
+  .home-why__thanks-leaf--1 { top: 20px; left: 12px; transform: rotate(-10deg); }
+  .home-why__thanks-leaf--2 { bottom: -10px; right: -10px; transform: rotate(15deg); }
+
+  .home-why__thanks-icon {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .home-why__thanks-title {
+    font-family: var(--h-font-head);
+    font-style: italic;
+    font-size: clamp(28px, 4vw, 34px);
+    margin: 0 0 8px;
+    position: relative;
+  }
+
+  .home-why__thanks-divider {
+    width: 40px;
+    height: 1.5px;
+    background: rgba(255, 255, 255, 0.5);
+    margin-bottom: 22px;
+    position: relative;
+  }
+
+  .home-why__thanks-body {
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0 0 28px;
+    opacity: 0.92;
+    max-width: 300px;
+    position: relative;
+  }
+
+  .home-why__thanks-btn {
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+  }
+
+  .home-why__thanks-foot {
+    position: absolute;
+    bottom: 18px;
+    right: 20px;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.55);
+    text-transform: uppercase;
+    text-align: right;
+  }
+
+  @media (max-width: 900px) {
+    .home-why__grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 560px) {
+    .home-why__row { flex-wrap: wrap; }
+    .home-why__tags { margin-left: 0; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Home — Why choose",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why Choose BODY अर्क WOMEN?" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Wellness Designed With You in Mind" },
+
+    { "type": "header", "content": "Thank you panel" },
+    { "type": "text", "id": "thanks_icon", "label": "Icon", "default": "❤" },
+    { "type": "text", "id": "thanks_title", "label": "Title", "default": "Thank You" },
+    { "type": "textarea", "id": "thanks_body", "label": "Body", "default": "for taking the time to explore BODY अर्क WOMEN. We're honoured to become a part of your wellness journey." },
+    { "type": "text", "id": "thanks_cta", "label": "Button", "default": "Continue Exploring →" },
+    { "type": "url", "id": "thanks_cta_link", "label": "Button link" },
+    { "type": "text", "id": "thanks_footnote", "label": "Footnote", "default": "Small Rituals Big Change —" },
+
+    { "type": "header", "content": "Style" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#FFFFFF" },
+    { "type": "range", "id": "padding_block_start", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 },
+    { "type": "range", "id": "padding_block_end", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 104 }
+  ],
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Reason",
+      "settings": [
+        { "type": "text", "id": "num", "label": "Number", "default": "1" },
+        { "type": "text", "id": "icon", "label": "Icon", "default": "🌿" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Natural, Thoughtful Formulas" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Plant-based actives, chosen for everyday wellbeing." },
+        { "type": "textarea", "id": "tags", "label": "Tags (one per line)", "default": "Plant-based\nNo artificial additives\nLab-tested" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Home — Why choose",
+      "blocks": [
+        { "type": "reason", "settings": { "num": "1", "icon": "🌿", "title": "Natural, Thoughtful Formulas", "description": "Plant-based actives, chosen for everyday wellbeing.", "tags": "Plant-based\nNo artificial additives\nLab-tested" } },
+        { "type": "reason", "settings": { "num": "2", "icon": "🕒", "title": "Built Around Your Day", "description": "A Morning · Afternoon · Evening rhythm that's easy to keep.", "tags": "3 daily moments\nPre-sorted pouches\nNo guesswork" } },
+        { "type": "reason", "settings": { "num": "3", "icon": "❀", "title": "Designed For Women", "description": "Formulated for hormonal balance, energy and calm.", "tags": "Hormone support\nEnergy\nCalm & sleep" } },
+        { "type": "reason", "settings": { "num": "4", "icon": "🛡", "title": "Trusted & Safe", "description": "Third-party tested, transparent labelling.", "tags": "Lab-tested\nTransparent\nNo preservatives" } },
+        { "type": "reason", "settings": { "num": "5", "icon": "🤝", "title": "A Supportive Community", "description": "Guidance and check-ins across your 45-day journey.", "tags": "Wellness Hub\nCheck-ins\nExpert answers" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

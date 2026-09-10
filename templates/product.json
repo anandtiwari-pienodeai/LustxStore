@@ -1,474 +1,316 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */{
+{
   "sections": {
     "main": {
-      "type": "product-information",
+      "type": "main-product-femme",
       "blocks": {
-        "disclosures_g9mWze": {
-          "type": "disclosures",
-          "name": "t:names.disclosures",
+        "pill_morning": {
+          "type": "pill",
           "settings": {
-            "heading": "Disclosures",
-            "heading_preset": "h5",
-            "open_by_default": false,
-            "icon": "caret",
-            "disclosure_heading_preset": "h6",
-            "text_color": "",
-            "dividers": true,
-            "divider_color": "{{ settings.color_palette.color2 }}",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "name": "Morning",
+            "bg": "#E6EFE1",
+            "accent": "#4B7A4E"
+          }
         },
-        "media-gallery": {
-          "type": "_product-media-gallery",
-          "static": true,
+        "pill_afternoon": {
+          "type": "pill",
           "settings": {
-            "media_presentation": "grid",
-            "media_columns": "two",
-            "image_gap": 4,
-            "large_first_image": false,
-            "slideshow_controls_style": "counter",
-            "slideshow_mobile_controls_style": "dots",
-            "thumbnail_position": "right",
-            "thumbnail_width": 44,
-            "thumbnail_radius": 0,
-            "aspect_ratio": "adapt",
-            "constrain_to_viewport": true,
-            "media_fit": "contain",
-            "media_radius": 0,
-            "extend_media": false,
-            "zoom": true,
-            "video_loop": false,
-            "hide_variants": true,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "name": "Afternoon",
+            "bg": "#F6E7D4",
+            "accent": "#B0703A"
+          }
         },
-        "product-details": {
-          "type": "_product-details",
-          "static": true,
+        "pill_evening": {
+          "type": "pill",
           "settings": {
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "details_position": "flex-start",
-            "gap": 28,
-            "sticky_details_desktop": true,
-            "background_media": "none",
-            "background_color": "",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "padding-block-start": 24,
-            "padding-block-end": 24,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "group_icgrde": {
-              "type": "group",
-              "name": "t:names.header",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "background_media": "none",
-                "background_color": "",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0,
-                "open_in_new_tab": false,
-                "placeholder": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "text_xrnftG": {
-                  "type": "text",
-                  "name": "t:names.product_title",
-                  "settings": {
-                    "text": "<h1>{{ closest.product.title }}</h1>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "h3",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "text_color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "price_tVjtKg": {
-                  "type": "price",
-                  "settings": {
-                    "show_sale_price_first": true,
-                    "show_installments": false,
-                    "show_tax_info": false,
-                    "type_preset": "paragraph",
-                    "width": "100%",
-                    "alignment": "left",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "text_color": "",
-                    "padding-block-start": 4,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_xrnftG",
-                "price_tVjtKg"
-              ]
-            },
-            "divider_VJhene": {
-              "type": "_divider",
-              "name": "t:names.divider",
-              "settings": {
-                "thickness": 1,
-                "corner_radius": "square",
-                "divider_color": "{{ settings.color_palette.color2 }}",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0
-              },
-              "blocks": {}
-            },
-            "variant_picker_R3rGDr": {
-              "type": "variant-picker",
-              "settings": {
-                "variant_style": "buttons",
-                "show_swatches": false,
-                "option_label_text_color": "",
-                "variant_style_class": "default",
-                "custom_variant_background": "{{ settings.color_palette.background }}",
-                "custom_variant_text": "{{ settings.color_palette.foreground }}",
-                "custom_variant_border": "{{ settings.color_palette.foreground }}",
-                "selected_variant_style_class": "default",
-                "custom_selected_variant_background": "{{ settings.color_palette.foreground }}",
-                "custom_selected_variant_text": "{{ settings.color_palette.background }}",
-                "custom_selected_variant_border": "{{ settings.color_palette.foreground }}",
-                "alignment": "left",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "buy_buttons_eYQEYi": {
-              "type": "buy-buttons",
-              "settings": {
-                "stacking": true,
-                "text_color": "",
-                "show_pickup_availability": false,
-                "gift_card_form": true,
-                "recipient_button_style": "default",
-                "recipient_button_background": "{{ settings.color_palette.background }}",
-                "recipient_button_text": "{{ settings.color_palette.foreground }}",
-                "recipient_button_border": "{{ settings.color_palette.foreground }}",
-                "selected_recipient_button_style": "default",
-                "selected_recipient_button_background": "{{ settings.color_palette.foreground }}",
-                "selected_recipient_button_text": "{{ settings.color_palette.background }}",
-                "selected_recipient_button_border": "{{ settings.color_palette.foreground }}",
-                "input_style": "default",
-                "input_background_color": "{{ settings.color_palette.background }}",
-                "input_text_color": "{{ settings.color_palette.foreground }}",
-                "input_border_color": "{{ settings.color_palette.foreground }}",
-                "border_width": 1,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "quantity": {
-                  "type": "quantity",
-                  "static": true,
-                  "settings": {
-                    "input_style": "default",
-                    "input_background_color": "{{ settings.color_palette.background }}",
-                    "input_text_color": "{{ settings.color_palette.foreground }}",
-                    "input_border_color": "{{ settings.color_palette.foreground }}",
-                    "border_width": 1,
-                    "border_radius": 0
-                  },
-                  "blocks": {}
-                },
-                "add-to-cart": {
-                  "type": "add-to-cart",
-                  "static": true,
-                  "settings": {
-                    "style_class": "button",
-                    "custom_button_background": "{{ settings.color_palette.foreground }}",
-                    "custom_button_text": "{{ settings.color_palette.background }}",
-                    "custom_button_border": "{{ settings.color_palette.background }}"
-                  },
-                  "blocks": {}
-                },
-                "accelerated-checkout": {
-                  "type": "accelerated-checkout",
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                }
-              },
-              "block_order": []
-            },
-            "text_aEtTtq": {
-              "type": "text",
-              "name": "t:names.product_description",
-              "settings": {
-                "text": "{{ closest.product.description }}",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "group_icgrde",
-            "divider_VJhene",
-            "variant_picker_R3rGDr",
-            "buy_buttons_eYQEYi",
-            "text_aEtTtq"
-          ]
+            "name": "Evening",
+            "bg": "#ECE5F2",
+            "accent": "#6E5896"
+          }
+        },
+        "trust_1": {
+          "type": "trust",
+          "settings": {
+            "text": "Natural Ingredients"
+          }
+        },
+        "trust_2": {
+          "type": "trust",
+          "settings": {
+            "text": "No Added Preservatives"
+          }
+        },
+        "trust_3": {
+          "type": "trust",
+          "settings": {
+            "text": "100% Vegetarian"
+          }
         }
       },
       "block_order": [
-        "disclosures_g9mWze"
+        "pill_morning",
+        "pill_afternoon",
+        "pill_evening",
+        "trust_1",
+        "trust_2",
+        "trust_3"
       ],
       "settings": {
-        "content_width": "content-center-aligned",
-        "desktop_media_position": "left",
-        "equal_columns": false,
-        "limit_details_width": false,
-        "gap": 48,
-        "enable_sticky_add_to_cart": true,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "show_brand_strip": true,
+        "brand_name": "BODY अर्क",
+        "brand_suffix": "WOMEN",
+        "brand_tagline": "Daily Wellness Ritual",
+        "eyebrow": "45-Day Plant-Based Wellness Kit",
+        "use_product_description": false,
+        "description": "<p>Three targeted botanical formulas for three moments of your day — morning, afternoon, and evening — in a complete 45-day pouch system.</p>",
+        "price_note": "45 pouches · 90 tablets · incl. taxes",
+        "atc_text": "Add to Cart",
+        "reassurance_text": "Free shipping on prepaid orders · 100% vegetarian · No added preservatives",
+        "subscribe_desc": "Delivered every 45 days. Cancel anytime.",
+        "onetime_label": "One-Time Purchase",
+        "onetime_desc": "Single 45-day kit, no commitment.",
+        "bg_color": "#F5EEE3",
+        "padding_block_start": 0,
+        "padding_block_end": 96
       }
     },
-    "product_recommendations_qggXJq": {
-      "type": "product-recommendations",
+    "moments": {
+      "type": "arka-moment-cards",
       "blocks": {
-        "text_cbcgyb": {
-          "type": "text",
-          "name": "t:names.header",
+        "m_morning": {
+          "type": "moment",
           "settings": {
-            "text": "<h3>You may also like </h3>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h4",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "time_of_day": "Morning",
+            "name": "Morning Balance",
+            "benefits": "Hormonal support\nSteady energy\nMood balance",
+            "chip_text": "2 Tablets / Pouch",
+            "bg": "#EFF4EA",
+            "accent": "#4B7A4E",
+            "chip_bg": "#E1EEDD"
+          }
         },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
+        "m_afternoon": {
+          "type": "moment",
           "settings": {
-            "product_card_gap": 8,
-            "background_color": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 8,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_DNizbJ": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_M7MJkb": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_gLWgA6": {
-              "type": "price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "text_color": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_DNizbJ",
-            "product_title_M7MJkb",
-            "price_gLWgA6"
-          ]
+            "time_of_day": "Afternoon",
+            "name": "Afternoon Glow",
+            "benefits": "Skin vitality\nAntioxidant boost\nHydration",
+            "chip_text": "2 Tablets / Pouch",
+            "bg": "#F8EDDD",
+            "accent": "#B0703A",
+            "chip_bg": "#F1E0CB"
+          }
+        },
+        "m_evening": {
+          "type": "moment",
+          "settings": {
+            "time_of_day": "Evening",
+            "name": "Evening Restore",
+            "benefits": "Calm & unwind\nRestful sleep\nOvernight repair",
+            "chip_text": "2 Tablets / Pouch",
+            "bg": "#EEE8F3",
+            "accent": "#6E5896",
+            "chip_bg": "#E4DAEE"
+          }
         }
       },
       "block_order": [
-        "text_cbcgyb"
+        "m_morning",
+        "m_afternoon",
+        "m_evening"
       ],
-      "name": "t:names.product_recommendations",
       "settings": {
-        "product": "{{ closest.product }}",
-        "recommendation_type": "related",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 4,
-        "columns": 4,
-        "mobile_columns": "2",
-        "columns_gap": 12,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 28,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "eyebrow": "One Cycle, Three Moments",
+        "heading": "A Formula For Every Part Of Your Day",
+        "bg_color": "#F5EEE3",
+        "padding_block_start": 96,
+        "padding_block_end": 0
+      }
+    },
+    "inside_box": {
+      "type": "arka-inside-box",
+      "blocks": {
+        "s1": {
+          "type": "stat",
+          "settings": {
+            "value": "45",
+            "label": "Daily pouches"
+          }
+        },
+        "s2": {
+          "type": "stat",
+          "settings": {
+            "value": "3",
+            "label": "Targeted formulas"
+          }
+        },
+        "s3": {
+          "type": "stat",
+          "settings": {
+            "value": "90",
+            "label": "Tablets total"
+          }
+        },
+        "s4": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Vegetarian"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "eyebrow": "Inside The Box",
+        "heading": "A 45-Day Foundation, A Lifelong Commitment",
+        "body": "<p>Each box holds 45 daily pouches — one Morning Balance, one Afternoon Glow, and one Evening Restore — organised into a complete daily system so you never have to think about what to take, or when.</p>",
+        "page_bg": "#F5EEE3",
+        "panel_bg": "#F3E1DB",
+        "padding_block_start": 96,
+        "padding_block_end": 0
+      }
+    },
+    "how_to_use": {
+      "type": "arka-how-to-use",
+      "blocks": {
+        "h1": {
+          "type": "step",
+          "settings": {
+            "step_label": "AM",
+            "time_of_day": "Morning",
+            "usage": "Take the Morning Balance pouch with breakfast and a full glass of water.",
+            "accent": "#4B7A4E",
+            "chip_bg": "#E1EEDD"
+          }
+        },
+        "h2": {
+          "type": "step",
+          "settings": {
+            "step_label": "PM",
+            "time_of_day": "Afternoon",
+            "usage": "Take the Afternoon Glow pouch with lunch or your midday meal.",
+            "accent": "#B0703A",
+            "chip_bg": "#F1E0CB"
+          }
+        },
+        "h3": {
+          "type": "step",
+          "settings": {
+            "step_label": "EVE",
+            "time_of_day": "Evening",
+            "usage": "Take the Evening Restore pouch after dinner, at least an hour before bed.",
+            "accent": "#6E5896",
+            "chip_bg": "#E4DAEE"
+          }
+        }
+      },
+      "block_order": [
+        "h1",
+        "h2",
+        "h3"
+      ],
+      "settings": {
+        "eyebrow": "How To Use",
+        "heading": "Three Pouches, One Simple Rhythm",
+        "bg_color": "#F5EEE3",
+        "padding_block_start": 96,
+        "padding_block_end": 0
+      }
+    },
+    "info_faq": {
+      "type": "arka-info-faq",
+      "blocks": {
+        "n1": {
+          "type": "safety_note",
+          "settings": {
+            "title": "Who it's for",
+            "body": "<p>Formulated for adult women. Not intended for those who are pregnant or nursing.</p>"
+          }
+        },
+        "n2": {
+          "type": "safety_note",
+          "settings": {
+            "title": "Sourcing",
+            "body": "<p>Plant-based actives, standardised extracts, third-party tested for purity.</p>"
+          }
+        },
+        "n3": {
+          "type": "safety_note",
+          "settings": {
+            "title": "Storage",
+            "body": "<p>Store in a cool, dry place away from direct sunlight.</p>"
+          }
+        },
+        "f1": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does one box last?",
+            "answer": "<p>Each box is a complete 45-day supply — one pouch of each formula per day.</p>",
+            "open_by_default": true
+          }
+        },
+        "f2": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I take all three pouches together?",
+            "answer": "<p>We recommend spacing them across the day for best absorption, but it is safe to take them together.</p>"
+          }
+        },
+        "f3": {
+          "type": "faq",
+          "settings": {
+            "question": "Is it safe with other supplements?",
+            "answer": "<p>Generally yes. If you take prescription medication, check with your doctor first.</p>"
+          }
+        },
+        "f4": {
+          "type": "faq",
+          "settings": {
+            "question": "When will I see results?",
+            "answer": "<p>Most people notice changes within the first full 45-day cycle.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "n1",
+        "n2",
+        "n3",
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ],
+      "settings": {
+        "notes_eyebrow": "Good To Know",
+        "notes_heading": "Ingredients & Safety",
+        "faq_eyebrow": "Questions",
+        "faq_heading": "FAQ",
+        "bg_color": "#F5EEE3",
+        "padding_block_start": 96,
+        "padding_block_end": 0
+      }
+    },
+    "signoff": {
+      "type": "arka-signoff",
+      "settings": {
+        "tagline": "A Healthier, Happier You",
+        "legal": "BODY अर्क Women · Plant-Based Wellness · Marketed by Lust Xstore Private Limited, Mumbai",
+        "bg_color": "#F5EEE3",
+        "padding_block_start": 96,
+        "padding_block_end": 40
       }
     }
   },
   "order": [
     "main",
-    "product_recommendations_qggXJq"
+    "moments",
+    "inside_box",
+    "how_to_use",
+    "info_faq",
+    "signoff"
   ]
 }

@@ -1,0 +1,102 @@
+/* BODY अर्क (Arka) PDP — shared tokens & layout primitives */
+:root {
+  --arka-font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --arka-font-heading: 'Lora', Georgia, 'Times New Roman', serif;
+
+  --arka-bg: oklch(95% 0.015 60);
+  --arka-panel: oklch(94% 0.03 20);
+  --arka-surface: oklch(94% 0.02 40);
+  --arka-surface-soft: oklch(96% 0.01 60);
+
+  --arka-ink: oklch(27% 0.03 40);
+  --arka-heading: oklch(30% 0.06 35);
+  --arka-brand: oklch(38% 0.1 30);
+  --arka-accent: oklch(48% 0.13 30);
+  --arka-accent-hover: oklch(42% 0.13 30);
+  --arka-on-accent: oklch(98% 0.01 60);
+
+  --arka-muted: oklch(45% 0.02 40);
+  --arka-muted-2: oklch(50% 0.02 40);
+  --arka-muted-3: oklch(55% 0.02 40);
+  --arka-line: oklch(90% 0.02 50);
+
+  --arka-eyebrow: oklch(48% 0.13 30);
+
+  --arka-save-text: oklch(48% 0.1 145);
+  --arka-save-bg: oklch(94% 0.03 145);
+
+  --arka-max: 1280px;
+}
+
+.arka-wrap {
+  max-width: var(--arka-max, 1280px);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+.arka-sec {
+  background: var(--arka-hero-bg, var(--arka-bg));
+  color: var(--arka-ink);
+  font-family: var(--arka-font-body);
+  padding-block: var(--pbs, 96px) var(--pbe, 0);
+}
+
+.arka-sec__head {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.arka-eyebrow {
+  margin: 0 0 10px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--arka-eyebrow);
+  font-weight: 600;
+}
+
+.arka-sec__title {
+  font-family: var(--arka-font-heading);
+  font-size: clamp(24px, 3vw, 30px);
+  font-weight: 600;
+  margin: 0;
+  color: var(--arka-heading);
+}
+
+@media (max-width: 749px) {
+  .arka-wrap {
+    padding-inline: 18px;
+  }
+
+  .arka-sec {
+    padding-block: min(var(--pbs, 96px), 52px) min(var(--pbe, 0px), 52px);
+  }
+
+  .arka-sec__head {
+    margin-bottom: 28px;
+  }
+
+  /* Horizontal scroller: turn a stacked group into a swipeable row */
+  .arka-hscroll {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    grid-auto-columns: 76%;
+    gap: 14px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    margin-inline: -18px;
+    padding-inline: 18px;
+    scrollbar-width: none;
+  }
+
+  .arka-hscroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .arka-hscroll > * {
+    scroll-snap-align: start;
+  }
+}

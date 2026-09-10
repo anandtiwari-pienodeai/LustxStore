@@ -1,0 +1,137 @@
+{%- liquid
+  assign cols = section.blocks | size
+  if cols == 0
+    assign cols = 3
+  endif
+-%}
+
+<section
+  class="arka-sec arka-how"
+  style="--arka-hero-bg: {{ section.settings.bg_color }}; --pbs: {{ section.settings.padding_block_start }}px; --pbe: {{ section.settings.padding_block_end }}px;"
+>
+  <div class="arka-wrap">
+    <div class="arka-sec__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="arka-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="arka-sec__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    <div class="arka-how__grid arka-hscroll" style="--cols: {{ cols }};">
+      {%- for block in section.blocks -%}
+        <div
+          class="arka-how__card"
+          style="--s-accent: {{ block.settings.accent }}; --s-chip: {{ block.settings.chip_bg }};"
+          {{ block.shopify_attributes }}
+        >
+          {%- if block.settings.step_label != blank -%}
+            <span class="arka-how__badge">{{ block.settings.step_label }}</span>
+          {%- endif -%}
+          {%- if block.settings.time_of_day != blank -%}
+            <h3 class="arka-how__time">{{ block.settings.time_of_day }}</h3>
+          {%- endif -%}
+          {%- if block.settings.usage != blank -%}
+            <p class="arka-how__text">{{ block.settings.usage }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .arka-how__grid {
+    display: grid;
+    gap: 14px;
+  }
+
+  @media (min-width: 750px) {
+    .arka-how__grid {
+      grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+      gap: 24px;
+    }
+  }
+
+  .arka-how__card {
+    text-align: center;
+    padding: 28px 20px;
+    border: 1px solid var(--arka-line);
+    border-radius: 6px;
+  }
+
+  .arka-how__badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--s-chip, var(--arka-save-bg));
+    color: var(--s-accent, var(--arka-accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    margin: 0 auto 16px;
+  }
+
+  .arka-how__time {
+    font-family: var(--arka-font-heading);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--arka-heading);
+    margin: 0 0 8px;
+  }
+
+  .arka-how__text {
+    font-size: 14px;
+    color: var(--arka-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (max-width: 749px) {
+    .arka-how__card {
+      padding: 24px 18px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Arka PDP — How to use",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "How To Use" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Three Pouches, One Simple Rhythm" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#F5EEE3" },
+    { "type": "range", "id": "padding_block_start", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_block_end", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "step_label", "label": "Badge text", "default": "AM" },
+        { "type": "text", "id": "time_of_day", "label": "Time of day", "default": "Morning" },
+        { "type": "textarea", "id": "usage", "label": "Usage", "default": "Take the Morning Balance pouch with breakfast and a full glass of water." },
+        { "type": "color", "id": "accent", "label": "Accent", "default": "#4B7A4E" },
+        { "type": "color", "id": "chip_bg", "label": "Badge background", "default": "#E1EEDD" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Arka PDP — How to use",
+      "blocks": [
+        { "type": "step", "settings": { "step_label": "AM", "time_of_day": "Morning", "usage": "Take the Morning Balance pouch with breakfast and a full glass of water.", "accent": "#4B7A4E", "chip_bg": "#E1EEDD" } },
+        { "type": "step", "settings": { "step_label": "PM", "time_of_day": "Afternoon", "usage": "Take the Afternoon Glow pouch with lunch or your midday meal.", "accent": "#B0703A", "chip_bg": "#F1E0CB" } },
+        { "type": "step", "settings": { "step_label": "EVE", "time_of_day": "Evening", "usage": "Take the Evening Restore pouch after dinner, at least an hour before bed.", "accent": "#6E5896", "chip_bg": "#E4DAEE" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

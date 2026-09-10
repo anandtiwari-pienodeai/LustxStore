@@ -1,0 +1,209 @@
+{%- liquid
+  assign cols = section.blocks | size
+  if cols == 0
+    assign cols = 3
+  endif
+-%}
+
+<section
+  class="arka-sec arka-moments"
+  style="--arka-hero-bg: {{ section.settings.bg_color }}; --pbs: {{ section.settings.padding_block_start }}px; --pbe: {{ section.settings.padding_block_end }}px;"
+>
+  <div class="arka-wrap">
+    <div class="arka-sec__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="arka-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="arka-sec__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    <div class="arka-moments__grid arka-hscroll" style="--cols: {{ cols }};">
+      {%- for block in section.blocks -%}
+        <article
+          class="arka-moment"
+          style="--m-bg: {{ block.settings.bg }}; --m-accent: {{ block.settings.accent }}; --m-chip: {{ block.settings.chip_bg }};"
+          {{ block.shopify_attributes }}
+        >
+          <div class="arka-moment__media">
+            {%- if block.settings.image -%}
+              {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(min-width: 900px) 30vw, 90vw', widths: '300, 450, 600, 800', alt: block.settings.name | escape }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'arka-moment__ph' }}
+            {%- endif -%}
+          </div>
+          <div class="arka-moment__body">
+            {%- if block.settings.time_of_day != blank -%}
+              <p class="arka-moment__time">{{ block.settings.time_of_day }}</p>
+            {%- endif -%}
+            {%- if block.settings.name != blank -%}
+              <h3 class="arka-moment__name">{{ block.settings.name }}</h3>
+            {%- endif -%}
+            {%- if block.settings.benefits != blank -%}
+              <ul class="arka-moment__list" role="list">
+                {%- assign lines = block.settings.benefits | newline_to_br | split: '<br />' -%}
+                {%- for line in lines -%}
+                  {%- assign t = line | strip_newlines | strip -%}
+                  {%- if t != blank -%}
+                    <li>{{ t }}</li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+            {%- if block.settings.chip_text != blank -%}
+              <span class="arka-moment__chip">{{ block.settings.chip_text }}</span>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .arka-moments__grid {
+    display: grid;
+    gap: 14px;
+  }
+
+  @media (min-width: 750px) {
+    .arka-moments__grid {
+      grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+      gap: 24px;
+    }
+  }
+
+  .arka-moment {
+    background: var(--m-bg, var(--arka-surface));
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .arka-moment__media {
+    aspect-ratio: 3 / 4;
+    background: var(--arka-surface-soft);
+  }
+
+  .arka-moment__media img,
+  .arka-moment__media svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .arka-moment__body {
+    padding: 22px;
+  }
+
+  .arka-moment__time {
+    margin: 0 0 6px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--m-accent, var(--arka-accent));
+    font-weight: 700;
+  }
+
+  .arka-moment__name {
+    font-family: var(--arka-font-heading);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--arka-heading);
+    margin: 0 0 10px;
+  }
+
+  .arka-moment__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .arka-moment__list li {
+    font-size: 14px;
+    color: var(--arka-ink);
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .arka-moment__list li::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--m-accent, var(--arka-accent));
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .arka-moment__chip {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--m-accent, var(--arka-accent));
+    background: var(--m-chip, var(--arka-save-bg));
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  @media (min-width: 750px) and (max-width: 980px) {
+    .arka-moments__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 749px) {
+    .arka-moment__media {
+      aspect-ratio: 4 / 3;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Arka PDP — Moments",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "One Cycle, Three Moments" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A Formula For Every Part Of Your Day" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#F5EEE3" },
+    { "type": "range", "id": "padding_block_start", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_block_end", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "moment",
+      "name": "Moment card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "time_of_day", "label": "Time of day", "default": "Morning" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Morning Balance" },
+        { "type": "textarea", "id": "benefits", "label": "Benefits (one per line)", "default": "Hormonal support\nSteady energy\nMood balance" },
+        { "type": "text", "id": "chip_text", "label": "Chip text", "default": "2 Tablets / Pouch" },
+        { "type": "color", "id": "bg", "label": "Card background", "default": "#EFF4EA" },
+        { "type": "color", "id": "accent", "label": "Accent", "default": "#4B7A4E" },
+        { "type": "color", "id": "chip_bg", "label": "Chip background", "default": "#E1EEDD" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Arka PDP — Moments",
+      "blocks": [
+        { "type": "moment", "settings": { "time_of_day": "Morning", "name": "Morning Balance", "benefits": "Hormonal support\nSteady energy\nMood balance", "bg": "#EFF4EA", "accent": "#4B7A4E", "chip_bg": "#E1EEDD" } },
+        { "type": "moment", "settings": { "time_of_day": "Afternoon", "name": "Afternoon Glow", "benefits": "Skin vitality\nAntioxidant boost\nHydration", "bg": "#F8EDDD", "accent": "#B0703A", "chip_bg": "#F1E0CB" } },
+        { "type": "moment", "settings": { "time_of_day": "Evening", "name": "Evening Restore", "benefits": "Calm & unwind\nRestful sleep\nOvernight repair", "bg": "#EEE8F3", "accent": "#6E5896", "chip_bg": "#E4DAEE" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

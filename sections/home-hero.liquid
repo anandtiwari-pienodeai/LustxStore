@@ -410,22 +410,81 @@
     margin: 0;
   }
 
+  @media (min-width: 900px) and (max-width: 1120px) {
+    .home-hero__grid { gap: 40px; }
+    .home-hero__chips { width: 150px; right: 16px; }
+    .home-hero__badge { right: 2px; top: 180px; }
+    .home-hero__body,
+    .home-hero__trust { max-width: none; }
+  }
+
   @media (max-width: 899px) {
     .home-hero__grid {
       grid-template-columns: 1fr;
+      gap: 36px;
     }
+
+    .home-hero__body { max-width: none; }
 
     .home-hero__card {
-      aspect-ratio: 3 / 4;
-      max-height: 560px;
+      aspect-ratio: 4 / 3;
+      max-width: 560px;
+      margin-inline: auto;
+      width: 100%;
     }
 
-    .home-hero__leaf--1 { font-size: 110px; right: 10px; }
+    .home-hero__leaf--1 { font-size: 90px; right: -8px; top: -8px; }
+    .home-hero__leaf--2 { font-size: 64px; }
   }
 
-  @media (max-width: 560px) {
+  @media (max-width: 749px) {
+    /* strip the floating decorations — keep a clean image + stat bar */
+    .home-hero__card {
+      aspect-ratio: auto;
+      display: flex;
+      flex-direction: column;
+      background: transparent;
+      box-shadow: none;
+      border: 0;
+      overflow: visible;
+    }
+
+    .home-hero__media {
+      position: static;
+      aspect-ratio: 4 / 3;
+      border-radius: 20px;
+      overflow: hidden;
+      background: linear-gradient(160deg, #f6e6de, #ecd3c6);
+      box-shadow: 0 20px 44px rgba(109, 51, 69, 0.14);
+    }
+
+    .home-hero__media img,
+    .home-hero__media svg,
+    .home-hero__ph {
+      position: static;
+    }
+
+    .home-hero__chips,
+    .home-hero__badge,
+    .home-hero__script { display: none; }
+
+    .home-hero__statbar {
+      position: static;
+      margin-top: 14px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px 14px;
+      padding: 16px;
+      border-radius: 16px;
+    }
+
     .home-hero__trust {
       grid-template-columns: repeat(2, 1fr);
+      max-width: none;
+      gap: 14px 12px;
+    }
+
+    .home-hero__cta {
+      gap: 12px;
     }
 
     .home-hero__cta .home-btn {
@@ -433,9 +492,9 @@
       justify-content: center;
     }
 
-    .home-hero__chips { width: 150px; top: 16px; right: 14px; }
-    .home-hero__badge { top: auto; bottom: 130px; }
-    .home-hero__script--br { display: none; }
+    .home-hero__philosophy {
+      text-align: left;
+    }
   }
 {% endstylesheet %}
 

@@ -116,8 +116,14 @@
     font-size: 15px;
   }
 
-  @media (min-width: 750px) and (max-width: 1000px) {
+  @media (min-width: 750px) and (max-width: 1024px) {
     .home-kit__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 749px) {
+    .home-kit .home-kicker { margin-bottom: 24px; }
+    .home-kit__card { padding: 24px; }
+    .home-kit__grid.home-hscroll { grid-auto-columns: 74%; }
   }
 {% endstylesheet %}
 

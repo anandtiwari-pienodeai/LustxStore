@@ -1,117 +1,657 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "hero": {
       "type": "home-hero",
       "blocks": {
-        "t1": { "type": "trust", "settings": { "icon": "🌿", "label": "Natural Ingredients" } },
-        "t2": { "type": "trust", "settings": { "icon": "❀", "label": "Holistic Wellness" } },
-        "t3": { "type": "trust", "settings": { "icon": "🛡", "label": "Trusted & Safe" } },
-        "t4": { "type": "trust", "settings": { "icon": "♡", "label": "Made for Modern Women" } },
-        "c1": { "type": "moment_chip", "settings": { "icon": "☼", "name": "Morning", "note": "Energy & Focus", "bg": "#EEF2E6", "accent": "#3D4F2E" } },
-        "c2": { "type": "moment_chip", "settings": { "icon": "☀", "name": "Afternoon", "note": "Balance & Vitality", "bg": "#FAEDD8", "accent": "#8A4E1F" } },
-        "c3": { "type": "moment_chip", "settings": { "icon": "☾", "name": "Evening", "note": "Calm & Restore", "bg": "#EAE5F5", "accent": "#463178" } },
-        "s1": { "type": "stat", "settings": { "icon": "❀", "label": "More Energy For Your Day" } },
-        "s2": { "type": "stat", "settings": { "icon": "♥", "label": "Better Balance In Your Life" } },
-        "s3": { "type": "stat", "settings": { "icon": "🌿", "label": "Healthier Habits That Last" } },
-        "s4": { "type": "stat", "settings": { "icon": "☼", "label": "A Brighter You" } }
+        "t1": {
+          "type": "trust",
+          "settings": {
+            "icon": "🌿",
+            "label": "Natural Ingredients"
+          }
+        },
+        "t2": {
+          "type": "trust",
+          "settings": {
+            "icon": "❀",
+            "label": "Holistic Wellness"
+          }
+        },
+        "t3": {
+          "type": "trust",
+          "settings": {
+            "icon": "🛡",
+            "label": "Trusted & Safe"
+          }
+        },
+        "t4": {
+          "type": "trust",
+          "settings": {
+            "icon": "♡",
+            "label": "Made for Modern Women"
+          }
+        },
+        "c1": {
+          "type": "moment_chip",
+          "settings": {
+            "icon": "☼",
+            "name": "Morning",
+            "note": "Energy & Focus",
+            "bg": "#EEF2E6",
+            "accent": "#3D4F2E"
+          }
+        },
+        "c2": {
+          "type": "moment_chip",
+          "settings": {
+            "icon": "☀",
+            "name": "Afternoon",
+            "note": "Balance & Vitality",
+            "bg": "#FAEDD8",
+            "accent": "#8A4E1F"
+          }
+        },
+        "c3": {
+          "type": "moment_chip",
+          "settings": {
+            "icon": "☾",
+            "name": "Evening",
+            "note": "Calm & Restore",
+            "bg": "#EAE5F5",
+            "accent": "#463178"
+          }
+        },
+        "s1": {
+          "type": "stat",
+          "settings": {
+            "icon": "❀",
+            "label": "More Energy For Your Day"
+          }
+        },
+        "s2": {
+          "type": "stat",
+          "settings": {
+            "icon": "♥",
+            "label": "Better Balance In Your Life"
+          }
+        },
+        "s3": {
+          "type": "stat",
+          "settings": {
+            "icon": "🌿",
+            "label": "Healthier Habits That Last"
+          }
+        },
+        "s4": {
+          "type": "stat",
+          "settings": {
+            "icon": "☼",
+            "label": "A Brighter You"
+          }
+        }
       },
-      "block_order": ["t1", "t2", "t3", "t4", "c1", "c2", "c3", "s1", "s2", "s3", "s4"],
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "c1",
+        "c2",
+        "c3",
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
       "settings": {}
     },
     "focus": {
       "type": "home-focus-areas",
       "blocks": {
-        "a1": { "type": "area", "settings": { "title": "Feminine Confidence", "tagline": "A Stronger You Everyday", "icon": "♡", "image_bg": "#F5D9E0", "description": "Support your everyday wellbeing through a thoughtfully designed wellness routine.", "modal_description": "Support your everyday wellbeing through a thoughtfully designed wellness routine that puts you first, every day.", "rating": "4.8", "rating_count": "324", "price_text": "₹2,499", "compare_text": "₹2,999", "discount_label": "17% OFF", "benefits": "🌿 | Encourages a positive daily mindset\n♥ | Builds self-care into your routine, not around it\n✷ | Supported by the Morning & Afternoon formulas", "details_body": "<p>Part of the BODY अर्क WOMEN 45-Day Wellness System — individually packed, plant-based tablets delivered through the Morning, Afternoon and Evening pouches.</p>", "howto_body": "<p>Take with your daily pouch as guided in your ritual booklet — one moment at a time.</p>", "ingredients_body": "<p>Standardised botanical extracts and actives. Full ingredient list printed on every pack.</p>" } },
-        "a2": { "type": "area", "settings": { "title": "Everyday Intimate Wellness", "tagline": "Comfort, Every Single Day", "icon": "❀", "image_bg": "#F6E7C9", "description": "Simple daily self-care habits for comfort & confidence.", "modal_description": "Simple daily self-care habits for comfort and confidence, built into a routine you can keep.", "rating": "4.8", "rating_count": "298", "price_text": "₹2,499", "compare_text": "₹2,999", "discount_label": "17% OFF", "benefits": "🌸 | Everyday comfort and freshness\n♥ | Fits into your existing routine\n✷ | Part of the complete 45-day system", "details_body": "<p>Plant-based daily support, individually packed across the Morning, Afternoon and Evening pouches.</p>", "howto_body": "<p>Follow your daily ritual booklet — no guesswork required.</p>", "ingredients_body": "<p>Standardised botanical actives. Full list on pack.</p>" } },
-        "a3": { "type": "area", "settings": { "title": "Healthy Intimate Flora", "tagline": "Balance, Restored Nightly", "icon": "☾", "image_bg": "#E4DAF1", "description": "Intimate wellness as part of a complete daily routine.", "modal_description": "Intimate wellness as part of a complete daily routine, focused on overnight balance and restoration.", "rating": "4.7", "rating_count": "212", "price_text": "₹2,499", "compare_text": "₹2,999", "discount_label": "17% OFF", "benefits": "🌙 | Supports a healthy intimate flora\n♥ | Calming evening ritual\n✷ | Included in the Evening pouch", "details_body": "<p>Part of the Evening Restore moment in the BODY अर्क WOMEN system.</p>", "howto_body": "<p>Take after dinner, at least an hour before bed.</p>", "ingredients_body": "<p>Standardised botanical actives. Full list on pack.</p>" } },
-        "a4": { "type": "area", "settings": { "title": "Daily Gut Wellness", "tagline": "Feel Lighter, Every Morning", "icon": "🍃", "image_bg": "#DCE8CE", "description": "Digestive wellness at the foundation of your wellbeing.", "modal_description": "Digestive wellness at the foundation of your wellbeing — start each day feeling lighter and more balanced.", "rating": "4.8", "rating_count": "341", "price_text": "₹2,499", "compare_text": "₹2,999", "discount_label": "17% OFF", "benefits": "🌿 | Primes your gut each morning\n♥ | Supports steady daily energy\n✷ | Part of the Morning Balance pouch", "details_body": "<p>Delivered through the Morning Balance moment of the 45-day system.</p>", "howto_body": "<p>Take with breakfast and a full glass of water.</p>", "ingredients_body": "<p>Standardised botanical actives. Full list on pack.</p>" } },
-        "a5": { "type": "area", "settings": { "title": "Everyday Vitality", "tagline": "Energy That Lasts All Day", "icon": "☼", "image_bg": "#F6E0C4", "description": "Structured daily moments that keep your energy steady.", "modal_description": "Structured daily moments that keep your energy steady — no spikes, no crashes.", "rating": "4.9", "rating_count": "402", "price_text": "₹2,499", "compare_text": "₹2,999", "discount_label": "17% OFF", "benefits": "⚡ | Steady, natural energy\n♥ | Three moments, one simple rhythm\n✷ | Morning + Afternoon support", "details_body": "<p>Supported across the Morning and Afternoon moments of the system.</p>", "howto_body": "<p>Take with your Morning and Afternoon pouches.</p>", "ingredients_body": "<p>Standardised botanical actives. Full list on pack.</p>" } },
-        "a6": { "type": "area", "settings": { "title": "Whole-Body Balance", "tagline": "One Ritual, Whole Balance", "icon": "✦", "image_bg": "#E4DAF1", "description": "A complete wellness system built around you.", "modal_description": "A complete wellness system built around you — Morning, Afternoon and Evening, working together.", "rating": "4.8", "rating_count": "512", "price_text": "₹2,499", "compare_text": "₹2,999", "discount_label": "17% OFF", "benefits": "🌿 | Covers energy, balance and calm\n♥ | One simple daily rhythm\n✷ | The full 45-day system", "details_body": "<p>The complete BODY अर्क WOMEN 45-Day Wellness System.</p>", "howto_body": "<p>One pouch of each formula per day, as guided.</p>", "ingredients_body": "<p>Standardised botanical actives. Full list on pack.</p>" } }
+        "a1": {
+          "type": "area",
+          "settings": {
+            "title": "Feminine Confidence",
+            "tagline": "A Stronger You Everyday",
+            "icon": "♡",
+            "image_bg": "#F5D9E0",
+            "description": "Support your everyday wellbeing through a thoughtfully designed wellness routine.",
+            "modal_description": "Support your everyday wellbeing through a thoughtfully designed wellness routine that puts you first, every day.",
+            "rating": "4.8",
+            "rating_count": "324",
+            "price_text": "₹2,499",
+            "compare_text": "₹2,999",
+            "discount_label": "17% OFF",
+            "benefits": "🌿 | Encourages a positive daily mindset\n♥ | Builds self-care into your routine, not around it\n✷ | Supported by the Morning & Afternoon formulas",
+            "details_body": "<p>Part of the BODY अर्क WOMEN 45-Day Wellness System — individually packed, plant-based tablets delivered through the Morning, Afternoon and Evening pouches.</p>",
+            "howto_body": "<p>Take with your daily pouch as guided in your ritual booklet — one moment at a time.</p>",
+            "ingredients_body": "<p>Standardised botanical extracts and actives. Full ingredient list printed on every pack.</p>"
+          }
+        },
+        "a2": {
+          "type": "area",
+          "settings": {
+            "title": "Everyday Intimate Wellness",
+            "tagline": "Comfort, Every Single Day",
+            "icon": "❀",
+            "image_bg": "#F6E7C9",
+            "description": "Simple daily self-care habits for comfort & confidence.",
+            "modal_description": "Simple daily self-care habits for comfort and confidence, built into a routine you can keep.",
+            "rating": "4.8",
+            "rating_count": "298",
+            "price_text": "₹2,499",
+            "compare_text": "₹2,999",
+            "discount_label": "17% OFF",
+            "benefits": "🌸 | Everyday comfort and freshness\n♥ | Fits into your existing routine\n✷ | Part of the complete 45-day system",
+            "details_body": "<p>Plant-based daily support, individually packed across the Morning, Afternoon and Evening pouches.</p>",
+            "howto_body": "<p>Follow your daily ritual booklet — no guesswork required.</p>",
+            "ingredients_body": "<p>Standardised botanical actives. Full list on pack.</p>"
+          }
+        },
+        "a3": {
+          "type": "area",
+          "settings": {
+            "title": "Healthy Intimate Flora",
+            "tagline": "Balance, Restored Nightly",
+            "icon": "☾",
+            "image_bg": "#E4DAF1",
+            "description": "Intimate wellness as part of a complete daily routine.",
+            "modal_description": "Intimate wellness as part of a complete daily routine, focused on overnight balance and restoration.",
+            "rating": "4.7",
+            "rating_count": "212",
+            "price_text": "₹2,499",
+            "compare_text": "₹2,999",
+            "discount_label": "17% OFF",
+            "benefits": "🌙 | Supports a healthy intimate flora\n♥ | Calming evening ritual\n✷ | Included in the Evening pouch",
+            "details_body": "<p>Part of the Evening Restore moment in the BODY अर्क WOMEN system.</p>",
+            "howto_body": "<p>Take after dinner, at least an hour before bed.</p>",
+            "ingredients_body": "<p>Standardised botanical actives. Full list on pack.</p>"
+          }
+        },
+        "a4": {
+          "type": "area",
+          "settings": {
+            "title": "Daily Gut Wellness",
+            "tagline": "Feel Lighter, Every Morning",
+            "icon": "🍃",
+            "image_bg": "#DCE8CE",
+            "description": "Digestive wellness at the foundation of your wellbeing.",
+            "modal_description": "Digestive wellness at the foundation of your wellbeing — start each day feeling lighter and more balanced.",
+            "rating": "4.8",
+            "rating_count": "341",
+            "price_text": "₹2,499",
+            "compare_text": "₹2,999",
+            "discount_label": "17% OFF",
+            "benefits": "🌿 | Primes your gut each morning\n♥ | Supports steady daily energy\n✷ | Part of the Morning Balance pouch",
+            "details_body": "<p>Delivered through the Morning Balance moment of the 45-day system.</p>",
+            "howto_body": "<p>Take with breakfast and a full glass of water.</p>",
+            "ingredients_body": "<p>Standardised botanical actives. Full list on pack.</p>"
+          }
+        },
+        "a5": {
+          "type": "area",
+          "settings": {
+            "title": "Everyday Vitality",
+            "tagline": "Energy That Lasts All Day",
+            "icon": "☼",
+            "image_bg": "#F6E0C4",
+            "description": "Structured daily moments that keep your energy steady.",
+            "modal_description": "Structured daily moments that keep your energy steady — no spikes, no crashes.",
+            "rating": "4.9",
+            "rating_count": "402",
+            "price_text": "₹2,499",
+            "compare_text": "₹2,999",
+            "discount_label": "17% OFF",
+            "benefits": "⚡ | Steady, natural energy\n♥ | Three moments, one simple rhythm\n✷ | Morning + Afternoon support",
+            "details_body": "<p>Supported across the Morning and Afternoon moments of the system.</p>",
+            "howto_body": "<p>Take with your Morning and Afternoon pouches.</p>",
+            "ingredients_body": "<p>Standardised botanical actives. Full list on pack.</p>"
+          }
+        },
+        "a6": {
+          "type": "area",
+          "settings": {
+            "title": "Whole-Body Balance",
+            "tagline": "One Ritual, Whole Balance",
+            "icon": "✦",
+            "image_bg": "#E4DAF1",
+            "description": "A complete wellness system built around you.",
+            "modal_description": "A complete wellness system built around you — Morning, Afternoon and Evening, working together.",
+            "rating": "4.8",
+            "rating_count": "512",
+            "price_text": "₹2,499",
+            "compare_text": "₹2,999",
+            "discount_label": "17% OFF",
+            "benefits": "🌿 | Covers energy, balance and calm\n♥ | One simple daily rhythm\n✷ | The full 45-day system",
+            "details_body": "<p>The complete BODY अर्क WOMEN 45-Day Wellness System.</p>",
+            "howto_body": "<p>One pouch of each formula per day, as guided.</p>",
+            "ingredients_body": "<p>Standardised botanical actives. Full list on pack.</p>"
+          }
+        }
       },
-      "block_order": ["a1", "a2", "a3", "a4", "a5", "a6"],
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6"
+      ],
       "settings": {}
     },
     "moments": {
       "type": "home-three-moments",
       "blocks": {
-        "m1": { "type": "moment", "settings": { "title": "Morning Balance", "icon": "☀", "tags": "Cleanse Within · Stay Active", "detail": "Begin your day with a wellness ritual designed to establish consistency and create the foundation of your daily routine.", "inside": "Gut Prime, Hormone Balance", "dose": "2 tablets", "accent": "#3D4F2E", "border": "#DBE4CC", "soft_bg": "#F3F7EE", "grad_from": "#EEF2E6", "grad_to": "#DBE4CC" } },
-        "m2": { "type": "moment", "settings": { "title": "Afternoon Glow", "icon": "☀", "tags": "Healthy Sugars · Hormonal Harmony", "detail": "Continue your wellness routine with formulations designed to complement your active lifestyle and support feminine wellbeing.", "inside": "Fertility Support, Femme Desire", "dose": "2 tablets", "accent": "#8A4E1F", "border": "#F3D9AE", "soft_bg": "#FDF3E2", "grad_from": "#FAEDD8", "grad_to": "#F3D9AE" } },
-        "m3": { "type": "moment", "settings": { "title": "Evening Restore", "icon": "☾", "tags": "Stress Relief · Better Sleep", "detail": "Complete your day with a calming wellness ritual focused on healthy intimate flora and overnight restoration.", "inside": "Intimate Flora", "dose": "1 tablet", "accent": "#463178", "border": "#D3C6EC", "soft_bg": "#F3F0FA", "grad_from": "#EAE5F5", "grad_to": "#D3C6EC" } }
+        "m1": {
+          "type": "moment",
+          "settings": {
+            "title": "Morning Balance",
+            "icon": "☀",
+            "tags": "Cleanse Within · Stay Active",
+            "detail": "Begin your day with a wellness ritual designed to establish consistency and create the foundation of your daily routine.",
+            "inside": "Gut Prime, Hormone Balance",
+            "dose": "2 tablets",
+            "accent": "#3D4F2E",
+            "border": "#DBE4CC",
+            "soft_bg": "#F3F7EE",
+            "grad_from": "#EEF2E6",
+            "grad_to": "#DBE4CC"
+          }
+        },
+        "m2": {
+          "type": "moment",
+          "settings": {
+            "title": "Afternoon Glow",
+            "icon": "☀",
+            "tags": "Healthy Sugars · Hormonal Harmony",
+            "detail": "Continue your wellness routine with formulations designed to complement your active lifestyle and support feminine wellbeing.",
+            "inside": "Fertility Support, Femme Desire",
+            "dose": "2 tablets",
+            "accent": "#8A4E1F",
+            "border": "#F3D9AE",
+            "soft_bg": "#FDF3E2",
+            "grad_from": "#FAEDD8",
+            "grad_to": "#F3D9AE"
+          }
+        },
+        "m3": {
+          "type": "moment",
+          "settings": {
+            "title": "Evening Restore",
+            "icon": "☾",
+            "tags": "Stress Relief · Better Sleep",
+            "detail": "Complete your day with a calming wellness ritual focused on healthy intimate flora and overnight restoration.",
+            "inside": "Intimate Flora",
+            "dose": "1 tablet",
+            "accent": "#463178",
+            "border": "#D3C6EC",
+            "soft_bg": "#F3F0FA",
+            "grad_from": "#EAE5F5",
+            "grad_to": "#D3C6EC"
+          }
+        }
       },
-      "block_order": ["m1", "m2", "m3"],
+      "block_order": [
+        "m1",
+        "m2",
+        "m3"
+      ],
       "settings": {}
     },
     "kit": {
       "type": "home-inside-kit",
       "blocks": {
-        "k1": { "type": "item", "settings": { "icon": "🗓", "badge": "01", "title": "45 Daily Pouches", "description": "A full 45-day supply, pre-sorted so you never miss a moment." } },
-        "k2": { "type": "item", "settings": { "icon": "☀", "badge": "02", "title": "Morning Balance", "description": "Gut Prime + Hormone Balance to start the day steady." } },
-        "k3": { "type": "item", "settings": { "icon": "❀", "badge": "03", "title": "Afternoon Glow", "description": "Fertility Support + Femme Desire for midday harmony." } },
-        "k4": { "type": "item", "settings": { "icon": "☾", "badge": "04", "title": "Evening Restore", "description": "Intimate Flora for calm, overnight restoration." } },
-        "k5": { "type": "item", "settings": { "icon": "📖", "badge": "05", "title": "Ritual Guide", "description": "A simple booklet to help the routine become a habit." } }
+        "k1": {
+          "type": "item",
+          "settings": {
+            "icon": "🗓",
+            "badge": "01",
+            "title": "45 Daily Pouches",
+            "description": "A full 45-day supply, pre-sorted so you never miss a moment."
+          }
+        },
+        "k2": {
+          "type": "item",
+          "settings": {
+            "icon": "☀",
+            "badge": "02",
+            "title": "Morning Balance",
+            "description": "Gut Prime + Hormone Balance to start the day steady."
+          }
+        },
+        "k3": {
+          "type": "item",
+          "settings": {
+            "icon": "❀",
+            "badge": "03",
+            "title": "Afternoon Glow",
+            "description": "Fertility Support + Femme Desire for midday harmony."
+          }
+        },
+        "k4": {
+          "type": "item",
+          "settings": {
+            "icon": "☾",
+            "badge": "04",
+            "title": "Evening Restore",
+            "description": "Intimate Flora for calm, overnight restoration."
+          }
+        },
+        "k5": {
+          "type": "item",
+          "settings": {
+            "icon": "📖",
+            "badge": "05",
+            "title": "Ritual Guide",
+            "description": "A simple booklet to help the routine become a habit."
+          }
+        }
       },
-      "block_order": ["k1", "k2", "k3", "k4", "k5"],
+      "block_order": [
+        "k1",
+        "k2",
+        "k3",
+        "k4",
+        "k5"
+      ],
       "settings": {}
     },
     "journey": {
       "type": "home-journey",
       "blocks": {
-        "p1": { "type": "phase", "settings": { "range": "1–15", "range_label": "Days 1–15", "title": "Build The Foundation", "description": "Establish the rhythm and let your body settle into a consistent daily routine.", "tags": "Routine · Consistency · Base", "bg": "#EEF2E6", "badge_bg": "#4D6B3A", "text_color": "#3D4F2E", "muted_color": "#5C6650" } },
-        "p2": { "type": "phase", "settings": { "range": "16–30", "range_label": "Days 16–30", "title": "Find Your Balance", "description": "The routine becomes second nature as balance and vitality build day by day.", "tags": "Balance · Vitality · Flow", "bg": "#FAEDD8", "badge_bg": "#C9752E", "text_color": "#8A4E1F", "muted_color": "#8A6A45" } },
-        "p3": { "type": "phase", "settings": { "range": "31–45", "range_label": "Days 31–45", "title": "Feel The Difference", "description": "Consistency compounds — calmer evenings, steadier energy, a routine that lasts.", "tags": "Calm · Restore · Sustain", "bg": "#EAE5F5", "badge_bg": "#5B3FA8", "text_color": "#463178", "muted_color": "#5F5478" } },
-        "ms1": { "type": "milestone", "settings": { "icon": "🌱", "title": "Week 1", "description": "Settle into the routine and notice small shifts in energy." } },
-        "ms2": { "type": "milestone", "settings": { "icon": "☀", "title": "Week 2", "description": "Mornings feel easier; the ritual starts to stick." } },
-        "ms3": { "type": "milestone", "settings": { "icon": "❀", "title": "Week 4", "description": "Balance and vitality build through the day." } },
-        "ms4": { "type": "milestone", "settings": { "icon": "☾", "title": "Week 5", "description": "Calmer evenings and more restful sleep." } },
-        "ms5": { "type": "milestone", "settings": { "icon": "✨", "title": "Day 45", "description": "A routine you can carry forward for life." } }
+        "p1": {
+          "type": "phase",
+          "settings": {
+            "range": "1–15",
+            "range_label": "Days 1–15",
+            "title": "Build The Foundation",
+            "description": "Establish the rhythm and let your body settle into a consistent daily routine.",
+            "tags": "Routine · Consistency · Base",
+            "bg": "#EEF2E6",
+            "badge_bg": "#4D6B3A",
+            "text_color": "#3D4F2E",
+            "muted_color": "#5C6650"
+          }
+        },
+        "p2": {
+          "type": "phase",
+          "settings": {
+            "range": "16–30",
+            "range_label": "Days 16–30",
+            "title": "Find Your Balance",
+            "description": "The routine becomes second nature as balance and vitality build day by day.",
+            "tags": "Balance · Vitality · Flow",
+            "bg": "#FAEDD8",
+            "badge_bg": "#C9752E",
+            "text_color": "#8A4E1F",
+            "muted_color": "#8A6A45"
+          }
+        },
+        "p3": {
+          "type": "phase",
+          "settings": {
+            "range": "31–45",
+            "range_label": "Days 31–45",
+            "title": "Feel The Difference",
+            "description": "Consistency compounds — calmer evenings, steadier energy, a routine that lasts.",
+            "tags": "Calm · Restore · Sustain",
+            "bg": "#EAE5F5",
+            "badge_bg": "#5B3FA8",
+            "text_color": "#463178",
+            "muted_color": "#5F5478"
+          }
+        },
+        "ms1": {
+          "type": "milestone",
+          "settings": {
+            "icon": "🌱",
+            "title": "Week 1",
+            "description": "Settle into the routine and notice small shifts in energy."
+          }
+        },
+        "ms2": {
+          "type": "milestone",
+          "settings": {
+            "icon": "☀",
+            "title": "Week 2",
+            "description": "Mornings feel easier; the ritual starts to stick."
+          }
+        },
+        "ms3": {
+          "type": "milestone",
+          "settings": {
+            "icon": "❀",
+            "title": "Week 4",
+            "description": "Balance and vitality build through the day."
+          }
+        },
+        "ms4": {
+          "type": "milestone",
+          "settings": {
+            "icon": "☾",
+            "title": "Week 5",
+            "description": "Calmer evenings and more restful sleep."
+          }
+        },
+        "ms5": {
+          "type": "milestone",
+          "settings": {
+            "icon": "✨",
+            "title": "Day 45",
+            "description": "A routine you can carry forward for life."
+          }
+        }
       },
-      "block_order": ["p1", "p2", "p3", "ms1", "ms2", "ms3", "ms4", "ms5"],
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "ms1",
+        "ms2",
+        "ms3",
+        "ms4",
+        "ms5"
+      ],
       "settings": {}
     },
     "community": {
       "type": "home-community",
       "blocks": {
-        "cs1": { "type": "stat", "settings": { "icon": "👥", "value": "25K+", "label": "Women & Growing" } },
-        "cs2": { "type": "stat", "settings": { "icon": "📈", "value": "15K+", "label": "Journeys In Progress" } },
-        "cc1": { "type": "card", "settings": { "icon": "📚", "title": "Wellness Hub", "description": "Educational articles and guides for everyday wellbeing." } },
-        "cc2": { "type": "card", "settings": { "icon": "💬", "title": "Community Circle", "description": "Connect with women following the same daily ritual." } },
-        "cc3": { "type": "card", "settings": { "icon": "🎯", "title": "Guided Journeys", "description": "Stay on track with gentle 45-day check-ins." } },
-        "cc4": { "type": "card", "settings": { "icon": "🧑‍⚕️", "title": "Expert Answers", "description": "Ask questions and learn from wellness experts." } },
-        "cc5": { "type": "card", "settings": { "icon": "📝", "title": "Ritual Journal", "description": "Track how you feel across your 45-day cycle." } },
-        "cc6": { "type": "card", "settings": { "icon": "🎁", "title": "Member Perks", "description": "Early access and rewards for consistent members." } }
+        "cs1": {
+          "type": "stat",
+          "settings": {
+            "icon": "👥",
+            "value": "25K+",
+            "label": "Women & Growing"
+          }
+        },
+        "cs2": {
+          "type": "stat",
+          "settings": {
+            "icon": "📈",
+            "value": "15K+",
+            "label": "Journeys In Progress"
+          }
+        },
+        "cc1": {
+          "type": "card",
+          "settings": {
+            "icon": "📚",
+            "title": "Wellness Hub",
+            "description": "Educational articles and guides for everyday wellbeing."
+          }
+        },
+        "cc2": {
+          "type": "card",
+          "settings": {
+            "icon": "💬",
+            "title": "Community Circle",
+            "description": "Connect with women following the same daily ritual."
+          }
+        },
+        "cc3": {
+          "type": "card",
+          "settings": {
+            "icon": "🎯",
+            "title": "Guided Journeys",
+            "description": "Stay on track with gentle 45-day check-ins."
+          }
+        },
+        "cc4": {
+          "type": "card",
+          "settings": {
+            "icon": "🧑‍⚕️",
+            "title": "Expert Answers",
+            "description": "Ask questions and learn from wellness experts."
+          }
+        },
+        "cc5": {
+          "type": "card",
+          "settings": {
+            "icon": "📝",
+            "title": "Ritual Journal",
+            "description": "Track how you feel across your 45-day cycle."
+          }
+        },
+        "cc6": {
+          "type": "card",
+          "settings": {
+            "icon": "🎁",
+            "title": "Member Perks",
+            "description": "Early access and rewards for consistent members."
+          }
+        }
       },
-      "block_order": ["cs1", "cs2", "cc1", "cc2", "cc3", "cc4", "cc5", "cc6"],
+      "block_order": [
+        "cs1",
+        "cs2",
+        "cc1",
+        "cc2",
+        "cc3",
+        "cc4",
+        "cc5",
+        "cc6"
+      ],
       "settings": {}
     },
     "why": {
       "type": "home-why-choose",
       "blocks": {
-        "w1": { "type": "reason", "settings": { "num": "1", "icon": "🌿", "title": "Natural, Thoughtful Formulas", "description": "Plant-based actives, chosen for everyday wellbeing.", "tags": "Plant-based\nNo artificial additives\nLab-tested" } },
-        "w2": { "type": "reason", "settings": { "num": "2", "icon": "🕒", "title": "Built Around Your Day", "description": "A Morning · Afternoon · Evening rhythm that's easy to keep.", "tags": "3 daily moments\nPre-sorted pouches\nNo guesswork" } },
-        "w3": { "type": "reason", "settings": { "num": "3", "icon": "❀", "title": "Designed For Women", "description": "Formulated for hormonal balance, energy and calm.", "tags": "Hormone support\nEnergy\nCalm & sleep" } },
-        "w4": { "type": "reason", "settings": { "num": "4", "icon": "🛡", "title": "Trusted & Safe", "description": "Third-party tested, transparent labelling.", "tags": "Lab-tested\nTransparent\nNo preservatives" } },
-        "w5": { "type": "reason", "settings": { "num": "5", "icon": "🤝", "title": "A Supportive Community", "description": "Guidance and check-ins across your 45-day journey.", "tags": "Wellness Hub\nCheck-ins\nExpert answers" } }
+        "w1": {
+          "type": "reason",
+          "settings": {
+            "num": "1",
+            "icon": "🌿",
+            "title": "Natural, Thoughtful Formulas",
+            "description": "Plant-based actives, chosen for everyday wellbeing.",
+            "tags": "Plant-based\nNo artificial additives\nLab-tested"
+          }
+        },
+        "w2": {
+          "type": "reason",
+          "settings": {
+            "num": "2",
+            "icon": "🕒",
+            "title": "Built Around Your Day",
+            "description": "A Morning · Afternoon · Evening rhythm that's easy to keep.",
+            "tags": "3 daily moments\nPre-sorted pouches\nNo guesswork"
+          }
+        },
+        "w3": {
+          "type": "reason",
+          "settings": {
+            "num": "3",
+            "icon": "❀",
+            "title": "Designed For Women",
+            "description": "Formulated for hormonal balance, energy and calm.",
+            "tags": "Hormone support\nEnergy\nCalm & sleep"
+          }
+        },
+        "w4": {
+          "type": "reason",
+          "settings": {
+            "num": "4",
+            "icon": "🛡",
+            "title": "Trusted & Safe",
+            "description": "Third-party tested, transparent labelling.",
+            "tags": "Lab-tested\nTransparent\nNo preservatives"
+          }
+        },
+        "w5": {
+          "type": "reason",
+          "settings": {
+            "num": "5",
+            "icon": "🤝",
+            "title": "A Supportive Community",
+            "description": "Guidance and check-ins across your 45-day journey.",
+            "tags": "Wellness Hub\nCheck-ins\nExpert answers"
+          }
+        }
       },
-      "block_order": ["w1", "w2", "w3", "w4", "w5"],
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5"
+      ],
       "settings": {}
     },
-    "newsletter": { "type": "home-newsletter", "settings": {} },
+    "newsletter": {
+      "type": "home-newsletter",
+      "settings": {}
+    },
     "footer": {
       "type": "home-footer",
       "blocks": {
-        "f1": { "type": "menu", "settings": { "heading": "Explore", "links": "<p><a href='/'>BODY अर्क Women</a></p><p><a href='/'>BODY अर्क Men</a></p><p><a href='/collections/all'>Shop</a></p><p><a href='/blogs/news'>Wellness Hub</a></p>" } },
-        "f2": { "type": "menu", "settings": { "heading": "Support", "links": "<p><a href='/pages/faqs'>FAQs</a></p><p><a href='/policies/shipping-policy'>Shipping Policy</a></p><p><a href='/policies/refund-policy'>Returns & Refunds</a></p><p><a href='/pages/contact'>Contact Us</a></p>" } },
-        "f3": { "type": "menu", "settings": { "heading": "Company", "links": "<p><a href='/pages/about'>About BODY अर्क</a></p><p><a href='/policies/privacy-policy'>Privacy Policy</a></p><p><a href='/policies/terms-of-service'>Terms & Conditions</a></p>" } },
-        "f4": { "type": "contact", "settings": { "heading": "Contact", "line1": "support@bodyark.in", "line2": "Mon–Sat, 10am–6pm" } }
+        "f1": {
+          "type": "menu",
+          "settings": {
+            "heading": "Explore",
+            "links": "<p><a href='/'>BODY अर्क Women</a></p><p><a href='/'>BODY अर्क Men</a></p><p><a href='/collections/all'>Shop</a></p><p><a href='/blogs/news'>Wellness Hub</a></p>"
+          }
+        },
+        "f2": {
+          "type": "menu",
+          "settings": {
+            "heading": "Support",
+            "links": "<p><a href='/pages/faqs'>FAQs</a></p><p><a href='/policies/shipping-policy'>Shipping Policy</a></p><p><a href='/policies/refund-policy'>Returns & Refunds</a></p><p><a href='/pages/contact'>Contact Us</a></p>"
+          }
+        },
+        "f3": {
+          "type": "menu",
+          "settings": {
+            "heading": "Company",
+            "links": "<p><a href='/pages/about'>About BODY अर्क</a></p><p><a href='/policies/privacy-policy'>Privacy Policy</a></p><p><a href='/policies/terms-of-service'>Terms & Conditions</a></p>"
+          }
+        },
+        "f4": {
+          "type": "contact",
+          "settings": {
+            "heading": "Contact",
+            "line1": "support@bodyark.in",
+            "line2": "Mon–Sat, 10am–6pm"
+          }
+        }
       },
-      "block_order": ["f1", "f2", "f3", "f4"],
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ],
       "settings": {}
     }
   },
-  "order": ["hero", "focus", "moments", "kit", "journey", "community", "why", "newsletter", "footer"]
+  "order": [
+    "hero",
+    "focus",
+    "moments",
+    "kit",
+    "journey",
+    "community",
+    "why",
+    "newsletter",
+    "footer"
+  ]
 }

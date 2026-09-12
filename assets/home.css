@@ -132,32 +132,48 @@
   margin-top: 6px;
 }
 
+/* tablet */
+@media (min-width: 750px) and (max-width: 1024px) {
+  .home-sec {
+    padding-block: min(var(--h-pbs, 96px), 76px) min(var(--h-pbe, 96px), 76px);
+  }
+
+  .home-wrap {
+    padding-inline: clamp(24px, 4vw, 40px);
+  }
+}
+
 /* generic horizontal scroller for mobile */
 @media (max-width: 749px) {
   .home-wrap {
-    padding-inline: 20px;
+    padding-inline: 18px;
   }
 
   .home-sec {
-    padding-block: min(var(--h-pbs, 96px), 60px) min(var(--h-pbe, 96px), 60px);
+    padding-block: min(var(--h-pbs, 96px), 56px) min(var(--h-pbe, 96px), 56px);
   }
 
   .home-sec__head {
-    margin-bottom: 30px;
+    margin-bottom: 26px;
+  }
+
+  .home-h2 {
+    font-size: clamp(23px, 6.5vw, 28px);
   }
 
   .home-hscroll {
     display: grid !important;
     grid-auto-flow: column;
     grid-template-columns: none !important;
-    grid-auto-columns: 80%;
-    gap: 16px;
+    grid-auto-columns: 78%;
+    gap: 14px;
     overflow-x: auto;
     overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x proximity;
     -webkit-overflow-scrolling: touch;
-    margin-inline: -20px;
-    padding-inline: 20px;
+    margin-inline: -18px;
+    padding-inline: 18px;
+    padding-bottom: 4px;
     scrollbar-width: none;
   }
 
@@ -167,5 +183,6 @@
 
   .home-hscroll > * {
     scroll-snap-align: start;
+    min-width: 0;
   }
 }

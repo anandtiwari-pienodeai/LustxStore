@@ -259,7 +259,7 @@
     flex-wrap: wrap;
   }
 
-  @media (min-width: 750px) and (max-width: 1000px) {
+  @media (min-width: 750px) and (max-width: 1024px) {
     .home-moments__grid { grid-template-columns: repeat(2, 1fr); }
   }
 
@@ -267,8 +267,19 @@
     .home-moments__notes { grid-template-columns: 1fr; }
   }
 
+  @media (max-width: 749px) {
+    .home-moments__grid { margin-bottom: 32px; }
+    .home-moment__media { height: 220px; }
+    .home-moment__body { padding: 22px; }
+    .home-moment__reveal { padding: 0 22px 22px; }
+    .home-moment__title { font-size: 20px; }
+    .home-moments__note { padding: 22px; }
+  }
+
   @media (max-width: 560px) {
-    .home-moments__note-cols { grid-template-columns: 1fr; }
+    .home-moments__note-cols { grid-template-columns: 1fr; gap: 10px; }
+    .home-moments__note-btns .home-btn { flex: 1 1 100%; justify-content: center; }
+    .home-moment__inside { flex-direction: column; align-items: flex-start; gap: 4px; }
   }
 {% endstylesheet %}
 

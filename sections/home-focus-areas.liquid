@@ -325,10 +325,6 @@
     color: #2f1f22;
   }
 
-  @media (min-width: 750px) and (max-width: 1000px) {
-    .home-focus__grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
   /* ---------- modal ---------- */
   .home-focus__overlay {
     position: fixed;
@@ -659,11 +655,35 @@
 
   body.home-focus-modal-open { overflow: hidden; }
 
-  @media (max-width: 800px) {
+  @media (min-width: 750px) and (max-width: 860px) {
+    .home-focus__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 900px) {
     .home-focus__modal-grid { grid-template-columns: 1fr; }
     .home-focus__modal-media { padding: 24px 24px 8px; }
     .home-focus__modal-info { padding: 8px 24px 32px; }
-    .home-focus__close { top: 14px; right: 14px; }
+    .home-focus__close { top: 14px; right: 14px; background: rgba(255,255,255,0.92); }
+    .home-focus__modal-hero { aspect-ratio: 16 / 11; }
+  }
+
+  @media (max-width: 749px) {
+    .home-focus__overlay { padding: 0; align-items: flex-end; }
+
+    .home-focus__modal {
+      max-width: 100%;
+      max-height: 92vh;
+      border-radius: 22px 22px 0 0;
+    }
+
+    .home-focus__modal-grid { max-height: 92vh; }
+    .home-focus__modal-media { padding: 28px 18px 8px; }
+    .home-focus__modal-info { padding: 8px 18px 28px; }
+    .home-focus__modal-thumbs { gap: 8px; }
+    .home-focus__modal-thumbs span { height: 52px; }
+    .home-focus__modal-buy { flex-wrap: wrap; }
+    .home-focus__modal-ship { flex-wrap: wrap; gap: 12px; justify-content: space-around; }
+    .home-focus__modal-ship > div { flex: 1 0 30%; }
   }
 {% endstylesheet %}
 

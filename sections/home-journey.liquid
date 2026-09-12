@@ -174,9 +174,22 @@
     text-decoration: none;
   }
 
-  @media (min-width: 750px) and (max-width: 1050px) {
+  @media (min-width: 750px) and (max-width: 1024px) {
+    .home-journey__milestones { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 750px) and (max-width: 860px) {
     .home-journey__phases { grid-template-columns: 1fr; }
-    .home-journey__milestones { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 749px) {
+    .home-journey__phases { margin-bottom: 36px; }
+    .home-journey__phase-desc { margin-bottom: 20px; }
+    .home-journey__milestones.home-hscroll { grid-auto-columns: 58%; }
+  }
+
+  @media (max-width: 400px) {
+    .home-journey__milestones.home-hscroll { grid-auto-columns: 72%; }
   }
 {% endstylesheet %}
 

@@ -16,7 +16,81 @@
         "runtime_url": "",
         "primary_cta_link": "/pages/our-program",
         "secondary_cta_label": "Explore the Product",
-        "secondary_cta_product": "body-अर्क®-women-product-detail-page"
+        "secondary_cta_product": "body-अर्क®-women-product-detail-page",
+        "show_community": false,
+        "show_real_life": false,
+        "show_faq": false,
+        "show_promise_card": false
+      }
+    },
+    "lx_promise": {
+      "type": "lx-promise",
+      "blocks": {
+        "p1": {
+          "type": "principle",
+          "settings": {
+            "icon": "herb",
+            "title": "Ayurveda Inspired",
+            "text": "Rooted in traditional wisdom",
+            "color": "#6f8558"
+          }
+        },
+        "p2": {
+          "type": "principle",
+          "settings": {
+            "icon": "flask",
+            "title": "Science-Informed",
+            "text": "Guided by modern nutrition",
+            "color": "#d9773e"
+          }
+        },
+        "p3": {
+          "type": "principle",
+          "settings": {
+            "icon": "shield",
+            "title": "Premium Quality",
+            "text": "Crafted for consistency",
+            "color": "#b98b3a"
+          }
+        },
+        "p4": {
+          "type": "principle",
+          "settings": {
+            "icon": "book",
+            "title": "Education First",
+            "text": "Learn through the Wellness Hub",
+            "color": "#7a5bc0"
+          }
+        },
+        "p5": {
+          "type": "principle",
+          "settings": {
+            "icon": "eye",
+            "title": "Transparent",
+            "text": "Honest, no exaggerated claims",
+            "color": "#4e8b88"
+          }
+        },
+        "p6": {
+          "type": "principle",
+          "settings": {
+            "icon": "heart",
+            "title": "Support That Cares",
+            "text": "A team beside you",
+            "color": "#c2386b"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6"
+      ],
+      "settings": {
+        "button_link": "/pages/our-story"
       }
     },
     "lx_video_stories": {
@@ -26,49 +100,56 @@
           "type": "video",
           "settings": {
             "title": "Morning Rituals for More Energy",
-            "tag": "Wellness"
+            "tag": "Wellness",
+            "video_asset": "lx-story-1.mp4"
           }
         },
         "video_2": {
           "type": "video",
           "settings": {
             "title": "5 Foods for Natural Energy",
-            "tag": "Nutrition"
+            "tag": "Nutrition",
+            "video_asset": "lx-story-2.mp4"
           }
         },
         "video_3": {
           "type": "video",
           "settings": {
             "title": "Simple Skincare Routine for Glowing Skin",
-            "tag": "Skincare"
+            "tag": "Skincare",
+            "video_asset": "lx-story-3.mp4"
           }
         },
         "video_4": {
           "type": "video",
           "settings": {
             "title": "5 Small Daily Habits That Make a Big Difference",
-            "tag": "Daily habits"
+            "tag": "Daily habits",
+            "video_asset": "lx-story-4.mp4"
           }
         },
         "video_5": {
           "type": "video",
           "settings": {
             "title": "Be More Mindful in Just 5 Minutes a Day",
-            "tag": "Mindset"
+            "tag": "Mindset",
+            "video_asset": "lx-story-5.mp4"
           }
         },
         "video_6": {
           "type": "video",
           "settings": {
             "title": "10 Tips for a Better Night's Sleep",
-            "tag": "Better sleep"
+            "tag": "Better sleep",
+            "video_asset": "lx-story-6.mp4"
           }
         },
         "video_7": {
           "type": "video",
           "settings": {
             "title": "Stay Hydrated All Day",
-            "tag": "Wellness"
+            "tag": "Wellness",
+            "video_asset": "lx-story-7.mp4"
           }
         }
       },
@@ -117,6 +198,125 @@
         "padding_bottom": 64
       }
     },
+    "lx_faq": {
+      "type": "lx-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "What is BODY अर्क WOMEN?",
+            "answer": "<p>BODY अर्क WOMEN is a thoughtfully designed 45-Day Premium Wellness Kit that brings together five specialised wellness formulations within a simple, organised daily experience for modern women.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "How is the wellness experience organised?",
+            "answer": "<p>The kit is organised around three daily wellness moments — Morning, Afternoon and Evening — with clearly identified, individually packed tablets that make the routine simple and easy to follow.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "What comes inside the BODY अर्क WOMEN Kit?",
+            "answer": "<p>The Premium Magnetic Wellness Kit, organised daily wellness pouches, five specialised formulations, a Welcome Guide and access to the BODY अर्क Wellness Hub.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Why are the tablets individually packed?",
+            "answer": "<p>Each tablet is individually packed to support product integrity, hygiene and convenience, while keeping your daily experience organised.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "Where can I learn more about the ingredients?",
+            "answer": "<p>Visit the BODY अर्क Wellness Hub to explore the Ingredient Library, our formulation philosophy and educational wellness resources.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "Is customer support available?",
+            "answer": "<p>Yes. Our Wellness Support Team is available to help with product guidance, general enquiries and your overall BODY अर्क experience.</p>"
+          }
+        },
+        "q7": {
+          "type": "question",
+          "settings": {
+            "question": "What happens after completing the first 45 days?",
+            "answer": "<p>Your first 45 days establish the foundation. We recommend continuing with the Recommended 90-Day Wellness Journey to build lasting consistency.</p>"
+          }
+        },
+        "q8": {
+          "type": "question",
+          "settings": {
+            "question": "What is the BODY अर्क Confidence Promise?",
+            "answer": "<p>Our commitment to quality, transparency and customer support. Eligible customers who complete the Recommended 90-Day Journey may qualify for the Satisfaction Commitment, subject to the Confidence Promise Policy and eligibility criteria.</p>"
+          }
+        },
+        "help_promise": {
+          "type": "help",
+          "settings": {
+            "icon": "shield",
+            "title": "Confidence Promise",
+            "subtitle": "Policy & eligibility",
+            "tint": "#fbe9ee",
+            "ink": "#c2386b"
+          }
+        },
+        "help_hub": {
+          "type": "help",
+          "settings": {
+            "icon": "book",
+            "title": "Wellness Hub",
+            "subtitle": "Guides & ingredients",
+            "tint": "#eeebf8",
+            "ink": "#6b5aa6",
+            "link": "/pages/wellness-hub"
+          }
+        },
+        "help_support": {
+          "type": "help",
+          "settings": {
+            "icon": "headset",
+            "title": "Customer Support",
+            "subtitle": "Talk to our team",
+            "tint": "#edf2e8",
+            "ink": "#5e7650",
+            "link": "/pages/contact"
+          }
+        },
+        "help_shipping": {
+          "type": "help",
+          "settings": {
+            "icon": "truck",
+            "title": "Shipping & Orders",
+            "subtitle": "Delivery & tracking",
+            "tint": "#fbeee3",
+            "ink": "#c26a35",
+            "link": "/policies/shipping-policy"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "help_promise",
+        "help_hub",
+        "help_support",
+        "help_shipping"
+      ],
+      "settings": {}
+    },
     "lx_newsletter": {
       "type": "lx-footer-newsletter",
       "settings": {
@@ -138,8 +338,10 @@
   },
   "order": [
     "body_ark_home",
+    "lx_promise",
     "lx_video_stories",
     "lx_blog_carousel",
+    "lx_faq",
     "lx_newsletter"
   ]
 }

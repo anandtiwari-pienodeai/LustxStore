@@ -316,11 +316,92 @@
         "padding_block_start": 96,
         "padding_block_end": 40
       }
+    },
+    "lx_video_stories": {
+      "type": "lx-video-stories",
+      "blocks": {
+        "video_1": {
+          "type": "video",
+          "settings": {
+            "title": "Morning Rituals for More Energy",
+            "tag": "Wellness",
+            "video_asset": "lx-story-1.mp4"
+          }
+        },
+        "video_2": {
+          "type": "video",
+          "settings": {
+            "title": "5 Foods for Natural Energy",
+            "tag": "Nutrition",
+            "video_asset": "lx-story-2.mp4"
+          }
+        },
+        "video_3": {
+          "type": "video",
+          "settings": {
+            "title": "Simple Skincare Routine for Glowing Skin",
+            "tag": "Skincare",
+            "video_asset": "lx-story-3.mp4"
+          }
+        },
+        "video_4": {
+          "type": "video",
+          "settings": {
+            "title": "5 Small Daily Habits That Make a Big Difference",
+            "tag": "Daily habits",
+            "video_asset": "lx-story-4.mp4"
+          }
+        },
+        "video_5": {
+          "type": "video",
+          "settings": {
+            "title": "Be More Mindful in Just 5 Minutes a Day",
+            "tag": "Mindset",
+            "video_asset": "lx-story-5.mp4"
+          }
+        },
+        "video_6": {
+          "type": "video",
+          "settings": {
+            "title": "10 Tips for a Better Night's Sleep",
+            "tag": "Better sleep",
+            "video_asset": "lx-story-6.mp4"
+          }
+        },
+        "video_7": {
+          "type": "video",
+          "settings": {
+            "title": "Stay Hydrated All Day",
+            "tag": "Wellness",
+            "video_asset": "lx-story-7.mp4"
+          }
+        }
+      },
+      "block_order": [
+        "video_1",
+        "video_2",
+        "video_3",
+        "video_4",
+        "video_5",
+        "video_6",
+        "video_7"
+      ],
+      "settings": {
+        "eyebrow": "Blog",
+        "heading": "Blog stories",
+        "subheading": "Real people. Real routines. Real wellness.",
+        "follow_label": "Follow us @lustxstore",
+        "follow_link": "https://www.instagram.com/lustxstore",
+        "accent_color": "#a8532c",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
     }
   },
   "order": [
     "main",
     "moments",
+    "lx_video_stories",
     "inside_box",
     "how_to_use",
     "info_faq",

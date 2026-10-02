@@ -3,6 +3,16 @@
   The page markup + interactions are loaded from the files below (Settings → Files).
   To update the design, replace ba-home-dc.txt and bump the version in its URL.
 {%- endcomment -%}
+{%- unless section.settings.show_community and section.settings.show_real_life and section.settings.show_faq and section.settings.show_promise_card -%}
+  <style>
+    /* Blocks from ba-home-dc.txt hidden from the theme editor */
+    {%- unless section.settings.show_community %} #ba-home-mount #community { display: none !important; }{% endunless %}
+    {%- unless section.settings.show_real_life %} #ba-home-mount #real-life { display: none !important; }{% endunless %}
+    {%- unless section.settings.show_faq %} #ba-home-mount #faq { display: none !important; }{% endunless %}
+    {%- comment -%} "Our promise, in short" card: the only 32px-radius dark (#2a1a1f) panel in #promise. The runtime writes normalised inline styles. {%- endcomment -%}
+    {%- unless section.settings.show_promise_card %} #ba-home-mount #promise [style*="border-radius: 32px"][style*="rgb(42, 26, 31)"] { display: none !important; }{% endunless %}
+  </style>
+{%- endunless -%}
 <div id="ba-home-mount" class="ba-home" style="min-height:100vh;background:#fdf4ef;"></div>
 <script>
   (function () {
@@ -61,6 +71,11 @@
   "settings": [
     { "type": "url", "id": "dc_url", "label": "Design source URL (optional override)" },
     { "type": "url", "id": "runtime_url", "label": "Runtime URL (optional override)" },
+    { "type": "header", "content": "Sections" },
+    { "type": "checkbox", "id": "show_real_life", "label": "Show \"Everyday wellness experience\" section", "default": true },
+    { "type": "checkbox", "id": "show_community", "label": "Show \"Discover the community\" section", "default": true },
+    { "type": "checkbox", "id": "show_promise_card", "label": "Show built-in \"Our promise, in short\" card", "info": "Off when the separate Promise section is used.", "default": true },
+    { "type": "checkbox", "id": "show_faq", "label": "Show built-in FAQ", "info": "Off when the separate FAQ section is used.", "default": true },
     { "type": "header", "content": "Hero buttons" },
     {
       "type": "url",

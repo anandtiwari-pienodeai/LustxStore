@@ -100,3 +100,67 @@
     scroll-snap-align: start;
   }
 }
+
+/* Swipe rows bleed 18px past a 16px gutter on small phones; keep that inside the section. */
+.arka-sec,
+.arka-hero {
+  overflow-x: clip;
+}
+
+/* PDP card rows: on hover the pointed card expands and its neighbours shrink. */
+@media (min-width: 990px) and (hover: hover) and (pointer: fine) {
+  .arka-sec .arka-moments__grid,
+  .arka-sec .arka-how__grid {
+    display: flex;
+    gap: 24px;
+  }
+
+  .arka-sec .arka-moments__grid > *,
+  .arka-sec .arka-how__grid > * {
+    flex: 1 1 0;
+    min-width: 0;
+    transition:
+      flex-grow 0.55s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.4s ease,
+      box-shadow 0.4s ease;
+  }
+
+  /* Reserve the wrapped height of the narrow How-to-use cards so the row never jumps */
+  .arka-sec .arka-how__grid {
+    min-height: 250px;
+  }
+
+  /* Lock the image height so cards only grow sideways (no page jump) */
+  .arka-sec .arka-moments__grid .arka-moment__media {
+    aspect-ratio: auto;
+    height: clamp(360px, 36vw, 520px);
+  }
+
+  .arka-sec .arka-moments__grid .arka-moment__media img {
+    object-position: center 30%;
+    transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .arka-sec .arka-moments__grid > *:hover .arka-moment__media img {
+    transform: scale(1.03);
+  }
+
+  .arka-sec .arka-moments__grid:hover > *,
+  .arka-sec .arka-how__grid:hover > * {
+    flex-grow: 0.8;
+  }
+
+  .arka-sec .arka-moments__grid > *:hover,
+  .arka-sec .arka-how__grid > *:hover {
+    flex-grow: 1.5;
+    transform: translateY(-4px);
+    box-shadow: 0 22px 40px -24px rgb(60 30 30 / 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arka-moments__grid > *,
+  .arka-how__grid > * {
+    transition: none;
+  }
+}

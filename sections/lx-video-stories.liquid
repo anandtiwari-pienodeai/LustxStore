@@ -13,7 +13,7 @@
   assign heading_id = 'LxStoriesHeading-' | append: section.id
   assign story_count = 0
   for block in section.blocks
-    if block.settings.video != blank or block.settings.image != blank or block.settings.title != blank
+    if block.settings.video != blank or block.settings.video_asset != blank or block.settings.image != blank or block.settings.title != blank
       assign story_count = story_count | plus: 1
     endif
   endfor
@@ -62,8 +62,13 @@
       {% for block in section.blocks %}
         {% liquid
           assign story = block.settings
-          if story.video == blank and story.image == blank and story.title == blank and request.design_mode == false
+          if story.video == blank and story.video_asset == blank and story.image == blank and story.title == blank and request.design_mode == false
             continue
+          endif
+
+          assign has_video = false
+          if story.video != blank or story.video_asset != blank
+            assign has_video = true
           endif
 
           assign image = story.image
@@ -84,7 +89,7 @@
           endif
         %}
         <li class="lx-stories__slide" {{ block.shopify_attributes }}>
-          <article class="lx-story{% if story.video != blank %} lx-story--video{% endif %}">
+          <article class="lx-story{% if has_video %} lx-story--video{% endif %}">
             <div class="lx-story__media">
               {% if image != blank %}
                 {{
@@ -97,7 +102,7 @@
                     alt: '',
                     class: 'lx-story__img'
                 }}
-              {% else %}
+              {% elsif story.video_asset == blank %}
                 {{ 'lifestyle-1' | placeholder_svg_tag: 'lx-story__img lx-story__img--placeholder' }}
               {% endif %}
               {% if story.video != blank %}
@@ -111,6 +116,16 @@
                     preload: 'none',
                     loop: true
                 }}
+              {% elsif story.video_asset != blank %}
+                {%- comment -%} Theme-asset video: its first frame doubles as the cover when no image is set. {%- endcomment -%}
+                <video
+                  class="lx-story__video{% if image == blank %} lx-story__video--cover{% endif %}"
+                  src="{{ story.video_asset | asset_url }}#t=0.1"
+                  playsinline
+                  loop
+                  preload="metadata"
+                  data-lx-autoduration
+                ></video>
               {% endif %}
             </div>
 
@@ -120,10 +135,12 @@
               {% endif %}
               {% if duration != blank %}
                 <span class="lx-story__duration">{{ duration | escape }}</span>
+              {% elsif story.video_asset != blank %}
+                <span class="lx-story__duration" data-lx-duration></span>
               {% endif %}
             </div>
 
-            {% if story.video != blank %}
+            {% if has_video %}
               <button type="button" class="lx-story__play" aria-label="Play video: {{ title | escape }}">
                 <svg class="lx-story__icon-play" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
                 <svg class="lx-story__icon-pause" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>
@@ -215,6 +232,18 @@
                 slide.querySelector('.lx-story').classList.remove('is-playing');
               }
             });
+          });
+
+          // Theme-asset videos have no stored duration; read it from the file's metadata.
+          this.querySelectorAll('video[data-lx-autoduration]').forEach((video) => {
+            const label = video.closest('.lx-story').querySelector('[data-lx-duration]');
+            if (!label) return;
+            const show = () => {
+              const t = Math.round(video.duration || 0);
+              if (t) label.textContent = `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
+            };
+            if (video.readyState >= 1) show();
+            else video.addEventListener('loadedmetadata', show, { once: true });
           });
 
           this.onScroll = () => {
@@ -520,7 +549,8 @@
     transition: opacity 0.3s ease;
   }
 
-  .lx-story.is-playing .lx-story__video {
+  .lx-story.is-playing .lx-story__video,
+  .lx-story__video--cover {
     opacity: 1;
   }
 
@@ -793,6 +823,12 @@
         },
         { "type": "text", "id": "title", "label": "Title" },
         { "type": "text", "id": "tag", "label": "Tag", "placeholder": "Daily habits" },
+        {
+          "type": "text",
+          "id": "video_asset",
+          "label": "Video file in theme assets (advanced)",
+          "info": "Used when no Shopify video is picked above, e.g. lx-story-1.mp4."
+        },
         {
           "type": "text",
           "id": "duration",

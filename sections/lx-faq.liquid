@@ -1,0 +1,599 @@
+{%- comment -%}
+  Lust Xstore — FAQ.
+  Left: heading, "Still have questions?" support card, Quick Help links.
+  Right: numbered accordion (native <details>; one open at a time) + Wellness Hub note.
+  Blocks: "Question", "Quick help".
+{%- endcomment -%}
+
+{% liquid
+  assign group = 'LxFaq-' | append: section.id
+  assign q_index = 0
+%}
+
+<section
+  class="lx-faq"
+  aria-labelledby="{{ group }}-title"
+  style="
+    --lx-faq-pad-top: {{ section.settings.padding_top }}px;
+    --lx-faq-pad-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="lx-faq__wrap">
+    {%- comment -%} ---------- Left ---------- {%- endcomment -%}
+    <div class="lx-faq__intro">
+      <p class="lx-faq__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      <h2 id="{{ group }}-title" class="lx-faq__title">
+        {{ section.settings.title | escape }}
+        {% if section.settings.title_accent != blank %}
+          <em>{{ section.settings.title_accent | escape }}</em>
+        {% endif %}
+      </h2>
+      <p class="lx-faq__text">{{ section.settings.text | escape }}</p>
+
+      <div class="lx-faq-support">
+        <div class="lx-faq-support__head">
+          <span class="lx-faq-support__icon">{% render 'lx-faq-icon', icon: 'headset' %}</span>
+          <div>
+            <p class="lx-faq-support__eyebrow">{{ section.settings.support_eyebrow | escape }}</p>
+            <p class="lx-faq-support__title">
+              {{ section.settings.support_title | escape }}
+              {% if section.settings.support_title_accent != blank %}<em>{{ section.settings.support_title_accent | escape }}</em>{% endif %}
+            </p>
+          </div>
+        </div>
+        <p class="lx-faq-support__text">{{ section.settings.support_text | escape }}</p>
+        <div class="lx-faq-support__actions">
+          {% if section.settings.primary_label != blank %}
+            <a class="lx-faq-btn lx-faq-btn--primary" href="{{ section.settings.primary_link | default: '/pages/contact' }}">
+              {{ section.settings.primary_label | escape }} <span aria-hidden="true">&rarr;</span>
+            </a>
+          {% endif %}
+          {% if section.settings.secondary_label != blank %}
+            <a class="lx-faq-btn lx-faq-btn--ghost" href="{{ section.settings.secondary_link | default: '/pages/wellness-hub' }}">
+              {{ section.settings.secondary_label | escape }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      {% assign has_help = false %}
+      {% for block in section.blocks %}{% if block.type == 'help' %}{% assign has_help = true %}{% endif %}{% endfor %}
+      {% if has_help %}
+        <p class="lx-faq__eyebrow lx-faq__eyebrow--muted">{{ section.settings.help_label | escape }}</p>
+        <ul class="lx-faq-help" role="list">
+          {% for block in section.blocks %}
+            {% if block.type == 'help' %}
+              {% assign h = block.settings %}
+              <li style="--lx-help-tint: {{ h.tint }}; --lx-help-ink: {{ h.ink }};" {{ block.shopify_attributes }}>
+                {% if h.link != blank %}<a href="{{ h.link }}" class="lx-faq-help__card">{% else %}<div class="lx-faq-help__card">{% endif %}
+                  <span class="lx-faq-help__icon">{% render 'lx-faq-icon', icon: h.icon %}</span>
+                  <span class="lx-faq-help__arrow" aria-hidden="true">&rarr;</span>
+                  <strong>{{ h.title | escape }}</strong>
+                  <span class="lx-faq-help__sub">{{ h.subtitle | escape }}</span>
+                {% if h.link != blank %}</a>{% else %}</div>{% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    {%- comment -%} ---------- Accordion ---------- {%- endcomment -%}
+    <div class="lx-faq__list">
+      {% for block in section.blocks %}
+        {% if block.type == 'question' %}
+          {% assign q_index = q_index | plus: 1 %}
+          <details
+            class="lx-faq-item"
+            name="{{ group }}"
+            {% if q_index == 1 and section.settings.open_first %}open{% endif %}
+            {{ block.shopify_attributes }}
+          >
+            <summary>
+              <span class="lx-faq-item__num" aria-hidden="true">{{ q_index }}</span>
+              <span class="lx-faq-item__q">{{ block.settings.question | escape }}</span>
+              <span class="lx-faq-item__toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="lx-faq-item__a">{{ block.settings.answer }}</div>
+          </details>
+        {% endif %}
+      {% endfor %}
+
+      {% if section.settings.note_text != blank %}
+        <p class="lx-faq__note">
+          <span class="lx-faq__note-icon">{% render 'lx-faq-icon', icon: 'book' %}</span>
+          <span>
+            {{ section.settings.note_text | escape }}
+            {% if section.settings.note_link_label != blank %}
+              <a href="{{ section.settings.note_link | default: '/pages/wellness-hub' }}">{{ section.settings.note_link_label | escape }} <span aria-hidden="true">&rarr;</span></a>
+            {% endif %}
+          </span>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .lx-faq {
+    --lx-faq-ink: #2b1a20;
+    --lx-faq-muted: #5e5256;
+    --lx-faq-rose: #c2386b;
+    --lx-faq-line: #f2e3dc;
+
+    padding-block: var(--lx-faq-pad-top) var(--lx-faq-pad-bottom);
+    background: linear-gradient(180deg, #fffdfc 0%, #fdf5f1 100%);
+    color: var(--lx-faq-ink);
+  }
+
+  .lx-faq__wrap {
+    display: grid;
+    gap: 40px;
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-faq__wrap {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 72px;
+      align-items: start;
+      padding-inline: 32px;
+    }
+  }
+
+  .lx-faq__eyebrow {
+    margin: 0 0 18px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--lx-faq-rose);
+  }
+
+  .lx-faq__eyebrow--muted {
+    margin: 32px 0 14px;
+    color: var(--lx-faq-muted);
+  }
+
+  .lx-faq__title {
+    margin: 0 0 22px;
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
+    line-height: 1.08;
+    color: var(--lx-faq-ink);
+  }
+
+  .lx-faq__title em {
+    display: block;
+    color: var(--lx-faq-rose);
+  }
+
+  .lx-faq__text {
+    max-width: 52ch;
+    margin: 0 0 26px;
+    line-height: 1.7;
+    color: var(--lx-faq-muted);
+  }
+
+  /* Support card */
+  .lx-faq-support {
+    padding: 26px 26px 28px;
+    border-radius: 24px;
+    background:
+      radial-gradient(circle at 80% 30%, rgb(160 50 85 / 0.45) 0%, rgb(160 50 85 / 0) 55%),
+      #2a1820;
+    color: #f6e9ee;
+  }
+
+  .lx-faq-support__head {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+
+  .lx-faq-support__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    background: var(--lx-faq-rose);
+    color: #fff;
+  }
+
+  .lx-faq-support__eyebrow {
+    margin: 0 0 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #e3c9d2;
+  }
+
+  .lx-faq-support__title {
+    margin: 0;
+    font-size: 1.3125rem;
+    color: #fff;
+  }
+
+  .lx-faq-support__title em {
+    color: #f29bb8;
+  }
+
+  .lx-faq-support__text {
+    margin: 0 0 22px;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #e3d3d9;
+  }
+
+  .lx-faq-support__actions {
+    display: grid;
+    gap: 12px;
+  }
+
+  @media screen and (min-width: 600px) {
+    .lx-faq-support__actions {
+      grid-template-columns: 1.1fr 1fr;
+    }
+  }
+
+  .lx-faq-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 50px;
+    padding: 0 22px;
+    border-radius: 999px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .lx-faq-btn--primary {
+    background: #c94a72;
+    color: #fff;
+  }
+
+  .lx-faq-btn--primary:hover {
+    background: #d65a82;
+    transform: translateY(-1px);
+  }
+
+  .lx-faq-btn--ghost {
+    border: 1px solid rgb(255 255 255 / 0.3);
+    color: #fff;
+  }
+
+  .lx-faq-btn--ghost:hover {
+    border-color: #fff;
+  }
+
+  /* Quick help */
+  .lx-faq-help {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lx-faq-help__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 100%;
+    padding: 20px;
+    border: 1px solid var(--lx-faq-line);
+    border-radius: 18px;
+    background: #fff;
+    color: var(--lx-faq-ink);
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  a.lx-faq-help__card:hover {
+    transform: translateY(-3px);
+    border-color: #efcfd8;
+    box-shadow: 0 16px 30px -20px rgb(80 40 50 / 0.35);
+  }
+
+  .lx-faq-help__icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    background: var(--lx-help-tint);
+    color: var(--lx-help-ink);
+  }
+
+  .lx-faq-help__arrow {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    color: var(--lx-help-ink);
+    transition: transform 0.2s ease;
+  }
+
+  a.lx-faq-help__card:hover .lx-faq-help__arrow {
+    transform: translateX(3px);
+  }
+
+  .lx-faq-help__card strong {
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+
+  .lx-faq-help__sub {
+    font-size: 0.875rem;
+    color: var(--lx-faq-muted);
+  }
+
+  /* Accordion */
+  .lx-faq__list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .lx-faq-item {
+    border: 1px solid var(--lx-faq-line);
+    border-radius: 20px;
+    background: rgb(255 255 255 / 0.55);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .lx-faq-item[open] {
+    background: #fff;
+    border-color: #f0d6cc;
+    box-shadow: 0 18px 40px -18px rgb(80 50 40 / 0.2);
+  }
+
+  .lx-faq-item summary {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 22px 24px;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .lx-faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .lx-faq-item summary:focus-visible {
+    outline: 2px solid var(--lx-faq-rose);
+    outline-offset: -2px;
+    border-radius: 20px;
+  }
+
+  .lx-faq-item__num {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    background: #fdf0f3;
+    color: var(--lx-faq-rose);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .lx-faq-item[open] .lx-faq-item__num {
+    background: var(--lx-faq-rose);
+    color: #fff;
+  }
+
+  .lx-faq-item__q {
+    flex: 1;
+    font-size: clamp(1rem, 1.4vw, 1.1875rem);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  .lx-faq-item__toggle {
+    position: relative;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #f0e2da;
+    border-radius: 999px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .lx-faq-item__toggle::before,
+  .lx-faq-item__toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 11px;
+    height: 1.6px;
+    background: var(--lx-faq-rose);
+    transform: translate(-50%, -50%);
+  }
+
+  .lx-faq-item__toggle::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .lx-faq-item[open] .lx-faq-item__toggle {
+    transform: rotate(45deg);
+    border-color: #e6b8c6;
+  }
+
+  .lx-faq-item__a {
+    padding: 0 28px 24px 84px;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: #4a3d42;
+  }
+
+  .lx-faq-item__a p {
+    margin: 0;
+  }
+
+  /* Smooth open where supported (Chrome 131+); others open instantly */
+  @supports (interpolate-size: allow-keywords) {
+    .lx-faq-item {
+      interpolate-size: allow-keywords;
+    }
+
+    .lx-faq-item::details-content {
+      height: 0;
+      overflow: clip;
+      transition: height 0.35s ease, content-visibility 0.35s allow-discrete;
+    }
+
+    .lx-faq-item[open]::details-content {
+      height: auto;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .lx-faq-item summary {
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .lx-faq-item__a {
+      padding: 0 20px 20px;
+    }
+  }
+
+  .lx-faq__note {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin: 8px 0 0;
+    padding: 20px 24px;
+    border: 1px dashed #efd3cb;
+    border-radius: 20px;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--lx-faq-muted);
+  }
+
+  .lx-faq__note-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #fbeef2;
+    color: var(--lx-faq-rose);
+  }
+
+  .lx-faq__note a {
+    color: var(--lx-faq-rose);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .lx-faq__note a:hover {
+    text-decoration: underline;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lx-faq-item,
+    .lx-faq-item::details-content,
+    .lx-faq-item__toggle,
+    .lx-faq-help__card {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "FAQ (Lust Xstore)",
+  "tag": "div",
+  "class": "section-lx-faq",
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Frequently asked questions" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Everything you" },
+    { "type": "text", "id": "title_accent", "label": "Title (accent line)", "default": "may want to know." },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Beginning a new wellness journey naturally comes with questions. Here are answers to the most common ones about the BODY अर्क WOMEN 45-Day Premium Wellness Kit."
+    },
+    { "type": "header", "content": "Support card" },
+    { "type": "text", "id": "support_eyebrow", "label": "Eyebrow", "default": "Still have questions?" },
+    { "type": "text", "id": "support_title", "label": "Title", "default": "We're here to support" },
+    { "type": "text", "id": "support_title_accent", "label": "Title (accent)", "default": "your journey." },
+    {
+      "type": "textarea",
+      "id": "support_text",
+      "label": "Text",
+      "default": "Our Wellness Team is happy to help with product guidance, enquiries and your overall experience."
+    },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Contact Wellness Team" },
+    { "type": "url", "id": "primary_link", "label": "Primary link", "info": "Defaults to the Contact page." },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "Visit Wellness Hub" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary link", "info": "Defaults to the Wellness Hub." },
+    { "type": "text", "id": "help_label", "label": "Quick help label", "default": "Quick help" },
+    { "type": "header", "content": "Questions" },
+    { "type": "checkbox", "id": "open_first", "label": "Open the first question", "default": true },
+    {
+      "type": "text",
+      "id": "note_text",
+      "label": "Note",
+      "default": "For ingredient insights and educational resources, visit the"
+    },
+    { "type": "text", "id": "note_link_label", "label": "Note link label", "default": "BODY अर्क Wellness Hub" },
+    { "type": "url", "id": "note_link", "label": "Note link", "info": "Defaults to the Wellness Hub." },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Your question" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Your answer.</p>" }
+      ]
+    },
+    {
+      "type": "help",
+      "name": "Quick help",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "shield", "label": "Shield" }, { "value": "book", "label": "Book" },
+            { "value": "headset", "label": "Headset" }, { "value": "truck", "label": "Truck" }
+          ],
+          "default": "shield"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Confidence Promise" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Policy & eligibility" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "color", "id": "tint", "label": "Icon background", "default": "#fbe9ee" },
+        { "type": "color", "id": "ink", "label": "Icon colour", "default": "#c2386b" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "FAQ (Lust Xstore)" }]
+}
+{% endschema %}

@@ -1,0 +1,323 @@
+{%- comment -%}
+  Lust Xstore — "Our promise, in short" card.
+  Dark rounded panel: pill eyebrow, two-line title, text, button + stat on the left;
+  a 2×3 grid of numbered principle cards on the right. Blocks: "Principle".
+{%- endcomment -%}
+
+<section
+  class="lx-promise"
+  aria-labelledby="LxPromiseTitle-{{ section.id }}"
+  style="
+    --lx-promise-pad-top: {{ section.settings.padding_top }}px;
+    --lx-promise-pad-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="lx-promise__panel">
+    <div class="lx-promise__glow lx-promise__glow--rose" aria-hidden="true"></div>
+    <div class="lx-promise__glow lx-promise__glow--amber" aria-hidden="true"></div>
+
+    <div class="lx-promise__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="lx-promise__pill">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+      <h2 id="LxPromiseTitle-{{ section.id }}" class="lx-promise__title">
+        {{ section.settings.title | escape }}
+        {% if section.settings.title_accent != blank %}<em>{{ section.settings.title_accent | escape }}</em>{% endif %}
+      </h2>
+      {% if section.settings.text != blank %}
+        <p class="lx-promise__text">{{ section.settings.text | escape }}</p>
+      {% endif %}
+      <div class="lx-promise__actions">
+        {% if section.settings.button_label != blank %}
+          <a class="lx-promise__btn" href="{{ section.settings.button_link | default: '/pages/our-story' }}">
+            {{ section.settings.button_label | escape }} <span aria-hidden="true">&rarr;</span>
+          </a>
+        {% endif %}
+        {% if section.settings.stat_value != blank %}
+          <p class="lx-promise__stat">
+            <strong>{{ section.settings.stat_value | escape }}</strong>
+            <span>{{ section.settings.stat_label | escape | newline_to_br }}</span>
+          </p>
+        {% endif %}
+      </div>
+    </div>
+
+    <ol class="lx-promise__grid" role="list">
+      {% for block in section.blocks %}
+        {% assign b = block.settings %}
+        <li class="lx-promise__card" style="--lx-p-color: {{ b.color }};" {{ block.shopify_attributes }}>
+          <span class="lx-promise__icon">{% render 'lx-promise-icon', icon: b.icon %}</span>
+          <span class="lx-promise__num" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <strong>{{ b.title | escape }}</strong>
+          <span class="lx-promise__desc">{{ b.text | escape }}</span>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+{% stylesheet %}
+  .lx-promise {
+    padding: var(--lx-promise-pad-top) 20px var(--lx-promise-pad-bottom);
+    background: linear-gradient(180deg, #fdf8f5 0%, #fbf3ef 100%);
+  }
+
+  .lx-promise__panel {
+    position: relative;
+    display: grid;
+    gap: 36px;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding: clamp(28px, 5vw, 76px);
+    overflow: hidden;
+    border-radius: clamp(22px, 3vw, 32px);
+    background: #2a1a1f;
+    color: #fff;
+    box-shadow: 0 40px 80px -48px rgb(42 26 31 / 0.65);
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-promise__panel {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 56px;
+      align-items: center;
+    }
+  }
+
+  .lx-promise__glow {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .lx-promise__glow--rose {
+    left: -140px;
+    top: -160px;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgb(150 40 75 / 0.55) 0%, rgb(150 40 75 / 0) 65%);
+  }
+
+  .lx-promise__glow--amber {
+    right: -120px;
+    bottom: -200px;
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgb(140 95 50 / 0.45) 0%, rgb(140 95 50 / 0) 65%);
+  }
+
+  .lx-promise__intro,
+  .lx-promise__grid {
+    position: relative;
+  }
+
+  .lx-promise__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 26px;
+    padding: 10px 20px;
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #f4e6ea;
+  }
+
+  .lx-promise__pill::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #f1a2bd;
+  }
+
+  .lx-promise__title {
+    margin: 0 0 22px;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.04;
+    color: #fff;
+  }
+
+  .lx-promise__title em {
+    display: block;
+    color: #e7a9c0;
+  }
+
+  .lx-promise__text {
+    max-width: 40ch;
+    margin: 0 0 32px;
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: #d9c9cf;
+  }
+
+  .lx-promise__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 28px;
+  }
+
+  .lx-promise__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 30px;
+    border-radius: 999px;
+    background: #fff;
+    color: #2a1a1f;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .lx-promise__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px -14px rgb(255 255 255 / 0.5);
+  }
+
+  .lx-promise__stat {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0;
+  }
+
+  .lx-promise__stat strong {
+    font-size: clamp(2.25rem, 3.4vw, 2.875rem);
+    font-weight: 600;
+    line-height: 1;
+    color: #f2cf8a;
+  }
+
+  .lx-promise__stat span {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: #d9c9cf;
+  }
+
+  .lx-promise__grid {
+    display: grid;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media screen and (min-width: 600px) {
+    .lx-promise__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .lx-promise__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 26px;
+    border: 1px solid rgb(255 255 255 / 0.1);
+    border-radius: 22px;
+    background: rgb(255 255 255 / 0.035);
+    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  @media (hover: hover) {
+    .lx-promise__card:hover {
+      transform: translateY(-3px);
+      background: rgb(255 255 255 / 0.08);
+      border-color: rgb(255 255 255 / 0.2);
+    }
+  }
+
+  .lx-promise__icon {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 20px;
+    border-radius: 14px;
+    background: var(--lx-p-color);
+    color: #fff;
+  }
+
+  .lx-promise__num {
+    position: absolute;
+    top: 30px;
+    right: 26px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: rgb(255 255 255 / 0.45);
+  }
+
+  .lx-promise__card strong {
+    font-size: 1.1875rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .lx-promise__desc {
+    font-size: 0.9375rem;
+    color: #cbbac1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lx-promise__card,
+    .lx-promise__btn {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Promise (Lust Xstore)",
+  "tag": "div",
+  "class": "section-lx-promise",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our promise, in short" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Wellness begins" },
+    { "type": "text", "id": "title_accent", "label": "Title (accent line)", "default": "with trust." },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Designed with care. Delivered with confidence. Six principles behind every BODY अर्क kit."
+    },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Read Our Promise" },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Defaults to the Our Story page." },
+    { "type": "text", "id": "stat_value", "label": "Stat", "default": "100%" },
+    { "type": "textarea", "id": "stat_label", "label": "Stat label", "default": "Satisfaction\nCommitment*" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "blocks": [
+    {
+      "type": "principle",
+      "name": "Principle",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "herb", "label": "Herb bowl" }, { "value": "flask", "label": "Flask" },
+            { "value": "shield", "label": "Shield" }, { "value": "book", "label": "Book" },
+            { "value": "eye", "label": "Eye" }, { "value": "heart", "label": "Heart" }
+          ],
+          "default": "herb"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Ayurveda Inspired" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Rooted in traditional wisdom" },
+        { "type": "color", "id": "color", "label": "Icon colour", "default": "#6f8558" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Promise (Lust Xstore)" }]
+}
+{% endschema %}

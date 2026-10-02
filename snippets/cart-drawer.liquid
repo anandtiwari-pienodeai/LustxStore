@@ -205,6 +205,49 @@
     }
   </script>
 
+  <script>
+    // The cart always opens as the drawer: /cart links open it in place, and a redirect from /cart
+    // (sessionStorage flag or ?lx_cart=open) re-opens it on arrival. Forms posting to /cart (checkout) are untouched.
+    (function () {
+      if (window.__lxCartRoute) return;
+      window.__lxCartRoute = true;
+      var cartPath = '{{ routes.cart_url }}';
+      var openDrawer = function () {
+        customElements.whenDefined('theme-drawer').then(function () {
+          var drawer = document.getElementById('cart-drawer');
+          if (drawer && typeof drawer.open === 'function' && !drawer.isOpen) drawer.open();
+        });
+      };
+
+      document.addEventListener('click', function (event) {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        var link = event.target.closest && event.target.closest('a[href]');
+        if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+        var url;
+        try { url = new URL(link.href, location.href); } catch (e) { return; }
+        if (url.origin !== location.origin || url.pathname.replace(/\/$/, '') !== cartPath) return;
+        if (!document.getElementById('cart-drawer')) return;
+        event.preventDefault();
+        // Close any open modal first (e.g. the shoppable video overlay) so the drawer sits on top cleanly
+        var modal = link.closest('dialog[open]');
+        if (modal && !modal.closest('#cart-drawer')) modal.close();
+        openDrawer();
+      }, true);
+
+      var params = new URLSearchParams(location.search);
+      var flagged = false;
+      try { flagged = sessionStorage.getItem('lx-open-cart') === '1'; sessionStorage.removeItem('lx-open-cart'); } catch (e) {}
+      if (flagged || params.get('lx_cart') === 'open') {
+        if (params.has('lx_cart')) {
+          params.delete('lx_cart');
+          var clean = location.pathname + (params.toString() ? '?' + params : '') + location.hash;
+          history.replaceState(history.state, '', clean);
+        }
+        openDrawer();
+      }
+    })();
+  </script>
+
   {% if render_wrapper %}
     </div>
   {% endif %}

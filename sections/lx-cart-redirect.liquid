@@ -1,0 +1,35 @@
+{%- comment -%}
+  The storefront never shows the full cart page: visitors who land on /cart are sent back to where they came
+  from (or the homepage) and the cart drawer opens there. Without JavaScript the normal cart page below stays usable.
+{%- endcomment -%}
+<style>
+  html.lx-cart-redirecting body { visibility: hidden; }
+</style>
+<script>
+  (function () {
+    var root = '{{ routes.root_url }}';
+    var cartPath = '{{ routes.cart_url }}';
+    var target = root;
+    try {
+      if (document.referrer) {
+        var ref = new URL(document.referrer);
+        var path = ref.pathname.replace(/\/$/, '');
+        var isCheckout = /\/checkouts?\b|\/account\b/.test(path);
+        if (ref.origin === location.origin && path !== cartPath && !isCheckout) target = ref.pathname + ref.search + ref.hash;
+      }
+    } catch (e) {}
+    var flagged = false;
+    try { sessionStorage.setItem('lx-open-cart', '1'); flagged = true; } catch (e) {}
+    if (!flagged) target += (target.indexOf('?') === -1 ? '?' : '&') + 'lx_cart=open';
+    document.documentElement.classList.add('lx-cart-redirecting');
+    location.replace(target);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Cart → drawer redirect",
+  "tag": "div",
+  "class": "lx-cart-redirect"
+}
+{% endschema %}

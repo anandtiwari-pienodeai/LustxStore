@@ -479,3 +479,14 @@ dialog.lx-cd::backdrop {
 /* Empty state body/footer span the full drawer width */
 .lx-cd .lx-cd__empty-body,
 .lx-cd .lx-cd__empty-foot { align-self: stretch; }
+
+/* Compact summary: no empty space between the totals and the Checkout button */
+.lx-cd .cart-drawer__summary > .cart-totals { gap: 0; padding-bottom: 0; }
+.lx-cd .lx-cd__rows { gap: 12px; padding: 16px 0; }
+.lx-cd .cart-drawer__summary .cart-totals__container { gap: 8px; padding-top: 16px; }
+.lx-cd .cart-totals__installments:not(:has(shopify-payment-terms:not(:empty))) { display: none; }
+.lx-cd .cart-totals__installments:empty { display: none; }
+.lx-cd .cart-drawer__summary > .cart__ctas { margin-top: 0; padding-top: 16px; }
+
+/* Summary block (discount → checkout) sits at the bottom of the drawer; spare space goes above it */
+.lx-cd .cart-drawer__summary > .cart-totals { margin-top: auto; }

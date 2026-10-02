@@ -1,0 +1,819 @@
+{%- comment -%}
+  Lust Xstore — Video stories.
+  Tall video cards in a coverflow carousel: the centred card is largest, neighbours
+  tilt away and fade at the edges. Native scroll-snap does the swiping; a small
+  script maps each card's distance from centre to CSS variables and plays videos inline.
+
+  Each "Video" block: a Shopify-hosted video (its preview frame is the cover unless a
+  cover image is set), title, tag, optional duration label and optional link.
+  Completely empty blocks are skipped on the storefront; titled ones without media show placeholder art.
+{%- endcomment -%}
+
+{% liquid
+  assign heading_id = 'LxStoriesHeading-' | append: section.id
+  assign story_count = 0
+  for block in section.blocks
+    if block.settings.video != blank or block.settings.image != blank or block.settings.title != blank
+      assign story_count = story_count | plus: 1
+    endif
+  endfor
+  if section.settings.background_image != blank
+    assign bg_url = section.settings.background_image | image_url: width: 2400
+  else
+    assign bg_url = 'lx-stories-bg.jpg' | asset_url
+  endif
+%}
+
+{% if story_count > 0 or request.design_mode %}
+<section
+  class="lx-stories"
+  aria-labelledby="{{ heading_id }}"
+  style="
+    --lx-stories-bg: url('{{ bg_url }}');
+    --lx-stories-accent: {{ section.settings.accent_color }};
+    --lx-stories-pad-top: {{ section.settings.padding_top }}px;
+    --lx-stories-pad-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="lx-stories__head">
+    {% if section.settings.eyebrow != blank %}
+      <p class="lx-stories__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {% endif %}
+    <div class="lx-stories__title-row">
+      <h2 id="{{ heading_id }}" class="lx-stories__heading">{{ section.settings.heading | escape }}</h2>
+      {% if section.settings.follow_label != blank and section.settings.follow_link != blank %}
+        <a class="lx-stories__follow" href="{{ section.settings.follow_link }}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg>
+          {{ section.settings.follow_label | escape }}
+        </a>
+      {% endif %}
+    </div>
+    {% if section.settings.subheading != blank %}
+      <p class="lx-stories__sub">{{ section.settings.subheading | escape }}</p>
+    {% endif %}
+  </div>
+
+  <lx-stories class="lx-stories__carousel">
+    <button type="button" class="lx-stories__arrow lx-stories__arrow--prev" aria-label="Previous story" data-dir="-1">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <ul class="lx-stories__track" role="list" tabindex="0" aria-label="{{ section.settings.heading | escape }}">
+      {% for block in section.blocks %}
+        {% liquid
+          assign story = block.settings
+          if story.video == blank and story.image == blank and story.title == blank and request.design_mode == false
+            continue
+          endif
+
+          assign image = story.image
+          if image == blank and story.video != blank
+            assign image = story.video.preview_image
+          endif
+
+          assign title = story.title
+          assign tag = story.tag
+          assign url = story.link
+
+          assign duration = story.duration
+          if duration == blank and story.video.duration > 0
+            assign total_seconds = story.video.duration | divided_by: 1000
+            assign minutes = total_seconds | divided_by: 60
+            assign seconds = total_seconds | modulo: 60 | prepend: '0' | slice: -2, 2
+            assign duration = minutes | append: ':' | append: seconds
+          endif
+        %}
+        <li class="lx-stories__slide" {{ block.shopify_attributes }}>
+          <article class="lx-story{% if story.video != blank %} lx-story--video{% endif %}">
+            <div class="lx-story__media">
+              {% if image != blank %}
+                {{
+                  image
+                  | image_url: width: 900
+                  | image_tag:
+                    widths: '320, 480, 640, 900',
+                    sizes: '(min-width: 990px) 300px, 62vw',
+                    loading: 'lazy',
+                    alt: '',
+                    class: 'lx-story__img'
+                }}
+              {% else %}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'lx-story__img lx-story__img--placeholder' }}
+              {% endif %}
+              {% if story.video != blank %}
+                {{
+                  story.video
+                  | video_tag:
+                    class: 'lx-story__video',
+                    playsinline: true,
+                    muted: false,
+                    controls: false,
+                    preload: 'none',
+                    loop: true
+                }}
+              {% endif %}
+            </div>
+
+            <div class="lx-story__top">
+              {% if tag != blank %}
+                <span class="lx-story__tag">{{ tag | escape }}</span>
+              {% endif %}
+              {% if duration != blank %}
+                <span class="lx-story__duration">{{ duration | escape }}</span>
+              {% endif %}
+            </div>
+
+            {% if story.video != blank %}
+              <button type="button" class="lx-story__play" aria-label="Play video: {{ title | escape }}">
+                <svg class="lx-story__icon-play" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+                <svg class="lx-story__icon-pause" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>
+              </button>
+            {% endif %}
+
+            {% if title != blank or url != blank %}
+              <h3 class="lx-story__title">
+                {% if url != blank %}
+                  <a href="{{ url }}" class="lx-story__link">{{ title | default: 'Watch' | escape }}</a>
+                {% else %}
+                  {{ title | escape }}
+                {% endif %}
+              </h3>
+            {% elsif request.design_mode %}
+              <h3 class="lx-story__title">Add a video</h3>
+            {% endif %}
+          </article>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <button type="button" class="lx-stories__arrow lx-stories__arrow--next" aria-label="Next story" data-dir="1">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div class="lx-stories__dots" role="group" aria-label="Choose story"></div>
+  </lx-stories>
+</section>
+{% endif %}
+
+<script>
+  if (!customElements.get('lx-stories')) {
+    customElements.define(
+      'lx-stories',
+      class extends HTMLElement {
+        connectedCallback() {
+          this.track = this.querySelector('.lx-stories__track');
+          this.slides = [...this.track.children];
+          if (!this.slides.length) return;
+          this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+          const dotsWrap = this.querySelector('.lx-stories__dots');
+          this.dots = this.slides.map((_, i) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'lx-stories__dot';
+            dot.setAttribute('aria-label', `Go to story ${i + 1} of ${this.slides.length}`);
+            dot.addEventListener('click', () => this.goTo(i));
+            dotsWrap.append(dot);
+            return dot;
+          });
+
+          this.querySelectorAll('.lx-stories__arrow').forEach((btn) =>
+            btn.addEventListener('click', () => this.goTo(this.current + Number(btn.dataset.dir)))
+          );
+          this.track.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') { e.preventDefault(); this.goTo(this.current + 1); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); this.goTo(this.current - 1); }
+          });
+
+          // Clicking a side card brings it to the centre instead of following its link.
+          this.track.addEventListener('click', (e) => {
+            const slide = e.target.closest('.lx-stories__slide');
+            if (!slide) return;
+            const i = this.slides.indexOf(slide);
+            if (i !== this.current && !e.target.closest('.lx-story__play')) {
+              e.preventDefault();
+              this.goTo(i);
+              return;
+            }
+            const play = slide.querySelector('.lx-story__play');
+            if (play && !slide.querySelector('.lx-story__link') && !e.target.closest('.lx-story__play')) {
+              play.click();
+            }
+          });
+
+          this.slides.forEach((slide) => {
+            const btn = slide.querySelector('.lx-story__play');
+            const video = slide.querySelector('video');
+            if (!btn || !video) return;
+            btn.addEventListener('click', () => {
+              if (video.paused) {
+                this.pauseAll();
+                video.play();
+                slide.querySelector('.lx-story').classList.add('is-playing');
+              } else {
+                video.pause();
+                slide.querySelector('.lx-story').classList.remove('is-playing');
+              }
+            });
+          });
+
+          this.onScroll = () => {
+            if (this.raf) return;
+            this.raf = requestAnimationFrame(() => {
+              this.raf = null;
+              this.update();
+            });
+          };
+          this.track.addEventListener('scroll', this.onScroll, { passive: true });
+          window.addEventListener('resize', this.onScroll, { passive: true });
+
+          // Start in the middle so cards show on both sides, as in the design.
+          const start = Math.floor((this.slides.length - 1) / 2);
+          requestAnimationFrame(() => {
+            this.goTo(start, true);
+            this.update();
+          });
+        }
+
+        disconnectedCallback() {
+          window.removeEventListener('resize', this.onScroll);
+        }
+
+        pauseAll() {
+          this.querySelectorAll('video').forEach((v) => v.pause());
+          this.querySelectorAll('.lx-story.is-playing').forEach((s) => s.classList.remove('is-playing'));
+        }
+
+        goTo(index, instant) {
+          const i = Math.max(0, Math.min(index, this.slides.length - 1));
+          const slide = this.slides[i];
+          const left = slide.offsetLeft + slide.offsetWidth / 2 - this.track.clientWidth / 2;
+          this.track.scrollTo({ left, behavior: instant || this.reduced ? 'auto' : 'smooth' });
+        }
+
+        // Must match the scale() formula in the stylesheet.
+        static scale(ad) {
+          return 1.08 - Math.min(ad, 1) * 0.14 - Math.min(Math.max(ad - 1, 0), 2) * 0.04;
+        }
+
+        // Scaled cards keep their layout box, so gaps grow with distance. Shift each card
+        // toward the centre by the width its inner neighbours gave up: W * ∫(1 - scale).
+        static pull(ad, width) {
+          const steps = Math.max(1, Math.ceil(ad * 12));
+          let sum = 0;
+          for (let k = 0; k < steps; k++) sum += 1 - this.scale(((k + 0.5) / steps) * ad);
+          return (sum / steps) * ad * width;
+        }
+
+        update() {
+          const mid = this.track.scrollLeft + this.track.clientWidth / 2;
+          const step = this.slides[1] ? this.slides[1].offsetLeft - this.slides[0].offsetLeft : 1;
+          const width = this.slides[0].offsetWidth;
+          let best = 0;
+          let bestDist = Infinity;
+          this.slides.forEach((slide, i) => {
+            const center = slide.offsetLeft + slide.offsetWidth / 2;
+            const d = (center - mid) / step;
+            const ad = Math.abs(d);
+            slide.style.setProperty('--d', d.toFixed(3));
+            slide.style.setProperty('--ad', ad.toFixed(3));
+            slide.style.setProperty('--tx', `${(-Math.sign(d) * this.constructor.pull(ad, width)).toFixed(1)}px`);
+            if (Math.abs(d) < bestDist) { bestDist = Math.abs(d); best = i; }
+          });
+          if (best !== this.current) {
+            this.current = best;
+            this.pauseAll();
+            this.slides.forEach((s, i) => {
+              s.toggleAttribute('data-active', i === best);
+              s.querySelectorAll('a, button').forEach((el) => (el.tabIndex = i === best ? 0 : -1));
+            });
+            this.dots.forEach((d, i) => d.setAttribute('aria-current', i === best ? 'true' : 'false'));
+          }
+          this.querySelector('.lx-stories__arrow--prev').disabled = best === 0;
+          this.querySelector('.lx-stories__arrow--next').disabled = best === this.slides.length - 1;
+        }
+      }
+    );
+  }
+</script>
+
+{% stylesheet %}
+  .lx-stories {
+    --lx-stories-ink: #2b2522;
+    --lx-stories-card-w: clamp(220px, 62vw, 260px);
+    --lx-stories-gap: 14px;
+
+    position: relative;
+    padding-block: var(--lx-stories-pad-top) var(--lx-stories-pad-bottom);
+    background: #f7efe6 var(--lx-stories-bg) center / cover no-repeat;
+    color: var(--lx-stories-ink);
+    overflow: clip;
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-stories {
+      --lx-stories-card-w: 270px;
+      --lx-stories-gap: 26px;
+    }
+  }
+
+  /* ---------- Heading ---------- */
+  .lx-stories__head {
+    position: relative;
+    z-index: 1;
+    padding-inline: 16px;
+    text-align: center;
+  }
+
+  .lx-stories__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 8px;
+    color: var(--lx-stories-accent);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .lx-stories__eyebrow::before,
+  .lx-stories__eyebrow::after {
+    content: '';
+    width: 16px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .lx-stories__title-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .lx-stories__heading {
+    margin: 0;
+    font-size: clamp(2rem, 4.2vw, 3.25rem);
+    line-height: 1.05;
+    color: var(--lx-stories-ink);
+  }
+
+  .lx-stories__sub {
+    margin: 10px 0 0;
+    font-size: 1rem;
+    color: #4b423e;
+  }
+
+  .lx-stories__follow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--lx-stories-accent);
+    border-radius: 12px;
+    background: rgb(255 255 255 / 0.55);
+    backdrop-filter: blur(6px);
+    color: var(--lx-stories-accent);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  .lx-stories__follow:hover {
+    background: var(--lx-stories-accent);
+    color: #fff;
+  }
+
+  @media screen and (min-width: 990px) {
+    /* Heading stays centred; the follow button sits to its right like the design */
+    .lx-stories__title-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 40px;
+    }
+
+    .lx-stories__title-row .lx-stories__heading {
+      grid-column: 2;
+    }
+
+    .lx-stories__follow {
+      grid-column: 3;
+      justify-self: start;
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .lx-stories__follow {
+      order: 3;
+    }
+
+    .lx-stories__title-row {
+      margin-bottom: 0;
+    }
+
+    .lx-stories__sub {
+      margin-bottom: 14px;
+    }
+
+    .lx-stories__head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lx-stories__head .lx-stories__sub {
+      order: 2;
+    }
+
+    .lx-stories__title-row {
+      display: contents;
+    }
+
+    .lx-stories__heading {
+      order: 1;
+    }
+  }
+
+  /* ---------- Coverflow track ---------- */
+  .lx-stories__carousel {
+    position: relative;
+    display: block;
+    margin-top: clamp(28px, 4vw, 44px);
+  }
+
+  .lx-stories__track {
+    display: flex;
+    gap: var(--lx-stories-gap);
+    margin: 0;
+    padding: 40px calc(50% - var(--lx-stories-card-w) / 2) 48px;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    perspective: 1400px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+  }
+
+  .lx-stories__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .lx-stories__track:focus-visible {
+    outline: 2px solid var(--lx-stories-accent);
+    outline-offset: -2px;
+  }
+
+  .lx-stories__slide {
+    --d: 0;
+    --ad: 0;
+    --tx: 0px;
+
+    flex: 0 0 var(--lx-stories-card-w);
+    scroll-snap-align: center;
+    transform-style: preserve-3d;
+  }
+
+  .lx-story {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #d9c8ba;
+    box-shadow: 0 18px 36px -18px rgb(43 37 34 / 0.45);
+    /* Centre card 1.08x; neighbours step down and turn their outer edge away */
+    transform:
+      translateX(var(--tx, 0px))
+      rotateY(calc(clamp(-1, var(--d), 1) * 12deg))
+      scale(calc(1.08 - min(var(--ad), 1) * 0.14 - clamp(0, var(--ad) - 1, 2) * 0.04));
+    opacity: calc(1 - clamp(0, var(--ad) - 2.2, 1) * 0.5);
+    transition: box-shadow 0.4s ease;
+  }
+
+  .lx-stories__slide[data-active] .lx-story {
+    box-shadow: 0 28px 50px -20px rgb(43 37 34 / 0.55);
+  }
+
+  .lx-story__media,
+  .lx-story__img,
+  .lx-story__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .lx-story__img--placeholder {
+    background: #e8dccf;
+  }
+
+  .lx-story--video {
+    cursor: pointer;
+  }
+
+  .lx-story__video {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lx-story.is-playing .lx-story__video {
+    opacity: 1;
+  }
+
+  /* Bottom scrim so the title always reads */
+  .lx-story::after {
+    content: '';
+    position: absolute;
+    inset: 45% 0 0;
+    background: linear-gradient(180deg, rgb(43 25 18 / 0) 0%, rgb(43 25 18 / 0.78) 100%);
+    pointer-events: none;
+  }
+
+  .lx-story__top {
+    position: absolute;
+    inset: 14px 14px auto;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .lx-story__tag {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgb(255 248 242 / 0.88);
+    backdrop-filter: blur(4px);
+    color: var(--lx-stories-ink);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .lx-story__duration {
+    margin-left: auto;
+    color: #fff;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-shadow: 0 1px 6px rgb(0 0 0 / 0.35);
+  }
+
+  .lx-story__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.92);
+    color: var(--lx-stories-ink);
+    box-shadow: 0 8px 22px -8px rgb(0 0 0 / 0.4);
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .lx-story__play svg {
+    margin-left: 2px;
+  }
+
+  .lx-story__icon-pause,
+  .lx-story.is-playing .lx-story__icon-play {
+    display: none;
+  }
+
+  .lx-story.is-playing .lx-story__icon-pause {
+    display: block;
+    margin-left: 0;
+  }
+
+  .lx-stories__slide[data-active] .lx-story__play {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .lx-story.is-playing .lx-story__play {
+    opacity: 0;
+  }
+
+  .lx-story.is-playing:hover .lx-story__play,
+  .lx-story.is-playing .lx-story__play:focus-visible {
+    opacity: 1;
+  }
+
+  .lx-story__title {
+    position: absolute;
+    inset: auto 18px 20px;
+    z-index: 2;
+    margin: 0;
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .lx-stories__slide[data-active] .lx-story__title {
+    font-size: 1.375rem;
+  }
+
+  .lx-story__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Whole card is the link's hit area; the play button sits above it */
+  .lx-story__link::before {
+    content: '';
+    position: absolute;
+    inset: -2000px;
+  }
+
+  .lx-story__link:focus-visible {
+    outline: none;
+  }
+
+  .lx-story:has(.lx-story__link:focus-visible) {
+    outline: 2px solid #fff;
+    outline-offset: -4px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .lx-stories__slide[data-active] .lx-story:hover .lx-story__img {
+      transform: scale(1.04);
+    }
+
+    .lx-story__img {
+      transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+  }
+
+  /* ---------- Controls ---------- */
+  .lx-stories__arrow {
+    display: none;
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-stories__arrow {
+      position: absolute;
+      top: calc(40px + (100% - 40px - 48px - 30px) / 2);
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--lx-stories-ink);
+      box-shadow: 0 10px 26px -10px rgb(43 37 34 / 0.45);
+      transform: translateY(-50%);
+      cursor: pointer;
+      transition: background-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+    }
+
+    .lx-stories__arrow--prev {
+      left: max(24px, calc(50% - 620px));
+    }
+
+    .lx-stories__arrow--next {
+      right: max(24px, calc(50% - 620px));
+    }
+
+    .lx-stories__arrow:hover:not(:disabled) {
+      background: var(--lx-stories-accent);
+      color: #fff;
+    }
+
+    .lx-stories__arrow:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .lx-stories__arrow:focus-visible {
+      outline: 2px solid var(--lx-stories-accent);
+      outline-offset: 3px;
+    }
+  }
+
+  .lx-stories__dots {
+    display: flex;
+    margin-top: 4px;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .lx-stories__dot {
+    width: 40px;
+    height: 4px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgb(181 88 47 / 0.22);
+    cursor: pointer;
+    transition: width 0.3s ease, background-color 0.3s ease;
+  }
+
+  .lx-stories__dot[aria-current='true'] {
+    width: 48px;
+    background: var(--lx-stories-accent);
+  }
+
+  .lx-stories__dot:focus-visible {
+    outline: 2px solid var(--lx-stories-accent);
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lx-story {
+      transform: none;
+    }
+
+    .lx-story__img,
+    .lx-story__play,
+    .lx-stories__dot {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Video stories",
+  "tag": "div",
+  "class": "section-lx-stories",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Blog" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Blog stories" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Real people. Real routines. Real wellness." },
+    { "type": "text", "id": "follow_label", "label": "Follow button label", "default": "Follow us @lustxstore" },
+    { "type": "url", "id": "follow_link", "label": "Follow button link" },
+    { "type": "header", "content": "Style" },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image",
+      "info": "Leave empty to use the default leaf-and-light background."
+    },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#a8532c" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "Upload a vertical (9:16) video. It plays inside the card when it's in the centre."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Cover image",
+          "info": "Optional. Defaults to the video's preview frame."
+        },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "text", "id": "tag", "label": "Tag", "placeholder": "Daily habits" },
+        {
+          "type": "text",
+          "id": "duration",
+          "label": "Duration label",
+          "placeholder": "0:45",
+          "info": "Optional. Filled in from the video automatically."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional. Makes the title link somewhere, e.g. a related blog post."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video stories",
+      "blocks": [{ "type": "video" }, { "type": "video" }, { "type": "video" }, { "type": "video" }, { "type": "video" }]
+    }
+  ]
+}
+{% endschema %}

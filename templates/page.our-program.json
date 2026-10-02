@@ -1,0 +1,195 @@
+{
+  "sections": {
+    "main": {
+      "type": "lx-program",
+      "blocks": {
+        "hero_feature_1": {
+          "type": "hero_feature",
+          "settings": {
+            "icon": "leaf",
+            "label": "Holistic\nWellness"
+          }
+        },
+        "hero_feature_2": {
+          "type": "hero_feature",
+          "settings": {
+            "icon": "lotus",
+            "label": "Simple\nDaily Routine"
+          }
+        },
+        "hero_feature_3": {
+          "type": "hero_feature",
+          "settings": {
+            "icon": "atom",
+            "label": "Science\nInspired"
+          }
+        },
+        "hero_feature_4": {
+          "type": "hero_feature",
+          "settings": {
+            "icon": "heart",
+            "label": "Real &\nSustainable Results"
+          }
+        },
+        "ritual_morning": {
+          "type": "ritual",
+          "settings": {
+            "icon": "sun",
+            "title": "Morning",
+            "subtitle": "Balance",
+            "text": "Kickstart your day with clean nutrition and natural ingredients to fuel your body and mind.",
+            "point_1": "Supports energy & metabolism",
+            "point_2": "Aids digestion",
+            "point_3": "Builds focus & clarity",
+            "fallback_file": "ba-pouch-morning.png",
+            "tint": "#e6eedb",
+            "accent": "#5e7650"
+          }
+        },
+        "ritual_afternoon": {
+          "type": "ritual",
+          "settings": {
+            "icon": "leaf",
+            "title": "Afternoon",
+            "subtitle": "Glow",
+            "text": "Replenish and stay active with plant-based nutrition to beat the mid-day slump.",
+            "point_1": "Sustains energy levels",
+            "point_2": "Supports immunity",
+            "point_3": "Promotes inner & outer glow",
+            "fallback_file": "ba-pouch-afternoon.png",
+            "tint": "#f8e1cc",
+            "accent": "#b5672e"
+          }
+        },
+        "ritual_evening": {
+          "type": "ritual",
+          "settings": {
+            "icon": "moon",
+            "title": "Evening",
+            "subtitle": "Restore",
+            "text": "Wind down with calming nutrition to support relaxation and better sleep.",
+            "point_1": "Helps reduce stress",
+            "point_2": "Supports better sleep",
+            "point_3": "Aids recovery & overall wellness",
+            "fallback_file": "ba-pouch-evening.png",
+            "tint": "#e8def3",
+            "accent": "#6e57a0"
+          }
+        },
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "leaf",
+            "label": "Better\nEnergy"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "lotus",
+            "label": "Improved\nDigestion"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "mind",
+            "label": "Calmer\nMind"
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "moon",
+            "label": "Quality\nSleep"
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "icon": "heart",
+            "label": "Healthier\nYou"
+          }
+        },
+        "cta_feature_1": {
+          "type": "cta_feature",
+          "settings": {
+            "icon": "leaf",
+            "label": "Plant-Based\nNutrition"
+          }
+        },
+        "cta_feature_2": {
+          "type": "cta_feature",
+          "settings": {
+            "icon": "flask",
+            "label": "Backed by\nScience"
+          }
+        },
+        "cta_feature_3": {
+          "type": "cta_feature",
+          "settings": {
+            "icon": "shield",
+            "label": "Safe &\nTrusted"
+          }
+        },
+        "cta_feature_4": {
+          "type": "cta_feature",
+          "settings": {
+            "icon": "lotus",
+            "label": "Designed\nfor Everyday Life"
+          }
+        }
+      },
+      "block_order": [
+        "hero_feature_1",
+        "hero_feature_2",
+        "hero_feature_3",
+        "hero_feature_4",
+        "ritual_morning",
+        "ritual_afternoon",
+        "ritual_evening",
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "cta_feature_1",
+        "cta_feature_2",
+        "cta_feature_3",
+        "cta_feature_4"
+      ],
+      "settings": {
+        "cta_link": "/collections/all"
+      }
+    },
+    "lx_blog_carousel": {
+      "type": "lx-blog-carousel",
+      "settings": {
+        "eyebrow": "Blog",
+        "heading": "Blog posts",
+        "subheading": "Wellness tips, mindful living, and expert guidance to help you feel your best every day.",
+        "view_all_label": "View all articles",
+        "view_all_link": "/pages/wellness-hub#articles",
+        "featured_articles": [
+          "womens_wellness/how-to-use-body-ark-women",
+          "everyday_wellness/5-small-daily-habits",
+          "lifestyle/designing-a-balanced-day",
+          "ingredients/ingredients-101",
+          "self_care/15-minute-self-care-ritual",
+          "personal_care/simple-personal-care-routine"
+        ],
+        "blog": "",
+        "post_limit": 6,
+        "show_author": false,
+        "background_color": "#fbf6f1",
+        "accent_color": "#b5582f",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    }
+  },
+  "order": [
+    "main",
+    "lx_blog_carousel"
+  ]
+}

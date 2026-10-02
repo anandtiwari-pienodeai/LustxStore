@@ -1,0 +1,25 @@
+{%- doc -%}
+  Icons for the Contact Us page.
+
+  @param {string} icon - chat | question | clock | phone | pin | sprout | shield | box | heart
+{%- enddoc -%}
+{%- case icon -%}
+  {%- when 'chat' -%}
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+  {%- when 'question' -%}
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9.6 9.5a2.4 2.4 0 1 1 3.3 2.2c-.6.3-.9.8-.9 1.4v.4M12 16.5h.01" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  {%- when 'clock' -%}
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  {%- when 'phone' -%}
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a10 10 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  {%- when 'pin' -%}
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M12 21s6.5-5.8 6.5-11a6.5 6.5 0 0 0-13 0c0 5.2 6.5 11 6.5 11z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+  {%- when 'sprout' -%}
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M12 21v-9M12 12c0-3.5 2.5-6 6.5-6.5C18 9.5 15.5 12 12 12zM12 14c0-3-2-5-5.5-5.5.5 3.5 2.5 5.5 5.5 5.5zM7 21h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  {%- when 'shield' -%}
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.5-3 8-7 9.5-4-1.5-7-5-7-9.5V6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  {%- when 'box' -%}
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z M4 7.5l8 4.5 8-4.5M12 12v9M8 5.3l8 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  {%- when 'heart' -%}
+    <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.3 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+{%- endcase -%}

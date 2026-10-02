@@ -1,0 +1,705 @@
+{%- comment -%}
+  Lust Xstore — Contact Us page.
+  Hero → "We're here to help" contact details + contact form card → assurance strip.
+  Uses Shopify's contact form (messages arrive in the store's contact email).
+  Blocks: "Contact method", "Assurance".
+{%- endcomment -%}
+
+{% liquid
+  if section.settings.hero_image != blank
+    assign hero_img = section.settings.hero_image | image_url: width: 900
+  else
+    assign hero_img = 'lx-art-c-hero.jpg' | file_url | append: '&width=900'
+  endif
+  assign subjects = section.settings.subjects | newline_to_br | split: '<br />'
+  assign form_id = 'LxContactForm-' | append: section.id
+%}
+
+{% if section.settings.hero_script != blank %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap">
+{% endif %}
+
+<div class="lx-ct">
+  {%- comment -%} ---------- Hero ---------- {%- endcomment -%}
+  <section class="lx-ct-hero" aria-labelledby="LxContactTitle">
+    <img class="lx-ct-hero__leaf" src="{{ 'lx-footer-leaf.png' | asset_url }}" alt="" width="259" height="332" aria-hidden="true">
+    <div class="lx-ct-hero__media" style="--lx-ct-hero-img: url('{{ hero_img }}');" aria-hidden="true"></div>
+    {% if section.settings.hero_script != blank %}
+      <p class="lx-ct-hero__script" aria-hidden="true">{{ section.settings.hero_script | escape | newline_to_br }}</p>
+    {% endif %}
+    <div class="lx-ct__wrap lx-ct-hero__inner">
+      <nav class="lx-ct-crumbs" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">{{ page.title | default: section.settings.hero_title | escape }}</span>
+      </nav>
+      <h1 id="LxContactTitle" class="lx-ct-hero__title">{{ section.settings.hero_title | escape }}</h1>
+      <p class="lx-ct-hero__text">{{ section.settings.hero_text | escape | newline_to_br }}</p>
+    </div>
+  </section>
+
+  {%- comment -%} ---------- Details + form ---------- {%- endcomment -%}
+  <div class="lx-ct__wrap lx-ct-main">
+    <div class="lx-ct-info">
+      <p class="lx-ct__eyebrow">{{ section.settings.info_eyebrow | escape }}</p>
+      <h2 class="lx-ct__h2">{{ section.settings.info_title | escape }}</h2>
+      <p class="lx-ct-info__text">{{ section.settings.info_text | escape }}</p>
+      <ul class="lx-ct-methods" role="list">
+        {% for block in section.blocks %}
+          {% if block.type == 'method' %}
+            {% assign m = block.settings %}
+            <li {{ block.shopify_attributes }}>
+              <span class="lx-ct__ring">{% render 'lx-contact-icon', icon: m.icon %}</span>
+              <span>
+                <strong>{{ m.title | escape }}</strong>
+                {% if m.value != blank %}
+                  {% if m.value contains '@' %}
+                    <a href="mailto:{{ m.value | strip }}">{{ m.value | escape }}</a>
+                  {% else %}
+                    <span class="lx-ct-methods__value">{{ m.value | escape | newline_to_br }}</span>
+                  {% endif %}
+                {% endif %}
+                {% if m.note != blank %}
+                  <span class="lx-ct-methods__note">{{ m.note | escape }}</span>
+                {% endif %}
+              </span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="lx-ct-card">
+      <img class="lx-ct-card__leaf" src="{{ 'lx-footer-leaf.png' | asset_url }}" alt="" width="259" height="332" loading="lazy" aria-hidden="true">
+      <p class="lx-ct__eyebrow">{{ section.settings.form_eyebrow | escape }}</p>
+      <h2 class="lx-ct__h2">{{ section.settings.form_title | escape }}</h2>
+      <p class="lx-ct-card__text">{{ section.settings.form_text | escape }}</p>
+
+      {%- form 'contact', id: form_id, class: 'lx-ct-form' -%}
+        {% if form.posted_successfully? %}
+          <p class="lx-ct-form__status lx-ct-form__status--ok" role="status" tabindex="-1" autofocus>
+            Thank you! Your message has been sent. We'll get back to you within 24 working hours.
+          </p>
+        {% elsif form.errors %}
+          <div class="lx-ct-form__status lx-ct-form__status--error" role="alert" tabindex="-1" autofocus>
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="lx-ct-form__grid">
+          <label class="lx-ct-field">
+            <span class="lx-ct-field__label">Full Name <span aria-hidden="true">*</span></span>
+            <input type="text" name="contact[name]" autocomplete="name" placeholder="Enter your name" required value="{{ form.name }}">
+          </label>
+          <label class="lx-ct-field">
+            <span class="lx-ct-field__label">Email Address <span aria-hidden="true">*</span></span>
+            <input type="email" name="contact[email]" autocomplete="email" placeholder="Enter your email address" required value="{{ form.email }}">
+          </label>
+          <label class="lx-ct-field">
+            <span class="lx-ct-field__label">Phone Number</span>
+            <input type="tel" name="contact[phone]" autocomplete="tel" placeholder="Enter your phone number" value="{{ form.phone }}">
+          </label>
+          <label class="lx-ct-field lx-ct-field--select">
+            <span class="lx-ct-field__label">Subject <span aria-hidden="true">*</span></span>
+            <select name="contact[subject]" required>
+              <option value="" disabled selected>Select a subject</option>
+              {% for subject in subjects %}
+                {% assign subject = subject | strip %}
+                {% if subject != blank %}
+                  <option value="{{ subject | escape }}">{{ subject | escape }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </label>
+          <label class="lx-ct-field lx-ct-field--full">
+            <span class="lx-ct-field__label">Message <span aria-hidden="true">*</span></span>
+            <textarea name="contact[body]" rows="4" maxlength="500" placeholder="Type your message here..." required data-lx-count="{{ form_id }}-count">{{ form.body }}</textarea>
+          </label>
+        </div>
+        <p class="lx-ct-form__count" id="{{ form_id }}-count" aria-live="polite">0/500</p>
+        <button type="submit" class="lx-ct-form__submit">
+          {{ section.settings.button_label | escape }} <span aria-hidden="true">&rarr;</span>
+        </button>
+      {%- endform -%}
+    </div>
+  </div>
+
+  {%- comment -%} ---------- Assurances ---------- {%- endcomment -%}
+  <div class="lx-ct__wrap">
+    <div class="lx-ct-assure">
+      <img class="lx-ct-assure__leaf" src="{{ 'lx-footer-leaf.png' | asset_url }}" alt="" width="259" height="332" loading="lazy" aria-hidden="true">
+      <ul class="lx-ct-assure__list" role="list">
+      {% for block in section.blocks %}
+        {% if block.type == 'assurance' %}
+          <li {{ block.shopify_attributes }}>
+            <span class="lx-ct__ring lx-ct__ring--lg">{% render 'lx-contact-icon', icon: block.settings.icon %}</span>
+            <span>
+              <strong>{{ block.settings.title | escape }}</strong>
+              <span>{{ block.settings.text | escape }}</span>
+            </span>
+          </li>
+        {% endif %}
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-lx-count]').forEach((field) => {
+    const out = document.getElementById(field.dataset.lxCount);
+    const max = field.maxLength;
+    const update = () => { out.textContent = `${field.value.length}/${max}`; };
+    field.addEventListener('input', update);
+    update();
+  });
+</script>
+
+{% stylesheet %}
+  .lx-ct {
+    --lx-ct-ink: #2b1a20;
+    --lx-ct-muted: #5e5256;
+    --lx-ct-rose: #b0425a;
+    --lx-ct-cta: #c2185b;
+    --lx-ct-line: #f0d9d2;
+
+    background: #fdf8f5;
+    color: var(--lx-ct-ink);
+    overflow: hidden;
+  }
+
+  .lx-ct__wrap {
+    position: relative;
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .lx-ct__wrap {
+      padding-inline: 32px;
+    }
+  }
+
+  .lx-ct__eyebrow {
+    margin: 0 0 10px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--lx-ct-rose);
+  }
+
+  .lx-ct__h2 {
+    margin: 0 0 14px;
+    font-size: clamp(1.75rem, 3vw, 2.375rem);
+    line-height: 1.12;
+    color: var(--lx-ct-ink);
+  }
+
+  .lx-ct__ring {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    background: #f8e1dc;
+    color: var(--lx-ct-rose);
+  }
+
+  .lx-ct__ring--lg {
+    width: 70px;
+    height: 70px;
+  }
+
+  /* ---------- Hero ---------- */
+  .lx-ct-hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, #f9e8e1 0%, #fbeee8 55%, #f8e3d7 100%);
+  }
+
+  .lx-ct-hero__leaf {
+    position: absolute;
+    left: -30px;
+    top: -10px;
+    width: 170px;
+    height: auto;
+    opacity: 0.55;
+    transform: scaleX(-1) rotate(-8deg);
+    pointer-events: none;
+  }
+
+  .lx-ct-hero__media,
+  .lx-ct-hero__script {
+    display: none;
+  }
+
+  .lx-ct-hero__inner {
+    position: relative;
+    z-index: 1;
+    padding-block: 24px 36px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-ct-hero__media {
+      position: absolute;
+      inset: 0 0 0 auto;
+      display: block;
+      width: 26%;
+      background: var(--lx-ct-hero-img) center / cover no-repeat;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 45%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 45%);
+    }
+
+    .lx-ct-hero__script {
+      position: absolute;
+      top: 14%;
+      right: 25%;
+      z-index: 1;
+      display: block;
+      margin: 0;
+      font-family: 'Caveat', 'Segoe Script', cursive !important;
+      font-size: clamp(2rem, 2.6vw, 2.6rem);
+      line-height: 1;
+      color: #8b3a46;
+      transform: rotate(-12deg);
+    }
+
+    .lx-ct-hero__inner {
+      padding-block: 28px 36px;
+      padding-left: clamp(32px, 7vw, 140px);
+    }
+  }
+
+  .lx-ct-crumbs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+    font-size: 0.875rem;
+    color: var(--lx-ct-muted);
+  }
+
+  .lx-ct-crumbs a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .lx-ct-hero__title {
+    margin: 0 0 14px;
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    line-height: 1;
+  }
+
+  .lx-ct-hero__text {
+    margin: 0;
+    font-size: clamp(1rem, 1.5vw, 1.1875rem);
+    line-height: 1.55;
+    color: #3d3236;
+  }
+
+  /* ---------- Main ---------- */
+  .lx-ct-main {
+    display: grid;
+    gap: 36px;
+    padding-block: clamp(32px, 4vw, 48px);
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-ct-main {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 40px;
+      align-items: start;
+      padding-left: clamp(32px, 7vw, 140px);
+    }
+  }
+
+  .lx-ct-info__text {
+    margin: 0 0 28px;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--lx-ct-muted);
+  }
+
+  .lx-ct-methods {
+    display: grid;
+    gap: 26px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lx-ct-methods li {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+  }
+
+  .lx-ct-methods strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 1.0625rem;
+  }
+
+  .lx-ct-methods a,
+  .lx-ct-methods__value {
+    display: block;
+    color: var(--lx-ct-ink);
+    text-decoration: none;
+    line-height: 1.5;
+  }
+
+  .lx-ct-methods a:hover {
+    color: var(--lx-ct-rose);
+  }
+
+  .lx-ct-methods__note {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.875rem;
+    color: var(--lx-ct-muted);
+  }
+
+  /* ---------- Form card ---------- */
+  .lx-ct-card {
+    position: relative;
+    overflow: hidden;
+    padding: 28px 22px;
+    border-radius: 22px;
+    background: linear-gradient(160deg, #fdf3ef 0%, #fbeae3 100%);
+    border: 1px solid #f6e1d8;
+    box-shadow: 0 24px 48px -32px rgb(43 26 32 / 0.35);
+  }
+
+  @media screen and (min-width: 750px) {
+    .lx-ct-card {
+      padding: 32px 36px 36px;
+    }
+  }
+
+  .lx-ct-card__leaf {
+    position: absolute;
+    top: -20px;
+    right: -30px;
+    width: 220px;
+    height: auto;
+    opacity: 0.3;
+    transform: rotate(-30deg);
+    pointer-events: none;
+  }
+
+  .lx-ct-card > *:not(.lx-ct-card__leaf) {
+    position: relative;
+  }
+
+  .lx-ct-card__text {
+    margin: 0 0 22px;
+    color: var(--lx-ct-muted);
+  }
+
+  .lx-ct-form__grid {
+    display: grid;
+    gap: 14px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .lx-ct-form__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .lx-ct-field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 14px;
+    border: 1px solid var(--lx-ct-line);
+    border-radius: 12px;
+    background: #fff;
+    cursor: text;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .lx-ct-field:focus-within {
+    border-color: var(--lx-ct-rose);
+    box-shadow: 0 0 0 3px rgb(176 66 90 / 0.12);
+  }
+
+  .lx-ct-field--full {
+    grid-column: 1 / -1;
+  }
+
+  .lx-ct-field__label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--lx-ct-ink);
+  }
+
+  .lx-ct-field__label span {
+    color: var(--lx-ct-cta);
+  }
+
+  .lx-ct-field input,
+  .lx-ct-field select,
+  .lx-ct-field textarea {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font: inherit;
+    font-size: 0.9375rem;
+    color: var(--lx-ct-ink);
+  }
+
+  .lx-ct-field input::placeholder,
+  .lx-ct-field textarea::placeholder {
+    color: #9a8a8f;
+  }
+
+  .lx-ct-field select {
+    appearance: none;
+    padding-right: 24px;
+    cursor: pointer;
+  }
+
+  .lx-ct-field select:invalid {
+    color: #9a8a8f;
+  }
+
+  .lx-ct-field--select::after {
+    content: '';
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid var(--lx-ct-ink);
+    border-bottom: 1.5px solid var(--lx-ct-ink);
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+
+  .lx-ct-field textarea {
+    min-height: 72px;
+    resize: vertical;
+  }
+
+  .lx-ct-form__count {
+    margin: 6px 0 14px;
+    text-align: right;
+    font-size: 0.8125rem;
+    color: var(--lx-ct-muted);
+  }
+
+  .lx-ct-form__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+    min-height: 50px;
+    padding: 0 32px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--lx-ct-cta);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 12px 24px -12px rgb(194 24 91 / 0.8);
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+
+  .lx-ct-form__submit:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+  }
+
+  .lx-ct-form__status {
+    margin: 0 0 16px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 0.9375rem;
+  }
+
+  .lx-ct-form__status--ok {
+    background: #e7f3e4;
+    color: #2f5a27;
+  }
+
+  .lx-ct-form__status--error {
+    background: #fbe3e6;
+    color: #8a1f35;
+  }
+
+  .lx-ct-form__status--error ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  /* ---------- Assurances ---------- */
+  .lx-ct-assure {
+    position: relative;
+    margin: 0 0 clamp(32px, 4vw, 48px);
+    padding: 26px 22px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #fbeae5 0%, #fbf0ec 60%, #f8e2da 100%);
+  }
+
+  .lx-ct-assure__list {
+    position: relative;
+    display: grid;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lx-ct-assure__leaf {
+    position: absolute;
+    right: -10px;
+    bottom: -30px;
+    width: 160px;
+    height: auto;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .lx-ct-assure li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .lx-ct-assure strong {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .lx-ct-assure li > span:last-child > span {
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--lx-ct-muted);
+  }
+
+  @media screen and (min-width: 750px) {
+    .lx-ct-assure__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (min-width: 1100px) {
+    .lx-ct-assure {
+      padding: 32px 120px 32px 32px;
+    }
+
+    .lx-ct-assure__list {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+    }
+
+    .lx-ct-assure li + li {
+      padding-left: 28px;
+      margin-left: 28px;
+      border-left: 1px solid rgb(176 66 90 / 0.18);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Contact (Lust Xstore)",
+  "tag": "div",
+  "class": "section-lx-contact",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "hero_title", "label": "Title", "default": "Contact Us" },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Text",
+      "default": "We're here to support you on your wellness journey.\nHave a question, feedback or need assistance? We'd love to hear from you."
+    },
+    { "type": "textarea", "id": "hero_script", "label": "Handwritten note", "default": "Let's Build a\nHealthier You\nTogether ♡" },
+    { "type": "image_picker", "id": "hero_image", "label": "Image", "info": "Defaults to the vase-and-book photo." },
+    { "type": "header", "content": "Contact details" },
+    { "type": "text", "id": "info_eyebrow", "label": "Eyebrow", "default": "Get in touch" },
+    { "type": "text", "id": "info_title", "label": "Title", "default": "We're Here to Help" },
+    {
+      "type": "textarea",
+      "id": "info_text",
+      "label": "Text",
+      "default": "Whether you have questions about our products, need help with an order, or just want to know more about our 45-Day Wellness System — we're always happy to assist."
+    },
+    { "type": "header", "content": "Form" },
+    { "type": "text", "id": "form_eyebrow", "label": "Eyebrow", "default": "Send us a message" },
+    { "type": "text", "id": "form_title", "label": "Title", "default": "Contact Form" },
+    {
+      "type": "text",
+      "id": "form_text",
+      "label": "Text",
+      "default": "Fill in the details below and our team will get back to you as soon as possible."
+    },
+    {
+      "type": "textarea",
+      "id": "subjects",
+      "label": "Subjects",
+      "info": "One per line.",
+      "default": "Product question\nOrder support\nReturns & refunds\nPartnerships & bulk orders\nFeedback\nOther"
+    },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send Message" }
+  ],
+  "blocks": [
+    {
+      "type": "method",
+      "name": "Contact method",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "chat", "label": "Chat" }, { "value": "question", "label": "Question" },
+            { "value": "clock", "label": "Clock" }, { "value": "phone", "label": "Phone" },
+            { "value": "pin", "label": "Location" }
+          ],
+          "default": "chat"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Customer Support" },
+        { "type": "textarea", "id": "value", "label": "Email / value", "info": "Emails become clickable." },
+        { "type": "text", "id": "note", "label": "Note" }
+      ]
+    },
+    {
+      "type": "assurance",
+      "name": "Assurance",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "sprout", "label": "Sprout" }, { "value": "shield", "label": "Shield" },
+            { "value": "box", "label": "Box" }, { "value": "heart", "label": "Heart" },
+            { "value": "clock", "label": "Clock" }
+          ],
+          "default": "sprout"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Quick Response" },
+        { "type": "text", "id": "text", "label": "Text", "default": "We usually respond within 24 working hours." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Contact (Lust Xstore)" }]
+}
+{% endschema %}

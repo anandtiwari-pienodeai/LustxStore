@@ -9,137 +9,106 @@
  */{
   "sections": {
     "main": {
-      "type": "main-page",
+      "type": "lx-contact",
       "blocks": {
-        "title": {
-          "type": "text",
-          "name": "t:names.title",
+        "method_support": {
+          "type": "method",
           "settings": {
-            "text": "<h1>{{ closest.page.title }}</h1>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "center",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "icon": "chat",
+            "title": "Customer Support",
+            "value": "support@bodyark.in",
+            "note": "For order, product or general queries."
+          }
         },
-        "content": {
-          "type": "text",
-          "name": "t:names.content",
+        "method_business": {
+          "type": "method",
           "settings": {
-            "text": "{{ closest.page.content }}",
-            "width": "100%",
-            "max_width": "narrow",
-            "alignment": "center",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "icon": "question",
+            "title": "Business Enquiries",
+            "value": "business@bodyark.in",
+            "note": "For partnerships, collaborations or bulk orders."
+          }
+        },
+        "method_hours": {
+          "type": "method",
+          "settings": {
+            "icon": "clock",
+            "title": "Support Hours",
+            "value": "Monday – Saturday\n10:00 AM – 6:00 PM (IST)"
+          }
+        },
+        "assure_1": {
+          "type": "assurance",
+          "settings": {
+            "icon": "sprout",
+            "title": "Quick Response",
+            "text": "We usually respond within 24 working hours."
+          }
+        },
+        "assure_2": {
+          "type": "assurance",
+          "settings": {
+            "icon": "shield",
+            "title": "Safe & Secure",
+            "text": "Your information is always kept confidential."
+          }
+        },
+        "assure_3": {
+          "type": "assurance",
+          "settings": {
+            "icon": "box",
+            "title": "Order Support",
+            "text": "Get help with tracking, returns or exchanges."
+          }
+        },
+        "assure_4": {
+          "type": "assurance",
+          "settings": {
+            "icon": "heart",
+            "title": "Here for You",
+            "text": "Your wellness journey matters to us."
+          }
         }
       },
       "block_order": [
-        "title",
-        "content"
+        "method_support",
+        "method_business",
+        "method_hours",
+        "assure_1",
+        "assure_2",
+        "assure_3",
+        "assure_4"
       ],
-      "settings": {
-        "content_direction": "column",
-        "gap": 32,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 40,
-        "padding-block-end": 0
-      }
+      "settings": {}
     },
-    "form": {
-      "type": "section",
-      "blocks": {
-        "contact_form_UwiCkQ": {
-          "type": "contact-form",
-          "settings": {
-            "width": "custom",
-            "custom_width": 50,
-            "width_mobile": "custom",
-            "custom_width_mobile": 100,
-            "input_style": "default",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "submit-button": {
-              "type": "contact-form-submit-button",
-              "static": true,
-              "settings": {
-                "label": "Submit",
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
-        }
-      },
-      "block_order": [
-        "contact_form_UwiCkQ"
-      ],
-      "name": "t:names.contact_form",
+    "lx_blog_carousel": {
+      "type": "lx-blog-carousel",
       "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 32,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 32,
-        "padding-block-end": 84
+        "eyebrow": "Blog",
+        "heading": "Blog posts",
+        "subheading": "Wellness tips, mindful living, and expert guidance to help you feel your best every day.",
+        "view_all_label": "View all articles",
+        "view_all_link": "/pages/wellness-hub#articles",
+        "featured_articles": [
+          "womens_wellness/how-to-use-body-ark-women",
+          "everyday_wellness/5-small-daily-habits",
+          "lifestyle/designing-a-balanced-day",
+          "ingredients/ingredients-101",
+          "self_care/15-minute-self-care-ritual",
+          "personal_care/simple-personal-care-routine"
+        ],
+        "blog": "",
+        "post_limit": 6,
+        "show_author": false,
+        "background_color": "#fbf6f1",
+        "accent_color": "#b5582f",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     }
   },
   "order": [
     "main",
-    "form"
+    "lx_blog_carousel"
   ]
 }

@@ -64,6 +64,9 @@
         class="header-logo__image"
         style="width: auto; --header-logo-image-height-mobile: {{ settings.logo_height_mobile }}px; --header-logo-image-height: {{ settings.logo_height }}px;"
       >
+      {% if block_settings.tagline != blank %}
+        <span class="header-logo__tagline">{{ block_settings.tagline | escape }}</span>
+      {% endif %}
     {% else %}
       {% render 'image',
         image: settings.logo,
@@ -142,6 +145,31 @@
     }
   }
 
+  /* Tagline sits under the wordmark (the icon takes the first ~27% of the lockup) */
+  .header-logo__image-container--original:has(.header-logo__tagline) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-logo__tagline {
+    margin: 2px 0 0 27%;
+    font-family: var(--font-body--family);
+    font-size: 0.5625rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: #3a2a30;
+  }
+
+  @media screen and (max-width: 749px) {
+    .header-logo__tagline {
+      display: none;
+    }
+  }
+
   .header-logo:has(.header-logo__image-container--inverse) .header-logo__image-container--original {
     display: var(--header-logo-display, block);
   }
@@ -166,6 +194,13 @@
       "id": "asset_filename",
       "label": "Static logo asset filename (advanced)",
       "info": "Overrides the theme setting logo with a file from the theme's assets folder, e.g. body-arc-logo.png"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "info": "Small text under the logo (desktop only).",
+      "default": "Your wellness partner"
     },
     {
       "type": "header",

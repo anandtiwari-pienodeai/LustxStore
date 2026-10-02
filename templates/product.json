@@ -61,10 +61,10 @@
         "brand_tagline": "Daily Wellness Ritual",
         "eyebrow": "45-Day Plant-Based Wellness Kit",
         "use_product_description": false,
-        "description": "<p>Three targeted botanical formulas for three moments of your day — morning, afternoon, and evening — in a complete 45-day pouch system.</p>",
-        "price_note": "45 pouches · 90 tablets · incl. taxes",
+        "description": "<p>Three targeted botanical formulas for three moments of your day — Morning Balance, Afternoon Glow and Evening Restore — in one simple 45-day ritual. Just tear, take and move on with your day.</p>",
+        "price_note": "45 daily strips · 135 sachets · Inclusive of all taxes",
         "atc_text": "Add to Cart",
-        "reassurance_text": "Free shipping on prepaid orders · 100% vegetarian · No added preservatives",
+        "reassurance_text": "Plant-based formulas · 100% vegetarian · No added preservatives",
         "subscribe_desc": "Delivered every 45 days. Cancel anytime.",
         "onetime_label": "One-Time Purchase",
         "onetime_desc": "Single 45-day kit, no commitment.",
@@ -81,11 +81,12 @@
           "settings": {
             "time_of_day": "Morning",
             "name": "Morning Balance",
-            "benefits": "Hormonal support\nSteady energy\nMood balance",
+            "benefits": "Gut cleanse\nMetabolism support\nFeel lighter",
             "chip_text": "2 Tablets / Pouch",
             "bg": "#EFF4EA",
             "accent": "#4B7A4E",
-            "chip_bg": "#E1EEDD"
+            "chip_bg": "#E1EEDD",
+            "image": "shopify://shop_images/ba-pouch-morning.png"
           }
         },
         "m_afternoon": {
@@ -93,11 +94,12 @@
           "settings": {
             "time_of_day": "Afternoon",
             "name": "Afternoon Glow",
-            "benefits": "Skin vitality\nAntioxidant boost\nHydration",
+            "benefits": "Healthy sugars\nHormonal harmony\nSustained energy",
             "chip_text": "2 Tablets / Pouch",
             "bg": "#F8EDDD",
             "accent": "#B0703A",
-            "chip_bg": "#F1E0CB"
+            "chip_bg": "#F1E0CB",
+            "image": "shopify://shop_images/ba-pouch-afternoon.png"
           }
         },
         "m_evening": {
@@ -105,11 +107,12 @@
           "settings": {
             "time_of_day": "Evening",
             "name": "Evening Restore",
-            "benefits": "Calm & unwind\nRestful sleep\nOvernight repair",
+            "benefits": "Stress relief\nBetter sleep\nNourish mind",
             "chip_text": "2 Tablets / Pouch",
             "bg": "#EEE8F3",
             "accent": "#6E5896",
-            "chip_bg": "#E4DAEE"
+            "chip_bg": "#E4DAEE",
+            "image": "shopify://shop_images/ba-pouch-evening.png"
           }
         }
       },
@@ -133,7 +136,7 @@
           "type": "stat",
           "settings": {
             "value": "45",
-            "label": "Daily pouches"
+            "label": "Daily strips"
           }
         },
         "s2": {
@@ -146,8 +149,8 @@
         "s3": {
           "type": "stat",
           "settings": {
-            "value": "90",
-            "label": "Tablets total"
+            "value": "135",
+            "label": "Sachets in total"
           }
         },
         "s4": {
@@ -167,11 +170,12 @@
       "settings": {
         "eyebrow": "Inside The Box",
         "heading": "A 45-Day Foundation, A Lifelong Commitment",
-        "body": "<p>Each box holds 45 daily pouches — one Morning Balance, one Afternoon Glow, and one Evening Restore — organised into a complete daily system so you never have to think about what to take, or when.</p>",
+        "body": "<p>Each box holds 45 daily strips. Every strip carries three sachets — Morning Balance, Afternoon Glow and Evening Restore — so one strip is one complete day and you never have to think about what to take, or when.</p>",
         "page_bg": "#F5EEE3",
         "panel_bg": "#F3E1DB",
         "padding_block_start": 96,
-        "padding_block_end": 0
+        "padding_block_end": 0,
+        "image": "shopify://shop_images/ba-kit-box.png"
       }
     },
     "how_to_use": {
@@ -182,7 +186,7 @@
           "settings": {
             "step_label": "AM",
             "time_of_day": "Morning",
-            "usage": "Take the Morning Balance pouch with breakfast and a full glass of water.",
+            "usage": "Between 6 – 9 AM, take your Morning Balance sachet as directed on the pack — ideally with breakfast and a glass of water.",
             "accent": "#4B7A4E",
             "chip_bg": "#E1EEDD"
           }
@@ -192,7 +196,7 @@
           "settings": {
             "step_label": "PM",
             "time_of_day": "Afternoon",
-            "usage": "Take the Afternoon Glow pouch with lunch or your midday meal.",
+            "usage": "Between 12 – 3 PM, take your Afternoon Glow sachet with or after lunch.",
             "accent": "#B0703A",
             "chip_bg": "#F1E0CB"
           }
@@ -202,7 +206,7 @@
           "settings": {
             "step_label": "EVE",
             "time_of_day": "Evening",
-            "usage": "Take the Evening Restore pouch after dinner, at least an hour before bed.",
+            "usage": "Between 7 – 10 PM, take your Evening Restore sachet at a consistent time each night.",
             "accent": "#6E5896",
             "chip_bg": "#E4DAEE"
           }
@@ -228,50 +232,58 @@
           "type": "safety_note",
           "settings": {
             "title": "Who it's for",
-            "body": "<p>Formulated for adult women. Not intended for those who are pregnant or nursing.</p>"
+            "body": "<p>Formulated for adult women. If you are pregnant, nursing, taking medication or have a medical condition, consult your healthcare professional before use.</p>"
           }
         },
         "n2": {
           "type": "safety_note",
           "settings": {
             "title": "Sourcing",
-            "body": "<p>Plant-based actives, standardised extracts, third-party tested for purity.</p>"
+            "body": "<p>Plant-based botanical formulas, rooted in Ayurvedic tradition and made in India.</p>"
           }
         },
         "n3": {
           "type": "safety_note",
           "settings": {
             "title": "Storage",
-            "body": "<p>Store in a cool, dry place away from direct sunlight.</p>"
+            "body": "<p>Store in a cool, dry place away from direct sunlight. Keep out of reach of children.</p>"
           }
         },
         "f1": {
           "type": "faq",
           "settings": {
             "question": "How long does one box last?",
-            "answer": "<p>Each box is a complete 45-day supply — one pouch of each formula per day.</p>",
+            "answer": "<p>One box is a complete 45-day journey — one strip a day, with a Morning, Afternoon and Evening sachet on each strip.</p>",
             "open_by_default": true
           }
         },
         "f2": {
           "type": "faq",
           "settings": {
-            "question": "Can I take all three pouches together?",
-            "answer": "<p>We recommend spacing them across the day for best absorption, but it is safe to take them together.</p>"
+            "question": "Do I need to take all three sachets every day?",
+            "answer": "<p>Yes. Morning Balance, Afternoon Glow and Evening Restore work together as one complete daily ritual.</p>"
           }
         },
         "f3": {
           "type": "faq",
           "settings": {
-            "question": "Is it safe with other supplements?",
-            "answer": "<p>Generally yes. If you take prescription medication, check with your doctor first.</p>"
+            "question": "Can I take it on an empty stomach?",
+            "answer": "<p>Please follow the serving directions printed on your pack. Many people find it easiest to pair each sachet with a meal.</p>"
           }
         },
         "f4": {
           "type": "faq",
           "settings": {
-            "question": "When will I see results?",
-            "answer": "<p>Most people notice changes within the first full 45-day cycle.</p>"
+            "question": "What happens after 45 days?",
+            "answer": "<p>You'll have completed one full journey. You can continue with a new kit to keep your routine going.</p>"
+          }
+        },
+        "f5": {
+          "type": "faq",
+          "settings": {
+            "question": "I missed a sachet. What should I do?",
+            "answer": "<p>Simply continue with your next sachet. Don't double up — just pick up where you left off.</p>",
+            "open_by_default": false
           }
         }
       },
@@ -282,7 +294,8 @@
         "f1",
         "f2",
         "f3",
-        "f4"
+        "f4",
+        "f5"
       ],
       "settings": {
         "notes_eyebrow": "Good To Know",

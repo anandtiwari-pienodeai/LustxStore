@@ -40,11 +40,110 @@
   /* Homepage markup (ba-home-dc.txt on the Shopify CDN) hardcodes inline
      Playfair / Manrope / Caveat, so only !important can override it. */
   #ba-home-mount,
-  #ba-home-mount * {
+  #ba-home-mount *,
+  #lx-hub-mount,
+  #lx-hub-mount * {
     font-family: var(--brand-font) !important;
   }
 
-  #ba-home-mount :is(h1, h2, h3, h4, h5, h6) {
+  :is(#ba-home-mount, #lx-hub-mount) :is(h1, h2, h3, h4, h5, h6) {
     font-weight: 500 !important;
+  }
+
+  /* Wellness Hub sub-nav (lx-hub-dc.txt) is pushed right by an inline margin-left:auto */
+  #lx-hub-mount [data-hub-top] nav {
+    margin-inline: auto !important;
+  }
+
+  /* Wellness Hub card grids: horizontal swipe rows on mobile instead of a tall stack.
+     Matched on their inline grid-template-columns (as normalised by the browser). */
+  @media screen and (max-width: 749px) {
+    #lx-hub-mount :is(
+      [style*='minmax(min(100%, 260px), 1fr)'],
+      [style*='minmax(min(100%, 175px), 1fr)'],
+      [style*='minmax(min(100%, 250px), 1fr)'],
+      [style*='minmax(min(100%, 270px), 1fr)'],
+      [style*='minmax(min(100%, 160px), 1fr)']
+    ) {
+      display: grid !important;
+      grid-template-columns: none !important;
+      grid-auto-flow: column !important;
+      grid-auto-columns: 80% !important;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+
+    /* Section-level rows bleed to the screen edge so the next card peeks in */
+    #lx-hub-mount :is(
+      [style*='minmax(min(100%, 260px), 1fr)'],
+      [style*='minmax(min(100%, 175px), 1fr)'],
+      [style*='minmax(min(100%, 250px), 1fr)'],
+      [style*='minmax(min(100%, 270px), 1fr)']
+    ) {
+      margin-inline: calc(-1 * clamp(18px, 5vw, 56px));
+      padding-inline: clamp(18px, 5vw, 56px);
+      scroll-padding-inline: clamp(18px, 5vw, 56px);
+    }
+
+    /* Small info tiles sit inside a padded panel, so no bleed */
+    #lx-hub-mount [style*='minmax(min(100%, 160px), 1fr)'] {
+      grid-auto-columns: 70% !important;
+    }
+
+    #lx-hub-mount :is(
+      [style*='minmax(min(100%, 260px), 1fr)'],
+      [style*='minmax(min(100%, 175px), 1fr)'],
+      [style*='minmax(min(100%, 250px), 1fr)'],
+      [style*='minmax(min(100%, 270px), 1fr)'],
+      [style*='minmax(min(100%, 160px), 1fr)']
+    ) > * {
+      scroll-snap-align: start;
+    }
+
+    #lx-hub-mount [style*='minmax(min(100%,']::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  /* Sticky sub-nav: the hub wrapper's overflow-x:hidden makes it a scroll container,
+     which traps position:sticky. `clip` hides overflow without that side effect. */
+  #lx-hub-mount [data-screen-label] {
+    overflow-x: clip !important;
+  }
+
+  #lx-hub-mount [data-hub-top] {
+    top: var(--header-height, 66px) !important;
+  }
+
+  /* ba-dc-runtime.txt (homepage + hub) injects `html,body{height:100%}`. Below 990px the
+     page scrolls on <html>, so that cap squeezes .page-wrapper to one screen and every
+     sticky element (site header included) scrolls away after the first screen. */
+  @media screen and (max-width: 989px) {
+    html:has(.page-wrapper),
+    html:has(.page-wrapper) body {
+      height: auto;
+    }
+  }
+
+  /* Keep tabs centred on the full bar when the "Back to Wellness Hub" link shows */
+  @media screen and (min-width: 1100px) {
+    #lx-hub-mount [data-hub-top] > div {
+      position: relative;
+    }
+
+    #lx-hub-mount [data-hub-top] > div > a {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  /* Blog post bodies (written in Shopify admin) carry inline serif fonts */
+  .rte [style*='font-family'] {
+    font-family: var(--brand-font) !important;
   }
 </style>

@@ -14,11 +14,43 @@
     ]).then(function (res) {
       var mount = document.getElementById('ba-home-mount');
       mount.innerHTML = res[0];
+      relabelHero(mount);
       var s = document.createElement('script');
       s.textContent = res[1];
       document.body.appendChild(s);
-      setTimeout(function () { mount.style.minHeight = ''; }, 1500);
+      relabelHero(mount);
+      setTimeout(function () { mount.style.minHeight = ''; relabelHero(mount); }, 1500);
     }).catch(function (e) { console.error('[BODY ARK home] failed to load', e); });
+
+    // The hero buttons in the design file are plain <button>s with no action.
+    // Route them by their label (delegated, so it survives the runtime re-rendering).
+    {% liquid
+      assign secondary_url = section.settings.secondary_cta_link
+      if secondary_url == blank and section.settings.secondary_cta_product != blank
+        assign secondary_url = section.settings.secondary_cta_product.url
+      endif
+      if secondary_url == blank
+        assign secondary_url = collections.all.products.first.url | default: '/collections/all'
+      endif
+    %}
+    var SECONDARY_LABEL = {{ section.settings.secondary_cta_label | default: 'Explore the Product' | upcase | json }};
+    var HERO_LINKS = {
+      'BEGIN YOUR 45-DAY JOURNEY': {{ section.settings.primary_cta_link | default: '/pages/our-program' | json }}
+    };
+    HERO_LINKS[SECONDARY_LABEL] = {{ secondary_url | json }};
+
+    // Rename the design file's second hero button ("EXPLORE THE PROGRAM").
+    function relabelHero(mount) {
+      mount.querySelectorAll('button').forEach(function (button) {
+        if (button.textContent.trim().toUpperCase() === 'EXPLORE THE PROGRAM') button.textContent = SECONDARY_LABEL;
+      });
+    }
+    document.getElementById('ba-home-mount').addEventListener('click', function (event) {
+      var button = event.target.closest('button');
+      if (!button) return;
+      var url = HERO_LINKS[button.textContent.trim().toUpperCase()];
+      if (url) window.location.href = url;
+    });
   })();
 </script>
 {% schema %}
@@ -28,7 +60,22 @@
   "class": "ba-home-section",
   "settings": [
     { "type": "url", "id": "dc_url", "label": "Design source URL (optional override)" },
-    { "type": "url", "id": "runtime_url", "label": "Runtime URL (optional override)" }
+    { "type": "url", "id": "runtime_url", "label": "Runtime URL (optional override)" },
+    { "type": "header", "content": "Hero buttons" },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "\"Begin your 45-day journey\" link",
+      "info": "Defaults to the Our Program page."
+    },
+    { "type": "text", "id": "secondary_cta_label", "label": "Second button label", "default": "Explore the Product" },
+    { "type": "product", "id": "secondary_cta_product", "label": "Second button product", "info": "The button opens this product's page." },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Second button link (optional)",
+      "info": "Overrides the product above."
+    }
   ],
   "presets": [{ "name": "BODY ARK Women Home" }]
 }

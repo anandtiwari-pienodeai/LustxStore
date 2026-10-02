@@ -1,0 +1,175 @@
+{%- comment -%}
+  Lust Xstore header look: leaf corners, soft shadow, underlined active link,
+  rose CTA and round white icon buttons. Rendered inside sections/header.liquid.
+  Plain <style> (not {% stylesheet %}) because the leaf images need asset_url.
+{%- endcomment -%}
+<style>
+  #header-component {
+    --lx-nav-ink: #2b2226;
+    --lx-nav-rose: #b9605f;
+    --lx-nav-cta: #c26b6c;
+  }
+
+  #header-component .header__row--top {
+    position: relative;
+    background: linear-gradient(180deg, #fdf6f2 0%, #fbf0ea 100%);
+    box-shadow: 0 10px 28px -16px rgb(58 24 34 / 0.28);
+  }
+
+  /* Leaf corners: only where there is room beside the logo and icons */
+  @media screen and (min-width: 1440px) {
+    #header-component .header__row--top::before,
+    #header-component .header__row--top::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 110px;
+      background: no-repeat center / auto 100%;
+      pointer-events: none;
+    }
+
+    #header-component .header__row--top::before {
+      left: 0;
+      background-image: url('{{ 'lx-nav-leaf-left.png' | asset_url }}');
+      background-position: left center;
+    }
+
+    #header-component .header__row--top::after {
+      right: 0;
+      width: 90px;
+      background-image: url('{{ 'lx-nav-leaf-right.png' | asset_url }}');
+      background-position: right center;
+    }
+
+    #header-component .header__row--top > .header__columns {
+      position: relative;
+      z-index: 1;
+      padding-inline: 100px 92px;
+    }
+  }
+
+  /* ---------- Menu ---------- */
+  @media screen and (min-width: 990px) {
+    /* Theme splits the row into equal thirds, which squeezes the menu into "More".
+       Let logo and actions size to content and give the menu the rest, centred. */
+    #header-component .header__row--top > .header__columns {
+      grid-template-columns: auto minmax(0, 1fr) auto !important;
+      column-gap: 16px;
+    }
+
+    #header-component .header__row--top .menu-list {
+      --menu-horizontal-gap: clamp(16px, 2vw, 32px);
+    }
+
+    /* Menu fills the centre column (so overflow-list measures the real space) and
+       centres its links inside it */
+    #header-component .header__row--top .header__column--center header-menu {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    #header-component .header__row--top .header__column--center :is(.header-menu__inner, .menu-list, .overflow-menu) {
+      width: 100%;
+    }
+
+    #header-component .header__row--top .header__column--center .overflow-menu::part(list) {
+      justify-content: center;
+    }
+
+
+    #header-component .menu-list__link {
+      color: var(--lx-nav-ink);
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    #header-component .menu-list__link-title {
+      padding-block: 6px;
+      background: linear-gradient(var(--lx-nav-rose), var(--lx-nav-rose)) no-repeat center bottom / 0 2px;
+      transition: background-size 0.25s ease;
+    }
+
+    #header-component .menu-list__link:hover,
+    #header-component .menu-list__link--active,
+    #header-component .menu-list__link[aria-current] {
+      color: var(--lx-nav-rose);
+    }
+
+    #header-component .menu-list__link:hover .menu-list__link-title {
+      background-size: 24px 2px;
+    }
+
+    #header-component .menu-list__link--active .menu-list__link-title,
+    #header-component .menu-list__link[aria-current] .menu-list__link-title {
+      background-size: 72% 2px;
+    }
+  }
+
+  /* ---------- CTA ---------- */
+  /* CTA first, then search / account / cart, as in the design */
+  #header-component .header__column--right > .header-cta-button {
+    order: -1;
+  }
+
+  #header-component .header-cta-button {
+    gap: 8px;
+    padding: 0.8rem 1.35rem;
+    background-color: var(--lx-nav-cta);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    box-shadow: 0 10px 22px -12px rgb(194 107 108 / 0.9);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+  }
+
+  /* Laptops: keep all four menu links on one line */
+  @media screen and (min-width: 990px) and (max-width: 1439px) {
+    #header-component .header-cta-button {
+      padding: 0.7rem 1.1rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  #header-component .header-cta-button:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+    box-shadow: 0 14px 26px -12px rgb(194 107 108 / 0.95);
+  }
+
+  .header-cta-button__arrow {
+    transition: transform 0.25s ease;
+  }
+
+  #header-component .header-cta-button:hover .header-cta-button__arrow {
+    transform: translateX(3px);
+  }
+
+  /* ---------- Icon buttons ---------- */
+  @media screen and (min-width: 990px) {
+    #header-component .header__column--right {
+      gap: 12px;
+    }
+
+    #header-component header-actions {
+      gap: 4px;
+      margin-inline: 0;
+    }
+
+    #header-component .header-actions__action {
+      color: var(--lx-nav-ink);
+      transition: color 0.2s ease;
+    }
+
+    #header-component .header-actions__action:hover {
+      color: var(--lx-nav-rose);
+    }
+  }
+
+  #header-component .cart-bubble {
+    --cart-bubble-background: var(--lx-nav-rose);
+    --cart-bubble-top: -4px;
+    --cart-bubble-right: -4px;
+
+    color: #fff;
+  }
+</style>

@@ -1,0 +1,869 @@
+{%- comment -%}
+  Lust Xstore — blog post page.
+  Hero (breadcrumb, category, title, summary, author, image) → intro band →
+  each <h2> of the post body becomes a numbered section (an image inside that
+  section moves to the side, alternating left/right) → author box →
+  related posts → newsletter band.
+  Post bodies are written in Shopify admin; nothing here requires changing them.
+{%- endcomment -%}
+
+{% liquid
+  assign body = article.content
+
+  # Drop the body's copy of the featured image (the hero already shows it).
+  if article.image
+    assign featured_file = article.image.src | split: '/' | last | split: '?' | first
+    assign img_parts = body | split: '<p><img'
+    if img_parts.size > 1
+      assign first_img = img_parts[1] | split: '</p>' | first
+      if first_img contains featured_file
+        assign dupe = '<p><img' | append: first_img | append: '</p>'
+        assign body = body | remove_first: dupe
+      endif
+    endif
+  endif
+
+  # Everything before the first <h2> is the intro (empty when the body opens with a heading).
+  assign chunks = body | split: '<h2>'
+  assign intro = chunks.first
+  if intro contains '</h2>'
+    assign intro = ''
+  endif
+
+  assign word_count = article.content | strip_html | split: ' ' | size
+  assign read_minutes = word_count | divided_by: 200.0 | ceil
+  if read_minutes < 1
+    assign read_minutes = 1
+  endif
+
+  assign author_initials = ''
+  assign author_words = article.author | split: ' '
+  for word in author_words limit: 2
+    assign first_letter = word | slice: 0
+    assign author_initials = author_initials | append: first_letter
+  endfor
+%}
+
+<article class="lx-post" style="--lx-post-accent: {{ section.settings.accent_color }};">
+  {%- comment -%} ---------- Hero ---------- {%- endcomment -%}
+  <header class="lx-post-hero">
+    {% if article.image %}
+      <div class="lx-post-hero__media">
+        {{
+          article.image
+          | image_url: width: 2000
+          | image_tag:
+            widths: '750, 1000, 1400, 2000',
+            sizes: '(min-width: 990px) 62vw, 100vw',
+            fetchpriority: 'high',
+            alt: article.image.alt | default: article.title
+        }}
+      </div>
+    {% endif %}
+    <div class="lx-post-hero__inner">
+      <nav class="lx-post-crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{ routes.root_url }}">Home</a></li>
+          <li><a href="{{ blog.url }}">{{ blog.title | escape }}</a></li>
+          <li aria-current="page">{{ article.title | truncate: 40 | escape }}</li>
+        </ol>
+      </nav>
+      <p class="lx-post-hero__category">{{ blog.title | escape }}</p>
+      <h1 class="lx-post-hero__title">{{ article.title | escape }}</h1>
+      {% if article.excerpt != blank %}
+        <div class="lx-post-hero__summary">{{ article.excerpt | strip_html | escape }}</div>
+      {% endif %}
+      <div class="lx-post-byline">
+        <span class="lx-post-avatar" aria-hidden="true">
+          {% if article.user.image %}
+            {{ article.user.image | image_url: width: 120 | image_tag: alt: '', loading: 'eager' }}
+          {% else %}
+            {{ author_initials | upcase }}
+          {% endif %}
+        </span>
+        <span>
+          <strong>By {{ article.author | escape }}</strong>
+          <span class="lx-post-byline__meta">
+            {{ article.published_at | time_tag: format: 'date' }}
+            <span aria-hidden="true">&bull;</span>
+            {{ read_minutes }} min read
+          </span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  {%- comment -%} ---------- Intro ---------- {%- endcomment -%}
+  {% if intro != blank %}
+    <div class="lx-post-intro">
+      <div class="lx-post-wrap lx-post-rte rte">{{ intro }}</div>
+    </div>
+  {% endif %}
+
+  {%- comment -%} ---------- Numbered sections (one per <h2>) ---------- {%- endcomment -%}
+  {% assign step = 0 %}
+  {% assign img_side = 0 %}
+  {% for chunk in chunks %}
+    {% if forloop.first and intro != blank %}{% continue %}{% endif %}
+    {% unless chunk contains '</h2>' %}{% continue %}{% endunless %}
+    {% liquid
+      assign step = step | plus: 1
+      assign heading_raw = chunk | split: '</h2>' | first
+      assign content = chunk | remove_first: heading_raw | remove_first: '</h2>'
+      assign heading = heading_raw | strip
+
+      # "1. Start with water" → badge 1 + "Start with water"
+      assign heading_parts = heading | split: '. '
+      assign maybe_number = heading_parts.first | strip
+      assign as_number = maybe_number | plus: 0
+      if heading_parts.size > 1 and maybe_number.size <= 2 and as_number > 0
+        assign heading = heading | remove_first: maybe_number | remove_first: '. '
+      endif
+
+      # A section's first image moves to the side column.
+      assign side_image = ''
+      if content contains '<img'
+        assign pre = content | split: '<img' | first
+        assign img_tail = content | remove_first: pre | remove_first: '<img'
+        assign img_tag_body = img_tail | split: '>' | first
+        assign side_image = '<img' | append: img_tag_body | append: '>'
+        assign content = content | remove_first: side_image | replace: '<p></p>', ''
+      endif
+    %}
+    <section
+      class="lx-post-step{% if side_image != blank %} lx-post-step--media{% if img_side == 1 %} lx-post-step--flip{% endif %}{% endif %}"
+      aria-labelledby="LxStep-{{ step }}"
+    >
+      <div class="lx-post-wrap lx-post-step__grid">
+        <div class="lx-post-step__text">
+          <h2 id="LxStep-{{ step }}" class="lx-post-step__title">
+            <span class="lx-post-step__num" aria-hidden="true">{{ step }}</span>
+            <span>{{ heading }}</span>
+          </h2>
+          <div class="lx-post-rte rte">{{ content }}</div>
+        </div>
+        {% if side_image != blank %}
+          <div class="lx-post-step__media">{{ side_image }}</div>
+          {% assign img_side = 1 | minus: img_side %}
+        {% endif %}
+      </div>
+    </section>
+  {% endfor %}
+
+  {%- comment -%} ---------- Optional key takeaway (metafield custom.key_takeaway) ---------- {%- endcomment -%}
+  {% assign takeaway = article.metafields.custom.key_takeaway %}
+  {% if takeaway != blank %}
+    <div class="lx-post-wrap">
+      <aside class="lx-post-takeaway">
+        <svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true"><path d="M24 8a12 12 0 0 0-7 21.7c1.3 1 2 2.4 2 4V36h10v-2.3c0-1.6.7-3 2-4A12 12 0 0 0 24 8Z" fill="#f2b84b"/><path d="M19 40h10M21 44h6M24 2v2M8 18H6M42 18h-2M11.5 5.5l1.4 1.4M36.5 5.5l-1.4 1.4" stroke="#e39b2d" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+        <div>
+          <p class="lx-post-takeaway__title">Key Takeaway</p>
+          <div>{{ takeaway }}</div>
+        </div>
+      </aside>
+    </div>
+  {% endif %}
+
+  {%- comment -%} ---------- Author ---------- {%- endcomment -%}
+  {% if section.settings.show_author %}
+    <div class="lx-post-wrap">
+      <aside class="lx-post-author" aria-label="About the author">
+        <span class="lx-post-avatar lx-post-avatar--lg" aria-hidden="true">
+          {% if article.user.image %}
+            {{ article.user.image | image_url: width: 200 | image_tag: alt: '', loading: 'lazy' }}
+          {% else %}
+            {{ author_initials | upcase }}
+          {% endif %}
+        </span>
+        <div class="lx-post-author__body">
+          <p class="lx-post-author__label">Written by</p>
+          <p class="lx-post-author__name">{{ article.author | escape }}</p>
+          {% assign bio = article.user.bio | default: section.settings.author_fallback_bio %}
+          {% if bio != blank %}
+            <p class="lx-post-author__bio">{{ bio | strip_html | escape }}</p>
+          {% endif %}
+        </div>
+        <div class="lx-post-author__social">
+          {% if section.settings.instagram != blank %}
+            <a href="{{ section.settings.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.linkedin != blank %}
+            <a href="{{ section.settings.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6.5 9.5V18M6.5 6v.01M10.5 18v-5a3 3 0 0 1 6 0v5M10.5 9.5V18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.x_link != blank %}
+            <a href="{{ section.settings.x_link }}" target="_blank" rel="noopener" aria-label="X">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+            </a>
+          {% endif %}
+        </div>
+      </aside>
+    </div>
+  {% endif %}
+
+  {%- comment -%} ---------- Related posts ---------- {%- endcomment -%}
+  {% liquid
+    assign related_count = 0
+    assign related_handles = ''
+  %}
+  {% capture related_cards %}
+    {%- for post in blog.articles limit: 8 -%}
+      {%- if post.id == article.id or related_count >= 4 -%}{%- continue -%}{%- endif -%}
+      {%- render 'lx-article-card', post: post, category: blog.title -%}
+      {%- assign related_count = related_count | plus: 1 -%}
+      {%- assign related_handles = related_handles | append: post.handle | append: ',' -%}
+    {%- endfor -%}
+    {%- for post in section.settings.more_articles -%}
+      {%- if post.id == article.id or related_count >= 4 -%}{%- continue -%}{%- endif -%}
+      {%- assign key = post.handle | append: ',' -%}
+      {%- if related_handles contains key -%}{%- continue -%}{%- endif -%}
+      {%- assign post_blog = post.url | split: '/' | slice: 2 | first -%}
+      {%- render 'lx-article-card', post: post, category: blogs[post_blog].title -%}
+      {%- assign related_count = related_count | plus: 1 -%}
+    {%- endfor -%}
+  {% endcapture %}
+  {% if related_count > 0 %}
+    <section class="lx-post-related" aria-labelledby="LxRelatedHeading">
+      <div class="lx-post-wrap">
+        <div class="lx-post-related__head">
+          <h2 id="LxRelatedHeading">{{ section.settings.related_heading | escape }}</h2>
+          {% if section.settings.related_link != blank %}
+            <a href="{{ section.settings.related_link }}">View all articles <span aria-hidden="true">&rarr;</span></a>
+          {% endif %}
+        </div>
+        <ul class="lx-post-related__grid" role="list">
+          {{ related_cards }}
+        </ul>
+      </div>
+    </section>
+  {% endif %}
+
+  {%- comment -%} ---------- Newsletter ---------- {%- endcomment -%}
+  {% if section.settings.show_newsletter %}
+    {% liquid
+      if section.settings.newsletter_image != blank
+        assign nl_bg = section.settings.newsletter_image | image_url: width: 2400
+      else
+        assign nl_bg = 'lx-stories-bg.jpg' | asset_url
+      endif
+    %}
+    <section class="lx-post-newsletter" style="--lx-nl-bg: url('{{ nl_bg }}');" aria-labelledby="LxNewsletterHeading">
+      <div class="lx-post-wrap lx-post-newsletter__inner">
+        <div>
+          <h2 id="LxNewsletterHeading">{{ section.settings.newsletter_heading | escape }}</h2>
+          <p>{{ section.settings.newsletter_text | escape }}</p>
+        </div>
+        {%- form 'customer', class: 'lx-post-newsletter__form', id: 'LxArticleNewsletter' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          {% if form.posted_successfully? %}
+            <p class="lx-post-newsletter__msg" role="status">Thanks for subscribing!</p>
+          {% else %}
+            <label class="visually-hidden" for="LxNewsletterEmail">Email address</label>
+            <input
+              id="LxNewsletterEmail"
+              type="email"
+              name="contact[email]"
+              autocomplete="email"
+              placeholder="Your email address"
+              required
+            >
+            <button type="submit">Subscribe</button>
+            {% if form.errors %}
+              <p class="lx-post-newsletter__msg" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+            {% endif %}
+          {% endif %}
+        {%- endform -%}
+      </div>
+    </section>
+  {% endif %}
+</article>
+
+<script type="application/ld+json">
+  {{ article | structured_data }}
+</script>
+
+{% stylesheet %}
+  .lx-post {
+    --lx-post-ink: #2b2522;
+    --lx-post-muted: #645854;
+    --lx-post-cream: #fbf6f1;
+    --lx-post-tint: #f6ebe3;
+    --lx-post-line: #eedfd5;
+    --lx-post-max: 1180px;
+
+    background: var(--lx-post-cream);
+    color: var(--lx-post-ink);
+  }
+
+  .lx-post-wrap {
+    width: 100%;
+    max-width: var(--lx-post-max);
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .lx-post-wrap {
+      padding-inline: 40px;
+    }
+  }
+
+  /* ---------- Hero ---------- */
+  .lx-post-hero {
+    position: relative;
+    display: grid;
+    background: var(--lx-post-cream);
+    overflow: hidden;
+  }
+
+  .lx-post-hero__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+  }
+
+  .lx-post-hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .lx-post-hero__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, var(--lx-post-cream) 0%, rgb(251 246 241 / 0) 45%);
+  }
+
+  .lx-post-hero__inner {
+    position: relative;
+    z-index: 1;
+    padding: 0 20px 36px;
+    margin-top: -48px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-post-hero {
+      min-height: clamp(460px, 42vw, 600px);
+      align-items: center;
+    }
+
+    .lx-post-hero__media {
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: 64%;
+      aspect-ratio: auto;
+    }
+
+    .lx-post-hero__media::after {
+      background: linear-gradient(90deg, var(--lx-post-cream) 0%, rgb(251 246 241 / 0.85) 18%, rgb(251 246 241 / 0) 55%);
+    }
+
+    .lx-post-hero__inner {
+      width: 100%;
+      max-width: var(--lx-post-max);
+      margin: 0 auto;
+      padding: 28px 40px 56px;
+    }
+
+    .lx-post-hero__inner > * {
+      max-width: 520px;
+    }
+  }
+
+  .lx-post-crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 clamp(20px, 4vw, 44px);
+    padding: 0;
+    list-style: none;
+    font-size: 0.75rem;
+    color: var(--lx-post-muted);
+  }
+
+  .lx-post-crumbs li + li::before {
+    content: '›';
+    margin-right: 6px;
+    opacity: 0.6;
+  }
+
+  .lx-post-crumbs a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .lx-post-crumbs a:hover {
+    color: var(--lx-post-accent);
+  }
+
+  .lx-post-hero__category {
+    margin: 0 0 12px;
+    color: var(--lx-post-accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .lx-post-hero__title {
+    margin: 0 0 16px;
+    font-size: clamp(2rem, 4.4vw, 3.25rem);
+    line-height: 1.08;
+    color: var(--lx-post-ink);
+    text-wrap: balance;
+  }
+
+  .lx-post-hero__summary {
+    margin: 0 0 24px;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: #4a403c;
+  }
+
+  .lx-post-byline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.875rem;
+  }
+
+  .lx-post-byline strong {
+    display: block;
+    font-weight: 600;
+  }
+
+  .lx-post-byline__meta {
+    display: flex;
+    gap: 8px;
+    color: var(--lx-post-muted);
+    font-size: 0.8125rem;
+  }
+
+  .lx-post-avatar {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: #ecd7ca;
+    color: var(--lx-post-accent);
+    font-weight: 600;
+    box-shadow: 0 0 0 3px #fff;
+  }
+
+  .lx-post-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .lx-post-avatar--lg {
+    width: 88px;
+    height: 88px;
+    font-size: 1.5rem;
+  }
+
+  /* ---------- Body text ---------- */
+  .lx-post-rte {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #3e3532;
+  }
+
+  .lx-post-rte > :first-child {
+    margin-top: 0;
+  }
+
+  .lx-post-rte > :last-child {
+    margin-bottom: 0;
+  }
+
+  .lx-post-rte img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+  }
+
+  .lx-post-rte a:not([style]) {
+    color: var(--lx-post-accent);
+  }
+
+  .lx-post-intro {
+    padding-block: clamp(28px, 4vw, 44px);
+    background: #fffdfb;
+    border-block: 1px solid var(--lx-post-line);
+  }
+
+  .lx-post-intro .lx-post-rte {
+    max-width: 900px;
+    margin-inline: auto;
+    font-size: 1.0625rem;
+  }
+
+  /* ---------- Numbered sections ---------- */
+  .lx-post-step {
+    padding-block: clamp(32px, 4.5vw, 56px);
+  }
+
+  .lx-post-step:nth-of-type(even) {
+    background: var(--lx-post-tint);
+  }
+
+  .lx-post-step__grid {
+    display: grid;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .lx-post-step__text {
+    max-width: 760px;
+  }
+
+  .lx-post-step__title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 16px;
+    font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+    line-height: 1.2;
+    color: var(--lx-post-ink);
+  }
+
+  .lx-post-step__num {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: var(--lx-post-accent);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .lx-post-step__text .lx-post-rte {
+      padding-left: 56px;
+    }
+  }
+
+  .lx-post-step__media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    height: auto;
+    margin: 0 !important;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 18px 40px -24px rgb(43 37 34 / 0.45);
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-post-step--media .lx-post-step__grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: 56px;
+    }
+
+    .lx-post-step--flip .lx-post-step__media {
+      order: -1;
+    }
+  }
+
+  /* ---------- Key takeaway ---------- */
+  .lx-post-takeaway {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-block: 36px 24px;
+    padding: 24px 28px;
+    border-radius: 18px;
+    background: #f7e6da;
+    border: 1px solid #efd3c2;
+  }
+
+  .lx-post-takeaway__title {
+    margin: 0 0 6px;
+    color: var(--lx-post-accent);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  /* ---------- Author ---------- */
+  .lx-post-author {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 24px;
+    margin-block: clamp(32px, 4vw, 48px);
+    padding: 24px 28px;
+    border-radius: 18px;
+    background: #fffdfb;
+    border: 1px solid var(--lx-post-line);
+  }
+
+  .lx-post-author__body {
+    flex: 1 1 280px;
+  }
+
+  .lx-post-author__label {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--lx-post-muted);
+  }
+
+  .lx-post-author__name {
+    margin: 2px 0 6px;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .lx-post-author__bio {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--lx-post-muted);
+  }
+
+  .lx-post-author__social {
+    display: flex;
+    gap: 14px;
+  }
+
+  .lx-post-author__social a {
+    color: var(--lx-post-ink);
+    transition: color 0.2s ease;
+  }
+
+  .lx-post-author__social a:hover {
+    color: var(--lx-post-accent);
+  }
+
+  /* ---------- Related ---------- */
+  .lx-post-related {
+    padding-block: 8px clamp(40px, 5vw, 64px);
+  }
+
+  .lx-post-related__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .lx-post-related__head h2 {
+    margin: 0;
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+  }
+
+  .lx-post-related__head a {
+    color: var(--lx-post-accent);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .lx-post-related__grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 72%;
+    gap: 18px;
+    margin: 0;
+    padding: 0 0 6px;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .lx-post-related__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .lx-post-related__grid {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      overflow: visible;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-post-related__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .lx-related-card {
+    scroll-snap-align: start;
+  }
+
+  .lx-related-card a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .lx-related-card__media {
+    aspect-ratio: 16 / 10;
+    margin-bottom: 12px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #efe3da;
+  }
+
+  .lx-related-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .lx-related-card a:hover img {
+    transform: scale(1.05);
+  }
+
+  .lx-related-card__cat {
+    margin: 0 0 4px;
+    color: var(--lx-post-accent);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .lx-related-card__title {
+    margin: 0 0 6px;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .lx-related-card a:hover .lx-related-card__title {
+    color: var(--lx-post-accent);
+  }
+
+  .lx-related-card__meta {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--lx-post-muted);
+  }
+
+  /* ---------- Newsletter ---------- */
+  .lx-post-newsletter {
+    padding-block: clamp(40px, 6vw, 72px);
+    background: #f4e6da var(--lx-nl-bg) center / cover no-repeat;
+  }
+
+  .lx-post-newsletter__inner {
+    display: grid;
+    gap: 20px;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-post-newsletter__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding-inline: 160px;
+    }
+  }
+
+  .lx-post-newsletter h2 {
+    margin: 0 0 8px;
+    font-size: clamp(1.5rem, 2.8vw, 2.125rem);
+  }
+
+  .lx-post-newsletter p {
+    margin: 0;
+    color: var(--lx-post-muted);
+  }
+
+  .lx-post-newsletter__form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .lx-post-newsletter__form input[type='email'] {
+    flex: 1 1 220px;
+    min-height: 48px;
+    padding: 0 16px;
+    border: 1px solid var(--lx-post-line);
+    border-radius: 10px;
+    background: #fff;
+    font: inherit;
+    color: var(--lx-post-ink);
+  }
+
+  .lx-post-newsletter__form button {
+    min-height: 48px;
+    padding: 0 28px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--lx-post-accent);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .lx-post-newsletter__form button:hover {
+    opacity: 0.9;
+  }
+
+  .lx-post-newsletter__msg {
+    flex-basis: 100%;
+    font-size: 0.875rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Blog post (Lust Xstore)",
+  "tag": "div",
+  "class": "section-lx-article",
+  "settings": [
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#b5582f" },
+    { "type": "header", "content": "Author" },
+    { "type": "checkbox", "id": "show_author", "label": "Show author box", "default": true },
+    {
+      "type": "textarea",
+      "id": "author_fallback_bio",
+      "label": "Default author bio",
+      "info": "Used when the author's staff profile has no bio."
+    },
+    { "type": "url", "id": "instagram", "label": "Instagram link" },
+    { "type": "url", "id": "linkedin", "label": "LinkedIn link" },
+    { "type": "url", "id": "x_link", "label": "X link" },
+    { "type": "header", "content": "Related posts" },
+    { "type": "text", "id": "related_heading", "label": "Heading", "default": "Continue Your Wellness Journey" },
+    { "type": "url", "id": "related_link", "label": "View all link" },
+    {
+      "type": "article_list",
+      "id": "more_articles",
+      "label": "More posts",
+      "info": "Fills the related row when the post's own blog has fewer than 4 other posts.",
+      "limit": 12
+    },
+    { "type": "header", "content": "Newsletter" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter", "default": true },
+    { "type": "text", "id": "newsletter_heading", "label": "Heading", "default": "Small habits. Better everyday." },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Text",
+      "default": "Join our community for wellness tips, new articles and exclusive offers."
+    },
+    { "type": "image_picker", "id": "newsletter_image", "label": "Background image" }
+  ]
+}
+{% endschema %}

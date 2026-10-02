@@ -1,0 +1,743 @@
+{%- comment -%}
+  Lust Xstore — "Our Story" page.
+  Hero → "Why we started" values → "Our journey" timeline → Mission / Vision band.
+  Blocks: "Value", "Milestone", "Promise". Images fall back to existing store files.
+{%- endcomment -%}
+
+{% liquid
+  if section.settings.hero_image != blank
+    assign hero_img = section.settings.hero_image
+  else
+    assign hero_img = articles['everyday_wellness/5-small-daily-habits'].image
+  endif
+
+  if section.settings.why_image != blank
+    assign why_img = section.settings.why_image | image_url: width: 700
+  else
+    assign why_img = 'lx-hub-s-hero.jpg' | file_url | append: '&width=700'
+  endif
+
+  assign pouch_files = 'ba-pouch-morning.png,ba-pouch-afternoon.png,ba-pouch-evening.png' | split: ','
+%}
+
+{% if section.settings.hero_script != blank %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap">
+{% endif %}
+
+<div class="lx-os">
+  {%- comment -%} ---------- Hero ---------- {%- endcomment -%}
+  <section class="lx-os-hero" aria-labelledby="LxOsTitle">
+    <img class="lx-os-hero__leaf" src="{{ 'lx-footer-leaf.png' | asset_url }}" alt="" width="259" height="332" aria-hidden="true">
+    {% if hero_img %}
+      <div class="lx-os-hero__media">
+        {{
+          hero_img
+          | image_url: width: 1800
+          | image_tag:
+            widths: '700, 1000, 1400, 1800',
+            sizes: '(min-width: 990px) 60vw, 100vw',
+            fetchpriority: 'high',
+            alt: ''
+        }}
+      </div>
+    {% endif %}
+    {% if section.settings.show_pouches %}
+      <div class="lx-os-hero__pouches" aria-hidden="true">
+        {% for f in pouch_files %}
+          <img src="{{ f | file_url | append: '&width=360' }}" alt="" width="360" height="540" loading="eager">
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% if section.settings.hero_script != blank %}
+      <p class="lx-os-hero__script" aria-hidden="true">{{ section.settings.hero_script | escape | newline_to_br }}</p>
+    {% endif %}
+
+    <div class="lx-os__wrap lx-os-hero__inner">
+      <p class="lx-os__eyebrow">{{ section.settings.hero_eyebrow | escape }}</p>
+      <h1 id="LxOsTitle" class="lx-os-hero__title">{{ section.settings.hero_title | escape | newline_to_br }}</h1>
+      <div class="lx-os-hero__text">{{ section.settings.hero_text }}</div>
+      {% if section.settings.hero_button_label != blank %}
+        <a class="lx-os__btn" href="{{ section.settings.hero_button_link | default: '/pages/our-program' }}">
+          {{ section.settings.hero_button_label | escape }} <span aria-hidden="true">&rarr;</span>
+        </a>
+      {% endif %}
+    </div>
+  </section>
+
+  {%- comment -%} ---------- Why we started ---------- {%- endcomment -%}
+  <section class="lx-os-why" aria-labelledby="LxOsWhyTitle">
+    <img class="lx-os-why__side lx-os-why__side--left" src="{{ 'lx-footer-leaf.png' | asset_url }}" alt="" width="259" height="332" loading="lazy" aria-hidden="true">
+    <img class="lx-os-why__side lx-os-why__side--right" src="{{ why_img }}" alt="" width="700" height="466" loading="lazy" aria-hidden="true">
+    <div class="lx-os__wrap">
+      <header class="lx-os-why__head">
+        <p class="lx-os__eyebrow">{{ section.settings.why_eyebrow | escape }}</p>
+        <h2 id="LxOsWhyTitle" class="lx-os__h2 lx-os__h2--sprigs">
+          {% render 'lx-story-sprig' %}
+          <span>{{ section.settings.why_title | escape }}</span>
+          {% render 'lx-story-sprig', flip: true %}
+        </h2>
+        <p class="lx-os-why__text">{{ section.settings.why_text | escape }}</p>
+      </header>
+      <ul class="lx-os-values" role="list">
+        {% for block in section.blocks %}
+          {% if block.type == 'value' %}
+            <li {{ block.shopify_attributes }}>
+              <span class="lx-os__ring">{% render 'lx-program-icon', icon: block.settings.icon, size: 28 %}</span>
+              <span>
+                <strong>{{ block.settings.title | escape }}</strong>
+                <span>{{ block.settings.text | escape }}</span>
+              </span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  {%- comment -%} ---------- Journey timeline ---------- {%- endcomment -%}
+  <section class="lx-os-journey" aria-labelledby="LxOsJourneyTitle">
+    <div class="lx-os__wrap lx-os-journey__grid">
+      <div class="lx-os-journey__intro">
+        <p class="lx-os__eyebrow">{{ section.settings.journey_eyebrow | escape }}</p>
+        <h2 id="LxOsJourneyTitle" class="lx-os__h2">{{ section.settings.journey_title | escape | newline_to_br }}</h2>
+        <p>{{ section.settings.journey_text | escape }}</p>
+      </div>
+      <ol class="lx-os-timeline" role="list">
+        {% for block in section.blocks %}
+          {% if block.type == 'milestone' %}
+            <li {{ block.shopify_attributes }}>
+              <span class="lx-os-timeline__dot">{% render 'lx-program-icon', icon: block.settings.icon, size: 22 %}</span>
+              <strong>{{ block.settings.title | escape }}</strong>
+              <span>{{ block.settings.text | escape }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+
+  {%- comment -%} ---------- Mission / Vision ---------- {%- endcomment -%}
+  <section class="lx-os-mv" style="--lx-mv-bg: url('{{ 'lx-footer-bg.jpg' | asset_url }}');" aria-label="Mission and vision">
+    <div class="lx-os__wrap lx-os-mv__grid">
+      <div class="lx-os-mv__item">
+        {% render 'lx-program-icon', icon: 'leaf', size: 44 %}
+        <div>
+          <p class="lx-os__eyebrow lx-os__eyebrow--light">{{ section.settings.mission_label | escape }}</p>
+          <p class="lx-os-mv__statement">{{ section.settings.mission_text | escape }}</p>
+        </div>
+      </div>
+      <div class="lx-os-mv__item">
+        {% render 'lx-program-icon', icon: 'lotus', size: 48 %}
+        <div>
+          <p class="lx-os__eyebrow lx-os__eyebrow--light">{{ section.settings.vision_label | escape }}</p>
+          <p class="lx-os-mv__statement">{{ section.settings.vision_text | escape }}</p>
+        </div>
+      </div>
+      <ul class="lx-os-mv__promises" role="list">
+        {% for block in section.blocks %}
+          {% if block.type == 'promise' %}
+            <li {{ block.shopify_attributes }}>
+              <span class="lx-os__ring lx-os__ring--dark">{% render 'lx-program-icon', icon: block.settings.icon, size: 26 %}</span>
+              <span>{{ block.settings.label | escape | newline_to_br }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+</div>
+
+{% stylesheet %}
+  .lx-os {
+    --lx-os-ink: #2b1a20;
+    --lx-os-muted: #5e5256;
+    --lx-os-rose: #b4485a;
+    --lx-os-cream: #fbf5f1;
+
+    background: var(--lx-os-cream);
+    color: var(--lx-os-ink);
+    overflow: hidden;
+  }
+
+  .lx-os__wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .lx-os__wrap {
+      padding-inline: 32px;
+    }
+  }
+
+  .lx-os__eyebrow {
+    margin: 0 0 10px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--lx-os-rose);
+  }
+
+  .lx-os__eyebrow--light {
+    color: #f0b7bd;
+  }
+
+  .lx-os__h2 {
+    margin: 0 0 12px;
+    font-size: clamp(1.75rem, 3.2vw, 2.375rem);
+    line-height: 1.15;
+    color: var(--lx-os-ink);
+  }
+
+  .lx-os__h2--sprigs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .lx-os__ring {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    background: #f7e1dc;
+    color: var(--lx-os-rose);
+  }
+
+  .lx-os__ring--dark {
+    background: rgb(255 255 255 / 0.08);
+    border: 1px solid rgb(255 255 255 / 0.14);
+    color: #f3b9c0;
+  }
+
+  .lx-os__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 30px;
+    border-radius: 999px;
+    background: #c25d6c;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 12px 24px -12px rgb(194 93 108 / 0.9);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .lx-os__btn:hover {
+    background: #cf6b79;
+    transform: translateY(-2px);
+  }
+
+  /* ---------- Hero ---------- */
+  .lx-os-hero {
+    position: relative;
+    background: linear-gradient(90deg, #fbeee8 0%, #f8e7de 45%, #f6e1d3 100%);
+  }
+
+  .lx-os-hero__leaf {
+    position: absolute;
+    left: -40px;
+    top: 20px;
+    width: 200px;
+    height: auto;
+    opacity: 0.35;
+    transform: scaleX(-1) rotate(-10deg);
+    pointer-events: none;
+  }
+
+  .lx-os-hero__media {
+    position: relative;
+    aspect-ratio: 16 / 11;
+  }
+
+  .lx-os-hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 65% center;
+  }
+
+  .lx-os-hero__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, #fbeee8 0%, rgb(251 238 232 / 0) 40%);
+  }
+
+  .lx-os-hero__pouches,
+  .lx-os-hero__script {
+    display: none;
+  }
+
+  .lx-os-hero__inner {
+    padding-block: 0 40px;
+    margin-top: -36px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-os-hero {
+      display: flex;
+      align-items: center;
+      min-height: 480px;
+    }
+
+    .lx-os-hero__media {
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: 60%;
+      aspect-ratio: auto;
+    }
+
+    .lx-os-hero__media::after {
+      background: linear-gradient(90deg, #f8e7de 0%, rgb(248 231 222 / 0.55) 22%, rgb(248 231 222 / 0) 50%);
+    }
+
+    .lx-os-hero__inner {
+      margin-top: 0;
+      padding-block: 44px 52px;
+      padding-left: clamp(32px, 9vw, 180px);
+    }
+
+    .lx-os-hero__inner > * {
+      max-width: 520px;
+    }
+
+    .lx-os-hero__pouches {
+      position: absolute;
+      right: 2%;
+      bottom: -6px;
+      z-index: 1;
+      display: flex;
+      width: 26%;
+      max-width: 380px;
+    }
+
+    .lx-os-hero__pouches img {
+      width: 36%;
+      height: auto;
+      margin-left: -4%;
+      filter: drop-shadow(0 14px 16px rgb(43 26 32 / 0.25));
+    }
+
+    .lx-os-hero__pouches img:nth-child(2) {
+      transform: translateY(-6px);
+    }
+
+    .lx-os-hero__script {
+      position: absolute;
+      top: 9%;
+      right: 6%;
+      z-index: 1;
+      display: block;
+      margin: 0;
+      font-family: 'Caveat', 'Segoe Script', cursive !important;
+      font-size: clamp(2rem, 2.8vw, 2.75rem);
+      line-height: 1;
+      color: #8b3a46;
+      transform: rotate(-10deg);
+    }
+  }
+
+  .lx-os-hero__title {
+    margin: 0 0 18px;
+    font-size: clamp(2.375rem, 4.6vw, 3.5rem);
+    line-height: 1.05;
+    color: var(--lx-os-ink);
+  }
+
+  .lx-os-hero__text {
+    margin-bottom: 26px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #3d3236;
+  }
+
+  .lx-os-hero__text p {
+    margin: 0 0 10px;
+  }
+
+  /* ---------- Why ---------- */
+  .lx-os-why {
+    position: relative;
+    padding-block: clamp(36px, 5vw, 56px);
+    background: #fdf8f5;
+  }
+
+  .lx-os-why__side {
+    display: none;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .lx-os-why__side {
+      position: absolute;
+      top: 50%;
+      display: block;
+      pointer-events: none;
+    }
+
+    .lx-os-why__side--left {
+      left: -30px;
+      width: 220px;
+      height: auto;
+      opacity: 0.55;
+      transform: translateY(-50%) scaleX(-1);
+    }
+
+    .lx-os-why__side--right {
+      right: -60px;
+      width: 300px;
+      height: 230px;
+      object-fit: cover;
+      border-radius: 50% 0 0 50%;
+      transform: translateY(-50%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 25%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 25%);
+    }
+  }
+
+  .lx-os-why__head {
+    max-width: 760px;
+    margin: 0 auto 32px;
+    text-align: center;
+  }
+
+  .lx-os-why__text {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--lx-os-muted);
+  }
+
+  .lx-os-sprig {
+    display: none;
+    width: 60px;
+    height: 46px;
+    color: #cf9187;
+  }
+
+  @media screen and (min-width: 750px) {
+    .lx-os-sprig {
+      display: block;
+    }
+  }
+
+  .lx-os-values {
+    display: grid;
+    gap: 22px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .lx-os-values {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (min-width: 1100px) {
+    .lx-os-values {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .lx-os-values li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .lx-os-values strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.9375rem;
+  }
+
+  .lx-os-values li > span:last-child > span {
+    display: block;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--lx-os-muted);
+  }
+
+  /* ---------- Journey ---------- */
+  .lx-os-journey {
+    padding-block: clamp(36px, 5vw, 52px);
+    background: linear-gradient(90deg, #fbebe6 0%, #fbf1ec 100%);
+  }
+
+  .lx-os-journey__grid {
+    display: grid;
+    gap: 32px;
+  }
+
+  .lx-os-journey__intro p:last-child {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--lx-os-muted);
+  }
+
+  .lx-os-timeline {
+    position: relative;
+    display: grid;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lx-os-timeline li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    column-gap: 14px;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--lx-os-muted);
+  }
+
+  .lx-os-timeline li > strong,
+  .lx-os-timeline li > span:not(.lx-os-timeline__dot) {
+    grid-column: 2;
+  }
+
+  .lx-os-timeline__dot {
+    grid-row: 1 / span 2;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    background: #b04a5c;
+    color: #fff;
+    box-shadow: 0 0 0 5px #fbe3e0;
+  }
+
+  .lx-os-timeline strong {
+    margin-bottom: 4px;
+    font-size: 0.9375rem;
+    color: var(--lx-os-ink);
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-os-journey__grid {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
+      gap: 48px;
+      align-items: center;
+    }
+
+    .lx-os-journey__intro {
+      padding-right: 40px;
+      border-right: 1px solid rgb(176 74 92 / 0.2);
+    }
+
+    .lx-os-timeline {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .lx-os-timeline::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: 48px;
+      right: 12%;
+      height: 1px;
+      background: linear-gradient(90deg, #d79aa3, #e9c3c8);
+    }
+
+    .lx-os-timeline li {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .lx-os-timeline__dot {
+      position: relative;
+      margin-bottom: 14px;
+    }
+  }
+
+  /* ---------- Mission / vision ---------- */
+  .lx-os-mv {
+    padding-block: clamp(36px, 5vw, 52px);
+    background: #2a0a14 var(--lx-mv-bg) center / cover no-repeat;
+    color: #fff;
+  }
+
+  .lx-os-mv__grid {
+    display: grid;
+    gap: 32px;
+  }
+
+  .lx-os-mv__item {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+  }
+
+  .lx-os-mv__item > svg {
+    flex-shrink: 0;
+    color: #f0b7bd;
+  }
+
+  .lx-os-mv__statement {
+    margin: 0;
+    font-size: clamp(1.25rem, 1.9vw, 1.5rem);
+    line-height: 1.35;
+    color: #fff;
+  }
+
+  .lx-os-mv__promises {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lx-os-mv__promises li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-width: 90px;
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.35;
+    color: #f4e3e6;
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-os-mv__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) auto;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .lx-os-mv__item + .lx-os-mv__item {
+      padding-left: 40px;
+      border-left: 1px solid rgb(255 255 255 / 0.12);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Our Story",
+  "tag": "div",
+  "class": "section-lx-os",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "Our story" },
+    { "type": "textarea", "id": "hero_title", "label": "Title", "default": "A Healthier\nTomorrow, For You" },
+    {
+      "type": "richtext",
+      "id": "hero_text",
+      "label": "Text",
+      "default": "<p><strong>Lust Xstore</strong> was born from a simple belief — true wellness is not a destination, it's a way of living.</p><p>With BODY अर्क, we are building a structured, science-inspired 45-day wellness system to help you feel better, look better and live a more balanced life.</p>"
+    },
+    { "type": "text", "id": "hero_button_label", "label": "Button label", "default": "Our Program" },
+    { "type": "url", "id": "hero_button_link", "label": "Button link", "info": "Defaults to the Our Program page." },
+    { "type": "image_picker", "id": "hero_image", "label": "Image", "info": "Defaults to the \"5 Small Daily Habits\" article photo." },
+    { "type": "checkbox", "id": "show_pouches", "label": "Show BODY अर्क pouches", "default": true },
+    { "type": "textarea", "id": "hero_script", "label": "Handwritten note", "default": "Small Rituals\nBrighter Days" },
+    { "type": "header", "content": "Why we started" },
+    { "type": "text", "id": "why_eyebrow", "label": "Eyebrow", "default": "Why we started" },
+    { "type": "text", "id": "why_title", "label": "Title", "default": "A Personal Journey, A Bigger Purpose" },
+    {
+      "type": "textarea",
+      "id": "why_text",
+      "label": "Text",
+      "default": "In today's fast-paced world, wellness often feels complicated. We noticed how easy it is to feel tired, imbalanced and stressed — even with so many options available. So, we set out to create a simple, natural and structured system that fits into real life."
+    },
+    { "type": "image_picker", "id": "why_image", "label": "Side image", "info": "Defaults to the herbs and mortar photo." },
+    { "type": "header", "content": "Our journey" },
+    { "type": "text", "id": "journey_eyebrow", "label": "Eyebrow", "default": "Our journey" },
+    { "type": "textarea", "id": "journey_title", "label": "Title", "default": "From an Idea\nto a Wellness Movement" },
+    {
+      "type": "textarea",
+      "id": "journey_text",
+      "label": "Text",
+      "default": "What started as a vision to make wellness simple and effective is now a growing community of health-conscious individuals."
+    },
+    { "type": "header", "content": "Mission & vision" },
+    { "type": "text", "id": "mission_label", "label": "Mission label", "default": "Our mission" },
+    { "type": "textarea", "id": "mission_text", "label": "Mission", "default": "To make holistic wellness simple, natural and effective for everyday life." },
+    { "type": "text", "id": "vision_label", "label": "Vision label", "default": "Our vision" },
+    { "type": "textarea", "id": "vision_text", "label": "Vision", "default": "A healthier, happier and more balanced world — one mindful habit at a time." }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "leaf", "label": "Leaf" }, { "value": "lotus", "label": "Lotus" },
+            { "value": "heart", "label": "Heart" }, { "value": "people", "label": "People" },
+            { "value": "flask", "label": "Flask" }, { "value": "shield", "label": "Shield" }
+          ],
+          "default": "leaf"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Simplify Wellness" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Make healthy living easy and practical for everyone." }
+      ]
+    },
+    {
+      "type": "milestone",
+      "name": "Milestone",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "seedling", "label": "Seedling" }, { "value": "flask", "label": "Flask" },
+            { "value": "box", "label": "Box" }, { "value": "people", "label": "People" },
+            { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }
+          ],
+          "default": "seedling"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "The Idea" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "A simple idea to make wellness easy for everyone." }
+      ]
+    },
+    {
+      "type": "promise",
+      "name": "Promise",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "leaf", "label": "Leaf" }, { "value": "flask", "label": "Flask" },
+            { "value": "heart", "label": "Heart" }, { "value": "shield", "label": "Shield" },
+            { "value": "lotus", "label": "Lotus" }
+          ],
+          "default": "leaf"
+        },
+        { "type": "textarea", "id": "label", "label": "Label", "default": "Natural\nIngredients" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Our Story" }]
+}
+{% endschema %}

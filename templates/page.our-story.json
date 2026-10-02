@@ -1,0 +1,139 @@
+{
+  "sections": {
+    "main": {
+      "type": "lx-story",
+      "blocks": {
+        "value_1": {
+          "type": "value",
+          "settings": {
+            "icon": "leaf",
+            "title": "Simplify Wellness",
+            "text": "Make healthy living easy and practical for everyone."
+          }
+        },
+        "value_2": {
+          "type": "value",
+          "settings": {
+            "icon": "lotus",
+            "title": "Backed by Science",
+            "text": "Use thoughtfully chosen ingredients and research."
+          }
+        },
+        "value_3": {
+          "type": "value",
+          "settings": {
+            "icon": "heart",
+            "title": "Build Better Habits",
+            "text": "Create sustainable routines that deliver real results."
+          }
+        },
+        "value_4": {
+          "type": "value",
+          "settings": {
+            "icon": "people",
+            "title": "Wellness for All",
+            "text": "Make holistic wellness accessible to every home."
+          }
+        },
+        "milestone_1": {
+          "type": "milestone",
+          "settings": {
+            "icon": "seedling",
+            "title": "The Idea",
+            "text": "A simple idea to make wellness easy for everyone."
+          }
+        },
+        "milestone_2": {
+          "type": "milestone",
+          "settings": {
+            "icon": "flask",
+            "title": "Research & Development",
+            "text": "Carefully selected ingredients and science-backed formulations."
+          }
+        },
+        "milestone_3": {
+          "type": "milestone",
+          "settings": {
+            "icon": "box",
+            "title": "BODY अर्क Launch",
+            "text": "Introduced India's first structured 45-Day Wellness System."
+          }
+        },
+        "milestone_4": {
+          "type": "milestone",
+          "settings": {
+            "icon": "people",
+            "title": "Growing Community",
+            "text": "Today, we are a community of wellness seekers building healthier, happier lives together."
+          }
+        },
+        "promise_1": {
+          "type": "promise",
+          "settings": {
+            "icon": "leaf",
+            "label": "Natural\nIngredients"
+          }
+        },
+        "promise_2": {
+          "type": "promise",
+          "settings": {
+            "icon": "flask",
+            "label": "Science\nBacked"
+          }
+        },
+        "promise_3": {
+          "type": "promise",
+          "settings": {
+            "icon": "heart",
+            "label": "Real\nResults"
+          }
+        }
+      },
+      "block_order": [
+        "value_1",
+        "value_2",
+        "value_3",
+        "value_4",
+        "milestone_1",
+        "milestone_2",
+        "milestone_3",
+        "milestone_4",
+        "promise_1",
+        "promise_2",
+        "promise_3"
+      ],
+      "settings": {
+        "hero_button_link": "/pages/our-program"
+      }
+    },
+    "lx_blog_carousel": {
+      "type": "lx-blog-carousel",
+      "settings": {
+        "eyebrow": "Blog",
+        "heading": "Blog posts",
+        "subheading": "Wellness tips, mindful living, and expert guidance to help you feel your best every day.",
+        "view_all_label": "View all articles",
+        "view_all_link": "/pages/wellness-hub#articles",
+        "featured_articles": [
+          "womens_wellness/how-to-use-body-ark-women",
+          "everyday_wellness/5-small-daily-habits",
+          "lifestyle/designing-a-balanced-day",
+          "ingredients/ingredients-101",
+          "self_care/15-minute-self-care-ritual",
+          "personal_care/simple-personal-care-routine"
+        ],
+        "blog": "",
+        "post_limit": 6,
+        "show_author": false,
+        "background_color": "#fbf6f1",
+        "accent_color": "#b5582f",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    }
+  },
+  "order": [
+    "main",
+    "lx_blog_carousel"
+  ]
+}

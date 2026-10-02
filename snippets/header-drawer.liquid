@@ -79,16 +79,27 @@
         {% endif %}
       "
     >
-      <button
-        class="button close-button menu-drawer__close-button focus-inset"
-        type="button"
-        aria-label="{{ 'actions.close' | t }}"
-        on:click="/close"
-      >
-        <span class="svg-wrapper header-drawer-icon header-drawer-icon--close">
-          {{- 'icon-close.svg' | inline_asset_content -}}
-        </span>
-      </button>
+      <div class="lx-drawer-head">
+        <a href="{{ routes.root_url }}" class="lx-drawer-head__logo">
+          <img
+            src="{{ 'lustxstore-logo.png' | asset_url }}"
+            alt="{{ shop.name | escape }}"
+            width="1600"
+            height="331"
+            loading="lazy"
+          >
+        </a>
+        <button
+          class="button close-button menu-drawer__close-button focus-inset"
+          type="button"
+          aria-label="{{ 'actions.close' | t }}"
+          on:click="/close"
+        >
+          <span class="svg-wrapper header-drawer-icon header-drawer-icon--close">
+            {{- 'icon-close.svg' | inline_asset_content -}}
+          </span>
+        </button>
+      </div>
       <nav
         class="menu-drawer__navigation"
         style="
@@ -763,6 +774,28 @@
           </ul>
         </div>
       {% endif %}
+
+      <div class="lx-drawer-foot">
+        {% if section.settings.cta_enable and section.settings.cta_label != blank %}
+          <a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}" class="lx-drawer-foot__cta">
+            {{ section.settings.cta_label }}
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        {% endif %}
+        <div class="lx-drawer-foot__links">
+          {% if shop.customer_accounts_enabled %}
+            <a href="{{ routes.account_url }}">
+              <span class="svg-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none" aria-hidden="true"><path stroke="currentColor" stroke-linejoin="round" d="M10.375 3.813a3.063 3.063 0 1 1-6.125 0 3.063 3.063 0 0 1 6.125 0ZM7.313 9.5c-3.667 0-6.24 2.691-6.563 6.125h13.125C13.552 12.191 10.979 9.5 7.312 9.5Z"/></svg></span>
+              {%- if customer -%}My account{%- else -%}Sign in{%- endif -%}
+            </a>
+          {% endif %}
+          <a href="{{ routes.cart_url }}">
+            <span class="svg-wrapper">{{- 'icon-cart.svg' | inline_asset_content -}}</span>
+            Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}
+          </a>
+        </div>
+        <p class="lx-drawer-foot__tagline">Because wellness isn&rsquo;t a destination. It&rsquo;s a way of living.</p>
+      </div>
     </div>
     <div
       class="menu-drawer__backdrop"
@@ -1420,5 +1453,175 @@
 
   .drawer-localization .language-selector .svg-wrapper.icon-caret svg {
     transform: none;
+  }
+  /* ---------- Lust Xstore side drawer ---------- */
+  .menu-drawer {
+    --lx-drawer-accent: #c2185b;
+    --lx-drawer-line: rgb(58 10 31 / 0.12);
+
+    width: min(86vw, 380px);
+    max-width: 380px;
+    background-color: #fffaf7;
+    border-right: 0;
+    box-shadow: 12px 0 40px rgb(28 5 18 / 0.18);
+  }
+
+  .menu-drawer__backdrop {
+    backdrop-filter: none;
+    background: rgb(28 5 18 / 0.45);
+  }
+
+  .lx-drawer-head {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 12px 14px var(--drawer-padding);
+    background: #fbf0ea;
+    border-bottom: 1px solid #e7cfc7;
+  }
+
+  .lx-drawer-head__logo {
+    display: block;
+    line-height: 0;
+  }
+
+  .lx-drawer-head__logo img {
+    height: 40px;
+    width: auto;
+  }
+
+  .lx-drawer-head .menu-drawer__close-button {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid #e7cfc7;
+    color: #3a0a1f;
+  }
+
+  .lx-drawer-head .menu-drawer__close-button .svg-wrapper {
+    width: 14px;
+    height: 14px;
+  }
+
+  .menu-drawer__navigation {
+    padding-block-start: 8px;
+  }
+
+  .menu-drawer .menu-drawer__menu.has-submenu > li {
+    min-height: 0;
+    margin: 0;
+    border-bottom: 1px solid var(--lx-drawer-line);
+  }
+
+  .menu-drawer .menu-drawer__menu-item--mainlist {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px 2px;
+    font-family: var(--font-heading--family);
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: #3a0a1f;
+    text-decoration: none;
+  }
+
+  .menu-drawer .menu-drawer__menu-item--mainlist::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    margin-inline-end: 6px;
+    border-top: 1.5px solid currentColor;
+    border-right: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    opacity: 0.45;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .menu-drawer .menu-drawer__menu-item--mainlist:hover::after {
+    opacity: 1;
+    transform: translateX(3px) rotate(45deg);
+  }
+
+  .menu-drawer .menu-drawer__menu-item--mainlist[aria-current='page'] {
+    color: var(--lx-drawer-accent);
+  }
+
+  .menu-drawer .menu-drawer__menu-item--mainlist[aria-current='page']::after {
+    opacity: 1;
+  }
+
+  .lx-drawer-foot {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px var(--drawer-padding) calc(24px + env(safe-area-inset-bottom));
+    background: #fbf0ea;
+    border-top: 1px solid #e7cfc7;
+  }
+
+  .lx-drawer-foot__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 20px;
+    border-radius: 999px;
+    background: var(--lx-drawer-accent);
+    color: #fff;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .lx-drawer-foot__cta:hover {
+    color: #fff;
+    opacity: 0.9;
+  }
+
+  .lx-drawer-foot__links {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 10px;
+  }
+
+  .lx-drawer-foot__links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 12px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid #e7cfc7;
+    color: #3a0a1f;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .lx-drawer-foot__links .svg-wrapper {
+    width: 16px;
+    height: 16px;
+  }
+
+  .lx-drawer-foot__tagline {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-style: italic;
+    text-align: center;
+    color: #8a5a6b;
   }
 {% endstylesheet %}

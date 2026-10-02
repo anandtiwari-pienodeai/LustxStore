@@ -13,160 +13,133 @@
       "type": "body-ark-women-home",
       "settings": {
         "dc_url": "",
-        "runtime_url": ""
+        "runtime_url": "",
+        "primary_cta_link": "/pages/our-program",
+        "secondary_cta_label": "Explore the Product",
+        "secondary_cta_product": "body-अर्क®-women-product-detail-page"
       }
     },
-    "featured_blog_posts_RjaRyK": {
-      "type": "featured-blog-posts",
+    "lx_video_stories": {
+      "type": "lx-video-stories",
       "blocks": {
-        "static-blog-title": {
-          "type": "_featured-blog-posts-title",
-          "name": "t:names.title",
-          "static": true,
+        "video_1": {
+          "type": "video",
           "settings": {
-            "text": "<h3>{{ closest.blog.title }}</h3>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "title": "Morning Rituals for More Energy",
+            "tag": "Wellness"
+          }
         },
-        "static-blog-post-card": {
-          "type": "_featured-blog-posts-card",
-          "name": "t:names.blog_card",
-          "static": true,
+        "video_2": {
+          "type": "video",
           "settings": {
-            "alignment": "left",
-            "gap": 8,
-            "background_color": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "image": {
-              "type": "_featured-blog-posts-image",
-              "static": true,
-              "settings": {
-                "image_ratio": "square",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0
-              },
-              "blocks": {}
-            },
-            "title": {
-              "type": "_heading",
-              "name": "t:names.title",
-              "static": true,
-              "settings": {
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text": "<h4>{{ closest.article.title }}</h4>",
-                "read_only": false,
-                "alignment": "left",
-                "show_alignment": false,
-                "text_color": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "blog-post-info-text": {
-              "type": "_blog-post-info-text",
-              "name": "t:names.details",
-              "static": true,
-              "settings": {
-                "show_date": true,
-                "show_author": true,
-                "show_reading_time": true,
-                "type_preset": "",
-                "alignment": "left",
-                "text_color": "",
-                "show_alignment": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "blog-post-description": {
-              "type": "_blog-post-description",
-              "name": "t:names.excerpt",
-              "static": true,
-              "settings": {
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "padding-block-start": 8,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
+            "title": "5 Foods for Natural Energy",
+            "tag": "Nutrition"
+          }
+        },
+        "video_3": {
+          "type": "video",
+          "settings": {
+            "title": "Simple Skincare Routine for Glowing Skin",
+            "tag": "Skincare"
+          }
+        },
+        "video_4": {
+          "type": "video",
+          "settings": {
+            "title": "5 Small Daily Habits That Make a Big Difference",
+            "tag": "Daily habits"
+          }
+        },
+        "video_5": {
+          "type": "video",
+          "settings": {
+            "title": "Be More Mindful in Just 5 Minutes a Day",
+            "tag": "Mindset"
+          }
+        },
+        "video_6": {
+          "type": "video",
+          "settings": {
+            "title": "10 Tips for a Better Night's Sleep",
+            "tag": "Better sleep"
+          }
+        },
+        "video_7": {
+          "type": "video",
+          "settings": {
+            "title": "Stay Hydrated All Day",
+            "tag": "Wellness"
+          }
         }
       },
-      "name": "t:names.blog_posts_grid",
+      "block_order": [
+        "video_1",
+        "video_2",
+        "video_3",
+        "video_4",
+        "video_5",
+        "video_6",
+        "video_7"
+      ],
       "settings": {
+        "eyebrow": "Blog",
+        "heading": "Blog stories",
+        "subheading": "Real people. Real routines. Real wellness.",
+        "follow_label": "Follow us @lustxstore",
+        "follow_link": "https://www.instagram.com/lustxstore",
+        "accent_color": "#a8532c",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "lx_blog_carousel": {
+      "type": "lx-blog-carousel",
+      "settings": {
+        "eyebrow": "Blog",
+        "heading": "Blog posts",
+        "subheading": "Wellness tips, mindful living, and expert guidance to help you feel your best every day.",
+        "view_all_label": "View all articles",
+        "view_all_link": "/pages/wellness-hub#articles",
+        "featured_articles": [
+          "womens_wellness/how-to-use-body-ark-women",
+          "everyday_wellness/5-small-daily-habits",
+          "lifestyle/designing-a-balanced-day",
+          "ingredients/ingredients-101",
+          "self_care/15-minute-self-care-ritual",
+          "personal_care/simple-personal-care-routine"
+        ],
         "blog": "",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "post_limit": 3,
-        "columns": 3,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 8,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 12,
-        "background_color": "",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "post_limit": 6,
+        "show_author": false,
+        "background_color": "#fbf6f1",
+        "accent_color": "#b5582f",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "lx_newsletter": {
+      "type": "lx-footer-newsletter",
+      "settings": {
+        "tagline": "Your wellness partner",
+        "description": "Thoughtfully designed wellness experiences inspired by nature, guided by science and created for everyday life.",
+        "eyebrow": "Stay connected",
+        "heading": "Join the BODY अर्क® Community",
+        "text": "Get wellness insights, educational articles, product updates and exclusive content straight to your inbox.",
+        "button_label": "Subscribe",
+        "background_color": "#1c0512",
+        "button_color": "#c2185b",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_x": 40,
+        "show_brand": false,
+        "space_below_color": "#ffffff"
       }
     }
   },
   "order": [
     "body_ark_home",
-    "featured_blog_posts_RjaRyK"
+    "lx_video_stories",
+    "lx_blog_carousel",
+    "lx_newsletter"
   ]
 }

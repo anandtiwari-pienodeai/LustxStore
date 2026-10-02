@@ -32,7 +32,7 @@
 
       <div class="lx-jr__visual">
         <figure class="lx-jr__photo">
-          <img src="{{ visual }}" alt="" width="800" height="960" loading="lazy">
+          <img src="{{ visual }}" srcset="{{ visual | replace: '&width=800', '&width=400' }} 400w, {{ visual }} 800w" sizes="(min-width: 990px) 320px, 52vw" alt="" width="800" height="960" loading="lazy">
           <figcaption><b>45</b> {{ section.settings.visual_caption | escape }}</figcaption>
         </figure>
         <div class="lx-jr__side">

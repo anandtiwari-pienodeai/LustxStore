@@ -100,7 +100,7 @@
           this.day = day;
           const pct = ((day - 1) / 44) * 100;
           const phase = day <= 15 ? 0 : day <= 30 ? 1 : 2;
-          const color = getComputedStyle(this.phases[phase] || this).getPropertyValue('--ph-color') || '#6f8558';
+          const color = getComputedStyle(this.phases[phase] || this).getPropertyValue('--ph-color') || '#55693f';
           this.dayEl.textContent = day;
           this.style.setProperty('--jr-color', color.trim());
           this.fill.style.width = pct + '%';
@@ -224,7 +224,7 @@
           "type": "color",
           "id": "color",
           "label": "Colour",
-          "default": "#6f8558"
+          "default": "#55693f"
         },
         {
           "type": "color",

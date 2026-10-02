@@ -31,7 +31,7 @@
 }
 
 .lx-hero__title em {
-  color: #c9376a;
+  color: #b02d5c;
 }
 
 .lx-hero__text {
@@ -47,8 +47,8 @@
 }
 
 /* "Morning · Afternoon · Evening" in the intro: bold words take the moment colours */
-.lx-hero__text strong:nth-of-type(1) { color: #5f7f4a; }
-.lx-hero__text strong:nth-of-type(2) { color: #d0752e; }
+.lx-hero__text strong:nth-of-type(1) { color: #4b6638; }
+.lx-hero__text strong:nth-of-type(2) { color: #a9541f; }
 .lx-hero__text strong:nth-of-type(3) { color: #6a4bb0; }
 
 .lx-hero__features {
@@ -108,7 +108,7 @@
   content: '';
   width: 32px;
   height: 1px;
-  background: #c9376a;
+  background: #b02d5c;
 }
 
 /* ---------- Ritual card ---------- */
@@ -307,7 +307,7 @@
 
 .lx-rc__progress-head b {
   font-size: 1.125rem;
-  color: #c9376a;
+  color: #b02d5c;
 }
 
 .lx-rc__bars {
@@ -505,7 +505,7 @@
 
 .lx-focus__pill p span {
   margin-right: 6px;
-  color: #5f7f4a;
+  color: #4b6638;
 }
 
 .lx-focus__pill a {
@@ -1118,7 +1118,7 @@
   margin-bottom: 8px;
   border-radius: 999px;
   background: #eef2e6;
-  color: #5f7f4a;
+  color: #4b6638;
 }
 
 .lx-jr__continue b {
@@ -1136,7 +1136,7 @@
 
 /* Timeline */
 .lx-jr__timeline {
-  --jr-color: #6f8558;
+  --jr-color: #55693f;
 
   display: block;
   margin-bottom: 64px;
@@ -1533,7 +1533,7 @@
 }
 
 .lx-jr__cta-btn--solid {
-  background: #c94a72;
+  background: #b23c63;
   color: #fff;
 }
 
@@ -1612,7 +1612,7 @@
   font-size: clamp(3.5rem, 7vw, 5rem);
   font-weight: 600;
   line-height: 1;
-  color: #c9376a;
+  color: #b02d5c;
 }
 
 .lx-cf__stat-label {
@@ -1644,7 +1644,7 @@
 .lx-cf__card-accent {
   margin-bottom: 22px;
   font-style: italic;
-  color: #c9376a;
+  color: #b02d5c;
 }
 
 .lx-cf__pledges {

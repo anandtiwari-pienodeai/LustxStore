@@ -21,7 +21,7 @@
 %}
 
 {% if section.settings.hero_script != blank %}
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" media="print" onload="this.media='all'">
 {% endif %}
 
 <div class="lx-os">
@@ -117,7 +117,7 @@
   </section>
 
   {%- comment -%} ---------- Mission / Vision ---------- {%- endcomment -%}
-  <section class="lx-os-mv" style="--lx-mv-bg: url('{{ 'lx-footer-bg.jpg' | asset_url }}');" aria-label="Mission and vision">
+  <section class="lx-os-mv" style="--lx-mv-bg: url('{{ 'lx-footer-bg.webp' | asset_url }}');" aria-label="Mission and vision">
     <div class="lx-os__wrap lx-os-mv__grid">
       <div class="lx-os-mv__item">
         {% render 'lx-program-icon', icon: 'leaf', size: 44 %}

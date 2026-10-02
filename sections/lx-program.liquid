@@ -14,7 +14,7 @@
 %}
 
 {% if section.settings.hero_script != blank %}
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" media="print" onload="this.media='all'">
 {% endif %}
 
 <div class="lx-prog">
@@ -142,7 +142,7 @@
           assign cta_img = 'lx-guides-kit-fan.png' | file_url | append: '&width=900'
         endif
       %}
-      <section class="lx-prog-cta" style="--lx-cta-bg: url('{{ 'lx-footer-bg.jpg' | asset_url }}');" aria-labelledby="LxProgCtaTitle">
+      <section class="lx-prog-cta" style="--lx-cta-bg: url('{{ 'lx-footer-bg.webp' | asset_url }}');" aria-labelledby="LxProgCtaTitle">
         <div class="lx-prog-cta__copy">
           {% if section.settings.cta_eyebrow != blank %}
             <p class="lx-prog__eyebrow lx-prog__eyebrow--light">{{ section.settings.cta_eyebrow | escape }}</p>
@@ -793,7 +793,7 @@
           "info": "File name from Settings → Files, used when no image is picked."
         },
         { "type": "color", "id": "tint", "label": "Card tint", "default": "#f6e3d6" },
-        { "type": "color", "id": "accent", "label": "Accent", "default": "#b5582f" }
+        { "type": "color", "id": "accent", "label": "Accent", "default": "#9c4a26" }
       ]
     },
     {

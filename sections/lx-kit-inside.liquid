@@ -21,7 +21,7 @@
                 assign img = block.settings.fallback_file | file_url | append: '&width=900'
               endif
             %}
-            <img class="lx-kit__viewer-img{% if idx == 0 %} is-active{% endif %}" data-step="{{ idx }}" src="{{ img }}" alt="" width="900" height="700" loading="lazy">
+            <img class="lx-kit__viewer-img{% if idx == 0 %} is-active{% endif %}" data-step="{{ idx }}" src="{{ img }}" srcset="{{ img | replace: '&width=900', '&width=480' }} 480w, {{ img }} 900w" sizes="(min-width: 990px) 560px, 90vw" alt="" width="900" height="700" loading="lazy">
             {% assign idx = idx | plus: 1 %}
           {% endif %}
         {% endfor %}
@@ -192,7 +192,7 @@
           "type": "color",
           "id": "color",
           "label": "Colour",
-          "default": "#c9376a"
+          "default": "#b02d5c"
         },
         {
           "type": "color",

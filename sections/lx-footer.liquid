@@ -9,7 +9,7 @@
   if section.settings.background_image != blank
     assign bg_url = section.settings.background_image | image_url: width: 2400
   else
-    assign bg_url = 'lx-footer-bg.jpg' | asset_url
+    assign bg_url = 'lx-footer-bg.webp' | asset_url
   endif
 
   assign socials = 'instagram,facebook,youtube,pinterest,linkedin,x' | split: ','
@@ -34,7 +34,7 @@
     {% if section.settings.logo != blank %}
       {{ section.settings.logo | image_url: width: 600 | image_tag: alt: shop.name, loading: 'lazy' }}
     {% else %}
-      <img src="{{ 'lustxstore-logo-dark.png' | asset_url }}" alt="{{ shop.name | escape }}" width="1600" height="331" loading="lazy">
+      <img src="{{ 'lustxstore-logo-dark.webp' | asset_url }}" alt="{{ shop.name | escape }}" width="1600" height="331" loading="lazy">
     {% endif %}
     {% if section.settings.logo_tagline != blank %}
       <span class="lx-footer__logo-tagline">{{ section.settings.logo_tagline | escape }}</span>

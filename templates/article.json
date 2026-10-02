@@ -11,7 +11,7 @@
     "main": {
       "type": "lx-article",
       "settings": {
-        "accent_color": "#b5582f",
+        "accent_color": "#9c4a26",
         "show_author": true,
         "author_fallback_bio": "The Lust Xstore team writes about simple, science-informed habits for everyday wellness.",
         "instagram": "https://www.instagram.com/lustxstore",

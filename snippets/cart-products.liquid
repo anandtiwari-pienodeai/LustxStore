@@ -193,6 +193,9 @@
                         assign cart_disclosure_unique_id = 'drawer-' | append: item.index
                       endif
                     -%}
+                    {%- if context == 'drawer' and settings.lx_cart_badge != blank and item.parent_relationship.parent == null -%}
+                      <span class="lx-cd__badge">{{ settings.lx_cart_badge }}</span>
+                    {%- endif -%}
                     <div class="cart-items__title-row">
                       <a
                         href="{{ item.url }}"
@@ -209,7 +212,18 @@
                         mode: 'trigger'
                       %}
                     </div>
-                    {% if item.product.vendor and block_settings.vendor %}
+                    {%- if context == 'drawer' and item.parent_relationship.parent == null -%}
+                      {%- liquid
+                        assign lx_tagline = settings.lx_cart_tagline
+                        if lx_tagline == blank
+                          assign lx_tagline = item.product.description | strip_html | strip_newlines | truncate: 90
+                        endif
+                      -%}
+                      {%- if lx_tagline != blank -%}
+                        <p class="lx-cd__tagline">{{ lx_tagline }}</p>
+                      {%- endif -%}
+                    {%- endif -%}
+                                        {% if item.product.vendor and block_settings.vendor %}
                       <p>
                         {{ item.product.vendor }}
                       </p>

@@ -20,7 +20,7 @@
         <p class="lx-h__text">{{ section.settings.text | escape }}</p>
       </div>
       <div class="lx-kit__collage">
-        <img src="{{ collage }}" alt="{{ section.settings.collage_alt | escape }}" width="1000" height="520" loading="lazy">
+        <img src="{{ collage }}" srcset="{{ collage | replace: '&width=1000', '&width=520' }} 520w, {{ collage }} 1000w" sizes="(min-width: 990px) 560px, 90vw" alt="{{ section.settings.collage_alt | escape }}" width="1000" height="520" loading="lazy">
         <span class="lx-kit__badge"><b>45</b><small>Days</small></span>
         {% if section.settings.guide_title != blank %}
           <span class="lx-kit__guide">

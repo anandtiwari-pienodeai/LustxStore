@@ -20,7 +20,7 @@
   if section.settings.background_image != blank
     assign bg_url = section.settings.background_image | image_url: width: 2400
   else
-    assign bg_url = 'lx-stories-bg.jpg' | asset_url
+    assign bg_url = 'lx-stories-bg.webp' | asset_url
   endif
 %}
 
@@ -75,6 +75,11 @@
           if image == blank and story.video != blank
             assign image = story.video.preview_image
           endif
+          # Theme-asset videos ship with a matching still (lx-story-1.mp4 → lx-story-1.jpg)
+          assign poster_url = blank
+          if image == blank and story.video_asset != blank
+            assign poster_url = story.video_asset | replace: '.mp4', '.jpg' | asset_url
+          endif
 
           assign title = story.title
           assign tag = story.tag
@@ -102,10 +107,14 @@
                     alt: '',
                     class: 'lx-story__img'
                 }}
-              {% elsif story.video_asset == blank %}
+              {% elsif poster_url != blank %}
+                <img class="lx-story__img" src="{{ poster_url }}" alt="" width="540" height="960" loading="lazy" decoding="async">
+              {% else %}
                 {{ 'lifestyle-1' | placeholder_svg_tag: 'lx-story__img lx-story__img--placeholder' }}
               {% endif %}
-              {% if story.video != blank %}
+              {% if section.settings.overlay_enabled %}
+                {%- comment -%} Playback happens in the overlay; cards only show the poster. {%- endcomment -%}
+              {% elsif story.video != blank %}
                 {{
                   story.video
                   | video_tag:
@@ -119,12 +128,12 @@
               {% elsif story.video_asset != blank %}
                 {%- comment -%} Theme-asset video: its first frame doubles as the cover when no image is set. {%- endcomment -%}
                 <video
-                  class="lx-story__video{% if image == blank %} lx-story__video--cover{% endif %}"
-                  src="{{ story.video_asset | asset_url }}#t=0.1"
+                  class="lx-story__video"
+                  src="{{ story.video_asset | asset_url }}"
+                  {% if poster_url != blank %}poster="{{ poster_url }}"{% endif %}
                   playsinline
                   loop
-                  preload="metadata"
-                  data-lx-autoduration
+                  preload="none"
                 ></video>
               {% endif %}
             </div>
@@ -209,10 +218,16 @@
                   assign src = st.video_asset | asset_url
                 endif
                 assign thumb = st.image | default: st.video.preview_image
+                assign thumb_poster = blank
+                if thumb == blank and st.video_asset != blank
+                  assign thumb_poster = st.video_asset | replace: '.mp4', '.jpg' | asset_url
+                endif
               %}
               <button type="button" class="lx-vm__thumb" role="tab" data-index="{{ vi }}" data-src="{{ src }}" aria-label="{{ st.title | default: 'Video' | escape }}">
                 {% if thumb != blank %}
                   {{ thumb | image_url: width: 200 | image_tag: alt: '', loading: 'lazy' }}
+                {% elsif thumb_poster != blank %}
+                  <img src="{{ thumb_poster }}" alt="" width="160" height="284" loading="lazy" decoding="async">
                 {% else %}
                   <video src="{{ src }}#t=0.5" muted playsinline preload="none" data-thumb-video></video>
                 {% endif %}
@@ -663,6 +678,8 @@
           this.querySelector('[data-tag]').hidden = !panel?.dataset.tag;
           this.querySelector('[data-caption]').textContent = panel?.dataset.caption || '';
           if (this.video.dataset.src !== thumb.dataset.src) {
+            const still = thumb.querySelector('img');
+            if (still) this.video.poster = still.currentSrc || still.src;
             this.video.dataset.src = thumb.dataset.src;
             this.video.src = thumb.dataset.src;
             this.seek.value = 0;

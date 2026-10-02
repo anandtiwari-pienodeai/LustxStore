@@ -49,7 +49,7 @@
           "settings": {
             "icon": "leaf",
             "label": "Natural\nIngredients",
-            "color": "#5f7f4a"
+            "color": "#4b6638"
           }
         },
         "feature_2": {
@@ -57,7 +57,7 @@
           "settings": {
             "icon": "lotus",
             "label": "Holistic\nWellness",
-            "color": "#c9376a"
+            "color": "#b02d5c"
           }
         },
         "feature_3": {
@@ -65,7 +65,7 @@
           "settings": {
             "icon": "shield",
             "label": "Trusted\n& Safe",
-            "color": "#b8893a"
+            "color": "#8a6420"
           }
         },
         "feature_4": {
@@ -103,7 +103,7 @@
             "inside": "Fertility Support + Femme Desire",
             "count": "2 tablets",
             "fallback_file": "ba-hero-afternoon.png",
-            "color": "#c9752e",
+            "color": "#a9541f",
             "pill_tint": "#faedd8",
             "tint": "linear-gradient(160deg, #fbf0de 0%, #f6dcbd 100%)"
           }
@@ -159,7 +159,7 @@
             "icon": "heart",
             "title": "Feminine Confidence",
             "text": "Support your everyday wellbeing through a thoughtfully designed wellness routine.",
-            "accent": "#d64b6a",
+            "accent": "#bf3a59",
             "tint": "#fbe8ef"
           }
         },
@@ -169,7 +169,7 @@
             "icon": "lotus",
             "title": "Everyday Intimate Wellness",
             "text": "Simple daily self-care habits for comfort & confidence.",
-            "accent": "#e0793f",
+            "accent": "#a8521a",
             "tint": "#faedd8"
           }
         },
@@ -189,7 +189,7 @@
             "icon": "sprout",
             "title": "Daily Gut Wellness",
             "text": "Digestive wellness at the foundation of your wellbeing.",
-            "accent": "#5f7f4a",
+            "accent": "#4b6638",
             "tint": "#eef2e6"
           }
         }
@@ -240,7 +240,7 @@
             "title": "Premium Magnetic Wellness Kit",
             "text": "A beautifully crafted presentation box that organises your complete experience and creates a premium unboxing moment.",
             "fallback_file": "ba-kit-box.png",
-            "color": "#c9376a",
+            "color": "#b02d5c",
             "tint": "#fbe0e8"
           }
         },
@@ -262,7 +262,7 @@
             "title": "Afternoon Wellness Pouches",
             "text": "Thoughtfully organised pouches that keep your wellness clear and easy to follow through the day.",
             "fallback_file": "ba-pouch-afternoon.png",
-            "color": "#d86a42",
+            "color": "#b0502a",
             "tint": "#fce6da"
           }
         },
@@ -306,7 +306,7 @@
             "title": "Welcome Guide",
             "text": "A beautifully designed introduction to help you begin your journey with confidence from Day One.",
             "fallback_file": "ba-kit-box.png",
-            "color": "#a8664f",
+            "color": "#95533c",
             "tint": "#f8eae2"
           }
         }
@@ -353,7 +353,7 @@
             "tablets": 2,
             "note": "2 individually packed blister tablets",
             "fallback_file": "ba-pouch-afternoon.png",
-            "color": "#d0682e",
+            "color": "#a9541f",
             "tint": "#f9e3cf"
           }
         },
@@ -417,7 +417,7 @@
             "moment": "Morning energy",
             "title": "Build Your Daily Ritual",
             "text": "Begin your journey and create a simple routine that naturally fits into your everyday lifestyle — focused on consistency, organisation and a ritual you enjoy.",
-            "color": "#6f8558",
+            "color": "#55693f",
             "bg": "#f6f8f1"
           }
         },
@@ -429,7 +429,7 @@
             "moment": "Afternoon glow",
             "title": "Strengthen Your Routine",
             "text": "As your routine becomes familiar, consistency becomes easier. Positive daily habits settle in and wellness becomes a natural part of everyday life.",
-            "color": "#e0793f",
+            "color": "#a8521a",
             "bg": "#fef5ee"
           }
         },
@@ -467,7 +467,7 @@
             "icon": "sunrise",
             "title": "Begin Your Journey",
             "text": "Every meaningful journey begins with one simple decision: to make yourself a priority.",
-            "color": "#6f8558"
+            "color": "#55693f"
           }
         },
         "milestone_5": {
@@ -476,7 +476,7 @@
             "icon": "sprout",
             "title": "Build Your Daily Ritual",
             "text": "Small daily rituals become easier when your wellness experience is thoughtfully organised.",
-            "color": "#d86a42"
+            "color": "#b0502a"
           }
         },
         "milestone_6": {
@@ -485,7 +485,7 @@
             "icon": "heart",
             "title": "Stay Consistent",
             "text": "Consistency grows naturally when wellness becomes part of your everyday routine.",
-            "color": "#c9376a"
+            "color": "#b02d5c"
           }
         },
         "milestone_7": {
@@ -653,7 +653,7 @@
             "icon": "herb",
             "title": "Thoughtfully Selected Ingredients",
             "text": "Carefully selected botanical ingredients inspired by traditional Ayurvedic wisdom and informed by modern nutritional science.",
-            "color": "#6f8558",
+            "color": "#55693f",
             "tint": "#f3f6ec"
           }
         },
@@ -663,7 +663,7 @@
             "icon": "medal",
             "title": "Premium Quality Standards",
             "text": "Every BODY अर्क wellness experience is developed with quality, consistency and craftsmanship in mind.",
-            "color": "#e0793f",
+            "color": "#a8521a",
             "tint": "#fef3ea"
           }
         },
@@ -683,7 +683,7 @@
             "icon": "headset",
             "title": "Dedicated Customer Support",
             "text": "Our Wellness Team is here to guide and support you throughout your journey — whenever you need us.",
-            "color": "#c9376a",
+            "color": "#b02d5c",
             "tint": "#fdeef2"
           }
         },
@@ -693,7 +693,7 @@
             "icon": "lotus",
             "title": "Transparent Wellness Philosophy",
             "text": "Trust is built through education, honesty and thoughtfully designed experiences — not exaggerated promises.",
-            "color": "#b8893a",
+            "color": "#8a6420",
             "tint": "#fbf4e6"
           }
         }
@@ -715,7 +715,7 @@
             "icon": "herb",
             "title": "Ayurveda Inspired",
             "text": "Rooted in traditional wisdom",
-            "color": "#6f8558"
+            "color": "#55693f"
           }
         },
         "p2": {
@@ -786,7 +786,8 @@
           "settings": {
             "title": "Morning Rituals for More Energy",
             "tag": "Wellness",
-            "video_asset": "lx-story-1.mp4"
+            "video_asset": "lx-story-1.mp4",
+            "duration": "1:08"
           }
         },
         "video_2": {
@@ -794,7 +795,8 @@
           "settings": {
             "title": "5 Foods for Natural Energy",
             "tag": "Nutrition",
-            "video_asset": "lx-story-2.mp4"
+            "video_asset": "lx-story-2.mp4",
+            "duration": "0:43"
           }
         },
         "video_3": {
@@ -802,7 +804,8 @@
           "settings": {
             "title": "Simple Skincare Routine for Glowing Skin",
             "tag": "Skincare",
-            "video_asset": "lx-story-3.mp4"
+            "video_asset": "lx-story-3.mp4",
+            "duration": "0:35"
           }
         },
         "video_4": {
@@ -810,7 +813,8 @@
           "settings": {
             "title": "5 Small Daily Habits That Make a Big Difference",
             "tag": "Daily habits",
-            "video_asset": "lx-story-4.mp4"
+            "video_asset": "lx-story-4.mp4",
+            "duration": "0:35"
           }
         },
         "video_5": {
@@ -818,7 +822,8 @@
           "settings": {
             "title": "Be More Mindful in Just 5 Minutes a Day",
             "tag": "Mindset",
-            "video_asset": "lx-story-5.mp4"
+            "video_asset": "lx-story-5.mp4",
+            "duration": "0:52"
           }
         },
         "video_6": {
@@ -826,7 +831,8 @@
           "settings": {
             "title": "10 Tips for a Better Night's Sleep",
             "tag": "Better sleep",
-            "video_asset": "lx-story-6.mp4"
+            "video_asset": "lx-story-6.mp4",
+            "duration": "0:33"
           }
         },
         "video_7": {
@@ -834,7 +840,8 @@
           "settings": {
             "title": "Stay Hydrated All Day",
             "tag": "Wellness",
-            "video_asset": "lx-story-7.mp4"
+            "video_asset": "lx-story-7.mp4",
+            "duration": "0:43"
           }
         }
       },
@@ -880,7 +887,7 @@
         "post_limit": 6,
         "show_author": false,
         "background_color": "#fbf6f1",
-        "accent_color": "#b5582f",
+        "accent_color": "#9c4a26",
         "padding_top": 8,
         "padding_bottom": 64
       }

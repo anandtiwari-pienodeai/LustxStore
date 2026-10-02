@@ -19,7 +19,7 @@
             endif
           %}
           <li class="lx-kit__pouch" style="--p-color: {{ p.color }}; --p-tint: {{ p.tint }};" {{ block.shopify_attributes }}>
-            <div class="lx-kit__pouch-media"><img src="{{ pimg }}" alt="{{ p.title | escape }} pouch" width="500" height="750" loading="lazy"></div>
+            <div class="lx-kit__pouch-media"><img src="{{ pimg }}" srcset="{{ pimg | replace: '&width=500', '&width=260' }} 260w, {{ pimg }} 500w" sizes="(min-width: 990px) 170px, 36vw" alt="{{ p.title | escape }} pouch" width="500" height="750" loading="lazy"></div>
             <div class="lx-kit__pouch-body">
               <h4>{{ p.title | escape }}</h4>
               <span class="lx-kit__pouch-tag">{{ p.tag | escape }}</span>

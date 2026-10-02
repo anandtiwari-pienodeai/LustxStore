@@ -3,14 +3,15 @@
   Rendered last in <head> so it overrides the theme font settings and the
   home.css / arka.css font variables.
 {%- endcomment -%}
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&display=swap"
->
+{%- comment -%} Non-blocking: text paints immediately in the fallback font, then swaps to Geist. {%- endcomment -%}
+{%- assign geist_css = 'https://fonts.googleapis.com/css2?family=Geist:wght@300..800&display=swap' -%}
+<link rel="preload" as="style" href="{{ geist_css }}" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ geist_css }}"></noscript>
 {{ 'lx-ui.css' | asset_url | stylesheet_tag }}
 {{ 'lx-home.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'lx-cart-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'lx-cart-drawer.css' | asset_url | stylesheet_tag }}</noscript>
 <style>
   :root {
     --brand-font: 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;

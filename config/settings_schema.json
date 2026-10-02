@@ -1569,6 +1569,66 @@
       },
       {
         "type": "header",
+        "content": "Cart drawer (Lust Xstore)"
+      },
+      {
+        "type": "text",
+        "id": "lx_cart_subtitle",
+        "label": "Subtitle",
+        "default": "Review your items before checkout"
+      },
+      {
+        "type": "text",
+        "id": "lx_cart_badge",
+        "label": "Product badge",
+        "info": "Shown on every cart item. Leave blank to hide.",
+        "default": "Bestseller"
+      },
+      {
+        "type": "textarea",
+        "id": "lx_cart_tagline",
+        "label": "Product tagline",
+        "info": "Shown under the product title. Leave blank to use the start of the product description.",
+        "default": "Complete daily wellness support for mind, body and hormonal balance."
+      },
+      {
+        "type": "text",
+        "id": "lx_cart_empty_heading",
+        "label": "Empty cart heading",
+        "default": "Your cart is empty"
+      },
+      {
+        "type": "textarea",
+        "id": "lx_cart_empty_text",
+        "label": "Empty cart text",
+        "default": "Looks like you haven’t added anything yet. Explore our wellness products and start your journey towards a healthier you."
+      },
+      {
+        "type": "text",
+        "id": "lx_cart_empty_button",
+        "label": "Empty cart button",
+        "default": "Explore the Product"
+      },
+      {
+        "type": "text",
+        "id": "lx_cart_trust_1",
+        "label": "Trust badge 1",
+        "default": "Premium Wellness Products"
+      },
+      {
+        "type": "text",
+        "id": "lx_cart_trust_2",
+        "label": "Trust badge 2",
+        "default": "Secure Checkout"
+      },
+      {
+        "type": "text",
+        "id": "lx_cart_trust_3",
+        "label": "Trust badge 3",
+        "default": "Trusted by Thousands"
+      },
+      {
+        "type": "header",
         "content": "t:content.product_media"
       },
       {

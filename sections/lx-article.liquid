@@ -247,7 +247,7 @@
       if section.settings.newsletter_image != blank
         assign nl_bg = section.settings.newsletter_image | image_url: width: 2400
       else
-        assign nl_bg = 'lx-stories-bg.jpg' | asset_url
+        assign nl_bg = 'lx-stories-bg.webp' | asset_url
       endif
     %}
     <section class="lx-post-newsletter" style="--lx-nl-bg: url('{{ nl_bg }}');" aria-labelledby="LxNewsletterHeading">
@@ -832,7 +832,7 @@
   "tag": "div",
   "class": "section-lx-article",
   "settings": [
-    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#b5582f" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#9c4a26" },
     { "type": "header", "content": "Author" },
     { "type": "checkbox", "id": "show_author", "label": "Show author box", "default": true },
     {

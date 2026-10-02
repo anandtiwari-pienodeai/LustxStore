@@ -1,0 +1,483 @@
+{%- comment -%}
+  Lust Xstore — homepage hero (copy, buttons, ritual card).
+  Split from the homepage; styles live in assets/lx-home.css.
+{%- endcomment -%}
+{% liquid
+  assign kit_img = section.settings.kit_image
+  assign moment_count = 0
+  for block in section.blocks
+    if block.type == 'moment'
+      assign moment_count = moment_count | plus: 1
+    endif
+  endfor
+%}
+<section class="lx-h lx-hero" style="--lx-pad-top: {{ section.settings.padding_top }}px; --lx-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="lx-h__wrap lx-hero__grid">
+    <div class="lx-hero__copy">
+      <p class="lx-h__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      <h1 class="lx-hero__title">
+        <span>{{ section.settings.title_1 | escape }}</span>
+        <em>{{ section.settings.title_2 | escape }}</em>
+        <span>{{ section.settings.title_3 | escape }}</span>
+      </h1>
+      <div class="lx-hero__text">{{ section.settings.text }}</div>
+
+      <ul class="lx-hero__features" role="list">
+        {% for block in section.blocks %}
+          {% if block.type == 'feature' %}
+            <li {{ block.shopify_attributes }}>
+              <span class="lx-hero__feature-icon" style="color: {{ block.settings.color }};">{% render 'lx-icon', icon: block.settings.icon, size: 20 %}</span>
+              <span>{{ block.settings.label | escape | newline_to_br }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+
+      <div class="lx-hero__actions">
+        {% if section.settings.primary_label != blank %}
+          <a class="lx-h__btn lx-h__btn--solid" href="{{ section.settings.primary_link | default: '/pages/our-program' }}">{{ section.settings.primary_label | escape }}</a>
+        {% endif %}
+        {% if section.settings.secondary_label != blank %}
+          {% liquid
+            assign secondary_url = section.settings.secondary_link
+            if secondary_url == blank and section.settings.secondary_product != blank
+              assign secondary_url = section.settings.secondary_product.url
+            endif
+          %}
+          <a class="lx-h__btn lx-h__btn--ghost" href="{{ secondary_url | default: routes.all_products_collection_url }}">{{ section.settings.secondary_label | escape }}</a>
+        {% endif %}
+      </div>
+
+      {% if section.settings.quote != blank %}
+        <p class="lx-hero__quote">{{ section.settings.quote | escape }}</p>
+      {% endif %}
+    </div>
+
+    {%- comment -%} ---------- Ritual card ---------- {%- endcomment -%}
+    <lx-ritual-card class="lx-rc" data-interval="{{ section.settings.interval | times: 1000 }}">
+      {% assign idx = 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'moment' %}
+          <div class="lx-rc__tint{% if idx == 0 %} is-active{% endif %}" data-step="{{ idx }}" style="background: {{ block.settings.tint }};" aria-hidden="true"></div>
+          {% assign idx = idx | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+
+      <p class="lx-rc__heading">{{ section.settings.card_title | escape | newline_to_br }}</p>
+
+      <div class="lx-rc__stage" aria-hidden="true">
+        {% if kit_img != blank %}
+          {{ kit_img | image_url: width: 700 | image_tag: class: 'lx-rc__kit', alt: '', loading: 'eager', widths: '360, 520, 700' }}
+        {% else %}
+          <img class="lx-rc__kit" src="{{ 'ba-kit-box.png' | file_url | append: '&width=700' }}" alt="" width="700" height="840" loading="eager">
+        {% endif %}
+        {% assign idx = 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'moment' %}
+            {% liquid
+              if block.settings.image != blank
+                assign pouch = block.settings.image | image_url: width: 500
+              else
+                assign pouch = block.settings.fallback_file | file_url | append: '&width=500'
+              endif
+            %}
+            <img class="lx-rc__pouch{% if idx == 0 %} is-active{% endif %}" data-step="{{ idx }}" src="{{ pouch }}" alt="" width="500" height="750" loading="{% if idx == 0 %}eager{% else %}lazy{% endif %}">
+            {% assign idx = idx | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="lx-rc__pills" role="tablist" aria-label="Daily moments">
+        {% assign idx = 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'moment' %}
+            <button type="button" role="tab" class="lx-rc__pill{% if idx == 0 %} is-active{% endif %}" data-step="{{ idx }}" aria-selected="{% if idx == 0 %}true{% else %}false{% endif %}" style="--pill-color: {{ block.settings.color }}; --pill-tint: {{ block.settings.pill_tint }};" {{ block.shopify_attributes }}>
+              {% render 'lx-icon', icon: block.settings.icon, size: 16 %}
+              <span><strong>{{ block.settings.name | escape }}</strong><small>{{ block.settings.subtitle | escape }}</small></span>
+            </button>
+            {% assign idx = idx | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="lx-rc__captions" aria-live="polite">
+        {% assign idx = 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'moment' %}
+            <div class="lx-rc__caption{% if idx == 0 %} is-active{% endif %}" data-step="{{ idx }}" style="--cap-color: {{ block.settings.color }};">
+              <p class="lx-rc__cap-time">{{ block.settings.time_label | escape }}</p>
+              <p class="lx-rc__cap-title">{{ block.settings.pouch_title | escape }}</p>
+              <p class="lx-rc__cap-inside">{{ block.settings.inside | escape }}</p>
+              <p class="lx-rc__cap-count">{{ block.settings.count | escape }}</p>
+            </div>
+            {% assign idx = idx | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="lx-rc__progress">
+        <div class="lx-rc__progress-head">
+          <span>Your Daily Ritual</span>
+          <span>Day <b data-day>{{ section.settings.start_day }}</b> of 45</span>
+        </div>
+        <div class="lx-rc__bars" style="--count: {{ moment_count | at_least: 1 }};">
+          {% for block in section.blocks %}
+            {% if block.type == 'moment' %}
+              <span class="lx-rc__bar"><i style="background: {{ block.settings.color }};"></i></span>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </lx-ritual-card>
+  </div>
+</section>
+
+<script>
+  if (!customElements.get('lx-ritual-card')) {
+    customElements.define(
+      'lx-ritual-card',
+      class extends HTMLElement {
+        connectedCallback() {
+          this.steps = this.querySelectorAll('.lx-rc__pill').length;
+          if (!this.steps) return;
+          this.ms = Number(this.dataset.interval) || 4000;
+          this.dayEl = this.querySelector('[data-day]');
+          this.day = Number(this.dayEl?.textContent) || 1;
+          this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+          this.querySelectorAll('.lx-rc__pill').forEach((pill) =>
+            pill.addEventListener('click', () => this.go(Number(pill.dataset.step), true))
+          );
+          this.addEventListener('mouseenter', () => (this.paused = true));
+          this.addEventListener('mouseleave', () => (this.paused = false));
+          this.go(0);
+        }
+
+        disconnectedCallback() {
+          clearTimeout(this.timer);
+        }
+
+        go(step, manual) {
+          this.current = step;
+          this.querySelectorAll('[data-step]').forEach((el) =>
+            el.classList.toggle('is-active', Number(el.dataset.step) === step)
+          );
+          this.querySelectorAll('.lx-rc__pill').forEach((pill) =>
+            pill.setAttribute('aria-selected', String(Number(pill.dataset.step) === step))
+          );
+          this.querySelectorAll('.lx-rc__bar i').forEach((bar, i) => {
+            bar.style.transition = 'none';
+            bar.style.width = i < step ? '100%' : '0%';
+            if (i === step) {
+              void bar.offsetWidth;
+              bar.style.transition = this.reduced ? 'none' : `width ${this.ms - 100}ms linear`;
+              bar.style.width = '100%';
+            }
+          });
+          clearTimeout(this.timer);
+          if (this.reduced && !manual) return;
+          this.timer = setTimeout(() => this.next(), this.ms);
+        }
+
+        next() {
+          if (this.paused) {
+            this.timer = setTimeout(() => this.next(), 600);
+            return;
+          }
+          const step = (this.current + 1) % this.steps;
+          if (step === 0 && this.dayEl) {
+            this.day = this.day >= 45 ? 1 : this.day + 1;
+            this.dayEl.textContent = this.day;
+          }
+          this.go(step);
+        }
+      }
+    );
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Home hero",
+  "tag": "div",
+  "class": "section-lx-home-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Designed for modern women"
+    },
+    {
+      "type": "text",
+      "id": "title_1",
+      "label": "Title line 1",
+      "default": "When Life Moves Fast,"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Title line 2 (accent)",
+      "default": "Your Wellbeing Deserves"
+    },
+    {
+      "type": "text",
+      "id": "title_3",
+      "label": "Title line 3",
+      "default": "a Moment."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Modern life asks women to balance careers, relationships, responsibilities and personal ambitions every single day.</p>"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button",
+      "default": "Begin your 45-day journey"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary link",
+      "info": "Defaults to Our Program."
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button",
+      "default": "Explore the product"
+    },
+    {
+      "type": "product",
+      "id": "secondary_product",
+      "label": "Secondary product"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary link (optional)",
+      "info": "Overrides the product."
+    },
+    {
+      "type": "text",
+      "id": "quote",
+      "label": "Quote",
+      "default": "\"A stronger, calmer, happier you. Every day.\""
+    },
+    {
+      "type": "header",
+      "content": "Ritual card"
+    },
+    {
+      "type": "textarea",
+      "id": "card_title",
+      "label": "Card title",
+      "default": "Good Habits\nBrighter Days"
+    },
+    {
+      "type": "image_picker",
+      "id": "kit_image",
+      "label": "Kit image",
+      "info": "Defaults to the BODY अर्क kit box."
+    },
+    {
+      "type": "range",
+      "id": "interval",
+      "label": "Seconds per moment",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "start_day",
+      "label": "Starting day",
+      "min": 1,
+      "max": 45,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "lotus",
+              "label": "Lotus"
+            },
+            {
+              "value": "shield",
+              "label": "Shield"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "herb",
+              "label": "Herb"
+            },
+            {
+              "value": "flask",
+              "label": "Flask"
+            }
+          ],
+          "default": "leaf"
+        },
+        {
+          "type": "textarea",
+          "id": "label",
+          "label": "Label",
+          "default": "Natural\nIngredients"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Icon colour",
+          "default": "#5f7f4a"
+        }
+      ]
+    },
+    {
+      "type": "moment",
+      "name": "Moment",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "sunrise",
+              "label": "Sunrise"
+            },
+            {
+              "value": "sun",
+              "label": "Sun"
+            },
+            {
+              "value": "moon",
+              "label": "Moon"
+            },
+            {
+              "value": "lotus",
+              "label": "Lotus"
+            }
+          ],
+          "default": "sunrise"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Morning"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Energy & Focus"
+        },
+        {
+          "type": "text",
+          "id": "time_label",
+          "label": "Caption label",
+          "default": "Morning · Pouch 1"
+        },
+        {
+          "type": "text",
+          "id": "pouch_title",
+          "label": "Pouch name",
+          "default": "Morning Balance"
+        },
+        {
+          "type": "text",
+          "id": "inside",
+          "label": "Inside",
+          "default": "Gut Prime + Hormone Balance"
+        },
+        {
+          "type": "text",
+          "id": "count",
+          "label": "Count",
+          "default": "2 tablets"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Pouch image"
+        },
+        {
+          "type": "text",
+          "id": "fallback_file",
+          "label": "Fallback image file (advanced)",
+          "default": "ba-pouch-morning.png"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Colour",
+          "default": "#4d6b3a"
+        },
+        {
+          "type": "color",
+          "id": "pill_tint",
+          "label": "Pill tint",
+          "default": "#eef2e6"
+        },
+        {
+          "type": "color_background",
+          "id": "tint",
+          "label": "Card background",
+          "default": "linear-gradient(160deg, #eef2e6 0%, #dfe8d2 100%)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home hero"
+    }
+  ]
+}
+{% endschema %}

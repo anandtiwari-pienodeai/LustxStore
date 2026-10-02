@@ -1,0 +1,120 @@
+{%- comment -%}
+  Lust Xstore — 45-day kit intro and collage.
+  Split from the homepage; styles live in assets/lx-home.css.
+{%- endcomment -%}
+{% liquid
+  if section.settings.collage_image != blank
+    assign collage = section.settings.collage_image | image_url: width: 1000
+  else
+    assign collage = 'lx-guides-kit-fan.png' | file_url | append: '&width=1000'
+  endif
+%}
+<section id="wellness-kit" class="lx-h lx-kit" style="--lx-pad-top: {{ section.settings.padding_top }}px; --lx-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="lx-h__wrap">
+    {%- comment -%} ---------- Intro ---------- {%- endcomment -%}
+    <div class="lx-kit__intro">
+      <div>
+        <p class="lx-h__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        <h2 class="lx-h__title">{{ section.settings.title | escape }}<em>{{ section.settings.title_accent | escape }}</em></h2>
+        <p class="lx-kit__flourish" aria-hidden="true"><span>❀</span></p>
+        <p class="lx-h__text">{{ section.settings.text | escape }}</p>
+      </div>
+      <div class="lx-kit__collage">
+        <img src="{{ collage }}" alt="{{ section.settings.collage_alt | escape }}" width="1000" height="520" loading="lazy">
+        <span class="lx-kit__badge"><b>45</b><small>Days</small></span>
+        {% if section.settings.guide_title != blank %}
+          <span class="lx-kit__guide">
+            <b>{{ section.settings.guide_title | escape }}</b>
+            <small>{{ section.settings.guide_sub | escape }}</small>
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Kit intro",
+  "tag": "div",
+  "class": "section-lx-kit-intro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Your 45-day premium wellness kit"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Everything You Need to"
+    },
+    {
+      "type": "text",
+      "id": "title_accent",
+      "label": "Title (accent line)",
+      "default": "Begin Your Wellness Journey."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "collage_image",
+      "label": "Collage image",
+      "info": "Defaults to the kit and pouches photo."
+    },
+    {
+      "type": "text",
+      "id": "collage_alt",
+      "label": "Collage alt text",
+      "default": "BODY अर्क Women kit with Morning, Afternoon and Evening pouches"
+    },
+    {
+      "type": "text",
+      "id": "guide_title",
+      "label": "Welcome guide card title",
+      "default": "Welcome Guide"
+    },
+    {
+      "type": "text",
+      "id": "guide_sub",
+      "label": "Welcome guide card text",
+      "default": "Your 45-Day Wellness Journey"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Kit intro"
+    }
+  ]
+}
+{% endschema %}

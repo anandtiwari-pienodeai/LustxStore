@@ -207,9 +207,32 @@
     list-style: none;
   }
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 750px) {
     .lx-promise__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* Phones: principles swipe sideways inside the panel instead of stacking */
+  @media screen and (max-width: 749px) {
+    .lx-promise__grid {
+      grid-auto-flow: column;
+      grid-auto-columns: 78%;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin-inline: calc(-1 * clamp(28px, 5vw, 76px));
+      padding: 4px clamp(28px, 5vw, 76px) 8px;
+      scroll-padding-inline: clamp(28px, 5vw, 76px);
+      scrollbar-width: none;
+    }
+
+    .lx-promise__grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .lx-promise__card {
+      scroll-snap-align: start;
     }
   }
 

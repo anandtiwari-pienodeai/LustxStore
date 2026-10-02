@@ -1,0 +1,164 @@
+{%- comment -%}
+  Lust Xstore — "Our promise to you" expanding cards.
+  Split from the homepage; styles live in assets/lx-home.css.
+{%- endcomment -%}
+
+<section class="lx-h lx-cf" style="--lx-pad-top: {{ section.settings.padding_top }}px; --lx-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="lx-h__wrap">
+    <h3 class="lx-h__rule"><span>{{ section.settings.cards_heading | escape }}</span></h3>
+    <p class="lx-h__sub">{{ section.settings.cards_sub | escape }}</p>
+
+    <lx-expand-row class="lx-cf__cards">
+      {% assign idx = 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'commitment' %}
+          {% assign c = block.settings %}
+          <button type="button" class="lx-cf__c{% if idx == 0 %} is-active{% endif %}" aria-expanded="{% if idx == 0 %}true{% else %}false{% endif %}" style="--c-color: {{ c.color }}; --c-tint: {{ c.tint }};" {{ block.shopify_attributes }}>
+            <span class="lx-cf__c-ghost" aria-hidden="true">{% render 'lx-icon', icon: c.icon, size: 180, stroke: 0.8 %}</span>
+            <span class="lx-cf__c-num">{{ idx | plus: 1 | prepend: '0' | slice: -2, 2 }}</span>
+            <span class="lx-cf__c-icon">{% render 'lx-icon', icon: c.icon, size: 26, stroke: 1.6 %}</span>
+            <strong>{{ c.title | escape }}</strong>
+            <span class="lx-cf__c-desc">{{ c.text | escape }}</span>
+          </button>
+          {% assign idx = idx | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    </lx-expand-row>
+  </div>
+</section>
+
+<script>
+  if (!customElements.get('lx-expand-row')) {
+    customElements.define(
+      'lx-expand-row',
+      class extends HTMLElement {
+        connectedCallback() {
+          const cards = [...this.querySelectorAll('.lx-cf__c')];
+          const pick = (card) => cards.forEach((c) => {
+            c.classList.toggle('is-active', c === card);
+            c.setAttribute('aria-expanded', String(c === card));
+          });
+          cards.forEach((card) => {
+            card.addEventListener('click', () => pick(card));
+            if (matchMedia('(hover: hover)').matches) card.addEventListener('mouseenter', () => pick(card));
+          });
+        }
+      }
+    );
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Commitment cards",
+  "tag": "div",
+  "class": "section-lx-commitments",
+  "settings": [
+    {
+      "type": "text",
+      "id": "cards_heading",
+      "label": "Heading",
+      "default": "Our promise to you"
+    },
+    {
+      "type": "text",
+      "id": "cards_sub",
+      "label": "Subheading",
+      "default": "Five commitments behind every kit."
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "commitment",
+      "name": "Commitment",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "herb",
+              "label": "Herb bowl"
+            },
+            {
+              "value": "medal",
+              "label": "Medal"
+            },
+            {
+              "value": "book",
+              "label": "Book"
+            },
+            {
+              "value": "headset",
+              "label": "Headset"
+            },
+            {
+              "value": "lotus",
+              "label": "Lotus"
+            },
+            {
+              "value": "shield",
+              "label": "Shield"
+            }
+          ],
+          "default": "herb"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Thoughtfully Selected Ingredients"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Colour",
+          "default": "#6f8558"
+        },
+        {
+          "type": "color",
+          "id": "tint",
+          "label": "Tint",
+          "default": "#f3f6ec"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Commitment cards"
+    }
+  ]
+}
+{% endschema %}

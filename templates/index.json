@@ -21,7 +21,690 @@
         "show_real_life": false,
         "show_faq": false,
         "show_promise_card": false
+      },
+      "disabled": true
+    },
+    "lx_home_hero": {
+      "type": "lx-home-hero",
+      "settings": {
+        "eyebrow": "Designed for modern women",
+        "title_1": "When Life Moves Fast,",
+        "title_2": "Your Wellbeing Deserves",
+        "title_3": "a Moment.",
+        "text": "<p>Modern life asks women to balance careers, relationships, responsibilities and personal ambitions every single day. BODY अर्क WOMEN has been thoughtfully designed to make everyday wellness simple, structured and sustainable through a guided <strong>Morning</strong> · <strong>Afternoon</strong> · <strong>Evening</strong> wellness routine.</p>",
+        "primary_label": "Begin your 45-day journey",
+        "primary_link": "/pages/our-program",
+        "secondary_label": "Explore the product",
+        "secondary_product": "body-अर्क®-women-product-detail-page",
+        "quote": "\"A stronger, calmer, happier you. Every day.\"",
+        "card_title": "Good Habits\nBrighter Days",
+        "interval": 4,
+        "start_day": 3,
+        "padding_top": 40,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "label": "Natural\nIngredients",
+            "color": "#5f7f4a"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "lotus",
+            "label": "Holistic\nWellness",
+            "color": "#c9376a"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "label": "Trusted\n& Safe",
+            "color": "#b8893a"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "heart",
+            "label": "Made for\nModern Women",
+            "color": "#6a4bb0"
+          }
+        },
+        "moment_5": {
+          "type": "moment",
+          "settings": {
+            "icon": "sunrise",
+            "name": "Morning",
+            "subtitle": "Energy & Focus",
+            "time_label": "Morning · Pouch 1",
+            "pouch_title": "Morning Balance",
+            "inside": "Gut Prime + Hormone Balance",
+            "count": "2 tablets",
+            "fallback_file": "ba-hero-morning.png",
+            "color": "#4d6b3a",
+            "pill_tint": "#eef2e6",
+            "tint": "linear-gradient(160deg, #eef2e6 0%, #dce6cd 100%)"
+          }
+        },
+        "moment_6": {
+          "type": "moment",
+          "settings": {
+            "icon": "sun",
+            "name": "Afternoon",
+            "subtitle": "Balance & Vitality",
+            "time_label": "Afternoon · Pouch 2",
+            "pouch_title": "Afternoon Glow",
+            "inside": "Fertility Support + Femme Desire",
+            "count": "2 tablets",
+            "fallback_file": "ba-hero-afternoon.png",
+            "color": "#c9752e",
+            "pill_tint": "#faedd8",
+            "tint": "linear-gradient(160deg, #fbf0de 0%, #f6dcbd 100%)"
+          }
+        },
+        "moment_7": {
+          "type": "moment",
+          "settings": {
+            "icon": "moon",
+            "name": "Evening",
+            "subtitle": "Calm & Restore",
+            "time_label": "Evening · Pouch 3",
+            "pouch_title": "Evening Restore",
+            "inside": "Intimate Flora",
+            "count": "1 tablet",
+            "fallback_file": "ba-hero-evening.png",
+            "color": "#5b3fa8",
+            "pill_tint": "#eae5f5",
+            "tint": "linear-gradient(160deg, #efeaf8 0%, #ddd2f0 100%)"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4",
+        "moment_5",
+        "moment_6",
+        "moment_7"
+      ]
+    },
+    "lx_philosophy": {
+      "type": "lx-philosophy",
+      "settings": {
+        "philosophy_eyebrow": "Our wellness philosophy",
+        "philosophy_text": "True wellness is built through small, consistent daily rituals rather than occasional efforts.",
+        "philosophy_accent": "Every carefully designed wellness moment supports your journey towards feeling more balanced, confident and connected with yourself.",
+        "padding_top": 0,
+        "padding_bottom": 24
       }
+    },
+    "lx_focus_areas": {
+      "type": "lx-focus-areas",
+      "settings": {
+        "heading": "Our wellness focus areas",
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "area_1": {
+          "type": "area",
+          "settings": {
+            "icon": "heart",
+            "title": "Feminine Confidence",
+            "text": "Support your everyday wellbeing through a thoughtfully designed wellness routine.",
+            "accent": "#d64b6a",
+            "tint": "#fbe8ef"
+          }
+        },
+        "area_2": {
+          "type": "area",
+          "settings": {
+            "icon": "lotus",
+            "title": "Everyday Intimate Wellness",
+            "text": "Simple daily self-care habits for comfort & confidence.",
+            "accent": "#e0793f",
+            "tint": "#faedd8"
+          }
+        },
+        "area_3": {
+          "type": "area",
+          "settings": {
+            "icon": "calm",
+            "title": "Healthy Intimate Flora",
+            "text": "Intimate wellness as part of a complete daily routine.",
+            "accent": "#7a5cc0",
+            "tint": "#eae5f5"
+          }
+        },
+        "area_4": {
+          "type": "area",
+          "settings": {
+            "icon": "sprout",
+            "title": "Daily Gut Wellness",
+            "text": "Digestive wellness at the foundation of your wellbeing.",
+            "accent": "#5f7f4a",
+            "tint": "#eef2e6"
+          }
+        }
+      },
+      "block_order": [
+        "area_1",
+        "area_2",
+        "area_3",
+        "area_4"
+      ]
+    },
+    "lx_callout_pill": {
+      "type": "lx-callout-pill",
+      "settings": {
+        "pill_text": "That's why we created a premium wellness program designed to work with your day — not against it.",
+        "pill_link_text": "Discover how the BODY अर्क Morning · Afternoon · Evening Wellness System fits naturally into your everyday life.",
+        "pill_link": "/pages/our-program",
+        "padding_top": 16,
+        "padding_bottom": 48
+      }
+    },
+    "lx_kit_intro": {
+      "type": "lx-kit-intro",
+      "settings": {
+        "eyebrow": "Your 45-day premium wellness kit",
+        "title": "Everything You Need to",
+        "title_accent": "Begin Your Wellness Journey.",
+        "text": "More than a supplement. More than a collection of products. BODY अर्क WOMEN brings five specialised wellness formulations together in one thoughtfully organised 45-Day Premium Wellness Kit — created to make your wellness experience simple, clear and beautifully organised from the moment you open the box.",
+        "guide_title": "Welcome Guide",
+        "guide_sub": "Your 45-Day Wellness Journey",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "lx_kit_inside": {
+      "type": "lx-kit-inside",
+      "settings": {
+        "inside_heading": "What's Inside Your Wellness Kit?",
+        "viewer_label": "Unbox your kit",
+        "padding_top": 48,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "icon": "kit_kitbox",
+            "title": "Premium Magnetic Wellness Kit",
+            "text": "A beautifully crafted presentation box that organises your complete experience and creates a premium unboxing moment.",
+            "fallback_file": "ba-kit-box.png",
+            "color": "#c9376a",
+            "tint": "#fbe0e8"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "icon": "kit_morning",
+            "title": "Morning Wellness Pouches",
+            "text": "Colour-coded daily pouches organised as part of your complete daily wellness system.",
+            "fallback_file": "ba-pouch-morning.png",
+            "color": "#4d6b3a",
+            "tint": "#eef2e6"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "icon": "kit_afternoon",
+            "title": "Afternoon Wellness Pouches",
+            "text": "Thoughtfully organised pouches that keep your wellness clear and easy to follow through the day.",
+            "fallback_file": "ba-pouch-afternoon.png",
+            "color": "#d86a42",
+            "tint": "#fce6da"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "icon": "kit_evening",
+            "title": "Evening Wellness Pouches",
+            "text": "Organised daily pouches that complete your three-moment wellness experience.",
+            "fallback_file": "ba-pouch-evening.png",
+            "color": "#5b3fa8",
+            "tint": "#eee8f6"
+          }
+        },
+        "item_5": {
+          "type": "item",
+          "settings": {
+            "icon": "kit_formula",
+            "title": "Five Specialised Wellness Formulations",
+            "text": "Five carefully designed formulations — Gut Prime, Hormone Balance, Fertility Support, Femme Desire and Intimate Flora — organised within one system.",
+            "fallback_file": "lx-guides-kit-fan.png",
+            "color": "#7a6a3a",
+            "tint": "#f3efe2"
+          }
+        },
+        "item_6": {
+          "type": "item",
+          "settings": {
+            "icon": "kit_hub",
+            "title": "BODY अर्क Wellness Hub Access",
+            "text": "Continue beyond the kit with educational resources, ingredient information and everyday guidance.",
+            "fallback_file": "lx-hub-s-hero.jpg",
+            "color": "#8a3a4a",
+            "tint": "#f6e4e6"
+          }
+        },
+        "item_7": {
+          "type": "item",
+          "settings": {
+            "icon": "kit_guide",
+            "title": "Welcome Guide",
+            "text": "A beautifully designed introduction to help you begin your journey with confidence from Day One.",
+            "fallback_file": "ba-kit-box.png",
+            "color": "#a8664f",
+            "tint": "#f8eae2"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5",
+        "item_6",
+        "item_7"
+      ]
+    },
+    "lx_kit_pouches": {
+      "type": "lx-kit-pouches",
+      "settings": {
+        "pouch_heading": "Your daily wellness pouches",
+        "padding_top": 48,
+        "padding_bottom": 64
+      },
+      "blocks": {
+        "pouch_8": {
+          "type": "pouch",
+          "settings": {
+            "title": "Morning Wellness",
+            "tag": "Soft Sage Green",
+            "text": "A beautifully organised part of your daily wellness experience.",
+            "inside": "Gut Prime · Hormone Balance",
+            "tablets": 2,
+            "note": "2 individually packed blister tablets",
+            "fallback_file": "ba-pouch-morning.png",
+            "color": "#4d6b3a",
+            "tint": "#e6eedb"
+          }
+        },
+        "pouch_9": {
+          "type": "pouch",
+          "settings": {
+            "title": "Afternoon Wellness",
+            "tag": "Warm Peach",
+            "text": "A thoughtfully organised part of your daily wellness experience.",
+            "inside": "Fertility Support · Femme Desire",
+            "tablets": 2,
+            "note": "2 individually packed blister tablets",
+            "fallback_file": "ba-pouch-afternoon.png",
+            "color": "#d0682e",
+            "tint": "#f9e3cf"
+          }
+        },
+        "pouch_10": {
+          "type": "pouch",
+          "settings": {
+            "title": "Evening Wellness",
+            "tag": "Soft Lavender",
+            "text": "A calming part of your daily wellness experience designed to complete your routine.",
+            "inside": "Intimate Flora",
+            "tablets": 1,
+            "note": "1 individually packed blister tablet",
+            "fallback_file": "ba-pouch-evening.png",
+            "color": "#5b3fa8",
+            "tint": "#e8e1f4"
+          }
+        }
+      },
+      "block_order": [
+        "pouch_8",
+        "pouch_9",
+        "pouch_10"
+      ]
+    },
+    "lx_journey_intro": {
+      "type": "lx-journey-intro",
+      "settings": {
+        "eyebrow": "A journey built on consistency",
+        "title": "Small Daily Rituals.",
+        "title_accent": "Meaningful Long-Term Wellness.",
+        "text": "<p>True wellness isn't created overnight. It is built through small, consistent choices made every day.</p><p>The <strong>BODY अर्क WOMEN 45-Day Premium Wellness Kit</strong> is designed to help you establish a simple daily wellness habit, strengthen your consistency and create a foundation for your longer-term wellness journey.</p>",
+        "callout_title": "Your journey isn't about perfection.",
+        "callout_text": "It's about showing up for yourself, one day at a time.",
+        "primary_label": "Continue your journey",
+        "primary_link": "/pages/our-program",
+        "secondary_label": "Discover the 90-day journey",
+        "secondary_link": "/pages/our-program",
+        "visual_caption": "days to build a ritual that lasts a lifetime",
+        "quote": "Small daily rituals. Meaningful long-term wellness.",
+        "continue_title": "Your Journey Continues",
+        "continue_text": "Your first 45 days aren't the finish line — they're the foundation. Keep building with the Recommended 90-Day Journey, educational guidance and the BODY अर्क Wellness Hub.",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "lx_journey_timeline": {
+      "type": "lx-journey-timeline",
+      "settings": {
+        "timeline_heading": "Your 45-day wellness journey",
+        "timeline_sub": "Three phases. One simple ritual, repeated with intention.",
+        "speed": 180,
+        "padding_top": 48,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "phase_1": {
+          "type": "phase",
+          "settings": {
+            "icon": "lotus",
+            "range": "Days 1–15",
+            "moment": "Morning energy",
+            "title": "Build Your Daily Ritual",
+            "text": "Begin your journey and create a simple routine that naturally fits into your everyday lifestyle — focused on consistency, organisation and a ritual you enjoy.",
+            "color": "#6f8558",
+            "bg": "#f6f8f1"
+          }
+        },
+        "phase_2": {
+          "type": "phase",
+          "settings": {
+            "icon": "sun",
+            "range": "Days 16–30",
+            "moment": "Afternoon glow",
+            "title": "Strengthen Your Routine",
+            "text": "As your routine becomes familiar, consistency becomes easier. Positive daily habits settle in and wellness becomes a natural part of everyday life.",
+            "color": "#e0793f",
+            "bg": "#fef5ee"
+          }
+        },
+        "phase_3": {
+          "type": "phase",
+          "settings": {
+            "icon": "moon",
+            "range": "Days 31–45",
+            "moment": "Evening calm",
+            "title": "Complete Your Foundation",
+            "text": "Complete your first 45 days with a stronger foundation. Reflect on the habits you have built and prepare to carry that consistency forward.",
+            "color": "#7a5cc0",
+            "bg": "#f7f4fb"
+          }
+        }
+      },
+      "block_order": [
+        "phase_1",
+        "phase_2",
+        "phase_3"
+      ]
+    },
+    "lx_milestones": {
+      "type": "lx-milestones",
+      "settings": {
+        "milestone_heading": "Five milestones along the way",
+        "current_milestone": 2,
+        "padding_top": 16,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "milestone_4": {
+          "type": "milestone",
+          "settings": {
+            "icon": "sunrise",
+            "title": "Begin Your Journey",
+            "text": "Every meaningful journey begins with one simple decision: to make yourself a priority.",
+            "color": "#6f8558"
+          }
+        },
+        "milestone_5": {
+          "type": "milestone",
+          "settings": {
+            "icon": "sprout",
+            "title": "Build Your Daily Ritual",
+            "text": "Small daily rituals become easier when your wellness experience is thoughtfully organised.",
+            "color": "#d86a42"
+          }
+        },
+        "milestone_6": {
+          "type": "milestone",
+          "settings": {
+            "icon": "heart",
+            "title": "Stay Consistent",
+            "text": "Consistency grows naturally when wellness becomes part of your everyday routine.",
+            "color": "#c9376a"
+          }
+        },
+        "milestone_7": {
+          "type": "milestone",
+          "settings": {
+            "icon": "calm",
+            "title": "Feel More Connected",
+            "text": "Taking time for yourself becomes an enjoyable, grounding part of everyday life.",
+            "color": "#7a5cc0"
+          }
+        },
+        "milestone_8": {
+          "type": "milestone",
+          "settings": {
+            "icon": "path",
+            "title": "Continue Your Journey",
+            "text": "Your first 45 days are the beginning of a longer commitment to everyday wellness.",
+            "color": "#5f7a4a"
+          }
+        }
+      },
+      "block_order": [
+        "milestone_4",
+        "milestone_5",
+        "milestone_6",
+        "milestone_7",
+        "milestone_8"
+      ]
+    },
+    "lx_feature_strip": {
+      "type": "lx-feature-strip",
+      "settings": {
+        "padding_top": 12,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "feature_9": {
+          "type": "feature",
+          "settings": {
+            "icon": "cal",
+            "label": "Thoughtfully Structured 45-Day Program"
+          }
+        },
+        "feature_10": {
+          "type": "feature",
+          "settings": {
+            "icon": "palette",
+            "label": "Colour-Coded Daily Wellness System"
+          }
+        },
+        "feature_11": {
+          "type": "feature",
+          "settings": {
+            "icon": "blister",
+            "label": "Individually Packed for Hygiene & Convenience"
+          }
+        },
+        "feature_12": {
+          "type": "feature",
+          "settings": {
+            "icon": "flask",
+            "label": "Plant-Based & Science-Informed"
+          }
+        },
+        "feature_13": {
+          "type": "feature",
+          "settings": {
+            "icon": "woman",
+            "label": "Designed for Modern Women"
+          }
+        },
+        "feature_14": {
+          "type": "feature",
+          "settings": {
+            "icon": "globe",
+            "label": "Sustainable & Responsible"
+          }
+        }
+      },
+      "block_order": [
+        "feature_9",
+        "feature_10",
+        "feature_11",
+        "feature_12",
+        "feature_13",
+        "feature_14"
+      ]
+    },
+    "lx_journey_cta": {
+      "type": "lx-journey-cta",
+      "settings": {
+        "cta_title": "Your first 45 days are",
+        "cta_title_accent": "just the beginning.",
+        "cta_text": "Keep the ritual going with the Recommended 90-Day Journey.",
+        "cta_primary_label": "Continue Your Journey",
+        "cta_primary_link": "/pages/our-program",
+        "cta_secondary_label": "Explore 90-Day Plan",
+        "cta_secondary_link": "/pages/our-program",
+        "padding_top": 24,
+        "padding_bottom": 64
+      }
+    },
+    "lx_confidence": {
+      "type": "lx-confidence",
+      "settings": {
+        "eyebrow": "Our commitment to your wellness journey",
+        "title": "The BODY अर्क",
+        "title_accent": "Confidence Promise.",
+        "lead": "Choosing a wellness experience is a personal decision built on trust.",
+        "text": "<p>Every BODY अर्क experience is thoughtfully created using carefully selected botanical ingredients, science-informed formulations and a premium, organised approach to everyday wellness.</p><p>Our commitment extends beyond the product — to education, premium quality, transparency and dedicated customer care, every step of the way.</p>",
+        "primary_label": "Learn about our promise",
+        "primary_link": "/pages/our-story",
+        "secondary_label": "Contact our wellness team",
+        "secondary_link": "/pages/contact",
+        "stat_value": 100,
+        "stat_label": "Satisfaction Commitment*",
+        "card_lead": "Complete your Recommended 90-Day Wellness Journey with consistency.",
+        "card_text": "If you remain eligible under our Confidence Promise Policy and are not satisfied with your experience, we'll honour our Satisfaction Commitment.",
+        "card_accent": "Because your trust matters as much as your wellness journey.",
+        "footnote": "*Terms, eligibility criteria and Confidence Promise Policy apply.",
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "pledge_1": {
+          "type": "pledge",
+          "settings": {
+            "icon": "person",
+            "label": "Your Journey\nMatters"
+          }
+        },
+        "pledge_2": {
+          "type": "pledge",
+          "settings": {
+            "icon": "lotus",
+            "label": "Here Every\nStep"
+          }
+        },
+        "pledge_3": {
+          "type": "pledge",
+          "settings": {
+            "icon": "shield",
+            "label": "Wellness You\nCan Trust"
+          }
+        }
+      },
+      "block_order": [
+        "pledge_1",
+        "pledge_2",
+        "pledge_3"
+      ]
+    },
+    "lx_commitments": {
+      "type": "lx-commitments",
+      "settings": {
+        "cards_heading": "Our promise to you",
+        "cards_sub": "Five commitments behind every kit.",
+        "padding_top": 48,
+        "padding_bottom": 24
+      },
+      "blocks": {
+        "commitment_4": {
+          "type": "commitment",
+          "settings": {
+            "icon": "herb",
+            "title": "Thoughtfully Selected Ingredients",
+            "text": "Carefully selected botanical ingredients inspired by traditional Ayurvedic wisdom and informed by modern nutritional science.",
+            "color": "#6f8558",
+            "tint": "#f3f6ec"
+          }
+        },
+        "commitment_5": {
+          "type": "commitment",
+          "settings": {
+            "icon": "medal",
+            "title": "Premium Quality Standards",
+            "text": "Every BODY अर्क wellness experience is developed with quality, consistency and craftsmanship in mind.",
+            "color": "#e0793f",
+            "tint": "#fef3ea"
+          }
+        },
+        "commitment_6": {
+          "type": "commitment",
+          "settings": {
+            "icon": "book",
+            "title": "Wellness Education",
+            "text": "Continue learning through the BODY अर्क Wellness Hub, with resources designed to help you build lasting habits.",
+            "color": "#7a5cc0",
+            "tint": "#f4f0fa"
+          }
+        },
+        "commitment_7": {
+          "type": "commitment",
+          "settings": {
+            "icon": "headset",
+            "title": "Dedicated Customer Support",
+            "text": "Our Wellness Team is here to guide and support you throughout your journey — whenever you need us.",
+            "color": "#c9376a",
+            "tint": "#fdeef2"
+          }
+        },
+        "commitment_8": {
+          "type": "commitment",
+          "settings": {
+            "icon": "lotus",
+            "title": "Transparent Wellness Philosophy",
+            "text": "Trust is built through education, honesty and thoughtfully designed experiences — not exaggerated promises.",
+            "color": "#b8893a",
+            "tint": "#fbf4e6"
+          }
+        }
+      },
+      "block_order": [
+        "commitment_4",
+        "commitment_5",
+        "commitment_6",
+        "commitment_7",
+        "commitment_8"
+      ]
     },
     "lx_promise": {
       "type": "lx-promise",
@@ -90,7 +773,9 @@
         "p6"
       ],
       "settings": {
-        "button_link": "/pages/our-story"
+        "button_link": "/pages/our-story",
+        "padding_top": 20,
+        "padding_bottom": 0
       }
     },
     "lx_video_stories": {
@@ -169,7 +854,7 @@
         "follow_label": "Follow us @lustxstore",
         "follow_link": "https://www.instagram.com/lustxstore",
         "accent_color": "#a8532c",
-        "padding_top": 56,
+        "padding_top": 0,
         "padding_bottom": 56
       }
     },
@@ -194,7 +879,7 @@
         "show_author": false,
         "background_color": "#fbf6f1",
         "accent_color": "#b5582f",
-        "padding_top": 64,
+        "padding_top": 8,
         "padding_bottom": 64
       }
     },
@@ -315,7 +1000,10 @@
         "help_support",
         "help_shipping"
       ],
-      "settings": {}
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 64
+      }
     },
     "lx_newsletter": {
       "type": "lx-footer-newsletter",
@@ -328,7 +1016,7 @@
         "button_label": "Subscribe",
         "background_color": "#1c0512",
         "button_color": "#c2185b",
-        "padding_top": 40,
+        "padding_top": 0,
         "padding_bottom": 40,
         "padding_x": 40,
         "show_brand": false,
@@ -338,6 +1026,20 @@
   },
   "order": [
     "body_ark_home",
+    "lx_home_hero",
+    "lx_philosophy",
+    "lx_focus_areas",
+    "lx_callout_pill",
+    "lx_kit_intro",
+    "lx_kit_inside",
+    "lx_kit_pouches",
+    "lx_journey_intro",
+    "lx_journey_timeline",
+    "lx_milestones",
+    "lx_feature_strip",
+    "lx_journey_cta",
+    "lx_confidence",
+    "lx_commitments",
     "lx_promise",
     "lx_video_stories",
     "lx_blog_carousel",

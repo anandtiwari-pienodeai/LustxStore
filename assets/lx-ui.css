@@ -1,0 +1,188 @@
+/* Lust Xstore — shared homepage UI (loaded once from snippets/brand-fonts.liquid) */
+
+.lx-h {
+  --lx-ink: #2f1f22;
+  --lx-muted: #6b5a5c;
+  --lx-rose: #c9376a;
+  --lx-cream: #fdf4ef;
+  --lx-line: #f2e3dc;
+
+  color: var(--lx-ink);
+  background: var(--lx-cream);
+  padding-block: var(--lx-pad-top, 64px) var(--lx-pad-bottom, 64px);
+}
+
+.lx-h__wrap {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@media screen and (min-width: 750px) {
+  .lx-h__wrap {
+    padding-inline: 32px;
+  }
+}
+
+.lx-h__eyebrow {
+  margin: 0 0 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lx-rose);
+}
+
+.lx-h__title {
+  margin: 0 0 18px;
+  font-size: clamp(2rem, 4.2vw, 3.25rem);
+  line-height: 1.08;
+  color: var(--lx-ink);
+  text-wrap: balance;
+}
+
+.lx-h__title em {
+  display: block;
+  color: var(--lx-rose);
+}
+
+.lx-h__text {
+  margin: 0 0 16px;
+  line-height: 1.7;
+  color: var(--lx-muted);
+}
+
+/* "──── ✦ TITLE ✦ ────" centred divider heading */
+.lx-h__rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 0 32px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--lx-ink);
+}
+
+.lx-h__rule::before,
+.lx-h__rule::after {
+  content: '';
+  flex: 0 1 90px;
+  height: 1px;
+  background: #e6cfc6;
+}
+
+.lx-h__rule span::before,
+.lx-h__rule span::after {
+  content: '✦';
+  margin-inline: 10px;
+  color: var(--lx-rose);
+  font-size: 0.75rem;
+}
+
+.lx-h__sub {
+  margin: -22px 0 28px;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--lx-muted);
+}
+
+.lx-h__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 28px;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lx-h__btn--solid {
+  background: var(--lx-rose);
+  color: #fff;
+  box-shadow: 0 16px 34px -14px rgb(201 55 106 / 0.6);
+}
+
+.lx-h__btn--solid:hover {
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+.lx-h__btn--ghost {
+  border: 1.5px solid #e6b8c6;
+  color: var(--lx-rose);
+}
+
+.lx-h__btn--ghost:hover {
+  background: #fff;
+}
+
+/* Swipe row: a normal grid on desktop, a horizontal snap-scroller on phones (never a vertical stack). */
+.lx-swipe {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: var(--gap, 20px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media screen and (max-width: 749px) {
+  .lx-swipe {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--swipe-w, 78%);
+    gap: 14px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 20px;
+    margin-inline: -20px;
+    padding: 6px 20px 14px;
+    scrollbar-width: none;
+  }
+
+  .lx-swipe::-webkit-scrollbar {
+    display: none;
+  }
+
+  .lx-swipe > * {
+    scroll-snap-align: start;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .lx-swipe {
+    grid-template-columns: repeat(var(--cols-tablet, 2), minmax(0, 1fr));
+  }
+}
+
+/* Sections that clip their own overflow so swipe rows never widen the page */
+.lx-h,
+.lx-h * {
+  box-sizing: border-box;
+}
+
+.lx-h {
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lx-h *,
+  .lx-h *::before,
+  .lx-h *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

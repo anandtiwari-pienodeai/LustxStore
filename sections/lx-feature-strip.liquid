@@ -1,0 +1,106 @@
+{%- comment -%}
+  Lust Xstore — icon feature strip.
+  Split from the homepage; styles live in assets/lx-home.css.
+{%- endcomment -%}
+
+<section class="lx-h lx-jr" style="--lx-pad-top: {{ section.settings.padding_top }}px; --lx-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="lx-h__wrap">
+    {%- comment -%} ---------- Feature strip ---------- {%- endcomment -%}
+    <ul class="lx-swipe lx-jr__features" role="list" style="--cols: 6; --cols-tablet: 3; --swipe-w: 46%;">
+      {% for block in section.blocks %}
+        {% if block.type == 'feature' %}
+          <li {{ block.shopify_attributes }}>
+            <span class="lx-jr__feature-icon">{% render 'lx-icon', icon: block.settings.icon, size: 22, stroke: 1.5 %}</span>
+            <span>{{ block.settings.label | escape }}</span>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Feature strip",
+  "tag": "div",
+  "class": "section-lx-feature-strip",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "cal",
+              "label": "Calendar"
+            },
+            {
+              "value": "palette",
+              "label": "Palette"
+            },
+            {
+              "value": "blister",
+              "label": "Blister"
+            },
+            {
+              "value": "flask",
+              "label": "Flask"
+            },
+            {
+              "value": "woman",
+              "label": "Woman"
+            },
+            {
+              "value": "globe",
+              "label": "Globe"
+            }
+          ],
+          "default": "cal"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Thoughtfully Structured 45-Day Program"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature strip"
+    }
+  ]
+}
+{% endschema %}

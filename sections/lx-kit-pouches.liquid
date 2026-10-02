@@ -1,0 +1,153 @@
+{%- comment -%}
+  Lust Xstore — daily wellness pouch cards.
+  Split from the homepage; styles live in assets/lx-home.css.
+{%- endcomment -%}
+
+<section class="lx-h lx-kit" style="--lx-pad-top: {{ section.settings.padding_top }}px; --lx-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="lx-h__wrap">
+    {%- comment -%} ---------- Pouches ---------- {%- endcomment -%}
+    <h3 class="lx-h__rule lx-kit__pouch-head"><span>{{ section.settings.pouch_heading | escape }}</span></h3>
+    <ul class="lx-swipe lx-kit__pouches" role="list" style="--cols: 3; --cols-tablet: 2; --swipe-w: 84%;">
+      {% for block in section.blocks %}
+        {% if block.type == 'pouch' %}
+          {% assign p = block.settings %}
+          {% liquid
+            if p.image != blank
+              assign pimg = p.image | image_url: width: 500
+            else
+              assign pimg = p.fallback_file | file_url | append: '&width=500'
+            endif
+          %}
+          <li class="lx-kit__pouch" style="--p-color: {{ p.color }}; --p-tint: {{ p.tint }};" {{ block.shopify_attributes }}>
+            <div class="lx-kit__pouch-media"><img src="{{ pimg }}" alt="{{ p.title | escape }} pouch" width="500" height="750" loading="lazy"></div>
+            <div class="lx-kit__pouch-body">
+              <h4>{{ p.title | escape }}</h4>
+              <span class="lx-kit__pouch-tag">{{ p.tag | escape }}</span>
+              <p>{{ p.text | escape }}</p>
+              <p class="lx-kit__pouch-inside"><b>Inside:</b> {{ p.inside | escape }}</p>
+              <p class="lx-kit__pouch-note">
+                <span aria-hidden="true">{% for i in (1..p.tablets) %}●{% endfor %}</span>
+                {{ p.note | escape }}
+              </p>
+            </div>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Daily pouches",
+  "tag": "div",
+  "class": "section-lx-kit-pouches",
+  "settings": [
+    {
+      "type": "text",
+      "id": "pouch_heading",
+      "label": "Heading",
+      "default": "Your daily wellness pouches"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pouch",
+      "name": "Pouch",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Morning Wellness"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag",
+          "default": "Soft Sage Green"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "inside",
+          "label": "Inside",
+          "default": "Gut Prime · Hormone Balance"
+        },
+        {
+          "type": "range",
+          "id": "tablets",
+          "label": "Tablets",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Tablet note",
+          "default": "2 individually packed blister tablets"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "fallback_file",
+          "label": "Fallback image file (advanced)",
+          "default": "ba-pouch-morning.png"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Colour",
+          "default": "#4d6b3a"
+        },
+        {
+          "type": "color",
+          "id": "tint",
+          "label": "Image background",
+          "default": "#e9efe0"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Daily pouches"
+    }
+  ]
+}
+{% endschema %}

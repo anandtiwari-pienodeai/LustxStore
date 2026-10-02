@@ -1,0 +1,244 @@
+{%- comment -%}
+  Lust Xstore — auto-playing 45-day timeline with phases.
+  Split from the homepage; styles live in assets/lx-home.css.
+{%- endcomment -%}
+
+<section class="lx-h lx-jr" style="--lx-pad-top: {{ section.settings.padding_top }}px; --lx-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="lx-h__wrap">
+    {%- comment -%} ---------- Timeline ---------- {%- endcomment -%}
+    <h3 class="lx-h__rule"><span>{{ section.settings.timeline_heading | escape }}</span></h3>
+    <p class="lx-h__sub">{{ section.settings.timeline_sub | escape }}</p>
+
+    <lx-journey-timeline class="lx-jr__timeline" data-speed="{{ section.settings.speed }}">
+      <div class="lx-jr__day-row">
+        <p class="lx-jr__day">Day <b data-day>1</b> <small>of 45</small></p>
+        <button type="button" class="lx-jr__play" data-play aria-pressed="true">❚❚ Pause</button>
+      </div>
+      <div class="lx-jr__track" aria-hidden="true">
+        <span class="lx-jr__fill" data-fill></span>
+        <span class="lx-jr__dot" data-dot></span>
+        {% for d in (1..4) %}
+          {% case d %}{% when 1 %}{% assign day_n = 1 %}{% when 2 %}{% assign day_n = 15 %}{% when 3 %}{% assign day_n = 30 %}{% else %}{% assign day_n = 45 %}{% endcase %}
+          <span class="lx-jr__node" data-node="{{ day_n }}" style="left: calc({{ day_n | minus: 1 }} / 44 * 100%);"><small>Day</small>{{ day_n }}</span>
+        {% endfor %}
+      </div>
+
+      <ol class="lx-swipe lx-jr__phases" role="list" style="--cols: 3; --cols-tablet: 3; --swipe-w: 82%;">
+        {% assign idx = 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'phase' %}
+            {% assign ph = block.settings %}
+            <li class="lx-jr__phase{% if idx == 0 %} is-active{% endif %}" data-phase="{{ idx }}" style="--ph-color: {{ ph.color }}; --ph-bg: {{ ph.bg }};" {{ block.shopify_attributes }}>
+              <span class="lx-jr__phase-icon">{% render 'lx-icon', icon: ph.icon, size: 22 %}</span>
+              <p class="lx-jr__phase-range">{{ ph.range | escape }} <small>{{ ph.moment | escape }}</small></p>
+              <h4>{{ ph.title | escape }}</h4>
+              <p>{{ ph.text | escape }}</p>
+              <span class="lx-jr__phase-bar"><i data-phase-bar></i></span>
+            </li>
+            {% assign idx = idx | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      </ol>
+    </lx-journey-timeline>
+  </div>
+</section>
+
+<script>
+  if (!customElements.get('lx-journey-timeline')) {
+    customElements.define(
+      'lx-journey-timeline',
+      class extends HTMLElement {
+        connectedCallback() {
+          this.dayEl = this.querySelector('[data-day]');
+          this.fill = this.querySelector('[data-fill]');
+          this.dot = this.querySelector('[data-dot]');
+          this.nodes = [...this.querySelectorAll('[data-node]')];
+          this.phases = [...this.querySelectorAll('[data-phase]')];
+          this.playBtn = this.querySelector('[data-play]');
+          this.speed = Number(this.dataset.speed) || 180;
+          this.day = 1;
+          this.playing = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+          this.playBtn.addEventListener('click', () => this.setPlaying(!this.playing));
+          this.phases.forEach((ph, i) =>
+            ph.addEventListener('click', () => {
+              this.setPlaying(false);
+              this.render([1, 16, 31][i] || 1);
+            })
+          );
+          this.render(1);
+          // Only run while the timeline is on screen.
+          this.io = new IntersectionObserver(([entry]) => {
+            this.visible = entry.isIntersecting;
+            this.loop();
+          });
+          this.io.observe(this);
+          this.setPlaying(this.playing);
+        }
+
+        disconnectedCallback() {
+          clearTimeout(this.timer);
+          this.io?.disconnect();
+        }
+
+        setPlaying(on) {
+          this.playing = on;
+          this.playBtn.textContent = on ? '❚❚ Pause' : '▶ Play journey';
+          this.playBtn.setAttribute('aria-pressed', String(on));
+          this.loop();
+        }
+
+        loop() {
+          clearTimeout(this.timer);
+          if (!this.playing || !this.visible) return;
+          this.timer = setTimeout(() => {
+            this.render(this.day >= 45 ? 1 : this.day + 1);
+            this.loop();
+          }, this.day >= 45 ? 2200 : this.speed);
+        }
+
+        render(day) {
+          this.day = day;
+          const pct = ((day - 1) / 44) * 100;
+          const phase = day <= 15 ? 0 : day <= 30 ? 1 : 2;
+          const color = getComputedStyle(this.phases[phase] || this).getPropertyValue('--ph-color') || '#6f8558';
+          this.dayEl.textContent = day;
+          this.style.setProperty('--jr-color', color.trim());
+          this.fill.style.width = pct + '%';
+          this.dot.style.left = pct + '%';
+          this.nodes.forEach((n) => n.classList.toggle('is-reached', day >= Number(n.dataset.node)));
+          this.phases.forEach((ph, i) => {
+            ph.classList.toggle('is-active', i === phase);
+            const [a, b] = [[1, 15], [16, 30], [31, 45]][i] || [1, 45];
+            const prog = day >= b ? 100 : day < a ? 0 : ((day - a + 1) / (b - a + 1)) * 100;
+            const bar = ph.querySelector('[data-phase-bar]');
+            if (bar) bar.style.width = prog + '%';
+          });
+        }
+      }
+    );
+  }
+</script>
+
+{% schema %}
+{
+  "name": "45-day timeline",
+  "tag": "div",
+  "class": "section-lx-journey-timeline",
+  "settings": [
+    {
+      "type": "text",
+      "id": "timeline_heading",
+      "label": "Heading",
+      "default": "Your 45-day wellness journey"
+    },
+    {
+      "type": "text",
+      "id": "timeline_sub",
+      "label": "Subheading",
+      "default": "Three phases. One simple ritual, repeated with intention."
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Milliseconds per day",
+      "min": 80,
+      "max": 600,
+      "step": 20,
+      "default": 180
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "phase",
+      "name": "Phase",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "lotus",
+              "label": "Lotus"
+            },
+            {
+              "value": "sun",
+              "label": "Sun"
+            },
+            {
+              "value": "moon",
+              "label": "Moon"
+            }
+          ],
+          "default": "lotus"
+        },
+        {
+          "type": "text",
+          "id": "range",
+          "label": "Range",
+          "default": "Days 1–15"
+        },
+        {
+          "type": "text",
+          "id": "moment",
+          "label": "Moment",
+          "default": "Morning energy"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Build Your Daily Ritual"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Colour",
+          "default": "#6f8558"
+        },
+        {
+          "type": "color",
+          "id": "bg",
+          "label": "Background",
+          "default": "#f6f8f1"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "45-day timeline"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,47 @@
+{%- doc -%}
+  Line icons for the Lust Xstore homepage sections (shapes from the original homepage design).
+
+  @param {string} icon - bell | blister | book | box | busy | cal | calm | check | eye | flask | globe | headset | heart | herb | home | kit_afternoon | kit_evening | kit_formula | kit_guide | kit_hub | kit_kitbox | kit_morning | leaf | lotus | medal | moon | palette | path | person | shield | sprout | sun | sunrise | travel | woman | work
+  @param {number} [size] - Pixel size (default 24)
+  @param {number} [stroke] - Stroke width (default 1.7)
+{%- enddoc -%}
+{%- case icon -%}
+  {%- when 'bell' -%}{%- assign d = 'M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z M10 21h4' -%}
+  {%- when 'blister' -%}{%- assign d = 'M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z M7.5 8a1.5 1.5 0 1 0 3 0 1.5 1.5 0 1 0-3 0 M13.5 8a1.5 1.5 0 1 0 3 0 1.5 1.5 0 1 0-3 0 M7.5 13a1.5 1.5 0 1 0 3 0 1.5 1.5 0 1 0-3 0 M13.5 13a1.5 1.5 0 1 0 3 0 1.5 1.5 0 1 0-3 0' -%}
+  {%- when 'book' -%}{%- assign d = 'M2 5h6a4 4 0 0 1 4 4v11a3 3 0 0 0-3-3H2z M22 5h-6a4 4 0 0 0-4 4v11a3 3 0 0 1 3-3h7z' -%}
+  {%- when 'box' -%}{%- assign d = 'M3.5 8.5 12 4l8.5 4.5v8L12 21l-8.5-4.5z M3.5 8.5 12 13l8.5-4.5 M12 13v8' -%}
+  {%- when 'busy' -%}{%- assign d = 'M4 6h16v14H4z M4 10h16 M8 3v5 M16 3v5 M9 15l2 2 4-4' -%}
+  {%- when 'cal' -%}{%- assign d = 'M4 6h16v14H4z M4 10h16 M8 3v5 M16 3v5 M9 14h6 M9 17h4' -%}
+  {%- when 'calm' -%}{%- assign d = 'M12 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M5 13l4-3h6l4 3 M9 10v4l-4 5h14l-4-5v-4' -%}
+  {%- when 'check' -%}{%- assign d = 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M8 12l3 3 5-6' -%}
+  {%- when 'eye' -%}{%- assign d = 'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z' -%}
+  {%- when 'flask' -%}{%- assign d = 'M9 3h6 M10 3v6L5 19a1.5 1.5 0 0 0 1.3 2h11.4a1.5 1.5 0 0 0 1.3-2L14 9V3 M7.5 15h9' -%}
+  {%- when 'globe' -%}{%- assign d = 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M3 12h18 M12 3a14 14 0 0 1 0 18 M12 3a14 14 0 0 0 0 18' -%}
+  {%- when 'headset' -%}{%- assign d = 'M4 14v-2a8 8 0 0 1 16 0v2 M4 14h3v5H5a1 1 0 0 1-1-1z M20 14h-3v5h2a1 1 0 0 0 1-1z M17 19c0 1.5-2 2-5 2' -%}
+  {%- when 'heart' -%}{%- assign d = 'M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z' -%}
+  {%- when 'herb' -%}{%- assign d = 'M4 11h16a8 8 0 0 1-16 0z M9 21h6 M12 11V6 M12 6c0-2 1.5-3 3.5-3 0 2-1.5 3-3.5 3z M12 8c0-1.8-1.3-2.8-3-2.8 0 1.8 1.3 2.8 3 2.8z' -%}
+  {%- when 'home' -%}{%- assign d = 'M3 11l9-7 9 7 M5 10v10h14V10 M10 20v-6h4v6' -%}
+  {%- when 'kit_afternoon' -%}{%- assign d = 'M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z M12 2v2 M12 20v2 M2 12h2 M20 12h2 M4.9 4.9l1.4 1.4 M17.7 17.7l1.4 1.4 M4.9 19.1l1.4-1.4 M17.7 6.3l1.4-1.4' -%}
+  {%- when 'kit_evening' -%}{%- assign d = 'M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z M17 4v3 M15.5 5.5h3' -%}
+  {%- when 'kit_formula' -%}{%- assign d = 'M10.5 20.5a4.95 4.95 0 0 1-7-7l7-7a4.95 4.95 0 0 1 7 7z M7 10l7 7 M19 3.5l.7 1.4 1.4.7-1.4.7-.7 1.4-.7-1.4-1.4-.7 1.4-.7z' -%}
+  {%- when 'kit_guide' -%}{%- assign d = 'M2 5h6a4 4 0 0 1 4 4v11a3 3 0 0 0-3-3H2z M22 5h-6a4 4 0 0 0-4 4v11a3 3 0 0 1 3-3h7z' -%}
+  {%- when 'kit_hub' -%}{%- assign d = 'M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z M11 18h2 M9.5 8.5l1.8 1.8 3.2-3.3' -%}
+  {%- when 'kit_kitbox' -%}{%- assign d = 'M3.5 8.5 12 4l8.5 4.5v8L12 21l-8.5-4.5z M3.5 8.5 12 13l8.5-4.5 M12 13v8 M7.8 6.3l8.5 4.5' -%}
+  {%- when 'kit_morning' -%}{%- assign d = 'M3 18h18 M7 18a5 5 0 0 1 10 0 M12 7v3 M5.5 11.5l1.5 1.5 M18.5 11.5 17 13 M2 21h20' -%}
+  {%- when 'leaf' -%}{%- assign d = 'M5 19c0-8 5-13 14-14-1 9-6 14-14 14z M5 19l7-7' -%}
+  {%- when 'lotus' -%}{%- assign d = 'M12 20c-4 0-7-2.5-8-6 3 0 5.5 1 8 3.5 2.5-2.5 5-3.5 8-3.5-1 3.5-4 6-8 6z M12 17.5c-2.2-2.6-2.4-5.6 0-10 2.4 4.4 2.2 7.4 0 10z' -%}
+  {%- when 'medal' -%}{%- assign d = 'M12 14a5 5 0 1 0 0-10 5 5 0 0 0 0 10z M8.5 13 7 21l5-3 5 3-1.5-8 M10 9l1.5 1.5L14.5 7.5' -%}
+  {%- when 'moon' -%}{%- assign d = 'M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z M17 4v3 M15.5 5.5h3' -%}
+  {%- when 'palette' -%}{%- assign d = 'M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2s-1-1.5-1-2.5 1-1.5 2-1.5h2a4 4 0 0 0 4-4c0-4.5-4-8-9-8z M7.5 11h.01 M10 7.5h.01 M14.5 7.5h.01' -%}
+  {%- when 'path' -%}{%- assign d = 'M5 21c3-3 2-6 6-8s5-5 8-9 M15 4h4v4' -%}
+  {%- when 'person' -%}{%- assign d = 'M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M4 21a8 8 0 0 1 16 0' -%}
+  {%- when 'shield' -%}{%- assign d = 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z M9 12l2 2 4-4' -%}
+  {%- when 'sprout' -%}{%- assign d = 'M12 21v-9 M12 12c0-4 3-6 7-6 0 4-3 6-7 6z M12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5z' -%}
+  {%- when 'sun' -%}{%- assign d = 'M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z M12 2v2 M12 20v2 M2 12h2 M20 12h2 M4.9 4.9l1.4 1.4 M17.7 17.7l1.4 1.4 M4.9 19.1l1.4-1.4 M17.7 6.3l1.4-1.4' -%}
+  {%- when 'sunrise' -%}{%- assign d = 'M3 18h18 M7 18a5 5 0 0 1 10 0 M12 7v3 M5.5 11.5l1.5 1.5 M18.5 11.5 17 13' -%}
+  {%- when 'travel' -%}{%- assign d = 'M22 2 11 13 M22 2l-7 20-4-9-9-4z' -%}
+  {%- when 'woman' -%}{%- assign d = 'M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M4 21a8 8 0 0 1 16 0' -%}
+  {%- when 'work' -%}{%- assign d = 'M4 8h16v11H4z M9 8V5h6v3 M4 13h16' -%}
+  {%- else -%}{%- assign d = 'M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z' -%}
+{%- endcase -%}
+<svg viewBox="0 0 24 24" width="{{ size | default: 24 }}" height="{{ size | default: 24 }}" aria-hidden="true"><path d="{{ d }}" fill="none" stroke="currentColor" stroke-width="{{ stroke | default: 1.7 }}" stroke-linecap="round" stroke-linejoin="round"/></svg>

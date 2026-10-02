@@ -1,0 +1,212 @@
+{%- comment -%}
+  Lust Xstore — "What's inside your kit" viewer and items.
+  Split from the homepage; styles live in assets/lx-home.css.
+{%- endcomment -%}
+
+<section class="lx-h lx-kit" style="--lx-pad-top: {{ section.settings.padding_top }}px; --lx-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="lx-h__wrap">
+    {%- comment -%} ---------- What's inside ---------- {%- endcomment -%}
+    <h3 class="lx-kit__subhead"><span aria-hidden="true">✦</span> {{ section.settings.inside_heading | escape }}</h3>
+
+    <lx-kit-viewer class="lx-kit__inside">
+      <div class="lx-kit__viewer" aria-hidden="true">
+        <span class="lx-kit__viewer-tag">{{ section.settings.viewer_label | escape }}</span>
+        {% assign idx = 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'item' %}
+            {% liquid
+              if block.settings.image != blank
+                assign img = block.settings.image | image_url: width: 900
+              else
+                assign img = block.settings.fallback_file | file_url | append: '&width=900'
+              endif
+            %}
+            <img class="lx-kit__viewer-img{% if idx == 0 %} is-active{% endif %}" data-step="{{ idx }}" src="{{ img }}" alt="" width="900" height="700" loading="lazy">
+            {% assign idx = idx | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+        <span class="lx-kit__viewer-dots">
+          {% for i in (1..idx) %}<i data-step="{{ forloop.index0 }}"{% if forloop.first %} class="is-active"{% endif %}></i>{% endfor %}
+        </span>
+      </div>
+
+      <ol class="lx-kit__items" role="list">
+        {% assign idx = 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'item' %}
+            {% assign k = block.settings %}
+            <li style="--item-color: {{ k.color }}; --item-tint: {{ k.tint }};" {{ block.shopify_attributes }}>
+              <button type="button" class="lx-kit__item{% if idx == 0 %} is-active{% endif %}" data-step="{{ idx }}" aria-expanded="{% if idx == 0 %}true{% else %}false{% endif %}">
+                <span class="lx-kit__item-icon">{% render 'lx-icon', icon: k.icon, size: 20 %}</span>
+                <span class="lx-kit__item-head">
+                  <small>{{ idx | plus: 1 | prepend: '0' | slice: -2, 2 }}</small>
+                  <strong>{{ k.title | escape }}</strong>
+                </span>
+                <span class="lx-kit__item-chev" aria-hidden="true">›</span>
+                <span class="lx-kit__item-desc">{{ k.text | escape }}</span>
+              </button>
+            </li>
+            {% assign idx = idx | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      </ol>
+    </lx-kit-viewer>
+  </div>
+</section>
+
+<script>
+  if (!customElements.get('lx-kit-viewer')) {
+    customElements.define(
+      'lx-kit-viewer',
+      class extends HTMLElement {
+        connectedCallback() {
+          this.querySelectorAll('.lx-kit__item').forEach((btn) => {
+            btn.addEventListener('click', () => this.select(Number(btn.dataset.step)));
+            if (matchMedia('(hover: hover)').matches) {
+              btn.addEventListener('mouseenter', () => this.select(Number(btn.dataset.step)));
+            }
+          });
+        }
+
+        select(step) {
+          this.querySelectorAll('[data-step]').forEach((el) =>
+            el.classList.toggle('is-active', Number(el.dataset.step) === step)
+          );
+          this.querySelectorAll('.lx-kit__item').forEach((btn) =>
+            btn.setAttribute('aria-expanded', String(Number(btn.dataset.step) === step))
+          );
+        }
+      }
+    );
+  }
+</script>
+
+{% schema %}
+{
+  "name": "What's inside",
+  "tag": "div",
+  "class": "section-lx-kit-inside",
+  "settings": [
+    {
+      "type": "text",
+      "id": "inside_heading",
+      "label": "Heading",
+      "default": "What's Inside Your Wellness Kit?"
+    },
+    {
+      "type": "text",
+      "id": "viewer_label",
+      "label": "Viewer label",
+      "default": "Unbox your kit"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Kit item",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "kit_kitbox",
+              "label": "Kit box"
+            },
+            {
+              "value": "kit_morning",
+              "label": "Morning"
+            },
+            {
+              "value": "kit_afternoon",
+              "label": "Afternoon"
+            },
+            {
+              "value": "kit_evening",
+              "label": "Evening"
+            },
+            {
+              "value": "kit_formula",
+              "label": "Formula"
+            },
+            {
+              "value": "kit_hub",
+              "label": "Hub"
+            },
+            {
+              "value": "kit_guide",
+              "label": "Guide"
+            }
+          ],
+          "default": "kit_kitbox"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Premium Magnetic Wellness Kit"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "fallback_file",
+          "label": "Fallback image file (advanced)",
+          "default": "ba-kit-box.png"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Colour",
+          "default": "#c9376a"
+        },
+        {
+          "type": "color",
+          "id": "tint",
+          "label": "Icon background",
+          "default": "#fbe0e8"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "What's inside"
+    }
+  ]
+}
+{% endschema %}

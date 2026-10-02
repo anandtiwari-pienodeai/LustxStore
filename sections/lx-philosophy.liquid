@@ -1,0 +1,72 @@
+{%- comment -%}
+  Lust Xstore — "Our wellness philosophy" band.
+  Split from the homepage; styles live in assets/lx-home.css.
+{%- endcomment -%}
+
+<section class="lx-h lx-hero lx-hero--band" style="--lx-pad-top: {{ section.settings.padding_top }}px; --lx-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="lx-h__wrap">
+    {% if section.settings.philosophy_text != blank or section.settings.philosophy_accent != blank %}
+    {%- comment -%} Band spacing comes from the section padding, not a margin. {%- endcomment -%}
+      <div class="lx-hero__philosophy" style="margin-top: 0;">
+        <p class="lx-h__eyebrow">{{ section.settings.philosophy_eyebrow | escape }}</p>
+        <p class="lx-hero__philosophy-text">{{ section.settings.philosophy_text | escape }}</p>
+        <p class="lx-hero__philosophy-accent">{{ section.settings.philosophy_accent | escape }}</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Philosophy band",
+  "tag": "div",
+  "class": "section-lx-philosophy",
+  "settings": [
+    {
+      "type": "text",
+      "id": "philosophy_eyebrow",
+      "label": "Eyebrow",
+      "default": "Our wellness philosophy"
+    },
+    {
+      "type": "textarea",
+      "id": "philosophy_text",
+      "label": "Text"
+    },
+    {
+      "type": "textarea",
+      "id": "philosophy_accent",
+      "label": "Accent line"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Philosophy band"
+    }
+  ]
+}
+{% endschema %}

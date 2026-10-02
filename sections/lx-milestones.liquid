@@ -1,0 +1,136 @@
+{%- comment -%}
+  Lust Xstore — milestone cards.
+  Split from the homepage; styles live in assets/lx-home.css.
+{%- endcomment -%}
+
+<section class="lx-h lx-jr" style="--lx-pad-top: {{ section.settings.padding_top }}px; --lx-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="lx-h__wrap">
+    {%- comment -%} ---------- Milestones ---------- {%- endcomment -%}
+    <h3 class="lx-h__rule lx-jr__mile-head"><span>{{ section.settings.milestone_heading | escape }}</span></h3>
+    <ol class="lx-swipe lx-jr__miles" role="list" style="--cols: 5; --cols-tablet: 3; --swipe-w: 64%;">
+      {% assign idx = 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'milestone' %}
+          {% assign m = block.settings %}
+          {% assign idx = idx | plus: 1 %}
+          <li class="lx-jr__mile{% if idx == section.settings.current_milestone %} is-current{% endif %}" style="--m-color: {{ m.color }};" {{ block.shopify_attributes }}>
+            <span class="lx-jr__mile-num">{{ idx | prepend: '0' | slice: -2, 2 }}</span>
+            {% if idx == section.settings.current_milestone %}<span class="lx-jr__now">You are here</span>{% endif %}
+            <span class="lx-jr__mile-orb">{% render 'lx-icon', icon: m.icon, size: 28, stroke: 1.5 %}</span>
+            <h4>{{ m.title | escape }}</h4>
+            <p>{{ m.text | escape }}</p>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Milestones",
+  "tag": "div",
+  "class": "section-lx-milestones",
+  "settings": [
+    {
+      "type": "text",
+      "id": "milestone_heading",
+      "label": "Heading",
+      "default": "Five milestones along the way"
+    },
+    {
+      "type": "range",
+      "id": "current_milestone",
+      "label": "\"You are here\" milestone",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 2,
+      "info": "0 hides the marker."
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "milestone",
+      "name": "Milestone",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "sunrise",
+              "label": "Sunrise"
+            },
+            {
+              "value": "sprout",
+              "label": "Sprout"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "calm",
+              "label": "Calm"
+            },
+            {
+              "value": "path",
+              "label": "Path"
+            }
+          ],
+          "default": "sunrise"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Begin Your Journey"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Colour",
+          "default": "#6f8558"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Milestones"
+    }
+  ]
+}
+{% endschema %}

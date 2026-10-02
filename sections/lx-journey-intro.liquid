@@ -1,0 +1,174 @@
+{%- comment -%}
+  Lust Xstore — "A journey built on consistency" intro.
+  Split from the homepage; styles live in assets/lx-home.css.
+{%- endcomment -%}
+{% liquid
+  if section.settings.visual_image != blank
+    assign visual = section.settings.visual_image | image_url: width: 800
+  else
+    assign visual = 'ba-kit-box.png' | file_url | append: '&width=800'
+  endif
+%}
+<section id="journey" class="lx-h lx-jr" style="--lx-pad-top: {{ section.settings.padding_top }}px; --lx-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="lx-h__wrap">
+    {%- comment -%} ---------- Intro ---------- {%- endcomment -%}
+    <div class="lx-jr__intro">
+      <div>
+        <p class="lx-h__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        <h2 class="lx-h__title">{{ section.settings.title | escape }}<em>{{ section.settings.title_accent | escape }}</em></h2>
+        <div class="lx-jr__text">{{ section.settings.text }}</div>
+        {% if section.settings.callout_title != blank %}
+          <p class="lx-jr__callout"><em>{{ section.settings.callout_title | escape }}</em><b>{{ section.settings.callout_text | escape }}</b></p>
+        {% endif %}
+        <div class="lx-jr__actions">
+          {% if section.settings.primary_label != blank %}
+            <a class="lx-h__btn lx-h__btn--solid" href="{{ section.settings.primary_link | default: '/pages/our-program' }}">{{ section.settings.primary_label | escape }}</a>
+          {% endif %}
+          {% if section.settings.secondary_label != blank %}
+            <a class="lx-h__btn lx-h__btn--ghost" href="{{ section.settings.secondary_link | default: '/pages/our-program' }}">{{ section.settings.secondary_label | escape }}</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="lx-jr__visual">
+        <figure class="lx-jr__photo">
+          <img src="{{ visual }}" alt="" width="800" height="960" loading="lazy">
+          <figcaption><b>45</b> {{ section.settings.visual_caption | escape }}</figcaption>
+        </figure>
+        <div class="lx-jr__side">
+          <p class="lx-jr__quote"><span aria-hidden="true">“</span>{{ section.settings.quote | escape }}<span aria-hidden="true">❀</span></p>
+          <div class="lx-jr__continue">
+            <span class="lx-jr__continue-icon">{% render 'lx-icon', icon: 'leaf', size: 18 %}</span>
+            <b>{{ section.settings.continue_title | escape }}</b>
+            <p>{{ section.settings.continue_text | escape }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Journey intro",
+  "tag": "div",
+  "class": "section-lx-journey-intro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "A journey built on consistency"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Small Daily Rituals."
+    },
+    {
+      "type": "text",
+      "id": "title_accent",
+      "label": "Title (accent line)",
+      "default": "Meaningful Long-Term Wellness."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "callout_title",
+      "label": "Callout (accent)",
+      "default": "Your journey isn't about perfection."
+    },
+    {
+      "type": "text",
+      "id": "callout_text",
+      "label": "Callout text",
+      "default": "It's about showing up for yourself, one day at a time."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button",
+      "default": "Continue your journey"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button",
+      "default": "Discover the 90-day journey"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary link"
+    },
+    {
+      "type": "image_picker",
+      "id": "visual_image",
+      "label": "Visual image",
+      "info": "Defaults to the kit box."
+    },
+    {
+      "type": "text",
+      "id": "visual_caption",
+      "label": "Visual caption",
+      "default": "days to build a ritual that lasts a lifetime"
+    },
+    {
+      "type": "text",
+      "id": "quote",
+      "label": "Quote",
+      "default": "Small daily rituals. Meaningful long-term wellness."
+    },
+    {
+      "type": "text",
+      "id": "continue_title",
+      "label": "Card title",
+      "default": "Your Journey Continues"
+    },
+    {
+      "type": "textarea",
+      "id": "continue_text",
+      "label": "Card text"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Journey intro"
+    }
+  ]
+}
+{% endschema %}

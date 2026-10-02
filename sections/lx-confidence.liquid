@@ -1,0 +1,245 @@
+{%- comment -%}
+  Lust Xstore — Confidence Promise intro and satisfaction card.
+  Split from the homepage; styles live in assets/lx-home.css.
+{%- endcomment -%}
+
+<section id="promise" class="lx-h lx-cf" style="--lx-pad-top: {{ section.settings.padding_top }}px; --lx-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="lx-h__wrap">
+    <div class="lx-cf__intro">
+      <div>
+        <p class="lx-h__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        <h2 class="lx-h__title">{{ section.settings.title | escape }}<em>{{ section.settings.title_accent | escape }}</em></h2>
+        {% if section.settings.lead != blank %}<p class="lx-cf__lead">{{ section.settings.lead | escape }}</p>{% endif %}
+        <div class="lx-cf__text">{{ section.settings.text }}</div>
+        <div class="lx-cf__actions">
+          {% if section.settings.primary_label != blank %}
+            <a class="lx-h__btn lx-h__btn--solid" href="{{ section.settings.primary_link | default: '/pages/our-story' }}">{{ section.settings.primary_label | escape }} <span aria-hidden="true">&rarr;</span></a>
+          {% endif %}
+          {% if section.settings.secondary_label != blank %}
+            <a class="lx-h__btn lx-h__btn--ghost" href="{{ section.settings.secondary_link | default: '/pages/contact' }}">{% render 'lx-icon', icon: 'headset', size: 16 %} {{ section.settings.secondary_label | escape }}</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <lx-count-up class="lx-cf__card" data-target="{{ section.settings.stat_value }}">
+        <span class="lx-cf__card-icon">{% render 'lx-icon', icon: 'shield', size: 26 %}</span>
+        <p class="lx-cf__stat"><b data-count>{{ section.settings.stat_value }}</b>%</p>
+        <p class="lx-cf__stat-label">{{ section.settings.stat_label | escape }}</p>
+        <p class="lx-cf__card-lead">{{ section.settings.card_lead | escape }}</p>
+        <p class="lx-cf__card-text">{{ section.settings.card_text | escape }}</p>
+        <p class="lx-cf__card-accent">{{ section.settings.card_accent | escape }}</p>
+        <ul class="lx-cf__pledges" role="list">
+          {% for block in section.blocks %}
+            {% if block.type == 'pledge' %}
+              <li {{ block.shopify_attributes }}>
+                <span>{% render 'lx-icon', icon: block.settings.icon, size: 20 %}</span>
+                {{ block.settings.label | escape | newline_to_br }}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        {% if section.settings.footnote != blank %}<p class="lx-cf__foot">{{ section.settings.footnote | escape }}</p>{% endif %}
+      </lx-count-up>
+    </div>
+  </div>
+</section>
+
+<script>
+  if (!customElements.get('lx-count-up')) {
+    customElements.define(
+      'lx-count-up',
+      class extends HTMLElement {
+        connectedCallback() {
+          const el = this.querySelector('[data-count]');
+          const target = Number(this.dataset.target) || 0;
+          if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          el.textContent = '0';
+          const io = new IntersectionObserver(([entry]) => {
+            if (!entry.isIntersecting) return;
+            io.disconnect();
+            const start = performance.now();
+            const tick = (now) => {
+              const t = Math.min(1, (now - start) / 1400);
+              el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3)));
+              if (t < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+          }, { threshold: 0.4 });
+          io.observe(this);
+        }
+      }
+    );
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Confidence promise",
+  "tag": "div",
+  "class": "section-lx-confidence",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our commitment to your wellness journey"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The BODY अर्क"
+    },
+    {
+      "type": "text",
+      "id": "title_accent",
+      "label": "Title (accent line)",
+      "default": "Confidence Promise."
+    },
+    {
+      "type": "text",
+      "id": "lead",
+      "label": "Lead",
+      "default": "Choosing a wellness experience is a personal decision built on trust."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button",
+      "default": "Learn about our promise"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary link",
+      "info": "Defaults to Our Story."
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button",
+      "default": "Contact our wellness team"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary link",
+      "info": "Defaults to Contact."
+    },
+    {
+      "type": "header",
+      "content": "Satisfaction card"
+    },
+    {
+      "type": "range",
+      "id": "stat_value",
+      "label": "Stat (%)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 100
+    },
+    {
+      "type": "text",
+      "id": "stat_label",
+      "label": "Stat label",
+      "default": "Satisfaction Commitment*"
+    },
+    {
+      "type": "textarea",
+      "id": "card_lead",
+      "label": "Card lead"
+    },
+    {
+      "type": "textarea",
+      "id": "card_text",
+      "label": "Card text"
+    },
+    {
+      "type": "text",
+      "id": "card_accent",
+      "label": "Accent line",
+      "default": "Because your trust matters as much as your wellness journey."
+    },
+    {
+      "type": "text",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "*Terms, eligibility criteria and Confidence Promise Policy apply."
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pledge",
+      "name": "Pledge",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "person",
+              "label": "Person"
+            },
+            {
+              "value": "lotus",
+              "label": "Lotus"
+            },
+            {
+              "value": "shield",
+              "label": "Shield"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            }
+          ],
+          "default": "person"
+        },
+        {
+          "type": "textarea",
+          "id": "label",
+          "label": "Label",
+          "default": "Your Journey\nMatters"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Confidence promise"
+    }
+  ]
+}
+{% endschema %}

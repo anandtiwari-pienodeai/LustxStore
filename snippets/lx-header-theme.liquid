@@ -165,11 +165,32 @@
     }
   }
 
-  #header-component .cart-bubble {
+  /* Cart count: small rose badge on the bag's top-right corner. The theme reuses these
+     vars to cut a matching hole in the bag icon, so set them where both read them. */
+  #header-component .header-actions__cart-icon {
+    --cart-bubble-size: 17px;
+    --cart-bubble-top: 1px;
+    --cart-bubble-right: -3px;
     --cart-bubble-background: var(--lx-nav-rose);
-    --cart-bubble-top: -4px;
-    --cart-bubble-right: -4px;
+  }
 
+  #header-component .header-actions__cart-icon svg {
+    mask: none !important;
+  }
+
+  #header-component .cart-bubble {
     color: #fff;
+    font-size: 0.625rem;
+    font-weight: 700;
+  }
+
+  #header-component .cart-bubble__background {
+    box-shadow: 0 0 0 2px #fbf0ea;
+  }
+
+  /* Signed-in avatar: brand rose instead of the black primary-button colour */
+  #header-component shopify-account {
+    --shopify-account-color-accent: var(--lx-nav-rose);
+    --shopify-account-color-accent-text: #fff;
   }
 </style>

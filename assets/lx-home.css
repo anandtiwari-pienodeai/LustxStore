@@ -1843,3 +1843,52 @@
 .lx-faq {
   background: #fdf4ef;
 }
+
+/* ---------- Tracker → card highlight ---------- */
+/* 45-day timeline: the phase the tracker has reached stands out */
+.lx-jr__phase { opacity: 0.6; }
+.lx-jr__phase.is-done { opacity: 0.78; }
+.lx-jr__phase.is-active {
+  opacity: 1;
+  border: 2px solid var(--ph-color);
+  box-shadow: 0 26px 48px -24px var(--ph-color);
+  transform: translateY(-6px);
+}
+.lx-jr__here {
+  position: absolute;
+  top: -12px;
+  right: 18px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--ph-color);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+.lx-jr__phase.is-active .lx-jr__here { opacity: 1; transform: none; }
+
+/* Milestones: the "You are here" card is clearly marked, earlier ones read as completed */
+.lx-jr__mile.is-current {
+  border: 2px solid var(--m-color);
+  box-shadow: 0 22px 44px -20px var(--m-color);
+}
+.lx-jr__mile.is-done .lx-jr__mile-num::after {
+  content: '✓';
+  margin-left: 5px;
+  color: inherit;
+  font-weight: 700;
+}
+.lx-jr__mile:not(.is-current):not(.is-done) { opacity: 0.8; }
+
+/* Room for the lifted card + tag inside the swipe rows */
+.lx-jr__phases.lx-swipe { padding-top: 16px; }
+@media screen and (max-width: 749px) {
+  .lx-jr__phases.lx-swipe,
+  .lx-jr__miles.lx-swipe { padding-top: 18px; }
+}

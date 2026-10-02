@@ -288,6 +288,56 @@
     color: #cbbac1;
   }
 
+  /* Desktop: the panel fills exactly 80% of the screen height and its content scales to fit */
+  @media screen and (min-width: 990px) {
+    .lx-promise__panel {
+      height: 80vh;
+      height: 80svh;
+      min-height: 520px;
+      max-height: 880px;
+      padding: clamp(28px, 6vh, 76px) clamp(36px, 5vw, 76px);
+      gap: clamp(32px, 4vw, 56px);
+      align-items: center;
+    }
+
+    .lx-promise__panel > .lx-promise__grid {
+      align-self: stretch;
+      grid-auto-rows: minmax(0, 1fr);
+      gap: clamp(10px, 1.6vh, 16px);
+      min-height: 0;
+    }
+
+    .lx-promise__title {
+      margin-bottom: clamp(12px, 2.2vh, 22px);
+      font-size: clamp(2.4rem, min(5vw, 7.4vh), 4rem);
+    }
+
+    .lx-promise__text { margin-bottom: clamp(18px, 3.4vh, 34px); }
+
+    .lx-promise__card {
+      justify-content: center;
+      min-height: 0;
+      padding: clamp(14px, 2.4vh, 26px) clamp(18px, 1.8vw, 26px);
+      gap: 4px;
+    }
+
+    .lx-promise__icon {
+      width: clamp(38px, 5.2vh, 58px);
+      height: clamp(38px, 5.2vh, 58px);
+      margin-bottom: clamp(8px, 1.6vh, 20px);
+      border-radius: 12px;
+    }
+
+    .lx-promise__icon svg {
+      width: clamp(18px, 2.4vh, 26px);
+      height: clamp(18px, 2.4vh, 26px);
+    }
+
+    .lx-promise__num { top: clamp(14px, 2.4vh, 30px); }
+    .lx-promise__card strong { font-size: clamp(1rem, 2vh, 1.1875rem); }
+    .lx-promise__desc { font-size: clamp(0.8125rem, 1.5vh, 0.9375rem); line-height: 1.45; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .lx-promise__card,
     .lx-promise__btn {

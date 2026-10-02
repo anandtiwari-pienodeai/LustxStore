@@ -7,13 +7,13 @@
   <div class="lx-h__wrap">
     {%- comment -%} ---------- Milestones ---------- {%- endcomment -%}
     <h3 class="lx-h__rule lx-jr__mile-head"><span>{{ section.settings.milestone_heading | escape }}</span></h3>
-    <ol class="lx-swipe lx-jr__miles" role="list" style="--cols: 5; --cols-tablet: 3; --swipe-w: 64%;">
+    <ol class="lx-swipe lx-jr__miles" data-lx-miles role="list" style="--cols: 5; --cols-tablet: 3; --swipe-w: 64%;">
       {% assign idx = 0 %}
       {% for block in section.blocks %}
         {% if block.type == 'milestone' %}
           {% assign m = block.settings %}
           {% assign idx = idx | plus: 1 %}
-          <li class="lx-jr__mile{% if idx == section.settings.current_milestone %} is-current{% endif %}" style="--m-color: {{ m.color }};" {{ block.shopify_attributes }}>
+          <li class="lx-jr__mile{% if idx == section.settings.current_milestone %} is-current{% elsif idx < section.settings.current_milestone %} is-done{% endif %}" style="--m-color: {{ m.color }};" {{ block.shopify_attributes }}>
             <span class="lx-jr__mile-num">{{ idx | prepend: '0' | slice: -2, 2 }}</span>
             {% if idx == section.settings.current_milestone %}<span class="lx-jr__now">You are here</span>{% endif %}
             <span class="lx-jr__mile-orb">{% render 'lx-icon', icon: m.icon, size: 28, stroke: 1.5 %}</span>
@@ -25,6 +25,27 @@
     </ol>
   </div>
 </section>
+
+<script>
+  (function () {
+    // Phones: when the milestones come into view, slide the row to the "You are here" card
+    document.querySelectorAll('[data-lx-miles]').forEach(function (row) {
+      if (row.dataset.ready) return;
+      row.dataset.ready = 'true';
+      var current = row.querySelector('.is-current');
+      if (!current || !('IntersectionObserver' in window)) return;
+      var io = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        io.disconnect();
+        if (row.scrollWidth <= row.clientWidth + 1) return;
+        var pad = parseFloat(getComputedStyle(row).scrollPaddingInlineStart) || 0;
+        var left = row.scrollLeft + current.getBoundingClientRect().left - row.getBoundingClientRect().left - pad;
+        row.scrollTo({ left: left, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      }, { threshold: 0.4 });
+      io.observe(row);
+    });
+  })();
+</script>
 
 {% schema %}
 {

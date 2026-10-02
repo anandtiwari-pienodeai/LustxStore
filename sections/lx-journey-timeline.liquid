@@ -29,6 +29,7 @@
           {% if block.type == 'phase' %}
             {% assign ph = block.settings %}
             <li class="lx-jr__phase{% if idx == 0 %} is-active{% endif %}" data-phase="{{ idx }}" style="--ph-color: {{ ph.color }}; --ph-bg: {{ ph.bg }};" {{ block.shopify_attributes }}>
+              <span class="lx-jr__here" aria-hidden="true">You're here</span>
               <span class="lx-jr__phase-icon">{% render 'lx-icon', icon: ph.icon, size: 22 %}</span>
               <p class="lx-jr__phase-range">{{ ph.range | escape }} <small>{{ ph.moment | escape }}</small></p>
               <h4>{{ ph.title | escape }}</h4>
@@ -54,6 +55,12 @@
           this.dot = this.querySelector('[data-dot]');
           this.nodes = [...this.querySelectorAll('[data-node]')];
           this.phases = [...this.querySelectorAll('[data-phase]')];
+          this.row = this.querySelector('.lx-jr__phases');
+          this.activePhase = -1;
+          // Pause auto-scrolling for a moment whenever the shopper swipes the cards themselves
+          const hold = () => { this.userUntil = Date.now() + 6000; };
+          this.row?.addEventListener('touchstart', hold, { passive: true });
+          this.row?.addEventListener('wheel', hold, { passive: true });
           this.playBtn = this.querySelector('[data-play]');
           this.speed = Number(this.dataset.speed) || 180;
           this.day = 1;
@@ -62,6 +69,7 @@
           this.phases.forEach((ph, i) =>
             ph.addEventListener('click', () => {
               this.setPlaying(false);
+              this.userUntil = 0;
               this.render([1, 16, 31][i] || 1);
             })
           );
@@ -96,6 +104,17 @@
           }, this.day >= 45 ? 2200 : this.speed);
         }
 
+        // Phones: bring the card the tracker has reached into view (row only — the page never scrolls)
+        scrollToPhase(i) {
+          const row = this.row;
+          const card = this.phases[i];
+          if (!row || !card || row.scrollWidth <= row.clientWidth + 1) return;
+          if (!this.visible || (this.userUntil && Date.now() < this.userUntil)) return;
+          const pad = parseFloat(getComputedStyle(row).scrollPaddingInlineStart) || 0;
+          const left = row.scrollLeft + card.getBoundingClientRect().left - row.getBoundingClientRect().left - pad;
+          row.scrollTo({ left, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+        }
+
         render(day) {
           this.day = day;
           const pct = ((day - 1) / 44) * 100;
@@ -106,8 +125,13 @@
           this.fill.style.width = pct + '%';
           this.dot.style.left = pct + '%';
           this.nodes.forEach((n) => n.classList.toggle('is-reached', day >= Number(n.dataset.node)));
+          if (phase !== this.activePhase) {
+            this.activePhase = phase;
+            this.scrollToPhase(phase);
+          }
           this.phases.forEach((ph, i) => {
             ph.classList.toggle('is-active', i === phase);
+            ph.classList.toggle('is-done', i < phase);
             const [a, b] = [[1, 15], [16, 30], [31, 45]][i] || [1, 45];
             const prog = day >= b ? 100 : day < a ? 0 : ((day - a + 1) / (b - a + 1)) * 100;
             const bar = ph.querySelector('[data-phase-bar]');

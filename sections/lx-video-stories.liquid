@@ -169,6 +169,193 @@
 
     <div class="lx-stories__dots" role="group" aria-label="Choose story"></div>
   </lx-stories>
+
+  {%- comment -%} ---------- Shoppable video overlay (opens on card click) ---------- {%- endcomment -%}
+  {% if section.settings.overlay_enabled %}
+    {% liquid
+      assign default_product = section.settings.overlay_product
+      if default_product == blank
+        assign default_product = collections.all.products.first
+      endif
+      assign feature_lines = section.settings.overlay_features | newline_to_br | split: '<br />'
+      assign trust_lines = section.settings.overlay_trust | newline_to_br | split: '<br />'
+      assign benefit_lines = section.settings.overlay_benefits | newline_to_br | split: '<br />'
+    %}
+    <lx-video-modal>
+      <dialog class="lx-vm" aria-label="{{ section.settings.heading | escape }}">
+        <button type="button" class="lx-vm__nav lx-vm__nav--prev" data-step="-1" aria-label="Previous video">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="lx-vm__nav lx-vm__nav--next" data-step="1" aria-label="Next video">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <div class="lx-vm__panel">
+          <button type="button" class="lx-vm__close" data-close aria-label="Close">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+
+          {%- comment -%} Thumbnail rail {%- endcomment -%}
+          <div class="lx-vm__rail" role="tablist" aria-label="Videos">
+            {% assign vi = 0 %}
+            {% for block in section.blocks %}
+              {% assign st = block.settings %}
+              {% if st.video == blank and st.video_asset == blank %}{% continue %}{% endif %}
+              {% liquid
+                if st.video != blank
+                  assign mp4 = st.video.sources | where: 'format', 'mp4' | last
+                  assign src = mp4.url
+                else
+                  assign src = st.video_asset | asset_url
+                endif
+                assign thumb = st.image | default: st.video.preview_image
+              %}
+              <button type="button" class="lx-vm__thumb" role="tab" data-index="{{ vi }}" data-src="{{ src }}" aria-label="{{ st.title | default: 'Video' | escape }}">
+                {% if thumb != blank %}
+                  {{ thumb | image_url: width: 200 | image_tag: alt: '', loading: 'lazy' }}
+                {% else %}
+                  <video src="{{ src }}#t=0.5" muted playsinline preload="none" data-thumb-video></video>
+                {% endif %}
+              </button>
+              {% assign vi = vi | plus: 1 %}
+            {% endfor %}
+          </div>
+
+          {%- comment -%} Player {%- endcomment -%}
+          <div class="lx-vm__stage">
+            <video class="lx-vm__video" playsinline preload="metadata" data-player></video>
+            <span class="lx-vm__tag" data-tag></span>
+            <span class="lx-vm__dur" data-dur></span>
+            <p class="lx-vm__caption" data-caption></p>
+            <button type="button" class="lx-vm__big-play" data-toggle aria-label="Play">
+              <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+            </button>
+            <div class="lx-vm__controls">
+              <input class="lx-vm__seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek" data-seek>
+              <div class="lx-vm__bar">
+                <button type="button" class="lx-vm__ctl" data-toggle aria-label="Play / pause">
+                  <svg class="lx-vm__i-play" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+                  <svg class="lx-vm__i-pause" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>
+                </button>
+                <span class="lx-vm__time" data-time>0:00 / 0:00</span>
+                <button type="button" class="lx-vm__ctl" data-mute aria-label="Mute / unmute">
+                  <svg class="lx-vm__i-vol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="lx-vm__i-muted" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4zM17 9l5 6M22 9l-5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button type="button" class="lx-vm__ctl" data-full aria-label="Fullscreen">
+                  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {%- comment -%} Product panels: one per video (each card can feature its own product) {%- endcomment -%}
+          <div class="lx-vm__info">
+            {% assign vi = 0 %}
+            {% for block in section.blocks %}
+              {% assign st = block.settings %}
+              {% if st.video == blank and st.video_asset == blank %}{% continue %}{% endif %}
+              {% liquid
+                assign p = st.product | default: default_product
+                assign v = p.selected_or_first_available_variant
+              %}
+              <div class="lx-vm__product" data-panel="{{ vi }}" data-tag="{{ st.tag | escape }}" data-caption="{{ st.caption | escape }}" hidden>
+                {% if p != blank %}
+                  <p class="lx-vm__eyebrow">{{ section.settings.overlay_eyebrow | escape }}</p>
+                  <h3 class="lx-vm__title">{{ st.product_title | default: p.title | escape }}</h3>
+                  {% assign sub = st.product_subtitle | default: section.settings.overlay_subtitle %}
+                  {% if sub == blank %}{% assign sub = p.description | strip_html | truncatewords: 22 %}{% endif %}
+                  {% if sub != blank %}<p class="lx-vm__sub">{{ sub | escape }}</p>{% endif %}
+
+                  {% if section.settings.overlay_rating > 0 %}
+                    <p class="lx-vm__rating">
+                      <span class="lx-vm__stars" style="--rating: {{ section.settings.overlay_rating | divided_by: 10.0 }};" aria-hidden="true">★★★★★</span>
+                      {{ section.settings.overlay_rating | divided_by: 10.0 }}
+                      {% if section.settings.overlay_reviews != blank %}({{ section.settings.overlay_reviews | escape }}){% endif %}
+                    </p>
+                  {% endif %}
+
+                  <form class="lx-vm__form" action="{{ routes.cart_add_url }}" method="post" data-cart-form>
+                    <p class="lx-vm__price">
+                      <b data-price>{{ v.price | money }}</b>
+                      <s data-compare{% unless v.compare_at_price > v.price %} hidden{% endunless %}>{{ v.compare_at_price | money }}</s>
+                      <span class="lx-vm__off" data-off{% unless v.compare_at_price > v.price %} hidden{% endunless %}>
+                        {%- if v.compare_at_price > v.price -%}{{ v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price }}% OFF{%- endif -%}
+                      </span>
+                    </p>
+
+                    {% if feature_lines.size > 0 and section.settings.overlay_features != blank %}
+                      <ul class="lx-vm__features" role="list">
+                        {% for line in feature_lines %}
+                          {% assign parts = line | split: '|' %}
+                          {% if parts[1] != blank %}
+                            <li>{% assign ic = parts[0] | strip %}{% render 'lx-icon', icon: ic, size: 24, stroke: 1.5 %}<span>{{ parts[1] | strip | escape }}</span></li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+
+                    {% if p.variants.size > 1 %}
+                      <fieldset class="lx-vm__variants">
+                        <legend>{{ p.options.first | default: 'Option' }}</legend>
+                        {% for variant in p.variants %}
+                          <label class="lx-vm__variant">
+                            <input type="radio" name="id" value="{{ variant.id }}" data-price="{{ variant.price | money | escape }}" data-compare="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | escape }}{% endif %}" data-off="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price }}{% endif %}"{% if variant.id == v.id %} checked{% endif %}{% unless variant.available %} disabled{% endunless %}>
+                            <span><b>{{ variant.title | escape }}</b><small>{{ variant.price | money }}</small></span>
+                          </label>
+                        {% endfor %}
+                      </fieldset>
+                    {% else %}
+                      <input type="hidden" name="id" value="{{ v.id }}">
+                    {% endif %}
+
+                    <div class="lx-vm__buy">
+                      <div class="lx-vm__qty">
+                        <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
+                        <input type="number" name="quantity" value="1" min="1" max="99" aria-label="Quantity">
+                        <button type="button" data-qty="1" aria-label="Increase quantity">+</button>
+                      </div>
+                      <button type="submit" class="lx-vm__add"{% unless v.available %} disabled{% endunless %} data-add>
+                        {% render 'lx-icon', icon: 'box', size: 18 %}
+                        <span data-add-label>{% if v.available %}{{ section.settings.overlay_button | escape }}{% else %}Sold out{% endif %}</span>
+                      </button>
+                    </div>
+                    <p class="lx-vm__msg" data-msg role="status" aria-live="polite"></p>
+                  </form>
+
+                  {% if section.settings.overlay_trust != blank %}
+                    <ul class="lx-vm__trust" role="list">
+                      {% for line in trust_lines %}
+                        {% assign parts = line | split: '|' %}
+                        {% if parts[1] != blank %}
+                          <li>{% assign ic = parts[0] | strip %}{% render 'lx-icon', icon: ic, size: 22, stroke: 1.5 %}<span><b>{{ parts[1] | strip | escape }}</b><small>{{ parts[2] | strip | escape }}</small></span></li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+
+                  {% if section.settings.overlay_benefits != blank %}
+                    <p class="lx-vm__bhead">{{ section.settings.overlay_benefits_heading | escape }}</p>
+                    <ul class="lx-vm__benefits" role="list">
+                      {% for line in benefit_lines %}
+                        {% assign parts = line | split: '|' %}
+                        {% if parts[1] != blank %}
+                          <li>{% assign ic = parts[0] | strip %}{% render 'lx-icon', icon: ic, size: 28, stroke: 1.5 %}<span>{{ parts[1] | strip | escape }}</span></li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+
+                  <a class="lx-vm__pdp" href="{{ p.url }}">View full details <span aria-hidden="true">&rarr;</span></a>
+                {% endif %}
+              </div>
+              {% assign vi = vi | plus: 1 %}
+            {% endfor %}
+          </div>
+        </div>
+      </dialog>
+    </lx-video-modal>
+  {% endif %}
 </section>
 {% endif %}
 
@@ -202,10 +389,20 @@
             if (e.key === 'ArrowLeft') { e.preventDefault(); this.goTo(this.current - 1); }
           });
 
-          // Clicking a side card brings it to the centre instead of following its link.
+          // With the overlay enabled, clicking any video card opens it at that video.
+          this.modal = this.parentElement.querySelector('lx-video-modal');
+          this.videoSlides = this.slides.filter((s) => s.querySelector('.lx-story--video'));
           this.track.addEventListener('click', (e) => {
             const slide = e.target.closest('.lx-stories__slide');
             if (!slide) return;
+            const vIndex = this.videoSlides.indexOf(slide);
+            if (this.modal && vIndex > -1 && !e.target.closest('.lx-story__link')) {
+              e.preventDefault();
+              e.stopPropagation();
+              this.pauseAll();
+              this.modal.open(vIndex, slide.querySelector('.lx-story__play'));
+              return;
+            }
             const i = this.slides.indexOf(slide);
             if (i !== this.current && !e.target.closest('.lx-story__play')) {
               e.preventDefault();
@@ -221,7 +418,7 @@
           this.slides.forEach((slide) => {
             const btn = slide.querySelector('.lx-story__play');
             const video = slide.querySelector('video');
-            if (!btn || !video) return;
+            if (!btn || !video || this.modal) return;
             btn.addEventListener('click', () => {
               if (video.paused) {
                 this.pauseAll();
@@ -320,6 +517,167 @@
           }
           this.querySelector('.lx-stories__arrow--prev').disabled = best === 0;
           this.querySelector('.lx-stories__arrow--next').disabled = best === this.slides.length - 1;
+        }
+      }
+    );
+  }
+  if (!customElements.get('lx-video-modal')) {
+    const fmt = (t) => {
+      t = Math.max(0, Math.floor(t || 0));
+      return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
+    };
+
+    customElements.define(
+      'lx-video-modal',
+      class extends HTMLElement {
+        connectedCallback() {
+          this.dialog = this.querySelector('dialog');
+          this.video = this.querySelector('[data-player]');
+          this.thumbs = [...this.querySelectorAll('.lx-vm__thumb')];
+          this.panels = [...this.querySelectorAll('[data-panel]')];
+          this.seek = this.querySelector('[data-seek]');
+          this.timeEl = this.querySelector('[data-time]');
+          this.stage = this.querySelector('.lx-vm__stage');
+
+          this.thumbs.forEach((t, i) => t.addEventListener('click', () => this.show(i, true)));
+          this.querySelectorAll('[data-step]').forEach((b) =>
+            b.addEventListener('click', () => this.show((this.index + Number(b.dataset.step) + this.thumbs.length) % this.thumbs.length, true))
+          );
+          this.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => this.dialog.close()));
+          // Click on the dimmed backdrop closes; clicks inside the panel don't.
+          this.dialog.addEventListener('click', (e) => { if (e.target === this.dialog) this.dialog.close(); });
+          this.dialog.addEventListener('close', () => {
+            this.video.pause();
+            document.documentElement.classList.remove('lx-vm-open');
+            this.opener?.focus?.();
+          });
+          this.dialog.addEventListener('keydown', (e) => {
+            if (e.target.matches('input')) return;
+            if (e.key === 'ArrowRight') this.show((this.index + 1) % this.thumbs.length, true);
+            if (e.key === 'ArrowLeft') this.show((this.index - 1 + this.thumbs.length) % this.thumbs.length, true);
+            if (e.key === ' ' && !e.target.closest('button, a')) { e.preventDefault(); this.toggle(); }
+          });
+
+          // Player
+          this.querySelectorAll('[data-toggle]').forEach((b) => b.addEventListener('click', () => this.toggle()));
+          this.video.addEventListener('click', () => this.toggle());
+          this.querySelector('[data-mute]').addEventListener('click', () => {
+            this.video.muted = !this.video.muted;
+            this.stage.classList.toggle('is-muted', this.video.muted);
+          });
+          this.querySelector('[data-full]').addEventListener('click', () => {
+            const el = this.stage;
+            if (document.fullscreenElement) document.exitFullscreen();
+            else if (el.requestFullscreen) el.requestFullscreen();
+            else if (this.video.webkitEnterFullscreen) this.video.webkitEnterFullscreen();
+          });
+          ['play', 'pause'].forEach((ev) =>
+            this.video.addEventListener(ev, () => this.stage.classList.toggle('is-playing', !this.video.paused))
+          );
+          this.video.addEventListener('timeupdate', () => this.tick());
+          this.video.addEventListener('loadedmetadata', () => this.tick());
+          this.video.addEventListener('ended', () => this.show((this.index + 1) % this.thumbs.length, true));
+          this.seek.addEventListener('input', () => {
+            if (this.video.duration) this.video.currentTime = (this.seek.value / 1000) * this.video.duration;
+          });
+
+          // Thumbnails without an image use the video's own frame
+          this.querySelectorAll('[data-thumb-video]').forEach((v) => (v.preload = 'metadata'));
+
+          // Product panels
+          this.panels.forEach((panel) => this.wireProduct(panel));
+        }
+
+        open(index, opener) {
+          this.opener = opener || document.activeElement;
+          document.documentElement.classList.add('lx-vm-open');
+          if (!this.dialog.open) this.dialog.showModal();
+          this.show(index, true);
+        }
+
+        show(index, autoplay) {
+          this.index = index;
+          const thumb = this.thumbs[index];
+          if (!thumb) return;
+          this.thumbs.forEach((t, i) => {
+            t.classList.toggle('is-active', i === index);
+            t.setAttribute('aria-selected', String(i === index));
+          });
+          this.panels.forEach((p, i) => (p.hidden = i !== index));
+          const panel = this.panels[index];
+          this.querySelector('[data-tag]').textContent = panel?.dataset.tag || '';
+          this.querySelector('[data-tag]').hidden = !panel?.dataset.tag;
+          this.querySelector('[data-caption]').textContent = panel?.dataset.caption || '';
+          if (this.video.dataset.src !== thumb.dataset.src) {
+            this.video.dataset.src = thumb.dataset.src;
+            this.video.src = thumb.dataset.src;
+            this.seek.value = 0;
+          }
+          thumb.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+          this.querySelector('.lx-vm__info').scrollTop = 0;
+          if (autoplay) this.video.play().catch(() => {});
+        }
+
+        toggle() {
+          if (this.video.paused) this.video.play().catch(() => {});
+          else this.video.pause();
+        }
+
+        tick() {
+          const d = this.video.duration || 0;
+          const t = this.video.currentTime || 0;
+          this.seek.value = d ? Math.round((t / d) * 1000) : 0;
+          this.seek.style.setProperty('--p', d ? (t / d) * 100 + '%' : '0%');
+          this.timeEl.textContent = `${fmt(t)} / ${fmt(d)}`;
+          this.querySelector('[data-dur]').textContent = fmt(d);
+        }
+
+        wireProduct(panel) {
+          const form = panel.querySelector('[data-cart-form]');
+          if (!form) return;
+          const qty = form.querySelector('input[name="quantity"]');
+          form.querySelectorAll('[data-qty]').forEach((b) =>
+            b.addEventListener('click', () => {
+              qty.value = Math.min(99, Math.max(1, (Number(qty.value) || 1) + Number(b.dataset.qty)));
+            })
+          );
+          form.querySelectorAll('input[type="radio"][name="id"]').forEach((r) =>
+            r.addEventListener('change', () => {
+              form.querySelector('[data-price]').textContent = r.dataset.price;
+              const compare = form.querySelector('[data-compare]');
+              const off = form.querySelector('[data-off]');
+              compare.hidden = off.hidden = !r.dataset.compare;
+              compare.textContent = r.dataset.compare;
+              off.textContent = r.dataset.off ? `${r.dataset.off}% OFF` : '';
+            })
+          );
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('[data-add]');
+            const label = form.querySelector('[data-add-label]');
+            const msg = form.querySelector('[data-msg]');
+            const original = label.textContent;
+            btn.disabled = true;
+            label.textContent = 'Adding…';
+            try {
+              const res = await fetch(`${window.Shopify?.routes?.root || '/'}cart/add.js`, {
+                method: 'POST',
+                headers: { Accept: 'application/json' },
+                body: new FormData(form),
+              });
+              const data = await res.json();
+              if (!res.ok) throw new Error(data.description || data.message || 'Could not add to cart');
+              const cart = await (await fetch(`${window.Shopify?.routes?.root || '/'}cart.js`)).json();
+              document.querySelectorAll('cart-icon').forEach((icon) => icon.renderCartBubble?.(cart.item_count));
+              label.textContent = 'Added ✓';
+              msg.innerHTML = `Added to your cart. <a href="${window.Shopify?.routes?.root || '/'}cart">View cart →</a>`;
+              setTimeout(() => { label.textContent = original; btn.disabled = false; }, 1800);
+            } catch (err) {
+              label.textContent = original;
+              btn.disabled = false;
+              msg.textContent = err.message;
+            }
+          });
         }
       }
     );
@@ -778,6 +1136,656 @@
       transition: none;
     }
   }
+  /* ---------- Shoppable video overlay ---------- */
+  html.lx-vm-open {
+    overflow: hidden;
+  }
+
+  .lx-vm {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #2b1a20;
+    overflow: visible;
+  }
+
+  .lx-vm::backdrop {
+    background: rgb(28 14 18 / 0.72);
+    backdrop-filter: blur(6px);
+  }
+
+  .lx-vm[open] {
+    display: grid;
+    place-items: center;
+    animation: lx-vm-in 0.28s ease;
+  }
+
+  @keyframes lx-vm-in {
+    from { opacity: 0; transform: scale(0.98); }
+  }
+
+  .lx-vm__panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: 84px minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 24px;
+    width: min(1180px, calc(100vw - 140px));
+    height: min(800px, calc(100vh - 64px));
+    padding: 20px;
+    border-radius: 28px;
+    background: #fbf5f1;
+    box-shadow: 0 40px 100px -30px rgb(0 0 0 / 0.6);
+  }
+
+  .lx-vm__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 999px;
+    background: #ece4e1;
+    color: #2b1a20;
+    cursor: pointer;
+  }
+
+  .lx-vm__close:hover {
+    background: #e2d7d3;
+  }
+
+  .lx-vm__nav {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border: 0;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.18);
+    color: #fff;
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    transform: translateY(-50%);
+  }
+
+  .lx-vm__nav:hover {
+    background: rgb(255 255 255 / 0.3);
+  }
+
+  .lx-vm__nav--prev { left: max(12px, calc(50% - 670px)); }
+  .lx-vm__nav--next { right: max(12px, calc(50% - 670px)); }
+
+  /* Rail */
+  .lx-vm__rail {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px 2px 2px;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .lx-vm__thumb {
+    flex: 0 0 auto;
+    position: relative;
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: #e8dcd6;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+  }
+
+  .lx-vm__thumb.is-active {
+    border-color: #c2386b;
+    opacity: 1;
+  }
+
+  .lx-vm__thumb:hover {
+    opacity: 1;
+  }
+
+  .lx-vm__thumb img,
+  .lx-vm__thumb video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  /* Player */
+  .lx-vm__stage {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #1b1215;
+  }
+
+  .lx-vm__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+
+  .lx-vm__stage:fullscreen .lx-vm__video {
+    object-fit: contain;
+  }
+
+  .lx-vm__tag {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: #f3d6e0;
+    color: #2b1a20;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .lx-vm__dur {
+    position: absolute;
+    top: 20px;
+    right: 18px;
+    color: #fff;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-shadow: 0 1px 6px rgb(0 0 0 / 0.4);
+  }
+
+  .lx-vm__caption {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 92px;
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.125rem, 2vw, 1.625rem);
+    font-weight: 500;
+    line-height: 1.25;
+    text-shadow: 0 2px 12px rgb(0 0 0 / 0.45);
+    pointer-events: none;
+  }
+
+  .lx-vm__caption:empty {
+    display: none;
+  }
+
+  .lx-vm__big-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    border: 0;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.92);
+    color: #2b1a20;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.25s ease;
+  }
+
+  .lx-vm__stage.is-playing .lx-vm__big-play {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .lx-vm__controls {
+    position: absolute;
+    inset: auto 0 0;
+    padding: 30px 18px 14px;
+    background: linear-gradient(180deg, transparent, rgb(0 0 0 / 0.6));
+    color: #fff;
+  }
+
+  .lx-vm__seek {
+    --p: 0%;
+
+    width: 100%;
+    height: 4px;
+    margin: 0 0 10px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #f29bb8 var(--p), rgb(255 255 255 / 0.35) var(--p));
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .lx-vm__seek::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    background: #fff;
+    appearance: none;
+  }
+
+  .lx-vm__seek::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border: 0;
+    border-radius: 999px;
+    background: #fff;
+  }
+
+  .lx-vm__bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .lx-vm__time {
+    flex: 1;
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lx-vm__ctl {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .lx-vm__i-pause,
+  .lx-vm__i-muted,
+  .lx-vm__stage.is-playing .lx-vm__i-play,
+  .lx-vm__stage.is-muted .lx-vm__i-vol {
+    display: none;
+  }
+
+  .lx-vm__stage.is-playing .lx-vm__i-pause,
+  .lx-vm__stage.is-muted .lx-vm__i-muted {
+    display: block;
+  }
+
+  /* Product */
+  .lx-vm__info {
+    padding: 28px 8px 8px 6px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .lx-vm__eyebrow {
+    margin: 0 0 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #4a3d42;
+  }
+
+  .lx-vm__title {
+    margin: 0 0 10px;
+    padding-right: 48px;
+    font-size: clamp(1.625rem, 2.6vw, 2.125rem);
+    line-height: 1.12;
+    color: #2b1a20;
+  }
+
+  .lx-vm__sub {
+    margin: 0 0 12px;
+    font-size: 1.0625rem;
+    line-height: 1.45;
+    color: #5e5256;
+  }
+
+  .lx-vm__rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    font-size: 0.875rem;
+    color: #6b5a5c;
+  }
+
+  .lx-vm__stars {
+    --rating: 5;
+
+    background: linear-gradient(90deg, #f2a93b calc(var(--rating) / 5 * 100%), #e4d9d4 0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 1.125rem;
+    letter-spacing: 2px;
+  }
+
+  .lx-vm__price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 18px;
+  }
+
+  .lx-vm__price b {
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+
+  .lx-vm__price s {
+    color: #9a8a8f;
+  }
+
+  .lx-vm__off {
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: #f9dbe5;
+    color: #c2386b;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .lx-vm__features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 0 22px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lx-vm__features li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 6px;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .lx-vm__features li + li {
+    border-left: 1px solid #ecdcd5;
+  }
+
+  .lx-vm__features svg {
+    color: #c2386b;
+  }
+
+  .lx-vm__variants {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 18px;
+    padding: 0;
+    border: 0;
+  }
+
+  .lx-vm__variants legend {
+    margin-bottom: 10px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  .lx-vm__variant input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .lx-vm__variant span {
+    display: grid;
+    gap: 2px;
+    min-width: 110px;
+    padding: 10px 18px;
+    border: 1px solid #ecdcd5;
+    border-radius: 12px;
+    background: #fff;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .lx-vm__variant small {
+    color: #6b5a5c;
+  }
+
+  .lx-vm__variant input:checked + span {
+    border-color: #c2386b;
+    background: #fbe8ef;
+    color: #c2386b;
+  }
+
+  .lx-vm__variant input:focus-visible + span {
+    outline: 2px solid #c2386b;
+    outline-offset: 2px;
+  }
+
+  .lx-vm__variant input:disabled + span {
+    opacity: 0.45;
+    text-decoration: line-through;
+  }
+
+  .lx-vm__buy {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+
+  .lx-vm__qty {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ecdcd5;
+    border-radius: 14px;
+    background: #fff;
+  }
+
+  .lx-vm__qty button {
+    width: 42px;
+    height: 50px;
+    border: 0;
+    background: transparent;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+  .lx-vm__qty input {
+    width: 40px;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    text-align: center;
+    -moz-appearance: textfield;
+  }
+
+  .lx-vm__qty input::-webkit-inner-spin-button {
+    appearance: none;
+  }
+
+  .lx-vm__add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    border: 0;
+    border-radius: 14px;
+    background: #b81f5a;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+  }
+
+  .lx-vm__add:hover:not(:disabled) {
+    filter: brightness(1.08);
+  }
+
+  .lx-vm__add:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .lx-vm__msg {
+    min-height: 1.2em;
+    margin: 0 0 12px;
+    font-size: 0.8125rem;
+    color: #5e5256;
+  }
+
+  .lx-vm__msg a {
+    color: #b81f5a;
+    font-weight: 600;
+  }
+
+  .lx-vm__trust {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 0 0 24px;
+    padding: 14px;
+    border-radius: 14px;
+    background: #f1e8e4;
+    list-style: none;
+  }
+
+  .lx-vm__trust li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .lx-vm__trust b {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .lx-vm__trust small {
+    display: block;
+    font-size: 0.6875rem;
+    color: #6b5a5c;
+  }
+
+  .lx-vm__bhead {
+    margin: 0 0 12px;
+    padding-top: 18px;
+    border-top: 1px solid #ecdcd5;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  .lx-vm__benefits {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 0 0 16px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lx-vm__benefits li {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 14px;
+    background: #f6ece8;
+    font-size: 0.8125rem;
+    line-height: 1.3;
+  }
+
+  .lx-vm__benefits svg {
+    color: #c2386b;
+  }
+
+  .lx-vm__pdp {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #b81f5a;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* Phones & small tablets: full-screen sheet — video, rail, then product */
+  @media screen and (max-width: 989px) {
+    .lx-vm__panel {
+      display: block;
+      width: 100vw;
+      height: 100dvh;
+      padding: 0;
+      overflow-y: auto;
+      border-radius: 0;
+    }
+
+    .lx-vm__nav {
+      display: none;
+    }
+
+    .lx-vm__close {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      background: rgb(255 255 255 / 0.85);
+    }
+
+    .lx-vm__stage {
+      height: min(72dvh, 640px);
+      border-radius: 0;
+    }
+
+    .lx-vm__rail {
+      flex-direction: row;
+      padding: 12px 16px;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .lx-vm__thumb {
+      width: 64px;
+    }
+
+    .lx-vm__info {
+      padding: 4px 16px 32px;
+      overflow: visible;
+    }
+
+    .lx-vm__features,
+    .lx-vm__benefits {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 14px;
+    }
+
+    .lx-vm__features li:nth-child(3) {
+      border-left: 0;
+    }
+
+    .lx-vm__trust {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lx-vm[open] {
+      animation: none;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -787,22 +1795,151 @@
   "class": "section-lx-stories",
   "max_blocks": 12,
   "settings": [
-    { "type": "header", "content": "Heading" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Blog" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Blog stories" },
-    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Real people. Real routines. Real wellness." },
-    { "type": "text", "id": "follow_label", "label": "Follow button label", "default": "Follow us @lustxstore" },
-    { "type": "url", "id": "follow_link", "label": "Follow button link" },
-    { "type": "header", "content": "Style" },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Blog"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Blog stories"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Real people. Real routines. Real wellness."
+    },
+    {
+      "type": "text",
+      "id": "follow_label",
+      "label": "Follow button label",
+      "default": "Follow us @lustxstore"
+    },
+    {
+      "type": "url",
+      "id": "follow_link",
+      "label": "Follow button link"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
     {
       "type": "image_picker",
       "id": "background_image",
       "label": "Background image",
       "info": "Leave empty to use the default leaf-and-light background."
     },
-    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#a8532c" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 }
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#a8532c"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "header",
+      "content": "Video overlay"
+    },
+    {
+      "type": "checkbox",
+      "id": "overlay_enabled",
+      "label": "Open videos in a shoppable overlay",
+      "default": true
+    },
+    {
+      "type": "product",
+      "id": "overlay_product",
+      "label": "Default product",
+      "info": "Shown next to every video unless a video picks its own product."
+    },
+    {
+      "type": "text",
+      "id": "overlay_eyebrow",
+      "label": "Eyebrow",
+      "default": "Featured in video"
+    },
+    {
+      "type": "textarea",
+      "id": "overlay_subtitle",
+      "label": "Product subtitle",
+      "info": "Defaults to the start of the product description."
+    },
+    {
+      "type": "range",
+      "id": "overlay_rating",
+      "label": "Star rating (×10, 0 hides)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "text",
+      "id": "overlay_reviews",
+      "label": "Review count label",
+      "placeholder": "120 Reviews"
+    },
+    {
+      "type": "text",
+      "id": "overlay_button",
+      "label": "Button label",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "textarea",
+      "id": "overlay_features",
+      "label": "Feature row",
+      "info": "One per line: icon | label. Icons: leaf, flask, box, heart, shield, herb, lotus, sun, moon.",
+      "default": "leaf | 100% Natural\nflask | Science-Informed\nbox | Individually Packed\nheart | Daily Wellness Support"
+    },
+    {
+      "type": "textarea",
+      "id": "overlay_trust",
+      "label": "Trust row",
+      "info": "One per line: icon | title | subtitle. Icons: truck, shield, returns.",
+      "default": "truck | Free Shipping | on prepaid orders\nshield | Secure Payment | 100% safe & secure\nreturns | Easy Support | Our team is here to help"
+    },
+    {
+      "type": "text",
+      "id": "overlay_benefits_heading",
+      "label": "Benefits heading",
+      "default": "Key Benefits"
+    },
+    {
+      "type": "textarea",
+      "id": "overlay_benefits",
+      "label": "Benefits",
+      "info": "One per line: icon | label. Icons: bolt, shield, leaf, gut, heart, sun, moon.",
+      "default": "sun | Morning Balance\nbolt | Afternoon Glow\nmoon | Evening Restore\nleaf | Plant-Based Wellness"
+    }
   ],
   "blocks": [
     {
@@ -821,8 +1958,17 @@
           "label": "Cover image",
           "info": "Optional. Defaults to the video's preview frame."
         },
-        { "type": "text", "id": "title", "label": "Title" },
-        { "type": "text", "id": "tag", "label": "Tag", "placeholder": "Daily habits" },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag",
+          "placeholder": "Daily habits"
+        },
         {
           "type": "text",
           "id": "video_asset",
@@ -841,6 +1987,32 @@
           "id": "link",
           "label": "Link",
           "info": "Optional. Makes the title link somewhere, e.g. a related blog post."
+        },
+        {
+          "type": "header",
+          "content": "Overlay"
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Caption over video",
+          "placeholder": "A simple ritual for more energy every morning ✨"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Featured product",
+          "info": "Leave empty to use the section's default product."
+        },
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Product title override"
+        },
+        {
+          "type": "textarea",
+          "id": "product_subtitle",
+          "label": "Product subtitle override"
         }
       ]
     }
@@ -848,7 +2020,23 @@
   "presets": [
     {
       "name": "Video stories",
-      "blocks": [{ "type": "video" }, { "type": "video" }, { "type": "video" }, { "type": "video" }, { "type": "video" }]
+      "blocks": [
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        }
+      ]
     }
   ]
 }

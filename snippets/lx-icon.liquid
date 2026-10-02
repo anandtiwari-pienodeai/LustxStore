@@ -1,7 +1,7 @@
 {%- doc -%}
   Line icons for the Lust Xstore homepage sections (shapes from the original homepage design).
 
-  @param {string} icon - bell | blister | book | box | busy | cal | calm | check | eye | flask | globe | headset | heart | herb | home | kit_afternoon | kit_evening | kit_formula | kit_guide | kit_hub | kit_kitbox | kit_morning | leaf | lotus | medal | moon | palette | path | person | shield | sprout | sun | sunrise | travel | woman | work
+  @param {string} icon - bell | blister | book | box | busy | cal | calm | check | eye | flask | globe | headset | heart | herb | home | kit_afternoon | kit_evening | kit_formula | kit_guide | kit_hub | kit_kitbox | kit_morning | leaf | lotus | medal | moon | palette | path | person | shield | sprout | sun | sunrise | travel | woman | work | truck | returns | bolt | gut | star
   @param {number} [size] - Pixel size (default 24)
   @param {number} [stroke] - Stroke width (default 1.7)
 {%- enddoc -%}
@@ -42,6 +42,11 @@
   {%- when 'travel' -%}{%- assign d = 'M22 2 11 13 M22 2l-7 20-4-9-9-4z' -%}
   {%- when 'woman' -%}{%- assign d = 'M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M4 21a8 8 0 0 1 16 0' -%}
   {%- when 'work' -%}{%- assign d = 'M4 8h16v11H4z M9 8V5h6v3 M4 13h16' -%}
+  {%- when 'truck' -%}{%- assign d = 'M2 6h12v10H2z M14 9h4l3 3v4h-7 M6.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z M17.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z' -%}
+  {%- when 'returns' -%}{%- assign d = 'M3 12a9 9 0 0 1 15.5-6.2L21 8 M21 3v5h-5 M21 12a9 9 0 0 1-15.5 6.2L3 16 M3 21v-5h5' -%}
+  {%- when 'bolt' -%}{%- assign d = 'M13 2 4 14h7l-1 8 9-12h-7z' -%}
+  {%- when 'gut' -%}{%- assign d = 'M9 3v3a3 3 0 0 0 3 3h2a4 4 0 0 1 0 8h-3a3 3 0 0 0-3 3v1 M15 9a3 3 0 0 1 3 3' -%}
+  {%- when 'star' -%}{%- assign d = 'M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z' -%}
   {%- else -%}{%- assign d = 'M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z' -%}
 {%- endcase -%}
 <svg viewBox="0 0 24 24" width="{{ size | default: 24 }}" height="{{ size | default: 24 }}" aria-hidden="true"><path d="{{ d }}" fill="none" stroke="currentColor" stroke-width="{{ stroke | default: 1.7 }}" stroke-linecap="round" stroke-linejoin="round"/></svg>

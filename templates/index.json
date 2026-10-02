@@ -855,7 +855,9 @@
         "follow_link": "https://www.instagram.com/lustxstore",
         "accent_color": "#a8532c",
         "padding_top": 0,
-        "padding_bottom": 56
+        "padding_bottom": 56,
+        "overlay_enabled": true,
+        "overlay_product": "body-अर्क®-women-product-detail-page"
       }
     },
     "lx_blog_carousel": {

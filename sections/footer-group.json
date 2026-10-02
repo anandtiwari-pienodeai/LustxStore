@@ -49,12 +49,12 @@
                 "brand_logo": {
                   "type": "image",
                   "settings": {
-                    "asset_filename": "body-arc-logo.png",
-                    "asset_width": 2073,
-                    "asset_height": 758,
+                    "asset_filename": "lustxstore-logo-stacked.png",
+                    "asset_width": 933,
+                    "asset_height": 696,
                     "image_ratio": "adapt",
                     "width": "custom",
-                    "custom_width": 65
+                    "custom_width": 55
                   }
                 },
                 "brand_tagline": {
@@ -491,9 +491,9 @@
             "bottom_logo": {
               "type": "image",
               "settings": {
-                "asset_filename": "body-arc-logo.png",
-                "asset_width": 2073,
-                "asset_height": 758,
+                "asset_filename": "lustxstore-logo-dark.png",
+                "asset_width": 1600,
+                "asset_height": 331,
                 "image_ratio": "adapt",
                 "width": "custom",
                 "custom_width": 15,

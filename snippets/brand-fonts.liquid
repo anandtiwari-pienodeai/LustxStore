@@ -1,0 +1,50 @@
+{%- comment -%}
+  Site-wide typography: Geist (matches altrx.com).
+  Rendered last in <head> so it overrides the theme font settings and the
+  home.css / arka.css font variables.
+{%- endcomment -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&display=swap"
+>
+<style>
+  :root {
+    --brand-font: 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --font-body--family: var(--brand-font);
+    --font-body--style: normal;
+    --font-body--weight: 400;
+    --font-subheading--family: var(--brand-font);
+    --font-subheading--style: normal;
+    --font-subheading--weight: 500;
+    --font-heading--family: var(--brand-font);
+    --font-heading--style: normal;
+    --font-heading--weight: 500;
+    --font-accent--family: var(--brand-font);
+    --font-accent--style: normal;
+
+    --h-font-body: var(--brand-font);
+    --h-font-head: var(--brand-font);
+    --h-font-script: var(--brand-font);
+    --arka-font-body: var(--brand-font);
+    --arka-font-heading: var(--brand-font);
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    letter-spacing: -0.025em;
+  }
+
+  /* Homepage markup (ba-home-dc.txt on the Shopify CDN) hardcodes inline
+     Playfair / Manrope / Caveat, so only !important can override it. */
+  #ba-home-mount,
+  #ba-home-mount * {
+    font-family: var(--brand-font) !important;
+  }
+
+  #ba-home-mount :is(h1, h2, h3, h4, h5, h6) {
+    font-weight: 500 !important;
+  }
+</style>

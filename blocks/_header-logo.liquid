@@ -59,10 +59,10 @@
       <img
         src="{{ block_settings.asset_filename | asset_url }}"
         alt="{{ alt_text_fallback }}"
-        width="1920"
-        height="819"
+        width="1600"
+        height="331"
         class="header-logo__image"
-        style="width: auto; height: {{ settings.logo_height_mobile }}px; --header-logo-image-height-mobile: {{ settings.logo_height_mobile }}px; --header-logo-image-height: {{ settings.logo_height }}px;"
+        style="width: auto; --header-logo-image-height-mobile: {{ settings.logo_height_mobile }}px; --header-logo-image-height: {{ settings.logo_height }}px;"
       >
     {% else %}
       {% render 'image',

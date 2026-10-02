@@ -1573,12 +1573,6 @@
       },
       {
         "type": "text",
-        "id": "lx_cart_subtitle",
-        "label": "Subtitle",
-        "default": "Review your items before checkout"
-      },
-      {
-        "type": "text",
         "id": "lx_cart_badge",
         "label": "Product badge",
         "info": "Shown on every cart item. Leave blank to hide.",
@@ -1588,7 +1582,7 @@
         "type": "textarea",
         "id": "lx_cart_tagline",
         "label": "Product tagline",
-        "info": "Shown under the product title. Leave blank to use the start of the product description.",
+        "info": "Shown on collection product cards.",
         "default": "Complete daily wellness support for mind, body and hormonal balance."
       },
       {
@@ -1605,9 +1599,29 @@
       },
       {
         "type": "text",
-        "id": "lx_cart_empty_button",
-        "label": "Empty cart button",
-        "default": "Explore the Product"
+        "id": "lx_cart_delivery_label",
+        "label": "Delivery label",
+        "default": "Delivery Charges:"
+      },
+      {
+        "type": "checkbox",
+        "id": "lx_cart_free_delivery",
+        "label": "Show free delivery",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "lx_cart_free_delivery_min",
+        "label": "Free delivery from (order total)",
+        "info": "0 = every order. Below this, the cart shows “Calculated at checkout”. Display only — set real rates in Settings → Shipping.",
+        "default": 0
+      },
+      {
+        "type": "number",
+        "id": "lx_cart_delivery_fee",
+        "label": "Usual delivery fee (shown struck out)",
+        "info": "0 hides the struck-out fee.",
+        "default": 100
       },
       {
         "type": "text",

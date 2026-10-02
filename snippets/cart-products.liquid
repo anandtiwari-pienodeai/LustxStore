@@ -212,18 +212,7 @@
                         mode: 'trigger'
                       %}
                     </div>
-                    {%- if context == 'drawer' and item.parent_relationship.parent == null -%}
-                      {%- liquid
-                        assign lx_tagline = settings.lx_cart_tagline
-                        if lx_tagline == blank
-                          assign lx_tagline = item.product.description | strip_html | strip_newlines | truncate: 90
-                        endif
-                      -%}
-                      {%- if lx_tagline != blank -%}
-                        <p class="lx-cd__tagline">{{ lx_tagline }}</p>
-                      {%- endif -%}
-                    {%- endif -%}
-                                        {% if item.product.vendor and block_settings.vendor %}
+                    {% if item.product.vendor and block_settings.vendor %}
                       <p>
                         {{ item.product.vendor }}
                       </p>

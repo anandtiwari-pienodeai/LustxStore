@@ -107,7 +107,11 @@
       "foreground": "#000000",
       "color1": "#333333",
       "color2": "#DFDFDF"
-    }
+    },
+    "seo_brand": "Lust Xstore",
+    "seo_default_description": "BODY अर्क Women by Lust Xstore: a 45-day plant-based wellness ritual with Morning Balance, Afternoon Glow and Evening Restore pouches. Made in India.",
+    "seo_same_as": "https://www.instagram.com/lustxstore",
+    "seo_home_title": "Lust Xstore | BODY अर्क Women 45-Day Wellness Ritual"
   },
   "presets": {
     "Horizon": {

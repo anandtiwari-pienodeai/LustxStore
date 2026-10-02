@@ -548,6 +548,7 @@
           this.dialog.addEventListener('click', (e) => { if (e.target === this.dialog) this.dialog.close(); });
           this.dialog.addEventListener('close', () => {
             this.video.pause();
+            this.restoreCards();
             document.documentElement.classList.remove('lx-vm-open');
             this.opener?.focus?.();
           });
@@ -576,19 +577,72 @@
           );
           this.video.addEventListener('timeupdate', () => this.tick());
           this.video.addEventListener('loadedmetadata', () => this.tick());
+          // Thumbnails that couldn't copy a card frame load their own small preview once
+          // the main video has data, so they never compete with it for a connection.
+          this.video.addEventListener('canplay', () => {
+            this.querySelectorAll('[data-thumb-video]').forEach((t) => {
+              if (t.preload !== 'metadata') t.preload = 'metadata';
+            });
+          }, { once: true });
           this.video.addEventListener('ended', () => this.show((this.index + 1) % this.thumbs.length, true));
           this.seek.addEventListener('input', () => {
             if (this.video.duration) this.video.currentTime = (this.seek.value / 1000) * this.video.duration;
           });
 
-          // Thumbnails without an image use the video's own frame
-          this.querySelectorAll('[data-thumb-video]').forEach((v) => (v.preload = 'metadata'));
+          // Browsers cap simultaneous video downloads per site, so the carousel's card videos
+          // are released while the overlay is open (and restored on close).
+          this.cardVideos = [...(this.closest('section')?.querySelectorAll('.lx-stories__slide video') || [])];
 
           // Product panels
           this.panels.forEach((panel) => this.wireProduct(panel));
         }
 
+        // Rail thumbnails without an image get a still frame copied from the matching card video.
+        captureThumbs() {
+          if (this.thumbsCaptured) return;
+          this.thumbsCaptured = true;
+          const frames = this.cardVideos.filter((v) => v.closest('.lx-story--video'));
+          this.thumbs.forEach((thumb, i) => {
+            const holder = thumb.querySelector('[data-thumb-video]');
+            const src = frames[i];
+            if (!holder || !src || src.readyState < 2) return;
+            try {
+              const canvas = document.createElement('canvas');
+              canvas.width = 160;
+              canvas.height = Math.round((160 * src.videoHeight) / src.videoWidth) || 200;
+              canvas.getContext('2d').drawImage(src, 0, 0, canvas.width, canvas.height);
+              const img = document.createElement('img');
+              img.alt = '';
+              img.src = canvas.toDataURL('image/jpeg', 0.75);
+              holder.replaceWith(img);
+            } catch (e) {
+              /* cross-origin frame: keep the placeholder */
+            }
+          });
+        }
+
+        releaseCards() {
+          this.cardVideos.forEach((v) => {
+            if (!v.getAttribute('src') && !v.currentSrc) return;
+            v.pause();
+            v.dataset.lxSrc = v.getAttribute('src') || v.currentSrc;
+            v.removeAttribute('src');
+            v.querySelectorAll('source').forEach((sEl) => { sEl.dataset.lxSrc = sEl.src; sEl.removeAttribute('src'); });
+            v.load();
+          });
+        }
+
+        restoreCards() {
+          this.cardVideos.forEach((v) => {
+            v.querySelectorAll('source[data-lx-src]').forEach((sEl) => (sEl.src = sEl.dataset.lxSrc));
+            if (v.dataset.lxSrc && !v.querySelector('source')) v.src = v.dataset.lxSrc;
+            v.load();
+          });
+        }
+
         open(index, opener) {
+          this.captureThumbs();
+          this.releaseCards();
           this.opener = opener || document.activeElement;
           document.documentElement.classList.add('lx-vm-open');
           if (!this.dialog.open) this.dialog.showModal();
@@ -1726,7 +1780,8 @@
   /* Phones & small tablets: full-screen sheet — video, rail, then product */
   @media screen and (max-width: 989px) {
     .lx-vm__panel {
-      display: block;
+      display: flex;
+      flex-direction: column;
       width: 100vw;
       height: 100dvh;
       padding: 0;
@@ -1746,8 +1801,20 @@
     }
 
     .lx-vm__stage {
-      height: min(72dvh, 640px);
+      flex: 0 0 auto;
+      order: 1;
+      height: min(68dvh, 620px);
       border-radius: 0;
+    }
+
+    .lx-vm__rail {
+      flex: 0 0 auto;
+      order: 2;
+    }
+
+    .lx-vm__info {
+      flex: 0 0 auto;
+      order: 3;
     }
 
     .lx-vm__rail {

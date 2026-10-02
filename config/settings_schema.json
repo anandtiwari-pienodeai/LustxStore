@@ -2116,5 +2116,45 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "SEO",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Used for search results and social sharing when a page has no SEO details of its own (set those in Shopify admin → each page/product → Search engine listing)."
+      },
+      {
+        "type": "text",
+        "id": "seo_brand",
+        "label": "Brand name in titles",
+        "default": "Lust Xstore",
+        "info": "Shown after page titles, e.g. \"Our Story – Lust Xstore\"."
+      },
+      {
+        "type": "text",
+        "id": "seo_home_title",
+        "label": "Homepage title",
+        "info": "Used when the homepage title in Shopify admin → Preferences is empty or just the store name. Aim for 50–60 characters."
+      },
+      {
+        "type": "textarea",
+        "id": "seo_default_description",
+        "label": "Default meta description",
+        "info": "Aim for 120–155 characters."
+      },
+      {
+        "type": "image_picker",
+        "id": "seo_share_image",
+        "label": "Default share image",
+        "info": "1200 × 630 px. Used when a page has no image of its own."
+      },
+      {
+        "type": "textarea",
+        "id": "seo_same_as",
+        "label": "Social profiles",
+        "info": "One URL per line (Instagram, Facebook, YouTube…). Helps search engines connect them to your brand."
+      }
+    ]
   }
 ]

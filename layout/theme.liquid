@@ -12,7 +12,11 @@
         type="image/png"
         href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
       >
+    {%- else -%}
+      {%- comment -%} Default Lust Xstore icon until a favicon is set in Theme settings {%- endcomment -%}
+      <link rel="icon" type="image/png" href="{{ 'lx-favicon.png' | asset_url }}">
     {%- endif -%}
+    <link rel="apple-touch-icon" href="{{ 'lx-apple-touch-icon.png' | asset_url }}">
 
     {% comment %}
       Opt into cross-document (MPA) view transitions and hold first paint until #MainContent
@@ -36,6 +40,7 @@
     {% endif %}
 
     {%- render 'meta-tags' -%}
+    {%- render 'lx-seo-schema' -%}
     {%- render 'stylesheets' -%}
     {%- render 'fonts' -%}
     {%- render 'scripts' -%}

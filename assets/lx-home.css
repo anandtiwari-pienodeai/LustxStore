@@ -851,6 +851,7 @@
     scroll-snap-type: x mandatory;
     margin-inline: -20px;
     padding: 4px 20px 12px;
+    scroll-padding-inline: 20px;
     scrollbar-width: none;
   }
 
@@ -1892,3 +1893,126 @@
   .lx-jr__phases.lx-swipe,
   .lx-jr__miles.lx-swipe { padding-top: 18px; }
 }
+
+/* Phones: one full-width phase card at a time, aligned to the timeline box (no peeking / clipped neighbours) */
+@media screen and (max-width: 749px) {
+  .lx-jr__phases.lx-swipe {
+    grid-auto-columns: 100%;
+    gap: 16px;
+    margin-inline: 0;
+    padding: 18px 0 16px;
+    scroll-padding-inline: 0;
+  }
+
+  .lx-jr__phases.lx-swipe > * { scroll-snap-align: center; }
+
+  .lx-jr__phase.is-active {
+    transform: none;
+    box-shadow: 0 14px 26px -18px var(--ph-color);
+  }
+  .lx-jr__phases.lx-swipe { padding-bottom: 24px; }
+  .lx-jr__here { right: 16px; }
+}
+
+/* Phones: milestone cards sit level (no lift), with a soft shadow that isn't clipped */
+@media screen and (max-width: 749px) {
+  .lx-jr__miles.lx-swipe {
+    align-items: stretch;
+    padding-bottom: 24px;
+  }
+
+  .lx-jr__mile,
+  .lx-jr__mile.is-current {
+    transform: none;
+  }
+
+  .lx-jr__mile.is-current {
+    box-shadow: 0 14px 26px -18px var(--m-color);
+  }
+}
+
+/* Phones: journey visual stacks — full-width photo, quote banner, then the "continues" card with icon beside text */
+@media screen and (max-width: 749px) {
+  .lx-jr__visual {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .lx-jr__photo {
+    display: grid;
+    place-items: center;
+    padding-bottom: 64px;
+  }
+
+  .lx-jr__photo img {
+    width: auto;
+    max-width: 78%;
+    height: 240px;
+    max-height: none;
+    padding: 20px 0 0;
+  }
+
+  .lx-jr__photo figcaption {
+    justify-content: center;
+    font-size: 0.75rem;
+  }
+
+  .lx-jr__side { gap: 12px; }
+
+  .lx-jr__quote {
+    display: block;
+    text-wrap: balance;
+    hyphens: none;
+    padding: 18px 22px;
+    font-size: 1.0625rem;
+  }
+
+  .lx-jr__quote span {
+    display: inline;
+    margin-inline: 4px;
+    font-size: 1.125rem;
+    vertical-align: -1px;
+  }
+
+  .lx-jr__continue {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    column-gap: 14px;
+    align-items: start;
+  }
+
+  .lx-jr__continue-icon {
+    grid-row: 1 / span 2;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+  }
+
+  .lx-jr__continue b { font-size: 1rem; margin-bottom: 4px; }
+  .lx-jr__continue p { font-size: 0.8125rem; }
+}
+
+/* Blend the kit photo's white backdrop into the pink panel */
+.lx-jr__photo img { mix-blend-mode: multiply; }
+
+/* Milestone tracker: the label shows only on the current card; cards animate as the highlight moves */
+.lx-jr__mile { cursor: pointer; transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, opacity 0.4s ease, background-color 0.4s ease; }
+.lx-jr__now { opacity: 0; transform: translateY(-3px); transition: opacity 0.3s ease, transform 0.3s ease; }
+.lx-jr__mile.is-current .lx-jr__now { opacity: 1; transform: none; }
+
+/* Kit viewer dots are tappable */
+.lx-kit__viewer-dots i { cursor: pointer; }
+
+/* Kit viewer: each image fills the panel, inset 20px on every side */
+.lx-kit__viewer-img {
+  inset: 20px;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  padding: 0;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 18px 40px -24px rgb(80 50 40 / 0.45);
+}
+
+.lx-kit__viewer-dots { bottom: 30px; right: 50%; transform: translateX(50%); z-index: 2; }
+.lx-kit__viewer-tag { top: 32px; left: 32px; }

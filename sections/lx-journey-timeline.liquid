@@ -77,6 +77,8 @@
           // Only run while the timeline is on screen.
           this.io = new IntersectionObserver(([entry]) => {
             this.visible = entry.isIntersecting;
+            // Catch up if the phase changed while the timeline was off screen
+            if (this.visible) this.scrollToPhase(this.activePhase);
             this.loop();
           });
           this.io.observe(this);

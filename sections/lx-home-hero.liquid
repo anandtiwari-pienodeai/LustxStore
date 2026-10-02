@@ -165,6 +165,7 @@
           this.querySelectorAll('.lx-rc__pill').forEach((pill) =>
             pill.setAttribute('aria-selected', String(Number(pill.dataset.step) === step))
           );
+          this.revealPill(step);
           this.querySelectorAll('.lx-rc__bar i').forEach((bar, i) => {
             bar.style.transition = 'none';
             bar.style.width = i < step ? '100%' : '0%';
@@ -177,6 +178,18 @@
           clearTimeout(this.timer);
           if (this.reduced && !manual) return;
           this.timer = setTimeout(() => this.next(), this.ms);
+        }
+
+        // Phones: the pill row is wider than the card, so slide the active pill into view
+        // (moves the row only — the page never scrolls)
+        revealPill(step) {
+          const row = this.querySelector('.lx-rc__pills');
+          const pill = this.querySelector(`.lx-rc__pill[data-step="${step}"]`);
+          if (!row || !pill || row.scrollWidth <= row.clientWidth + 1) return;
+          const rowBox = row.getBoundingClientRect();
+          const pillBox = pill.getBoundingClientRect();
+          const left = row.scrollLeft + (pillBox.left - rowBox.left) - (rowBox.width - pillBox.width) / 2;
+          row.scrollTo({ left: Math.max(0, left), behavior: this.reduced ? 'auto' : 'smooth' });
         }
 
         next() {

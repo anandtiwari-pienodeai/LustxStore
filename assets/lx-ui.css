@@ -186,3 +186,26 @@
     animation-duration: 0.01ms !important;
   }
 }
+
+/* Phones: drop the side rules so divider headings fit on one line; long ones wrap evenly */
+@media screen and (max-width: 749px) {
+  .lx-h__rule {
+    gap: 10px;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+  }
+
+  .lx-h__rule::before,
+  .lx-h__rule::after {
+    display: none;
+  }
+
+  .lx-h__rule span {
+    text-wrap: balance;
+  }
+
+  .lx-h__rule span::before,
+  .lx-h__rule span::after {
+    margin-inline: 6px;
+  }
+}

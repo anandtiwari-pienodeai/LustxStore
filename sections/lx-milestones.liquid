@@ -7,15 +7,15 @@
   <div class="lx-h__wrap">
     {%- comment -%} ---------- Milestones ---------- {%- endcomment -%}
     <h3 class="lx-h__rule lx-jr__mile-head"><span>{{ section.settings.milestone_heading | escape }}</span></h3>
-    <ol class="lx-swipe lx-jr__miles" data-lx-miles role="list" style="--cols: 5; --cols-tablet: 3; --swipe-w: 64%;">
+    <ol class="lx-swipe lx-jr__miles" data-lx-miles data-autoplay="{% if section.settings.autoplay %}{{ section.settings.interval }}{% else %}0{% endif %}" role="list" style="--cols: 5; --cols-tablet: 3; --swipe-w: 64%;">
       {% assign idx = 0 %}
       {% for block in section.blocks %}
         {% if block.type == 'milestone' %}
           {% assign m = block.settings %}
           {% assign idx = idx | plus: 1 %}
-          <li class="lx-jr__mile{% if idx == section.settings.current_milestone %} is-current{% elsif idx < section.settings.current_milestone %} is-done{% endif %}" style="--m-color: {{ m.color }};" {{ block.shopify_attributes }}>
+          <li data-mile="{{ idx }}" class="lx-jr__mile{% if idx == section.settings.current_milestone %} is-current{% elsif idx < section.settings.current_milestone %} is-done{% endif %}" style="--m-color: {{ m.color }};" {{ block.shopify_attributes }}>
             <span class="lx-jr__mile-num">{{ idx | prepend: '0' | slice: -2, 2 }}</span>
-            {% if idx == section.settings.current_milestone %}<span class="lx-jr__now">You are here</span>{% endif %}
+            <span class="lx-jr__now" aria-hidden="true">You are here</span>
             <span class="lx-jr__mile-orb">{% render 'lx-icon', icon: m.icon, size: 28, stroke: 1.5 %}</span>
             <h4>{{ m.title | escape }}</h4>
             <p>{{ m.text | escape }}</p>
@@ -28,21 +28,63 @@
 
 <script>
   (function () {
-    // Phones: when the milestones come into view, slide the row to the "You are here" card
+    // Milestone tracker: the "You are here" highlight walks through the cards while they're on screen.
+    // Earlier cards read as done (✓); on phones the row slides to the current card (row only, never the page).
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.querySelectorAll('[data-lx-miles]').forEach(function (row) {
       if (row.dataset.ready) return;
       row.dataset.ready = 'true';
-      var current = row.querySelector('.is-current');
-      if (!current || !('IntersectionObserver' in window)) return;
-      var io = new IntersectionObserver(function (entries) {
-        if (!entries[0].isIntersecting) return;
-        io.disconnect();
-        if (row.scrollWidth <= row.clientWidth + 1) return;
+      var cards = Array.prototype.slice.call(row.querySelectorAll('[data-mile]'));
+      if (!cards.length) return;
+      var interval = parseInt(row.dataset.autoplay, 10) || 0;
+      var start = cards.findIndex(function (c) { return c.classList.contains('is-current'); });
+      var current = start < 0 ? 0 : start;
+      var visible = false, holdUntil = 0, timer;
+
+      function slideTo(card) {
+        if (row.scrollWidth <= row.clientWidth + 1 || !visible || Date.now() < holdUntil) return;
         var pad = parseFloat(getComputedStyle(row).scrollPaddingInlineStart) || 0;
-        var left = row.scrollLeft + current.getBoundingClientRect().left - row.getBoundingClientRect().left - pad;
-        row.scrollTo({ left: left, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-      }, { threshold: 0.4 });
-      io.observe(row);
+        var left = row.scrollLeft + card.getBoundingClientRect().left - row.getBoundingClientRect().left - pad;
+        row.scrollTo({ left: left, behavior: reduced ? 'auto' : 'smooth' });
+      }
+
+      function set(i) {
+        current = i;
+        cards.forEach(function (c, n) {
+          c.classList.toggle('is-current', n === i);
+          c.classList.toggle('is-done', n < i);
+          if (n === i) c.setAttribute('aria-current', 'step'); else c.removeAttribute('aria-current');
+        });
+        slideTo(cards[i]);
+      }
+
+      function loop() {
+        clearTimeout(timer);
+        if (!interval || reduced || !visible) return;
+        timer = setTimeout(function () {
+          if (Date.now() < holdUntil) return loop();
+          set((current + 1) % cards.length);
+          loop();
+        }, current === cards.length - 1 ? interval * 1.6 : interval);
+      }
+
+      var hold = function () { holdUntil = Date.now() + 6000; };
+      row.addEventListener('touchstart', hold, { passive: true });
+      row.addEventListener('wheel', hold, { passive: true });
+      row.addEventListener('mouseenter', function () { holdUntil = Infinity; });
+      row.addEventListener('mouseleave', function () { holdUntil = 0; });
+      cards.forEach(function (c, n) {
+        c.addEventListener('click', function () { hold(); set(n); });
+      });
+
+      set(current);
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          visible = entries[0].isIntersecting;
+          if (visible) slideTo(cards[current]);
+          loop();
+        }, { threshold: 0.4 }).observe(row);
+      }
     });
   })();
 </script>
@@ -67,8 +109,10 @@
       "max": 5,
       "step": 1,
       "default": 2,
-      "info": "0 hides the marker."
+      "info": "Where the tracker starts. 0 hides the marker."
     },
+    { "type": "checkbox", "id": "autoplay", "label": "Move \"You are here\" through the milestones", "default": true },
+    { "type": "range", "id": "interval", "label": "Time on each milestone", "min": 1500, "max": 6000, "step": 250, "unit": "ms", "default": 2500 },
     {
       "type": "header",
       "content": "Spacing"

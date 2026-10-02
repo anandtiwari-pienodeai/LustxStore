@@ -60,15 +60,71 @@
       'lx-kit-viewer',
       class extends HTMLElement {
         connectedCallback() {
-          this.querySelectorAll('.lx-kit__item').forEach((btn) => {
-            btn.addEventListener('click', () => this.select(Number(btn.dataset.step)));
+          this.row = this.querySelector('.lx-kit__items');
+          this.cards = [...this.querySelectorAll('.lx-kit__item')];
+          this.current = Math.max(0, this.cards.findIndex((b) => b.classList.contains('is-active')));
+          this.cards.forEach((btn) => {
+            btn.addEventListener('click', () => {
+              this.select(Number(btn.dataset.step));
+              this.reveal(Number(btn.dataset.step));
+            });
             if (matchMedia('(hover: hover)').matches) {
               btn.addEventListener('mouseenter', () => this.select(Number(btn.dataset.step)));
             }
           });
+          // Image dots double as controls
+          this.querySelectorAll('.lx-kit__dots [data-step], .lx-kit__viewer-dots [data-step]').forEach((dot) =>
+            dot.addEventListener('click', () => {
+              this.select(Number(dot.dataset.step));
+              this.reveal(Number(dot.dataset.step));
+            })
+          );
+          // Phones: the card row scrolls sideways — the card at the front drives the image above
+          this.row?.addEventListener('scroll', () => {
+            if (this.programmatic) return;
+            cancelAnimationFrame(this.raf);
+            this.raf = requestAnimationFrame(() => this.syncFromScroll());
+          }, { passive: true });
+          this.row?.addEventListener('scrollend', () => { this.programmatic = false; this.syncFromScroll(); });
+        }
+
+        get scrollable() {
+          return this.row && this.row.scrollWidth > this.row.clientWidth + 1;
+        }
+
+        syncFromScroll() {
+          if (!this.scrollable) return;
+          const rowBox = this.row.getBoundingClientRect();
+          const pad = parseFloat(getComputedStyle(this.row).scrollPaddingInlineStart) || 0;
+          const anchor = rowBox.left + pad;
+          // At the far end the last card can't reach the front, so pick it once the row is fully scrolled
+          const atEnd = this.row.scrollLeft + this.row.clientWidth >= this.row.scrollWidth - 2;
+          let best = atEnd ? this.cards.length - 1 : 0;
+          if (!atEnd) {
+            let bestDist = Infinity;
+            this.cards.forEach((card, i) => {
+              const d = Math.abs(card.getBoundingClientRect().left - anchor);
+              if (d < bestDist) { bestDist = d; best = i; }
+            });
+          }
+          if (best !== this.current) this.select(best);
+        }
+
+        // Slide a card to the front of the row (row only — the page never scrolls)
+        reveal(step) {
+          if (!this.scrollable) return;
+          const card = this.cards[step];
+          if (!card) return;
+          const pad = parseFloat(getComputedStyle(this.row).scrollPaddingInlineStart) || 0;
+          const left = this.row.scrollLeft + card.getBoundingClientRect().left - this.row.getBoundingClientRect().left - pad;
+          this.programmatic = true;
+          clearTimeout(this.progTimer);
+          this.progTimer = setTimeout(() => (this.programmatic = false), 700);
+          this.row.scrollTo({ left, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
         }
 
         select(step) {
+          this.current = step;
           this.querySelectorAll('[data-step]').forEach((el) =>
             el.classList.toggle('is-active', Number(el.dataset.step) === step)
           );

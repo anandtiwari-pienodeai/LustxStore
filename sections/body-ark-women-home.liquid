@@ -1,0 +1,35 @@
+{%- comment -%}
+  BODY अर्क WOMEN — homepage (matches the "Lust Xstore Women Homepage" design).
+  The page markup + interactions are loaded from the files below (Settings → Files).
+  To update the design, replace ba-home-dc.txt and bump the version in its URL.
+{%- endcomment -%}
+<div id="ba-home-mount" class="ba-home" style="min-height:100vh;background:#fdf4ef;"></div>
+<script>
+  (function () {
+    var DC_URL = {{ section.settings.dc_url | default: 'https://cdn.shopify.com/s/files/1/0788/8814/0938/files/ba-home-dc.txt?v=1790428236' | json }};
+    var RT_URL = {{ section.settings.runtime_url | default: 'https://cdn.shopify.com/s/files/1/0788/8814/0938/files/ba-dc-runtime.txt?v=1790428137' | json }};
+    Promise.all([
+      fetch(DC_URL).then(function (r) { return r.text(); }),
+      fetch(RT_URL).then(function (r) { return r.text(); })
+    ]).then(function (res) {
+      var mount = document.getElementById('ba-home-mount');
+      mount.innerHTML = res[0];
+      var s = document.createElement('script');
+      s.textContent = res[1];
+      document.body.appendChild(s);
+      setTimeout(function () { mount.style.minHeight = ''; }, 1500);
+    }).catch(function (e) { console.error('[BODY ARK home] failed to load', e); });
+  })();
+</script>
+{% schema %}
+{
+  "name": "BODY ARK Women Home",
+  "tag": "section",
+  "class": "ba-home-section",
+  "settings": [
+    { "type": "url", "id": "dc_url", "label": "Design source URL (optional override)" },
+    { "type": "url", "id": "runtime_url", "label": "Runtime URL (optional override)" }
+  ],
+  "presets": [{ "name": "BODY ARK Women Home" }]
+}
+{% endschema %}

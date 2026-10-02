@@ -1,0 +1,133 @@
+{%- comment -%} Exposes the six Wellness blogs to the Lust Xstore hub pages as window.LX_LIVE_MAPPED + window.LX_ARTICLES. {%- endcomment -%}
+<script>
+(function(){var L=[];
+{%- assign lx_hs = 'everyday_wellness,womens_wellness,ingredients,lifestyle,self_care,personal_care' | split: ',' -%}
+{%- for h in lx_hs -%}{%- for a in blogs[h].articles limit: 50 -%}
+L.push({blog:{{ h | json }},handle:{{ a.handle | json }},title:{{ a.title | json }},excerpt:{{ a.excerpt_or_content | strip_html | truncatewords: 26 | json }},img:{% if a.image %}{{ a.image | image_url: width: 1400 | json }}{% else %}null{% endif %},date:{{ a.published_at | date: '%B %-d, %Y' | json }},ts:{{ a.published_at | date: '%s' }},words:{{ a.content | strip_html | split: ' ' | size }},body:{{ a.content | json }}});
+{%- endfor -%}{%- endfor %}
+var M={everyday_wellness:'everyday',womens_wellness:'women',ingredients:'ingredients',lifestyle:'lifestyle',self_care:'selfcare',personal_care:'personal'};
+L.sort(function(a,b){return b.ts-a.ts;});window.LX_ARTICLES={};
+window.LX_LIVE_MAPPED=L.map(function(a,i){window.LX_ARTICLES[a.handle]=a.body;var u=a.img;if(u&&u.indexOf('//')===0)u='https:'+u;return {cat:M[a.blog],title:a.title,excerpt:a.excerpt,mins:Math.max(1,Math.round(a.words/200)),img:u,path:'/blogs/'+a.blog+'/'+a.handle,date:a.date,order:i+1};});})();
+</script>
+
+{%- comment -%}
+  Route article clicks to the real blog URL (/blogs/{blog}/{article}) instead of the in-page
+  "#article/{handle}" hash. Works for existing links, new links added later, and old shared hash URLs.
+{%- endcomment -%}
+<script>
+(function () {
+  var RE = /#\/?article\/([^\/?#]+)/;
+
+  function handleFrom(str) {
+    var m = RE.exec(str || '');
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
+  function pathFor(handle) {
+    var list = window.LX_LIVE_MAPPED || [];
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].path.split('/').pop() === handle) return list[i].path;
+    }
+    return null;
+  }
+
+  function redirectFromHash() {
+    var h = handleFrom(window.location.hash);
+    var p = h && pathFor(h);
+    if (p) window.location.replace(p);
+  }
+
+  function rewriteLinks() {
+    var links = document.querySelectorAll('a[href*="#article/"], a[href*="#/article/"]');
+    for (var i = 0; i < links.length; i++) {
+      var h = handleFrom(links[i].getAttribute('href'));
+      var p = h && pathFor(h);
+      if (p) links[i].setAttribute('href', p);
+    }
+  }
+
+  window.addEventListener('hashchange', redirectFromHash);
+  redirectFromHash();
+
+  function start() {
+    rewriteLinks();
+    new MutationObserver(rewriteLinks).observe(document.body, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script>
+
+{%- comment -%}
+  Remove the empty space (and the faint decorative strip) between the site header and the
+  Wellness sub-navigation (Ingredients / Articles / Guides / Videos / Journal / Community).
+  The hub markup is loaded from Settings -> Files, so the gap is measured at runtime.
+  TARGET = distance in px left between the header and the sub-navigation bar (0 = flush).
+{%- endcomment -%}
+<script>
+(function () {
+  var TARGET = 0;
+  var LABELS = ['Ingredients', 'Articles', 'Guides', 'Videos', 'Journal', 'Community'];
+
+  function getMount() {
+    return document.getElementById('lx-hub-mount') || document.getElementById('lx-articles-mount');
+  }
+
+  function findTabs(root) {
+    var best = null;
+    var bestLen = 1e9;
+    var all = root.getElementsByTagName('*');
+    for (var i = 0; i < all.length; i++) {
+      var tag = all[i].tagName;
+      if (tag === 'SCRIPT' || tag === 'STYLE') continue;
+      var t = all[i].textContent || '';
+      if (t.length > 400) continue;
+      var ok = true;
+      for (var j = 0; j < LABELS.length; j++) {
+        if (t.indexOf(LABELS[j]) < 0) { ok = false; break; }
+      }
+      if (ok && t.length <= bestLen) { best = all[i]; bestLen = t.length; }
+    }
+    return best;
+  }
+
+  function apply() {
+    var m = getMount();
+    if (!m) return false;
+    var tabs = findTabs(m);
+    if (!tabs) return false;
+
+    /* keep the mount (and any decorative blobs inside it) underneath the site header */
+    m.style.position = 'relative';
+    m.style.zIndex = '0';
+    m.style.overflowX = 'clip';
+
+    m.style.marginTop = '';
+    if (window.pageYOffset > 5) return true;
+    var header = document.querySelector('header');
+    var headerBottom = header ? header.getBoundingClientRect().bottom : 0;
+    var gap = tabs.getBoundingClientRect().top - headerBottom;
+    var shift = Math.round(gap - TARGET);
+    if (shift > 0) m.style.marginTop = '-' + shift + 'px';
+    return true;
+  }
+
+  var tries = 0;
+  var iv = setInterval(function () {
+    tries++;
+    if (apply() || tries > 40) clearInterval(iv);
+  }, 250);
+
+  window.addEventListener('load', function () { setTimeout(apply, 300); });
+
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(apply, 150);
+  });
+})();
+</script>

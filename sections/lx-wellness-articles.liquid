@@ -1,0 +1,22 @@
+{%- comment -%} Lust Xstore Wellness Articles. Markup loads from Settings → Files (lx-articles-dc.txt). {%- endcomment -%}
+{%- render 'lx-live-articles' -%}
+<style>
+.lx-prose h2{font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(24px,3vw,30px);line-height:1.2;color:#2f3a26;margin:40px 0 14px}
+.lx-prose h3{font-family:'Playfair Display',serif;font-weight:600;font-size:21px;color:#2f3a26}
+.lx-prose p{margin:0 0 18px}.lx-prose ul,.lx-prose ol{margin:0 0 20px;padding-left:22px}.lx-prose li{margin-bottom:6px}.lx-prose img{max-width:100%}
+</style>
+<div id="lx-articles-mount" style="min-height:100vh;background:#fdf4ef;"></div>
+<script>
+(function () {
+  var DC_URL = {{ section.settings.dc_url | default: 'https://cdn.shopify.com/s/files/1/0788/8814/0938/files/lx-articles-dc.txt?v=1790878196' | json }};
+  var RT_URL = 'https://cdn.shopify.com/s/files/1/0788/8814/0938/files/ba-dc-runtime.txt?v=1790428137';
+  Promise.all([fetch(DC_URL).then(function (r) { return r.text(); }), fetch(RT_URL).then(function (r) { return r.text(); })]).then(function (res) {
+    var m = document.getElementById('lx-articles-mount'); m.innerHTML = res[0];
+    var s = document.createElement('script'); s.textContent = res[1]; document.body.appendChild(s);
+    setTimeout(function () { m.style.minHeight = ''; }, 1500);
+  }).catch(function (e) { console.error('[Wellness Articles] failed to load', e); });
+})();
+</script>
+{% schema %}
+{ "name": "Wellness Articles", "tag": "section", "class": "lx-articles-section", "settings": [{ "type": "url", "id": "dc_url", "label": "Design source URL (optional override)" }], "presets": [{ "name": "Wellness Articles" }] }
+{% endschema %}

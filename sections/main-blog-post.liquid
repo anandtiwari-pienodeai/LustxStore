@@ -1,15 +1,15 @@
-
-
 {% liquid
   if section.settings.background_color != blank
     render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
   endif
 %}
 
+<div class="reading-progress" aria-hidden="true"><span class="reading-progress__bar"></span></div>
+
 <div
   class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
 ></div>
-<div class="section{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}">
+<div class="section blog-article{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}">
   <div
     class="
       spacing-style
@@ -24,6 +24,30 @@
     "
   >
     {% content_for 'blocks' %}
+
+    {% assign share_url = shop.url | append: article.url | url_encode %}
+    {% assign share_title = article.title | url_encode %}
+
+    <div class="blog-article-extras">
+      {% if article.tags.size > 0 %}
+        <ul class="blog-article-tags">
+          {% for tag in article.tags %}
+            <li><a href="{{ blog.url }}/tagged/{{ tag | handleize }}">{{ tag }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <div class="blog-article-share">
+        <span class="blog-article-share__label">Share this article</span>
+        <div class="blog-article-share__links">
+          <a href="https://wa.me/?text={{ share_title }}%20{{ share_url }}" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://twitter.com/intent/tweet?text={{ share_title }}&url={{ share_url }}" target="_blank" rel="noopener">X</a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" rel="noopener">Facebook</a>
+          <a href="mailto:?subject={{ share_title }}&body={{ share_url }}">Email</a>
+          <button type="button" class="blog-article-share__copy" data-copy-url="{{ shop.url }}{{ article.url }}">Copy link</button>
+        </div>
+      </div>
+    </div>
 
     {% if blog.comments_enabled? %}
       <div class="blog-post-comments-container">
@@ -56,11 +80,153 @@
   </div>
 </div>
 
+<script>
+  (function () {
+    var bar = document.querySelector('.reading-progress__bar');
+    if (bar) {
+      var update = function () {
+        var el = document.documentElement;
+        var max = el.scrollHeight - el.clientHeight;
+        var pct = max > 0 ? Math.min(el.scrollTop / max, 1) : 0;
+        bar.style.transform = 'scaleX(' + pct + ')';
+      };
+      document.addEventListener('scroll', update, { passive: true });
+      update();
+    }
+    document.querySelectorAll('[data-copy-url]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var url = btn.getAttribute('data-copy-url');
+        var done = function () {
+          var old = btn.textContent;
+          btn.textContent = 'Copied!';
+          setTimeout(function () { btn.textContent = old; }, 1800);
+        };
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(url).then(done);
+        }
+      });
+    });
+  })();
+</script>
+
 <script type="application/ld+json">
   {{ article | structured_data }}
 </script>
 
 {% stylesheet %}
+  .reading-progress {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 3px;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  .reading-progress__bar {
+    display: block;
+    height: 100%;
+    background: var(--color-foreground);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .blog-article h1 {
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .blog-article .blog-post-details {
+    justify-content: center;
+    font-size: 0.8125rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .blog-article .section-content-wrapper img:not(.blog-post-content img) {
+    width: 100%;
+    max-height: 620px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  .blog-article-extras {
+    width: 100%;
+    max-width: var(--normal-content-width);
+    margin: 8px auto 0;
+    padding-block: 28px;
+    border-block: 1px solid rgb(var(--color-foreground-rgb) / 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .blog-article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .blog-article-tags a {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgb(var(--color-foreground-rgb) / 0.06);
+    font-size: 0.8125rem;
+    text-decoration: none;
+    color: var(--color-foreground);
+    transition: background-color 0.2s ease;
+  }
+
+  .blog-article-tags a:hover {
+    background: rgb(var(--color-foreground-rgb) / 0.14);
+  }
+
+  .blog-article-share {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+  }
+
+  .blog-article-share__label {
+    font-size: 0.8125rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0.65;
+  }
+
+  .blog-article-share__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .blog-article-share__links a,
+  .blog-article-share__copy {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid rgb(var(--color-foreground-rgb) / 0.2);
+    background: transparent;
+    font: inherit;
+    font-size: 0.8125rem;
+    line-height: 1;
+    text-decoration: none;
+    color: var(--color-foreground);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .blog-article-share__links a:hover,
+  .blog-article-share__copy:hover {
+    background: var(--color-foreground);
+    color: var(--color-background);
+  }
+
   .blog-post-comments-container {
     width: 100%;
     max-width: var(--normal-content-width);

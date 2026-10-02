@@ -1,0 +1,17 @@
+{%- comment -%} Lust Xstore Wellness Hub. Markup loads from Settings → Files (lx-hub-dc.txt). Blog cards read live from the six Wellness blogs. {%- endcomment -%}
+{%- render 'lx-live-articles' -%}
+<div id="lx-hub-mount" style="min-height:100vh;background:#fdf4ef;"></div>
+<script>
+(function () {
+  var DC_URL = {{ section.settings.dc_url | default: 'https://cdn.shopify.com/s/files/1/0788/8814/0938/files/lx-hub-dc.txt?v=1790869126' | json }};
+  var RT_URL = 'https://cdn.shopify.com/s/files/1/0788/8814/0938/files/ba-dc-runtime.txt?v=1790428137';
+  Promise.all([fetch(DC_URL).then(function (r) { return r.text(); }), fetch(RT_URL).then(function (r) { return r.text(); })]).then(function (res) {
+    var m = document.getElementById('lx-hub-mount'); m.innerHTML = res[0];
+    var s = document.createElement('script'); s.textContent = res[1]; document.body.appendChild(s);
+    setTimeout(function () { m.style.minHeight = ''; }, 1500);
+  }).catch(function (e) { console.error('[Wellness Hub] failed to load', e); });
+})();
+</script>
+{% schema %}
+{ "name": "Lust Xstore Wellness Hub", "tag": "section", "class": "lx-hub-section", "settings": [{ "type": "url", "id": "dc_url", "label": "Design source URL (optional override)" }], "presets": [{ "name": "Lust Xstore Wellness Hub" }] }
+{% endschema %}

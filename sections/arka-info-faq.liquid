@@ -8,7 +8,7 @@
   style="--arka-hero-bg: {{ section.settings.bg_color }}; --pbs: {{ section.settings.padding_block_start }}px; --pbe: {{ section.settings.padding_block_end }}px;"
 >
   <div class="arka-wrap">
-    <div class="arka-info__grid">
+    <div class="arka-info__grid{% if faqs.size == 0 %} arka-info__grid--notes-only{% endif %}">
       <div class="arka-info__col">
         {%- if section.settings.notes_eyebrow != blank -%}
           <p class="arka-eyebrow">{{ section.settings.notes_eyebrow }}</p>
@@ -26,6 +26,7 @@
         </div>
       </div>
 
+      {%- if faqs.size > 0 -%}
       <div class="arka-info__col">
         {%- if section.settings.faq_eyebrow != blank -%}
           <p class="arka-eyebrow">{{ section.settings.faq_eyebrow }}</p>
@@ -45,17 +46,35 @@
           {%- endfor -%}
         </div>
       </div>
+      {%- endif -%}
     </div>
   </div>
 </section>
 
-{% render 'lx-faq-schema', blocks: section.blocks, type: 'faq' %}
+{%- if faqs.size > 0 -%}
+  {% render 'lx-faq-schema', blocks: section.blocks, type: 'faq' %}
+{%- endif -%}
 
 {% stylesheet %}
   .arka-info__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: clamp(2rem, 4.5vw, 3.5rem);
+  }
+
+  /* Notes only (FAQ lives in the shared lx-faq section): notes run in a row */
+  .arka-info__grid--notes-only {
+    grid-template-columns: 1fr;
+  }
+
+  .arka-info__grid--notes-only .arka-notes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px 32px;
+  }
+
+  @media (max-width: 749px) {
+    .arka-info__grid--notes-only .arka-notes { grid-template-columns: 1fr; }
   }
 
   .arka-info__title {

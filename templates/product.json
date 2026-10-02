@@ -248,54 +248,12 @@
             "title": "Storage",
             "body": "<p>Store in a cool, dry place away from direct sunlight. Keep out of reach of children.</p>"
           }
-        },
-        "f1": {
-          "type": "faq",
-          "settings": {
-            "question": "How long does one box last?",
-            "answer": "<p>One box is a complete 45-day journey — one strip a day, with a Morning, Afternoon and Evening sachet on each strip.</p>",
-            "open_by_default": true
-          }
-        },
-        "f2": {
-          "type": "faq",
-          "settings": {
-            "question": "Do I need to take all three sachets every day?",
-            "answer": "<p>Yes. Morning Balance, Afternoon Glow and Evening Restore work together as one complete daily ritual.</p>"
-          }
-        },
-        "f3": {
-          "type": "faq",
-          "settings": {
-            "question": "Can I take it on an empty stomach?",
-            "answer": "<p>Please follow the serving directions printed on your pack. Many people find it easiest to pair each sachet with a meal.</p>"
-          }
-        },
-        "f4": {
-          "type": "faq",
-          "settings": {
-            "question": "What happens after 45 days?",
-            "answer": "<p>You'll have completed one full journey. You can continue with a new kit to keep your routine going.</p>"
-          }
-        },
-        "f5": {
-          "type": "faq",
-          "settings": {
-            "question": "I missed a sachet. What should I do?",
-            "answer": "<p>Simply continue with your next sachet. Don't double up — just pick up where you left off.</p>",
-            "open_by_default": false
-          }
         }
       },
       "block_order": [
         "n1",
         "n2",
-        "n3",
-        "f1",
-        "f2",
-        "f3",
-        "f4",
-        "f5"
+        "n3"
       ],
       "settings": {
         "notes_eyebrow": "Good To Know",
@@ -304,7 +262,7 @@
         "faq_heading": "FAQ",
         "bg_color": "#F5EEE3",
         "padding_block_start": 96,
-        "padding_block_end": 0
+        "padding_block_end": 64
       }
     },
     "signoff": {
@@ -405,6 +363,160 @@
         "overlay_enabled": true,
         "overlay_product": "body-अर्क®-women-product-detail-page"
       }
+    },
+    "lx_faq": {
+      "type": "lx-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "What is BODY अर्क WOMEN?",
+            "answer": "<p>BODY अर्क WOMEN is a thoughtfully designed 45-Day Premium Wellness Kit that brings together five specialised wellness formulations within a simple, organised daily experience for modern women.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "How is the wellness experience organised?",
+            "answer": "<p>The kit is organised around three daily wellness moments — Morning, Afternoon and Evening — with clearly identified, individually packed tablets that make the routine simple and easy to follow.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "What comes inside the BODY अर्क WOMEN Kit?",
+            "answer": "<p>The Premium Magnetic Wellness Kit, organised daily wellness pouches, five specialised formulations, a Welcome Guide and access to the BODY अर्क Wellness Hub.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Why are the tablets individually packed?",
+            "answer": "<p>Each tablet is individually packed to support product integrity, hygiene and convenience, while keeping your daily experience organised.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "Where can I learn more about the ingredients?",
+            "answer": "<p>Visit the BODY अर्क Wellness Hub to explore the Ingredient Library, our formulation philosophy and educational wellness resources.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "Is customer support available?",
+            "answer": "<p>Yes. Our Wellness Support Team is available to help with product guidance, general enquiries and your overall BODY अर्क experience.</p>"
+          }
+        },
+        "q7": {
+          "type": "question",
+          "settings": {
+            "question": "What happens after completing the first 45 days?",
+            "answer": "<p>Your first 45 days establish the foundation. We recommend continuing with the Recommended 90-Day Wellness Journey to build lasting consistency.</p>"
+          }
+        },
+        "q8": {
+          "type": "question",
+          "settings": {
+            "question": "What is the BODY अर्क Confidence Promise?",
+            "answer": "<p>Our commitment to quality, transparency and customer support. Eligible customers who complete the Recommended 90-Day Journey may qualify for the Satisfaction Commitment, subject to the Confidence Promise Policy and eligibility criteria.</p>"
+          }
+        },
+        "help_promise": {
+          "type": "help",
+          "settings": {
+            "icon": "shield",
+            "title": "Confidence Promise",
+            "subtitle": "Policy & eligibility",
+            "tint": "#fbe9ee",
+            "ink": "#c2386b"
+          }
+        },
+        "help_hub": {
+          "type": "help",
+          "settings": {
+            "icon": "book",
+            "title": "Wellness Hub",
+            "subtitle": "Guides & ingredients",
+            "tint": "#eeebf8",
+            "ink": "#6b5aa6",
+            "link": "/pages/wellness-hub"
+          }
+        },
+        "help_support": {
+          "type": "help",
+          "settings": {
+            "icon": "headset",
+            "title": "Customer Support",
+            "subtitle": "Talk to our team",
+            "tint": "#edf2e8",
+            "ink": "#5e7650",
+            "link": "/pages/contact"
+          }
+        },
+        "help_shipping": {
+          "type": "help",
+          "settings": {
+            "icon": "truck",
+            "title": "Shipping & Orders",
+            "subtitle": "Delivery & tracking",
+            "tint": "#fbeee3",
+            "ink": "#c26a35",
+            "link": "/policies/shipping-policy"
+          }
+        },
+        "pdp_f1": {
+          "type": "question",
+          "settings": {
+            "question": "How long does one box last?",
+            "answer": "<p>One box is a complete 45-day journey — one strip a day, with a Morning, Afternoon and Evening sachet on each strip.</p>"
+          }
+        },
+        "pdp_f2": {
+          "type": "question",
+          "settings": {
+            "question": "Do I need to take all three sachets every day?",
+            "answer": "<p>Yes. Morning Balance, Afternoon Glow and Evening Restore work together as one complete daily ritual.</p>"
+          }
+        },
+        "pdp_f3": {
+          "type": "question",
+          "settings": {
+            "question": "Can I take it on an empty stomach?",
+            "answer": "<p>Please follow the serving directions printed on your pack. Many people find it easiest to pair each sachet with a meal.</p>"
+          }
+        },
+        "pdp_f5": {
+          "type": "question",
+          "settings": {
+            "question": "I missed a sachet. What should I do?",
+            "answer": "<p>Simply continue with your next sachet. Don't double up — just pick up where you left off.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "pdp_f1",
+        "pdp_f2",
+        "pdp_f3",
+        "pdp_f5",
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "help_promise",
+        "help_hub",
+        "help_support",
+        "help_shipping"
+      ],
+      "settings": {
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
     }
   },
   "order": [
@@ -414,6 +526,7 @@
     "inside_box",
     "how_to_use",
     "info_faq",
+    "lx_faq",
     "signoff"
   ]
 }

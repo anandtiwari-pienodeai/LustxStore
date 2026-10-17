@@ -1,4 +1,3 @@
-
 {%- doc -%}
   Renders the blog post info text block.
 
@@ -39,6 +38,14 @@
     {%- if block_settings.show_author -%}
       <span>{{ display_author }}</span>
     {%- endif -%}
+
+    {%- if block_settings.show_reading_time != false and article.content != blank -%}
+      {%- assign word_count = article.content | strip_html | split: ' ' | size -%}
+      {%- assign read_minutes = word_count | divided_by: 200.0 | ceil -%}
+      {%- if read_minutes < 1 -%}{%- assign read_minutes = 1 -%}{%- endif -%}
+      <span>{{ 'content.blog_details_separator' | t }}</span>
+      <span>{{ read_minutes }} min read</span>
+    {%- endif -%}
   </div>
 {% endif %}
 
@@ -72,6 +79,12 @@
       "type": "checkbox",
       "id": "show_author",
       "label": "t:settings.show_author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reading_time",
+      "label": "Show reading time",
       "default": true
     },
     {

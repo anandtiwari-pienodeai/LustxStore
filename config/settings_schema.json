@@ -1569,6 +1569,80 @@
       },
       {
         "type": "header",
+        "content": "Cart drawer (Lust Xstore)"
+      },
+      {
+        "type": "text",
+        "id": "lx_cart_badge",
+        "label": "Product badge",
+        "info": "Shown on every cart item. Leave blank to hide.",
+        "default": "Bestseller"
+      },
+      {
+        "type": "textarea",
+        "id": "lx_cart_tagline",
+        "label": "Product tagline",
+        "info": "Shown on collection product cards.",
+        "default": "Complete daily wellness support for mind, body and hormonal balance."
+      },
+      {
+        "type": "text",
+        "id": "lx_cart_empty_heading",
+        "label": "Empty cart heading",
+        "default": "Your cart is empty"
+      },
+      {
+        "type": "textarea",
+        "id": "lx_cart_empty_text",
+        "label": "Empty cart text",
+        "default": "Looks like you haven’t added anything yet. Explore our wellness products and start your journey towards a healthier you."
+      },
+      {
+        "type": "text",
+        "id": "lx_cart_delivery_label",
+        "label": "Delivery label",
+        "default": "Delivery Charges:"
+      },
+      {
+        "type": "checkbox",
+        "id": "lx_cart_free_delivery",
+        "label": "Show free delivery",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "lx_cart_free_delivery_min",
+        "label": "Free delivery from (order total)",
+        "info": "0 = every order. Below this, the cart shows “Calculated at checkout”. Display only — set real rates in Settings → Shipping.",
+        "default": 0
+      },
+      {
+        "type": "number",
+        "id": "lx_cart_delivery_fee",
+        "label": "Usual delivery fee (shown struck out)",
+        "info": "0 hides the struck-out fee.",
+        "default": 100
+      },
+      {
+        "type": "text",
+        "id": "lx_cart_trust_1",
+        "label": "Trust badge 1",
+        "default": "Premium Wellness Products"
+      },
+      {
+        "type": "text",
+        "id": "lx_cart_trust_2",
+        "label": "Trust badge 2",
+        "default": "Secure Checkout"
+      },
+      {
+        "type": "text",
+        "id": "lx_cart_trust_3",
+        "label": "Trust badge 3",
+        "default": "Trusted by Thousands"
+      },
+      {
+        "type": "header",
         "content": "t:content.product_media"
       },
       {
@@ -2114,6 +2188,46 @@
           }
         ],
         "default": "equal-width-buttons"
+      }
+    ]
+  },
+  {
+    "name": "SEO",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Used for search results and social sharing when a page has no SEO details of its own (set those in Shopify admin → each page/product → Search engine listing)."
+      },
+      {
+        "type": "text",
+        "id": "seo_brand",
+        "label": "Brand name in titles",
+        "default": "Lust Xstore",
+        "info": "Shown after page titles, e.g. \"Our Story – Lust Xstore\"."
+      },
+      {
+        "type": "text",
+        "id": "seo_home_title",
+        "label": "Homepage title",
+        "info": "Used when the homepage title in Shopify admin → Preferences is empty or just the store name. Aim for 50–60 characters."
+      },
+      {
+        "type": "textarea",
+        "id": "seo_default_description",
+        "label": "Default meta description",
+        "info": "Aim for 120–155 characters."
+      },
+      {
+        "type": "image_picker",
+        "id": "seo_share_image",
+        "label": "Default share image",
+        "info": "1200 × 630 px. Used when a page has no image of its own."
+      },
+      {
+        "type": "textarea",
+        "id": "seo_same_as",
+        "label": "Social profiles",
+        "info": "One URL per line (Instagram, Facebook, YouTube…). Helps search engines connect them to your brand."
       }
     ]
   }

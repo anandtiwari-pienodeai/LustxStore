@@ -22,32 +22,81 @@
     fetchpriority="low"
   ></script>
 
+  {% capture lx_cart_trust %}
+    <ul class="lx-cd__trust" role="list">
+      <li>
+        <span class="lx-cd__trust-icon">{% render 'lx-icon', icon: 'leaf', size: 22, stroke: 1.5 %}</span>
+        <span>{{ settings.lx_cart_trust_1 | default: 'Premium Wellness Products' }}</span>
+      </li>
+      <li>
+        <span class="lx-cd__trust-icon">{% render 'lx-icon', icon: 'truck', size: 22, stroke: 1.5 %}</span>
+        <span>{{ settings.lx_cart_trust_2 | default: 'Secure Checkout' }}</span>
+      </li>
+      <li>
+        <span class="lx-cd__trust-icon">{% render 'lx-icon', icon: 'shield', size: 22, stroke: 1.5 %}</span>
+        <span>{{ settings.lx_cart_trust_3 | default: 'Trusted by Thousands' }}</span>
+      </li>
+    </ul>
+  {% endcapture %}
+
   {% capture empty_cart_drawer_content %}
     <div
-      class="cart-drawer__content"
+      class="cart-drawer__content lx-cd__empty"
       aria-label="{{ 'accessibility.cart' | t }}"
+      data-cart-drawer-empty
     >
-      <h2
-        class="theme-drawer__title h4"
-        id="cart-drawer-heading"
-      >
-        {{ 'content.your_cart_is_empty' | t }}
-      </h2>
+      <div class="lx-cd__empty-body">
+      <svg class="lx-cd__empty-art" viewBox="0 0 260 210" aria-hidden="true">
+        <ellipse cx="130" cy="186" rx="104" ry="16" fill="#f6e6de"/>
+        <g fill="none" stroke="#a8664f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M82 26l14 16 M130 14v26 M178 26l-14 16" stroke="#c98a6c"/>
+          <path d="M60 78l118-8 36 10-6 104-128 10z" fill="#fbeee8"/>
+          <path d="M178 70l36 10 -6 104" fill="#f3ddd3"/>
+          <path d="M60 78l-2 116" />
+          <path d="M100 92c-2-30 6-44 16-44s18 14 16 42" />
+          <circle cx="100" cy="92" r="3" fill="#a8664f"/>
+          <circle cx="132" cy="90" r="3" fill="#a8664f"/>
+        </g>
+      </svg>
 
-      <div class="cart-drawer__items">
-        {% render 'cart-products', force_empty: true, context: 'drawer' %}
+      <h2 class="lx-cd__empty-title" id="cart-drawer-heading">
+        {%- if settings.lx_cart_empty_heading != blank -%}
+          {{ settings.lx_cart_empty_heading }}
+        {%- else -%}
+          {{ 'content.your_cart_is_empty' | t }}
+        {%- endif -%}
+      </h2>
+      {%- if settings.lx_cart_empty_text != blank -%}
+        <p class="lx-cd__empty-text">{{ settings.lx_cart_empty_text }}</p>
+      {%- endif -%}
+
+      {{ lx_cart_trust }}
+      </div>
+
+      <div class="lx-cd__empty-foot">
+        <div class="lx-cd__total-row">
+          <span>Total:</span>
+          <span>{{ 0 | money }}</span>
+        </div>
+        <div class="lx-cd__delivery-row">
+          <span>{{ settings.lx_cart_delivery_label | default: 'Delivery Charges:' }}</span>
+          <span>Calculated at checkout</span>
+        </div>
+        <button type="button" class="lx-cd__checkout" disabled>Checkout</button>
       </div>
     </div>
-    {% endcapture %}
+  {% endcapture %}
 
   <theme-drawer
     id="cart-drawer"
+    data-modal
+    no-persist
     data-skip-node-update
   >
     <dialog
       ref="panel"
-      class="theme-drawer__dialog color-custom-drawer"
-      aria-labelledby="cart-drawer-heading"
+      class="theme-drawer__dialog color-custom-drawer lx-cd"
+      aria-labelledby="lx-cart-title"
       cart-summary-sticky="true"
     >
       <cart-drawer-component
@@ -63,44 +112,25 @@
           class="cart-drawer__inner{% if cart.empty? %} cart-drawer--empty{% endif %}"
           data-hydration-key="cart-drawer-inner"
         >
-          {%- if cart.empty? -%}
-            <div class="theme-drawer__header">
-              <button
-                on:click="#cart-drawer/close"
-                class="theme-drawer__close-button cart-drawer__close-button--empty"
-                type="button"
-                aria-label="{{ 'actions.close' | t }}"
-              >
-                <span class="svg-wrapper">
-                  {{- 'icon-close.svg' | inline_asset_content -}}
-                </span>
-              </button>
+          <div class="theme-drawer__header lx-cd__header">
+            <div class="lx-cd__heading">
+              <h2 class="theme-drawer__title lx-cd__title" id="lx-cart-title">
+                Your Cart
+                <span class="lx-cd__count" aria-hidden="true">{{ cart.item_count }}</span>
+                <span class="visually-hidden">{{ 'accessibility.cart_count' | t }}: {{ cart.item_count }}</span>
+              </h2>
             </div>
-          {%- else -%}
-            {% capture cart_badge_html %}
-              <span
-                class="theme-drawer__badge{% if cart.item_count == 0 %} visually-hidden{% endif %}"
-                aria-hidden="true"
-                {% if cart.item_count <= 99 %}
-                  data-maintain-ratio
-                {% endif %}
-              >
-                {{- cart.item_count -}}
+            <button
+              on:click="#cart-drawer/close"
+              class="theme-drawer__close-button lx-cd__close"
+              type="button"
+              aria-label="{{ 'actions.close' | t }}"
+            >
+              <span class="svg-wrapper">
+                {{- 'icon-close.svg' | inline_asset_content -}}
               </span>
-              {% if cart.item_count > 0 %}
-                <span class="visually-hidden">
-                  {{ 'accessibility.cart_count' | t }}: {{ cart.item_count }}
-                </span>
-              {% endif %}
-            {% endcapture %}
-            {% assign cart_drawer_title = 'content.cart_title' | t %}
-            {% render 'theme-drawer-header',
-              title: cart_drawer_title,
-              drawer_id: 'cart-drawer',
-              heading_id: 'cart-drawer-heading',
-              title_append: cart_badge_html
-            %}
-          {%- endif -%}
+            </button>
+          </div>
 
           {% capture cart_items_children %}
             {%- if cart.empty? -%}
@@ -128,8 +158,95 @@
           %}
         </div>
       </cart-drawer-component>
+
+      <div class="lx-cd__skeleton" aria-hidden="true">
+        <div class="lx-cd__sk-head">
+          <span class="lx-cd__sk-title">Your Cart</span>
+          <span class="lx-cd__sk lx-cd__sk--dot"></span>
+          <span class="lx-cd__sk lx-cd__sk--close"></span>
+        </div>
+        <div class="lx-cd__sk-item">
+          <span class="lx-cd__sk lx-cd__sk--img"></span>
+          <div class="lx-cd__sk-lines">
+            <span class="lx-cd__sk" style="width: 78%"></span>
+            <span class="lx-cd__sk" style="width: 78%"></span>
+            <span class="lx-cd__sk" style="width: 34%"></span>
+            <span class="lx-cd__sk lx-cd__sk--qty"></span>
+          </div>
+          <span class="lx-cd__sk lx-cd__sk--price"></span>
+        </div>
+        <div class="lx-cd__sk-row"><span class="lx-cd__sk" style="width: 38%"></span><span class="lx-cd__sk" style="width: 11%"></span></div>
+        <div class="lx-cd__sk-rows">
+          <div class="lx-cd__sk-row"><span class="lx-cd__sk" style="width: 30%"></span><span class="lx-cd__sk" style="width: 16%"></span></div>
+          <div class="lx-cd__sk-row"><span class="lx-cd__sk" style="width: 22%"></span><span class="lx-cd__sk" style="width: 11%"></span></div>
+        </div>
+        <div class="lx-cd__sk-row lx-cd__sk-row--total"><span class="lx-cd__sk" style="width: 38%"></span><span class="lx-cd__sk" style="width: 29%"></span></div>
+        <span class="lx-cd__sk lx-cd__sk--btn"></span>
+      </div>
     </dialog>
   </theme-drawer>
+
+  <script type="module">
+    // Skeleton while any add-to-cart is in flight (theme buttons, quick add, PLP cards)
+    const drawer = document.getElementById('cart-drawer');
+    if (drawer && !drawer.dataset.lxLoadingBound) {
+      drawer.dataset.lxLoadingBound = 'true';
+      let timer;
+      const stop = () => {
+        clearTimeout(timer);
+        requestAnimationFrame(() => drawer.removeAttribute('data-loading'));
+      };
+      document.addEventListener('shopify:cart:lines-update', (event) => {
+        if (event.action !== 'add' || !event.promise) return;
+        drawer.setAttribute('data-loading', '');
+        timer = setTimeout(stop, 8000);
+        event.promise.then(stop, stop);
+      });
+    }
+  </script>
+
+  <script>
+    // The cart always opens as the drawer: /cart links open it in place, and a redirect from /cart
+    // (sessionStorage flag or ?lx_cart=open) re-opens it on arrival. Forms posting to /cart (checkout) are untouched.
+    (function () {
+      if (window.__lxCartRoute) return;
+      window.__lxCartRoute = true;
+      var cartPath = '{{ routes.cart_url }}';
+      var openDrawer = function () {
+        customElements.whenDefined('theme-drawer').then(function () {
+          var drawer = document.getElementById('cart-drawer');
+          if (drawer && typeof drawer.open === 'function' && !drawer.isOpen) drawer.open();
+        });
+      };
+
+      document.addEventListener('click', function (event) {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        var link = event.target.closest && event.target.closest('a[href]');
+        if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+        var url;
+        try { url = new URL(link.href, location.href); } catch (e) { return; }
+        if (url.origin !== location.origin || url.pathname.replace(/\/$/, '') !== cartPath) return;
+        if (!document.getElementById('cart-drawer')) return;
+        event.preventDefault();
+        // Close any open modal first (e.g. the shoppable video overlay) so the drawer sits on top cleanly
+        var modal = link.closest('dialog[open]');
+        if (modal && !modal.closest('#cart-drawer')) modal.close();
+        openDrawer();
+      }, true);
+
+      var params = new URLSearchParams(location.search);
+      var flagged = false;
+      try { flagged = sessionStorage.getItem('lx-open-cart') === '1'; sessionStorage.removeItem('lx-open-cart'); } catch (e) {}
+      if (flagged || params.get('lx_cart') === 'open') {
+        if (params.has('lx_cart')) {
+          params.delete('lx_cart');
+          var clean = location.pathname + (params.toString() ? '?' + params : '') + location.hash;
+          history.replaceState(history.state, '', clean);
+        }
+        openDrawer();
+      }
+    })();
+  </script>
 
   {% if render_wrapper %}
     </div>

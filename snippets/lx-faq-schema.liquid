@@ -1,0 +1,27 @@
+{%- doc -%}
+  FAQPage structured data from a section's question blocks.
+
+  @param {object} blocks - section.blocks
+  @param {string} type - block type that holds a question ('question' or 'faq')
+{%- enddoc -%}
+{%- assign items = '' -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {%- assign first = true -%}
+      {%- for block in blocks -%}
+        {%- if block.type == type and block.settings.question != blank and block.settings.answer != blank -%}
+          {%- unless first %},{% endunless -%}
+          {%- assign first = false %}
+          {
+            "@type": "Question",
+            "name": {{ block.settings.question | strip_html | strip | json }},
+            "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | strip | json }} }
+          }
+        {%- endif -%}
+      {%- endfor %}
+    ]
+  }
+</script>

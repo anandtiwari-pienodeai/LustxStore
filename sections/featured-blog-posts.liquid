@@ -2,6 +2,9 @@
 
 {% liquid
   assign max_items = section.settings.post_limit
+  if section.settings.featured_articles != blank
+    assign max_items = section.settings.featured_articles.count
+  endif
 %}
 
 {% liquid
@@ -30,7 +33,9 @@
 >
   {% content_for 'block', id: 'static-blog-title', type: '_featured-blog-posts-title' %}
 
-  {% if section.settings.blog != blank and section.settings.blog.articles_count > 0 %}
+  {% if section.settings.featured_articles != blank %}
+    {% assign section_articles = section.settings.featured_articles %}
+  {% elsif section.settings.blog != blank and section.settings.blog.articles_count > 0 %}
     {% paginate section.settings.blog.articles by max_items %}
       {% assign section_articles = section.settings.blog.articles %}
     {% endpaginate %}
@@ -89,6 +94,13 @@
   ],
   "settings": [
     {
+      "type": "article_list",
+      "id": "featured_articles",
+      "label": "Blog posts",
+      "info": "Pick the post for each card, in order. Leave empty to show the latest posts from the blog below.",
+      "limit": 10
+    },
+    {
       "type": "blog",
       "id": "blog",
       "label": "t:settings.blog"
@@ -131,7 +143,8 @@
       "min": 2,
       "max": 10,
       "step": 1,
-      "default": 3
+      "default": 3,
+      "visible_if": "{{ section.settings.featured_articles == blank }}"
     },
     {
       "type": "range",

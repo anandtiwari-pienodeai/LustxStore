@@ -193,6 +193,9 @@
                         assign cart_disclosure_unique_id = 'drawer-' | append: item.index
                       endif
                     -%}
+                    {%- if context == 'drawer' and settings.lx_cart_badge != blank and item.parent_relationship.parent == null -%}
+                      <span class="lx-cd__badge">{{ settings.lx_cart_badge }}</span>
+                    {%- endif -%}
                     <div class="cart-items__title-row">
                       <a
                         href="{{ item.url }}"

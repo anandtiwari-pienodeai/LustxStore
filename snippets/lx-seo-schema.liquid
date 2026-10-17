@@ -1,0 +1,100 @@
+{%- comment -%}
+  Structured data (JSON-LD) for search engines:
+  Organization + WebSite on the homepage, Product on product pages,
+  BreadcrumbList on pages, products, collections, blogs and articles.
+  Rendered once in <head> from layout/theme.liquid.
+{%- endcomment -%}
+{%- liquid
+  assign brand = settings.seo_brand | default: shop.name
+  assign home_url = request.origin | append: routes.root_url
+  assign logo_url = 'lustxstore-logo.png' | asset_url | prepend: 'https:'
+  if settings.logo != blank
+    assign logo_url = settings.logo | image_url: width: 600 | prepend: 'https:'
+  endif
+  assign same_as = settings.seo_same_as | newline_to_br | split: '<br />'
+  assign search_target = request.origin | append: routes.search_url | append: '?q=' | append: '{' | append: 'search_term_string' | append: '}'
+-%}
+
+{%- if request.page_type == 'index' -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": {{ home_url | append: '#organization' | json }},
+          "name": {{ brand | json }},
+          "url": {{ home_url | json }},
+          "logo": {{ logo_url | json }}
+          {%- assign links = '' -%}
+          {%- for link in same_as -%}
+            {%- assign l = link | strip -%}
+            {%- if l != blank -%}{%- assign links = links | append: l | append: '|' -%}{%- endif -%}
+          {%- endfor -%}
+          {%- assign links = links | split: '|' -%}
+          {%- if links.size > 0 -%},
+          "sameAs": {{ links | json }}
+          {%- endif %}
+        },
+        {
+          "@type": "WebSite",
+          "@id": {{ home_url | append: '#website' | json }},
+          "name": {{ brand | json }},
+          "url": {{ home_url | json }},
+          "publisher": { "@id": {{ home_url | append: '#organization' | json }} },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {{ search_target | json }},
+            "query-input": "required name=search_term_string"
+          }
+        }
+      ]
+    }
+  </script>
+{%- endif -%}
+
+{%- if request.page_type == 'product' and product -%}
+  <script type="application/ld+json">
+    {{ product | structured_data }}
+  </script>
+{%- endif -%}
+
+{%- liquid
+  assign crumb_name = blank
+  assign crumb_parent_name = blank
+  case request.page_type
+    when 'page'
+      assign crumb_name = page.title
+    when 'product'
+      assign crumb_name = product.title
+      if collection
+        assign crumb_parent_name = collection.title
+        assign crumb_parent_url = collection.url
+      endif
+    when 'collection'
+      assign crumb_name = collection.title
+    when 'blog'
+      assign crumb_name = blog.title
+    when 'article'
+      assign crumb_name = article.title
+      assign crumb_parent_name = blog.title
+      assign crumb_parent_url = blog.url
+  endcase
+-%}
+{%- if crumb_name != blank -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": {{ home_url | json }} },
+        {%- if crumb_parent_name != blank %}
+        { "@type": "ListItem", "position": 2, "name": {{ crumb_parent_name | json }}, "item": {{ request.origin | append: crumb_parent_url | json }} },
+        { "@type": "ListItem", "position": 3, "name": {{ crumb_name | json }}, "item": {{ canonical_url | json }} }
+        {%- else %}
+        { "@type": "ListItem", "position": 2, "name": {{ crumb_name | json }}, "item": {{ canonical_url | json }} }
+        {%- endif %}
+      ]
+    }
+  </script>
+{%- endif -%}

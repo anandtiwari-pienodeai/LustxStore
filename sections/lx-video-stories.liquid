@@ -1,0 +1,2127 @@
+{%- comment -%}
+  Lust Xstore — Video stories.
+  Tall video cards in a coverflow carousel: the centred card is largest, neighbours
+  tilt away and fade at the edges. Native scroll-snap does the swiping; a small
+  script maps each card's distance from centre to CSS variables and plays videos inline.
+
+  Each "Video" block: a Shopify-hosted video (its preview frame is the cover unless a
+  cover image is set), title, tag, optional duration label and optional link.
+  Completely empty blocks are skipped on the storefront; titled ones without media show placeholder art.
+{%- endcomment -%}
+
+{% liquid
+  assign heading_id = 'LxStoriesHeading-' | append: section.id
+  assign story_count = 0
+  for block in section.blocks
+    if block.settings.video != blank or block.settings.video_asset != blank or block.settings.image != blank or block.settings.title != blank
+      assign story_count = story_count | plus: 1
+    endif
+  endfor
+  if section.settings.background_image != blank
+    assign bg_url = section.settings.background_image | image_url: width: 2400
+  else
+    assign bg_url = 'lx-stories-bg.webp' | asset_url
+  endif
+%}
+
+{% if story_count > 0 or request.design_mode %}
+<section
+  class="lx-stories"
+  aria-labelledby="{{ heading_id }}"
+  style="
+    --lx-stories-bg: url('{{ bg_url }}');
+    --lx-stories-accent: {{ section.settings.accent_color }};
+    --lx-stories-pad-top: {{ section.settings.padding_top }}px;
+    --lx-stories-pad-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="lx-stories__head">
+    {% if section.settings.eyebrow != blank %}
+      <p class="lx-stories__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {% endif %}
+    <div class="lx-stories__title-row">
+      <h2 id="{{ heading_id }}" class="lx-stories__heading">{{ section.settings.heading | escape }}</h2>
+      {% if section.settings.follow_label != blank and section.settings.follow_link != blank %}
+        <a class="lx-stories__follow" href="{{ section.settings.follow_link }}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg>
+          {{ section.settings.follow_label | escape }}
+        </a>
+      {% endif %}
+    </div>
+    {% if section.settings.subheading != blank %}
+      <p class="lx-stories__sub">{{ section.settings.subheading | escape }}</p>
+    {% endif %}
+  </div>
+
+  <lx-stories class="lx-stories__carousel">
+    <button type="button" class="lx-stories__arrow lx-stories__arrow--prev" aria-label="Previous story" data-dir="-1">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <ul class="lx-stories__track" role="list" tabindex="0" aria-label="{{ section.settings.heading | escape }}">
+      {% for block in section.blocks %}
+        {% liquid
+          assign story = block.settings
+          if story.video == blank and story.video_asset == blank and story.image == blank and story.title == blank and request.design_mode == false
+            continue
+          endif
+
+          assign has_video = false
+          if story.video != blank or story.video_asset != blank
+            assign has_video = true
+          endif
+
+          assign image = story.image
+          if image == blank and story.video != blank
+            assign image = story.video.preview_image
+          endif
+          # Theme-asset videos ship with a matching still (lx-story-1.mp4 → lx-story-1.jpg)
+          assign poster_url = blank
+          if image == blank and story.video_asset != blank
+            assign poster_url = story.video_asset | replace: '.mp4', '.jpg' | asset_url
+          endif
+
+          assign title = story.title
+          assign tag = story.tag
+          assign url = story.link
+
+          assign duration = story.duration
+          if duration == blank and story.video.duration > 0
+            assign total_seconds = story.video.duration | divided_by: 1000
+            assign minutes = total_seconds | divided_by: 60
+            assign seconds = total_seconds | modulo: 60 | prepend: '0' | slice: -2, 2
+            assign duration = minutes | append: ':' | append: seconds
+          endif
+        %}
+        <li class="lx-stories__slide" {{ block.shopify_attributes }}>
+          <article class="lx-story{% if has_video %} lx-story--video{% endif %}">
+            <div class="lx-story__media">
+              {% if image != blank %}
+                {{
+                  image
+                  | image_url: width: 900
+                  | image_tag:
+                    widths: '320, 480, 640, 900',
+                    sizes: '(min-width: 990px) 300px, 62vw',
+                    loading: 'lazy',
+                    alt: '',
+                    class: 'lx-story__img'
+                }}
+              {% elsif poster_url != blank %}
+                <img class="lx-story__img" src="{{ poster_url }}" alt="" width="540" height="960" loading="lazy" decoding="async">
+              {% else %}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'lx-story__img lx-story__img--placeholder' }}
+              {% endif %}
+              {% if section.settings.overlay_enabled %}
+                {%- comment -%} Playback happens in the overlay; cards only show the poster. {%- endcomment -%}
+              {% elsif story.video != blank %}
+                {{
+                  story.video
+                  | video_tag:
+                    class: 'lx-story__video',
+                    playsinline: true,
+                    muted: false,
+                    controls: false,
+                    preload: 'none',
+                    loop: true
+                }}
+              {% elsif story.video_asset != blank %}
+                {%- comment -%} Theme-asset video: its first frame doubles as the cover when no image is set. {%- endcomment -%}
+                <video
+                  class="lx-story__video"
+                  src="{{ story.video_asset | asset_url }}"
+                  {% if poster_url != blank %}poster="{{ poster_url }}"{% endif %}
+                  playsinline
+                  loop
+                  preload="none"
+                ></video>
+              {% endif %}
+            </div>
+
+            <div class="lx-story__top">
+              {% if tag != blank %}
+                <span class="lx-story__tag">{{ tag | escape }}</span>
+              {% endif %}
+              {% if duration != blank %}
+                <span class="lx-story__duration">{{ duration | escape }}</span>
+              {% elsif story.video_asset != blank %}
+                <span class="lx-story__duration" data-lx-duration></span>
+              {% endif %}
+            </div>
+
+            {% if has_video %}
+              <button type="button" class="lx-story__play" aria-label="Play video: {{ title | escape }}">
+                <svg class="lx-story__icon-play" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+                <svg class="lx-story__icon-pause" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>
+              </button>
+            {% endif %}
+
+            {% if title != blank or url != blank %}
+              <h3 class="lx-story__title">
+                {% if url != blank %}
+                  <a href="{{ url }}" class="lx-story__link">{{ title | default: 'Watch' | escape }}</a>
+                {% else %}
+                  {{ title | escape }}
+                {% endif %}
+              </h3>
+            {% elsif request.design_mode %}
+              <h3 class="lx-story__title">Add a video</h3>
+            {% endif %}
+          </article>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <button type="button" class="lx-stories__arrow lx-stories__arrow--next" aria-label="Next story" data-dir="1">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div class="lx-stories__dots" role="group" aria-label="Choose story"></div>
+  </lx-stories>
+
+  {%- comment -%} ---------- Shoppable video overlay (opens on card click) ---------- {%- endcomment -%}
+  {% if section.settings.overlay_enabled %}
+    {% liquid
+      assign default_product = section.settings.overlay_product
+      if default_product == blank
+        assign default_product = collections.all.products.first
+      endif
+      assign feature_lines = section.settings.overlay_features | newline_to_br | split: '<br />'
+      assign trust_lines = section.settings.overlay_trust | newline_to_br | split: '<br />'
+      assign benefit_lines = section.settings.overlay_benefits | newline_to_br | split: '<br />'
+    %}
+    <lx-video-modal>
+      <dialog class="lx-vm" aria-label="{{ section.settings.heading | escape }}">
+        <button type="button" class="lx-vm__nav lx-vm__nav--prev" data-step="-1" aria-label="Previous video">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="lx-vm__nav lx-vm__nav--next" data-step="1" aria-label="Next video">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <div class="lx-vm__panel">
+          <button type="button" class="lx-vm__close" data-close aria-label="Close">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+
+          {%- comment -%} Thumbnail rail {%- endcomment -%}
+          <div class="lx-vm__rail" role="tablist" aria-label="Videos">
+            {% assign vi = 0 %}
+            {% for block in section.blocks %}
+              {% assign st = block.settings %}
+              {% if st.video == blank and st.video_asset == blank %}{% continue %}{% endif %}
+              {% liquid
+                if st.video != blank
+                  assign mp4 = st.video.sources | where: 'format', 'mp4' | last
+                  assign src = mp4.url
+                else
+                  assign src = st.video_asset | asset_url
+                endif
+                assign thumb = st.image | default: st.video.preview_image
+                assign thumb_poster = blank
+                if thumb == blank and st.video_asset != blank
+                  assign thumb_poster = st.video_asset | replace: '.mp4', '.jpg' | asset_url
+                endif
+              %}
+              <button type="button" class="lx-vm__thumb" role="tab" data-index="{{ vi }}" data-src="{{ src }}" aria-label="{{ st.title | default: 'Video' | escape }}">
+                {% if thumb != blank %}
+                  {{ thumb | image_url: width: 200 | image_tag: alt: '', loading: 'lazy' }}
+                {% elsif thumb_poster != blank %}
+                  <img src="{{ thumb_poster }}" alt="" width="160" height="284" loading="lazy" decoding="async">
+                {% else %}
+                  <video src="{{ src }}#t=0.5" muted playsinline preload="none" data-thumb-video></video>
+                {% endif %}
+              </button>
+              {% assign vi = vi | plus: 1 %}
+            {% endfor %}
+          </div>
+
+          {%- comment -%} Player {%- endcomment -%}
+          <div class="lx-vm__stage">
+            <video class="lx-vm__video" playsinline preload="metadata" data-player></video>
+            <span class="lx-vm__tag" data-tag></span>
+            <span class="lx-vm__dur" data-dur></span>
+            <p class="lx-vm__caption" data-caption></p>
+            <button type="button" class="lx-vm__big-play" data-toggle aria-label="Play">
+              <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+            </button>
+            <div class="lx-vm__controls">
+              <input class="lx-vm__seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek" data-seek>
+              <div class="lx-vm__bar">
+                <button type="button" class="lx-vm__ctl" data-toggle aria-label="Play / pause">
+                  <svg class="lx-vm__i-play" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+                  <svg class="lx-vm__i-pause" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>
+                </button>
+                <span class="lx-vm__time" data-time>0:00 / 0:00</span>
+                <button type="button" class="lx-vm__ctl" data-mute aria-label="Mute / unmute">
+                  <svg class="lx-vm__i-vol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="lx-vm__i-muted" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4zM17 9l5 6M22 9l-5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button type="button" class="lx-vm__ctl" data-full aria-label="Fullscreen">
+                  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {%- comment -%} Product panels: one per video (each card can feature its own product) {%- endcomment -%}
+          <div class="lx-vm__info">
+            {% assign vi = 0 %}
+            {% for block in section.blocks %}
+              {% assign st = block.settings %}
+              {% if st.video == blank and st.video_asset == blank %}{% continue %}{% endif %}
+              {% liquid
+                assign p = st.product | default: default_product
+                assign v = p.selected_or_first_available_variant
+              %}
+              <div class="lx-vm__product" data-panel="{{ vi }}" data-tag="{{ st.tag | escape }}" data-caption="{{ st.caption | escape }}" hidden>
+                {% if p != blank %}
+                  <p class="lx-vm__eyebrow">{{ section.settings.overlay_eyebrow | escape }}</p>
+                  <h3 class="lx-vm__title">{{ st.product_title | default: p.title | escape }}</h3>
+                  {% assign sub = st.product_subtitle | default: section.settings.overlay_subtitle %}
+                  {% if sub == blank %}{% assign sub = p.description | strip_html | truncatewords: 22 %}{% endif %}
+                  {% if sub != blank %}<p class="lx-vm__sub">{{ sub | escape }}</p>{% endif %}
+
+                  {% if section.settings.overlay_rating > 0 %}
+                    <p class="lx-vm__rating">
+                      <span class="lx-vm__stars" style="--rating: {{ section.settings.overlay_rating | divided_by: 10.0 }};" aria-hidden="true">★★★★★</span>
+                      {{ section.settings.overlay_rating | divided_by: 10.0 }}
+                      {% if section.settings.overlay_reviews != blank %}({{ section.settings.overlay_reviews | escape }}){% endif %}
+                    </p>
+                  {% endif %}
+
+                  <form class="lx-vm__form" action="{{ routes.cart_add_url }}" method="post" data-cart-form>
+                    <p class="lx-vm__price">
+                      <b data-price>{{ v.price | money }}</b>
+                      <s data-compare{% unless v.compare_at_price > v.price %} hidden{% endunless %}>{{ v.compare_at_price | money }}</s>
+                      <span class="lx-vm__off" data-off{% unless v.compare_at_price > v.price %} hidden{% endunless %}>
+                        {%- if v.compare_at_price > v.price -%}{{ v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price }}% OFF{%- endif -%}
+                      </span>
+                    </p>
+
+                    {% if feature_lines.size > 0 and section.settings.overlay_features != blank %}
+                      <ul class="lx-vm__features" role="list">
+                        {% for line in feature_lines %}
+                          {% assign parts = line | split: '|' %}
+                          {% if parts[1] != blank %}
+                            <li>{% assign ic = parts[0] | strip %}{% render 'lx-icon', icon: ic, size: 24, stroke: 1.5 %}<span>{{ parts[1] | strip | escape }}</span></li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+
+                    {% if p.variants.size > 1 %}
+                      <fieldset class="lx-vm__variants">
+                        <legend>{{ p.options.first | default: 'Option' }}</legend>
+                        {% for variant in p.variants %}
+                          <label class="lx-vm__variant">
+                            <input type="radio" name="id" value="{{ variant.id }}" data-price="{{ variant.price | money | escape }}" data-compare="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | escape }}{% endif %}" data-off="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price }}{% endif %}"{% if variant.id == v.id %} checked{% endif %}{% unless variant.available %} disabled{% endunless %}>
+                            <span><b>{{ variant.title | escape }}</b><small>{{ variant.price | money }}</small></span>
+                          </label>
+                        {% endfor %}
+                      </fieldset>
+                    {% else %}
+                      <input type="hidden" name="id" value="{{ v.id }}">
+                    {% endif %}
+
+                    <div class="lx-vm__buy">
+                      <div class="lx-vm__qty">
+                        <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
+                        <input type="number" name="quantity" value="1" min="1" max="99" aria-label="Quantity">
+                        <button type="button" data-qty="1" aria-label="Increase quantity">+</button>
+                      </div>
+                      <button type="submit" class="lx-vm__add"{% unless v.available %} disabled{% endunless %} data-add>
+                        {% render 'lx-icon', icon: 'box', size: 18 %}
+                        <span data-add-label>{% if v.available %}{{ section.settings.overlay_button | escape }}{% else %}Sold out{% endif %}</span>
+                      </button>
+                    </div>
+                    <p class="lx-vm__msg" data-msg role="status" aria-live="polite"></p>
+                  </form>
+
+                  {% if section.settings.overlay_trust != blank %}
+                    <ul class="lx-vm__trust" role="list">
+                      {% for line in trust_lines %}
+                        {% assign parts = line | split: '|' %}
+                        {% if parts[1] != blank %}
+                          <li>{% assign ic = parts[0] | strip %}{% render 'lx-icon', icon: ic, size: 22, stroke: 1.5 %}<span><b>{{ parts[1] | strip | escape }}</b><small>{{ parts[2] | strip | escape }}</small></span></li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+
+                  {% if section.settings.overlay_benefits != blank %}
+                    <p class="lx-vm__bhead">{{ section.settings.overlay_benefits_heading | escape }}</p>
+                    <ul class="lx-vm__benefits" role="list">
+                      {% for line in benefit_lines %}
+                        {% assign parts = line | split: '|' %}
+                        {% if parts[1] != blank %}
+                          <li>{% assign ic = parts[0] | strip %}{% render 'lx-icon', icon: ic, size: 28, stroke: 1.5 %}<span>{{ parts[1] | strip | escape }}</span></li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+
+                  <a class="lx-vm__pdp" href="{{ p.url }}">View full details <span aria-hidden="true">&rarr;</span></a>
+                {% endif %}
+              </div>
+              {% assign vi = vi | plus: 1 %}
+            {% endfor %}
+          </div>
+        </div>
+      </dialog>
+    </lx-video-modal>
+  {% endif %}
+</section>
+{% endif %}
+
+<script>
+  if (!customElements.get('lx-stories')) {
+    customElements.define(
+      'lx-stories',
+      class extends HTMLElement {
+        connectedCallback() {
+          this.track = this.querySelector('.lx-stories__track');
+          this.slides = [...this.track.children];
+          if (!this.slides.length) return;
+          this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+          const dotsWrap = this.querySelector('.lx-stories__dots');
+          this.dots = this.slides.map((_, i) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'lx-stories__dot';
+            dot.setAttribute('aria-label', `Go to story ${i + 1} of ${this.slides.length}`);
+            dot.addEventListener('click', () => this.goTo(i));
+            dotsWrap.append(dot);
+            return dot;
+          });
+
+          this.querySelectorAll('.lx-stories__arrow').forEach((btn) =>
+            btn.addEventListener('click', () => this.goTo(this.current + Number(btn.dataset.dir)))
+          );
+          this.track.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') { e.preventDefault(); this.goTo(this.current + 1); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); this.goTo(this.current - 1); }
+          });
+
+          // With the overlay enabled, clicking any video card opens it at that video.
+          this.modal = this.parentElement.querySelector('lx-video-modal');
+          this.videoSlides = this.slides.filter((s) => s.querySelector('.lx-story--video'));
+          this.track.addEventListener('click', (e) => {
+            const slide = e.target.closest('.lx-stories__slide');
+            if (!slide) return;
+            const vIndex = this.videoSlides.indexOf(slide);
+            if (this.modal && vIndex > -1 && !e.target.closest('.lx-story__link')) {
+              e.preventDefault();
+              e.stopPropagation();
+              this.pauseAll();
+              this.modal.open(vIndex, slide.querySelector('.lx-story__play'));
+              return;
+            }
+            const i = this.slides.indexOf(slide);
+            if (i !== this.current && !e.target.closest('.lx-story__play')) {
+              e.preventDefault();
+              this.goTo(i);
+              return;
+            }
+            const play = slide.querySelector('.lx-story__play');
+            if (play && !slide.querySelector('.lx-story__link') && !e.target.closest('.lx-story__play')) {
+              play.click();
+            }
+          });
+
+          this.slides.forEach((slide) => {
+            const btn = slide.querySelector('.lx-story__play');
+            const video = slide.querySelector('video');
+            if (!btn || !video || this.modal) return;
+            btn.addEventListener('click', () => {
+              if (video.paused) {
+                this.pauseAll();
+                video.play();
+                slide.querySelector('.lx-story').classList.add('is-playing');
+              } else {
+                video.pause();
+                slide.querySelector('.lx-story').classList.remove('is-playing');
+              }
+            });
+          });
+
+          // Theme-asset videos have no stored duration; read it from the file's metadata.
+          this.querySelectorAll('video[data-lx-autoduration]').forEach((video) => {
+            const label = video.closest('.lx-story').querySelector('[data-lx-duration]');
+            if (!label) return;
+            const show = () => {
+              const t = Math.round(video.duration || 0);
+              if (t) label.textContent = `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
+            };
+            if (video.readyState >= 1) show();
+            else video.addEventListener('loadedmetadata', show, { once: true });
+          });
+
+          this.onScroll = () => {
+            if (this.raf) return;
+            this.raf = requestAnimationFrame(() => {
+              this.raf = null;
+              this.update();
+            });
+          };
+          this.track.addEventListener('scroll', this.onScroll, { passive: true });
+          window.addEventListener('resize', this.onScroll, { passive: true });
+
+          // Start in the middle so cards show on both sides, as in the design.
+          const start = Math.floor((this.slides.length - 1) / 2);
+          requestAnimationFrame(() => {
+            this.goTo(start, true);
+            this.update();
+          });
+        }
+
+        disconnectedCallback() {
+          window.removeEventListener('resize', this.onScroll);
+        }
+
+        pauseAll() {
+          this.querySelectorAll('video').forEach((v) => v.pause());
+          this.querySelectorAll('.lx-story.is-playing').forEach((s) => s.classList.remove('is-playing'));
+        }
+
+        goTo(index, instant) {
+          const i = Math.max(0, Math.min(index, this.slides.length - 1));
+          const slide = this.slides[i];
+          const left = slide.offsetLeft + slide.offsetWidth / 2 - this.track.clientWidth / 2;
+          this.track.scrollTo({ left, behavior: instant || this.reduced ? 'auto' : 'smooth' });
+        }
+
+        // Must match the scale() formula in the stylesheet.
+        static scale(ad) {
+          return 1.08 - Math.min(ad, 1) * 0.14 - Math.min(Math.max(ad - 1, 0), 2) * 0.04;
+        }
+
+        // Scaled cards keep their layout box, so gaps grow with distance. Shift each card
+        // toward the centre by the width its inner neighbours gave up: W * ∫(1 - scale).
+        static pull(ad, width) {
+          const steps = Math.max(1, Math.ceil(ad * 12));
+          let sum = 0;
+          for (let k = 0; k < steps; k++) sum += 1 - this.scale(((k + 0.5) / steps) * ad);
+          return (sum / steps) * ad * width;
+        }
+
+        update() {
+          const mid = this.track.scrollLeft + this.track.clientWidth / 2;
+          const step = this.slides[1] ? this.slides[1].offsetLeft - this.slides[0].offsetLeft : 1;
+          const width = this.slides[0].offsetWidth;
+          let best = 0;
+          let bestDist = Infinity;
+          this.slides.forEach((slide, i) => {
+            const center = slide.offsetLeft + slide.offsetWidth / 2;
+            const d = (center - mid) / step;
+            const ad = Math.abs(d);
+            slide.style.setProperty('--d', d.toFixed(3));
+            slide.style.setProperty('--ad', ad.toFixed(3));
+            slide.style.setProperty('--tx', `${(-Math.sign(d) * this.constructor.pull(ad, width)).toFixed(1)}px`);
+            if (Math.abs(d) < bestDist) { bestDist = Math.abs(d); best = i; }
+          });
+          if (best !== this.current) {
+            this.current = best;
+            this.pauseAll();
+            this.slides.forEach((s, i) => {
+              s.toggleAttribute('data-active', i === best);
+              s.querySelectorAll('a, button').forEach((el) => (el.tabIndex = i === best ? 0 : -1));
+            });
+            this.dots.forEach((d, i) => d.setAttribute('aria-current', i === best ? 'true' : 'false'));
+          }
+          this.querySelector('.lx-stories__arrow--prev').disabled = best === 0;
+          this.querySelector('.lx-stories__arrow--next').disabled = best === this.slides.length - 1;
+        }
+      }
+    );
+  }
+  if (!customElements.get('lx-video-modal')) {
+    const fmt = (t) => {
+      t = Math.max(0, Math.floor(t || 0));
+      return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
+    };
+
+    customElements.define(
+      'lx-video-modal',
+      class extends HTMLElement {
+        connectedCallback() {
+          this.dialog = this.querySelector('dialog');
+          this.video = this.querySelector('[data-player]');
+          this.thumbs = [...this.querySelectorAll('.lx-vm__thumb')];
+          this.panels = [...this.querySelectorAll('[data-panel]')];
+          this.seek = this.querySelector('[data-seek]');
+          this.timeEl = this.querySelector('[data-time]');
+          this.stage = this.querySelector('.lx-vm__stage');
+
+          this.thumbs.forEach((t, i) => t.addEventListener('click', () => this.show(i, true)));
+          this.querySelectorAll('[data-step]').forEach((b) =>
+            b.addEventListener('click', () => this.show((this.index + Number(b.dataset.step) + this.thumbs.length) % this.thumbs.length, true))
+          );
+          this.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => this.dialog.close()));
+          // Click on the dimmed backdrop closes; clicks inside the panel don't.
+          this.dialog.addEventListener('click', (e) => { if (e.target === this.dialog) this.dialog.close(); });
+          this.dialog.addEventListener('close', () => {
+            this.video.pause();
+            this.restoreCards();
+            document.documentElement.classList.remove('lx-vm-open');
+            this.opener?.focus?.();
+          });
+          this.dialog.addEventListener('keydown', (e) => {
+            if (e.target.matches('input')) return;
+            if (e.key === 'ArrowRight') this.show((this.index + 1) % this.thumbs.length, true);
+            if (e.key === 'ArrowLeft') this.show((this.index - 1 + this.thumbs.length) % this.thumbs.length, true);
+            if (e.key === ' ' && !e.target.closest('button, a')) { e.preventDefault(); this.toggle(); }
+          });
+
+          // Player
+          this.querySelectorAll('[data-toggle]').forEach((b) => b.addEventListener('click', () => this.toggle()));
+          this.video.addEventListener('click', () => this.toggle());
+          this.querySelector('[data-mute]').addEventListener('click', () => {
+            this.video.muted = !this.video.muted;
+            this.stage.classList.toggle('is-muted', this.video.muted);
+          });
+          this.querySelector('[data-full]').addEventListener('click', () => {
+            const el = this.stage;
+            if (document.fullscreenElement) document.exitFullscreen();
+            else if (el.requestFullscreen) el.requestFullscreen();
+            else if (this.video.webkitEnterFullscreen) this.video.webkitEnterFullscreen();
+          });
+          ['play', 'pause'].forEach((ev) =>
+            this.video.addEventListener(ev, () => this.stage.classList.toggle('is-playing', !this.video.paused))
+          );
+          this.video.addEventListener('timeupdate', () => this.tick());
+          this.video.addEventListener('loadedmetadata', () => this.tick());
+          // Thumbnails that couldn't copy a card frame load their own small preview once
+          // the main video has data, so they never compete with it for a connection.
+          this.video.addEventListener('canplay', () => {
+            this.querySelectorAll('[data-thumb-video]').forEach((t) => {
+              if (t.preload !== 'metadata') t.preload = 'metadata';
+            });
+          }, { once: true });
+          this.video.addEventListener('ended', () => this.show((this.index + 1) % this.thumbs.length, true));
+          this.seek.addEventListener('input', () => {
+            if (this.video.duration) this.video.currentTime = (this.seek.value / 1000) * this.video.duration;
+          });
+
+          // Browsers cap simultaneous video downloads per site, so the carousel's card videos
+          // are released while the overlay is open (and restored on close).
+          this.cardVideos = [...(this.closest('section')?.querySelectorAll('.lx-stories__slide video') || [])];
+
+          // Product panels
+          this.panels.forEach((panel) => this.wireProduct(panel));
+        }
+
+        // Rail thumbnails without an image get a still frame copied from the matching card video.
+        captureThumbs() {
+          if (this.thumbsCaptured) return;
+          this.thumbsCaptured = true;
+          const frames = this.cardVideos.filter((v) => v.closest('.lx-story--video'));
+          this.thumbs.forEach((thumb, i) => {
+            const holder = thumb.querySelector('[data-thumb-video]');
+            const src = frames[i];
+            if (!holder || !src || src.readyState < 2) return;
+            try {
+              const canvas = document.createElement('canvas');
+              canvas.width = 160;
+              canvas.height = Math.round((160 * src.videoHeight) / src.videoWidth) || 200;
+              canvas.getContext('2d').drawImage(src, 0, 0, canvas.width, canvas.height);
+              const img = document.createElement('img');
+              img.alt = '';
+              img.src = canvas.toDataURL('image/jpeg', 0.75);
+              holder.replaceWith(img);
+            } catch (e) {
+              /* cross-origin frame: keep the placeholder */
+            }
+          });
+        }
+
+        releaseCards() {
+          this.cardVideos.forEach((v) => {
+            if (!v.getAttribute('src') && !v.currentSrc) return;
+            v.pause();
+            v.dataset.lxSrc = v.getAttribute('src') || v.currentSrc;
+            v.removeAttribute('src');
+            v.querySelectorAll('source').forEach((sEl) => { sEl.dataset.lxSrc = sEl.src; sEl.removeAttribute('src'); });
+            v.load();
+          });
+        }
+
+        restoreCards() {
+          this.cardVideos.forEach((v) => {
+            v.querySelectorAll('source[data-lx-src]').forEach((sEl) => (sEl.src = sEl.dataset.lxSrc));
+            if (v.dataset.lxSrc && !v.querySelector('source')) v.src = v.dataset.lxSrc;
+            v.load();
+          });
+        }
+
+        open(index, opener) {
+          this.captureThumbs();
+          this.releaseCards();
+          this.opener = opener || document.activeElement;
+          document.documentElement.classList.add('lx-vm-open');
+          if (!this.dialog.open) this.dialog.showModal();
+          this.show(index, true);
+        }
+
+        show(index, autoplay) {
+          this.index = index;
+          const thumb = this.thumbs[index];
+          if (!thumb) return;
+          this.thumbs.forEach((t, i) => {
+            t.classList.toggle('is-active', i === index);
+            t.setAttribute('aria-selected', String(i === index));
+          });
+          this.panels.forEach((p, i) => (p.hidden = i !== index));
+          const panel = this.panels[index];
+          this.querySelector('[data-tag]').textContent = panel?.dataset.tag || '';
+          this.querySelector('[data-tag]').hidden = !panel?.dataset.tag;
+          this.querySelector('[data-caption]').textContent = panel?.dataset.caption || '';
+          if (this.video.dataset.src !== thumb.dataset.src) {
+            const still = thumb.querySelector('img');
+            if (still) this.video.poster = still.currentSrc || still.src;
+            this.video.dataset.src = thumb.dataset.src;
+            this.video.src = thumb.dataset.src;
+            this.seek.value = 0;
+          }
+          thumb.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+          this.querySelector('.lx-vm__info').scrollTop = 0;
+          if (autoplay) this.video.play().catch(() => {});
+        }
+
+        toggle() {
+          if (this.video.paused) this.video.play().catch(() => {});
+          else this.video.pause();
+        }
+
+        tick() {
+          const d = this.video.duration || 0;
+          const t = this.video.currentTime || 0;
+          this.seek.value = d ? Math.round((t / d) * 1000) : 0;
+          this.seek.style.setProperty('--p', d ? (t / d) * 100 + '%' : '0%');
+          this.timeEl.textContent = `${fmt(t)} / ${fmt(d)}`;
+          this.querySelector('[data-dur]').textContent = fmt(d);
+        }
+
+        wireProduct(panel) {
+          const form = panel.querySelector('[data-cart-form]');
+          if (!form) return;
+          const qty = form.querySelector('input[name="quantity"]');
+          form.querySelectorAll('[data-qty]').forEach((b) =>
+            b.addEventListener('click', () => {
+              qty.value = Math.min(99, Math.max(1, (Number(qty.value) || 1) + Number(b.dataset.qty)));
+            })
+          );
+          form.querySelectorAll('input[type="radio"][name="id"]').forEach((r) =>
+            r.addEventListener('change', () => {
+              form.querySelector('[data-price]').textContent = r.dataset.price;
+              const compare = form.querySelector('[data-compare]');
+              const off = form.querySelector('[data-off]');
+              compare.hidden = off.hidden = !r.dataset.compare;
+              compare.textContent = r.dataset.compare;
+              off.textContent = r.dataset.off ? `${r.dataset.off}% OFF` : '';
+            })
+          );
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('[data-add]');
+            const label = form.querySelector('[data-add-label]');
+            const msg = form.querySelector('[data-msg]');
+            const original = label.textContent;
+            btn.disabled = true;
+            label.textContent = 'Adding…';
+            try {
+              const res = await fetch(`${window.Shopify?.routes?.root || '/'}cart/add.js`, {
+                method: 'POST',
+                headers: { Accept: 'application/json' },
+                body: new FormData(form),
+              });
+              const data = await res.json();
+              if (!res.ok) throw new Error(data.description || data.message || 'Could not add to cart');
+              const cart = await (await fetch(`${window.Shopify?.routes?.root || '/'}cart.js`)).json();
+              document.querySelectorAll('cart-icon').forEach((icon) => icon.renderCartBubble?.(cart.item_count));
+              label.textContent = 'Added ✓';
+              msg.innerHTML = `Added to your cart. <a href="${window.Shopify?.routes?.root || '/'}cart">View cart →</a>`;
+              setTimeout(() => { label.textContent = original; btn.disabled = false; }, 1800);
+            } catch (err) {
+              label.textContent = original;
+              btn.disabled = false;
+              msg.textContent = err.message;
+            }
+          });
+        }
+      }
+    );
+  }
+</script>
+
+{% stylesheet %}
+  .lx-stories {
+    --lx-stories-ink: #2b2522;
+    --lx-stories-card-w: clamp(220px, 62vw, 260px);
+    --lx-stories-gap: 14px;
+
+    position: relative;
+    padding-block: var(--lx-stories-pad-top) var(--lx-stories-pad-bottom);
+    background: #f7efe6 var(--lx-stories-bg) center / cover no-repeat;
+    color: var(--lx-stories-ink);
+    overflow: clip;
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-stories {
+      --lx-stories-card-w: 270px;
+      --lx-stories-gap: 26px;
+    }
+  }
+
+  /* ---------- Heading ---------- */
+  .lx-stories__head {
+    position: relative;
+    z-index: 1;
+    padding-inline: 16px;
+    text-align: center;
+  }
+
+  .lx-stories__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 8px;
+    color: var(--lx-stories-accent);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .lx-stories__eyebrow::before,
+  .lx-stories__eyebrow::after {
+    content: '';
+    width: 16px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .lx-stories__title-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .lx-stories__heading {
+    margin: 0;
+    font-size: clamp(2rem, 4.2vw, 3.25rem);
+    line-height: 1.05;
+    color: var(--lx-stories-ink);
+  }
+
+  .lx-stories__sub {
+    margin: 10px 0 0;
+    font-size: 1rem;
+    color: #4b423e;
+  }
+
+  .lx-stories__follow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--lx-stories-accent);
+    border-radius: 12px;
+    background: rgb(255 255 255 / 0.55);
+    backdrop-filter: blur(6px);
+    color: var(--lx-stories-accent);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  .lx-stories__follow:hover {
+    background: var(--lx-stories-accent);
+    color: #fff;
+  }
+
+  @media screen and (min-width: 990px) {
+    /* Heading stays centred; the follow button sits to its right like the design */
+    .lx-stories__title-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 40px;
+    }
+
+    .lx-stories__title-row .lx-stories__heading {
+      grid-column: 2;
+    }
+
+    .lx-stories__follow {
+      grid-column: 3;
+      justify-self: start;
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .lx-stories__follow {
+      order: 3;
+    }
+
+    .lx-stories__title-row {
+      margin-bottom: 0;
+    }
+
+    .lx-stories__sub {
+      margin-bottom: 14px;
+    }
+
+    .lx-stories__head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lx-stories__head .lx-stories__sub {
+      order: 2;
+    }
+
+    .lx-stories__title-row {
+      display: contents;
+    }
+
+    .lx-stories__heading {
+      order: 1;
+    }
+  }
+
+  /* ---------- Coverflow track ---------- */
+  .lx-stories__carousel {
+    position: relative;
+    display: block;
+    margin-top: clamp(28px, 4vw, 44px);
+  }
+
+  .lx-stories__track {
+    display: flex;
+    gap: var(--lx-stories-gap);
+    margin: 0;
+    padding: 40px calc(50% - var(--lx-stories-card-w) / 2) 48px;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    perspective: 1400px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+  }
+
+  .lx-stories__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .lx-stories__track:focus-visible {
+    outline: 2px solid var(--lx-stories-accent);
+    outline-offset: -2px;
+  }
+
+  .lx-stories__slide {
+    --d: 0;
+    --ad: 0;
+    --tx: 0px;
+
+    flex: 0 0 var(--lx-stories-card-w);
+    scroll-snap-align: center;
+    transform-style: preserve-3d;
+  }
+
+  .lx-story {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #d9c8ba;
+    box-shadow: 0 18px 36px -18px rgb(43 37 34 / 0.45);
+    /* Centre card 1.08x; neighbours step down and turn their outer edge away */
+    transform:
+      translateX(var(--tx, 0px))
+      rotateY(calc(clamp(-1, var(--d), 1) * 12deg))
+      scale(calc(1.08 - min(var(--ad), 1) * 0.14 - clamp(0, var(--ad) - 1, 2) * 0.04));
+    opacity: calc(1 - clamp(0, var(--ad) - 2.2, 1) * 0.5);
+    transition: box-shadow 0.4s ease;
+  }
+
+  .lx-stories__slide[data-active] .lx-story {
+    box-shadow: 0 28px 50px -20px rgb(43 37 34 / 0.55);
+  }
+
+  .lx-story__media,
+  .lx-story__img,
+  .lx-story__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .lx-story__img--placeholder {
+    background: #e8dccf;
+  }
+
+  .lx-story--video {
+    cursor: pointer;
+  }
+
+  .lx-story__video {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lx-story.is-playing .lx-story__video,
+  .lx-story__video--cover {
+    opacity: 1;
+  }
+
+  /* Bottom scrim so the title always reads */
+  .lx-story::after {
+    content: '';
+    position: absolute;
+    inset: 45% 0 0;
+    background: linear-gradient(180deg, rgb(43 25 18 / 0) 0%, rgb(43 25 18 / 0.78) 100%);
+    pointer-events: none;
+  }
+
+  .lx-story__top {
+    position: absolute;
+    inset: 14px 14px auto;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .lx-story__tag {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgb(255 248 242 / 0.88);
+    backdrop-filter: blur(4px);
+    color: var(--lx-stories-ink);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .lx-story__duration {
+    margin-left: auto;
+    color: #fff;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-shadow: 0 1px 6px rgb(0 0 0 / 0.35);
+  }
+
+  .lx-story__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.92);
+    color: var(--lx-stories-ink);
+    box-shadow: 0 8px 22px -8px rgb(0 0 0 / 0.4);
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .lx-story__play svg {
+    margin-left: 2px;
+  }
+
+  .lx-story__icon-pause,
+  .lx-story.is-playing .lx-story__icon-play {
+    display: none;
+  }
+
+  .lx-story.is-playing .lx-story__icon-pause {
+    display: block;
+    margin-left: 0;
+  }
+
+  .lx-stories__slide[data-active] .lx-story__play {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .lx-story.is-playing .lx-story__play {
+    opacity: 0;
+  }
+
+  .lx-story.is-playing:hover .lx-story__play,
+  .lx-story.is-playing .lx-story__play:focus-visible {
+    opacity: 1;
+  }
+
+  .lx-story__title {
+    position: absolute;
+    inset: auto 18px 20px;
+    z-index: 2;
+    margin: 0;
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .lx-stories__slide[data-active] .lx-story__title {
+    font-size: 1.375rem;
+  }
+
+  .lx-story__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Whole card is the link's hit area; the play button sits above it */
+  .lx-story__link::before {
+    content: '';
+    position: absolute;
+    inset: -2000px;
+  }
+
+  .lx-story__link:focus-visible {
+    outline: none;
+  }
+
+  .lx-story:has(.lx-story__link:focus-visible) {
+    outline: 2px solid #fff;
+    outline-offset: -4px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .lx-stories__slide[data-active] .lx-story:hover .lx-story__img {
+      transform: scale(1.04);
+    }
+
+    .lx-story__img {
+      transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+  }
+
+  /* ---------- Controls ---------- */
+  .lx-stories__arrow {
+    display: none;
+  }
+
+  @media screen and (min-width: 990px) {
+    .lx-stories__arrow {
+      position: absolute;
+      top: calc(40px + (100% - 40px - 48px - 30px) / 2);
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--lx-stories-ink);
+      box-shadow: 0 10px 26px -10px rgb(43 37 34 / 0.45);
+      transform: translateY(-50%);
+      cursor: pointer;
+      transition: background-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+    }
+
+    .lx-stories__arrow--prev {
+      left: max(24px, calc(50% - 620px));
+    }
+
+    .lx-stories__arrow--next {
+      right: max(24px, calc(50% - 620px));
+    }
+
+    .lx-stories__arrow:hover:not(:disabled) {
+      background: var(--lx-stories-accent);
+      color: #fff;
+    }
+
+    .lx-stories__arrow:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .lx-stories__arrow:focus-visible {
+      outline: 2px solid var(--lx-stories-accent);
+      outline-offset: 3px;
+    }
+  }
+
+  .lx-stories__dots {
+    display: flex;
+    margin-top: 4px;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .lx-stories__dot {
+    width: 40px;
+    height: 4px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgb(181 88 47 / 0.22);
+    cursor: pointer;
+    transition: width 0.3s ease, background-color 0.3s ease;
+  }
+
+  .lx-stories__dot[aria-current='true'] {
+    width: 48px;
+    background: var(--lx-stories-accent);
+  }
+
+  .lx-stories__dot:focus-visible {
+    outline: 2px solid var(--lx-stories-accent);
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lx-story {
+      transform: none;
+    }
+
+    .lx-story__img,
+    .lx-story__play,
+    .lx-stories__dot {
+      transition: none;
+    }
+  }
+  /* ---------- Shoppable video overlay ---------- */
+  html.lx-vm-open {
+    overflow: hidden;
+  }
+
+  .lx-vm {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #2b1a20;
+    overflow: visible;
+  }
+
+  .lx-vm::backdrop {
+    background: rgb(28 14 18 / 0.72);
+    backdrop-filter: blur(6px);
+  }
+
+  .lx-vm[open] {
+    display: grid;
+    place-items: center;
+    animation: lx-vm-in 0.28s ease;
+  }
+
+  @keyframes lx-vm-in {
+    from { opacity: 0; transform: scale(0.98); }
+  }
+
+  .lx-vm__panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: 84px minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 24px;
+    width: min(1180px, calc(100vw - 140px));
+    height: min(800px, calc(100vh - 64px));
+    padding: 20px;
+    border-radius: 28px;
+    background: #fbf5f1;
+    box-shadow: 0 40px 100px -30px rgb(0 0 0 / 0.6);
+  }
+
+  .lx-vm__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 999px;
+    background: #ece4e1;
+    color: #2b1a20;
+    cursor: pointer;
+  }
+
+  .lx-vm__close:hover {
+    background: #e2d7d3;
+  }
+
+  .lx-vm__nav {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border: 0;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.18);
+    color: #fff;
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    transform: translateY(-50%);
+  }
+
+  .lx-vm__nav:hover {
+    background: rgb(255 255 255 / 0.3);
+  }
+
+  .lx-vm__nav--prev { left: max(12px, calc(50% - 670px)); }
+  .lx-vm__nav--next { right: max(12px, calc(50% - 670px)); }
+
+  /* Rail */
+  .lx-vm__rail {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px 2px 2px;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .lx-vm__thumb {
+    flex: 0 0 auto;
+    position: relative;
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: #e8dcd6;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+  }
+
+  .lx-vm__thumb.is-active {
+    border-color: #c2386b;
+    opacity: 1;
+  }
+
+  .lx-vm__thumb:hover {
+    opacity: 1;
+  }
+
+  .lx-vm__thumb img,
+  .lx-vm__thumb video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  /* Player */
+  .lx-vm__stage {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #1b1215;
+  }
+
+  .lx-vm__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+
+  .lx-vm__stage:fullscreen .lx-vm__video {
+    object-fit: contain;
+  }
+
+  .lx-vm__tag {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: #f3d6e0;
+    color: #2b1a20;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .lx-vm__dur {
+    position: absolute;
+    top: 20px;
+    right: 18px;
+    color: #fff;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-shadow: 0 1px 6px rgb(0 0 0 / 0.4);
+  }
+
+  .lx-vm__caption {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 92px;
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.125rem, 2vw, 1.625rem);
+    font-weight: 500;
+    line-height: 1.25;
+    text-shadow: 0 2px 12px rgb(0 0 0 / 0.45);
+    pointer-events: none;
+  }
+
+  .lx-vm__caption:empty {
+    display: none;
+  }
+
+  .lx-vm__big-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    border: 0;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.92);
+    color: #2b1a20;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.25s ease;
+  }
+
+  .lx-vm__stage.is-playing .lx-vm__big-play {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .lx-vm__controls {
+    position: absolute;
+    inset: auto 0 0;
+    padding: 30px 18px 14px;
+    background: linear-gradient(180deg, transparent, rgb(0 0 0 / 0.6));
+    color: #fff;
+  }
+
+  .lx-vm__seek {
+    --p: 0%;
+
+    width: 100%;
+    height: 4px;
+    margin: 0 0 10px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #f29bb8 var(--p), rgb(255 255 255 / 0.35) var(--p));
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .lx-vm__seek::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    background: #fff;
+    appearance: none;
+  }
+
+  .lx-vm__seek::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border: 0;
+    border-radius: 999px;
+    background: #fff;
+  }
+
+  .lx-vm__bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .lx-vm__time {
+    flex: 1;
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lx-vm__ctl {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .lx-vm__i-pause,
+  .lx-vm__i-muted,
+  .lx-vm__stage.is-playing .lx-vm__i-play,
+  .lx-vm__stage.is-muted .lx-vm__i-vol {
+    display: none;
+  }
+
+  .lx-vm__stage.is-playing .lx-vm__i-pause,
+  .lx-vm__stage.is-muted .lx-vm__i-muted {
+    display: block;
+  }
+
+  /* Product */
+  .lx-vm__info {
+    padding: 28px 8px 8px 6px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .lx-vm__eyebrow {
+    margin: 0 0 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #4a3d42;
+  }
+
+  .lx-vm__title {
+    margin: 0 0 10px;
+    padding-right: 48px;
+    font-size: clamp(1.625rem, 2.6vw, 2.125rem);
+    line-height: 1.12;
+    color: #2b1a20;
+  }
+
+  .lx-vm__sub {
+    margin: 0 0 12px;
+    font-size: 1.0625rem;
+    line-height: 1.45;
+    color: #5e5256;
+  }
+
+  .lx-vm__rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    font-size: 0.875rem;
+    color: #6b5a5c;
+  }
+
+  .lx-vm__stars {
+    --rating: 5;
+
+    background: linear-gradient(90deg, #f2a93b calc(var(--rating) / 5 * 100%), #e4d9d4 0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 1.125rem;
+    letter-spacing: 2px;
+  }
+
+  .lx-vm__price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 18px;
+  }
+
+  .lx-vm__price b {
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+
+  .lx-vm__price s {
+    color: #9a8a8f;
+  }
+
+  .lx-vm__off {
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: #f9dbe5;
+    color: #c2386b;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .lx-vm__features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 0 22px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lx-vm__features li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 6px;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .lx-vm__features li + li {
+    border-left: 1px solid #ecdcd5;
+  }
+
+  .lx-vm__features svg {
+    color: #c2386b;
+  }
+
+  .lx-vm__variants {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 18px;
+    padding: 0;
+    border: 0;
+  }
+
+  .lx-vm__variants legend {
+    margin-bottom: 10px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  .lx-vm__variant input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .lx-vm__variant span {
+    display: grid;
+    gap: 2px;
+    min-width: 110px;
+    padding: 10px 18px;
+    border: 1px solid #ecdcd5;
+    border-radius: 12px;
+    background: #fff;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .lx-vm__variant small {
+    color: #6b5a5c;
+  }
+
+  .lx-vm__variant input:checked + span {
+    border-color: #c2386b;
+    background: #fbe8ef;
+    color: #c2386b;
+  }
+
+  .lx-vm__variant input:focus-visible + span {
+    outline: 2px solid #c2386b;
+    outline-offset: 2px;
+  }
+
+  .lx-vm__variant input:disabled + span {
+    opacity: 0.45;
+    text-decoration: line-through;
+  }
+
+  .lx-vm__buy {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+
+  .lx-vm__qty {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ecdcd5;
+    border-radius: 14px;
+    background: #fff;
+  }
+
+  .lx-vm__qty button {
+    width: 42px;
+    height: 50px;
+    border: 0;
+    background: transparent;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+  .lx-vm__qty input {
+    width: 40px;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    text-align: center;
+    -moz-appearance: textfield;
+  }
+
+  .lx-vm__qty input::-webkit-inner-spin-button {
+    appearance: none;
+  }
+
+  .lx-vm__add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    border: 0;
+    border-radius: 14px;
+    background: #b81f5a;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+  }
+
+  .lx-vm__add:hover:not(:disabled) {
+    filter: brightness(1.08);
+  }
+
+  .lx-vm__add:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .lx-vm__msg {
+    min-height: 1.2em;
+    margin: 0 0 12px;
+    font-size: 0.8125rem;
+    color: #5e5256;
+  }
+
+  .lx-vm__msg a {
+    color: #b81f5a;
+    font-weight: 600;
+  }
+
+  .lx-vm__trust {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 0 0 24px;
+    padding: 14px;
+    border-radius: 14px;
+    background: #f1e8e4;
+    list-style: none;
+  }
+
+  .lx-vm__trust li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .lx-vm__trust b {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .lx-vm__trust small {
+    display: block;
+    font-size: 0.6875rem;
+    color: #6b5a5c;
+  }
+
+  .lx-vm__bhead {
+    margin: 0 0 12px;
+    padding-top: 18px;
+    border-top: 1px solid #ecdcd5;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  .lx-vm__benefits {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 0 0 16px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lx-vm__benefits li {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 14px;
+    background: #f6ece8;
+    font-size: 0.8125rem;
+    line-height: 1.3;
+  }
+
+  .lx-vm__benefits svg {
+    color: #c2386b;
+  }
+
+  .lx-vm__pdp {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #b81f5a;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* Phones & small tablets: full-screen sheet — video, rail, then product */
+  @media screen and (max-width: 989px) {
+    .lx-vm__panel {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100dvh;
+      padding: 0;
+      overflow-y: auto;
+      border-radius: 0;
+    }
+
+    .lx-vm__nav {
+      display: none;
+    }
+
+    .lx-vm__close {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      background: rgb(255 255 255 / 0.85);
+    }
+
+    .lx-vm__stage {
+      flex: 0 0 auto;
+      order: 1;
+      height: min(68dvh, 620px);
+      border-radius: 0;
+    }
+
+    .lx-vm__rail {
+      flex: 0 0 auto;
+      order: 2;
+    }
+
+    .lx-vm__info {
+      flex: 0 0 auto;
+      order: 3;
+    }
+
+    .lx-vm__rail {
+      flex-direction: row;
+      padding: 12px 16px;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .lx-vm__thumb {
+      width: 64px;
+    }
+
+    .lx-vm__info {
+      padding: 4px 16px 32px;
+      overflow: visible;
+    }
+
+    .lx-vm__features,
+    .lx-vm__benefits {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 14px;
+    }
+
+    .lx-vm__features li:nth-child(3) {
+      border-left: 0;
+    }
+
+    .lx-vm__trust {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lx-vm[open] {
+      animation: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Video stories",
+  "tag": "div",
+  "class": "section-lx-stories",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Blog"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Blog stories"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Real people. Real routines. Real wellness."
+    },
+    {
+      "type": "text",
+      "id": "follow_label",
+      "label": "Follow button label",
+      "default": "Follow us @lustxstore"
+    },
+    {
+      "type": "url",
+      "id": "follow_link",
+      "label": "Follow button link"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image",
+      "info": "Leave empty to use the default leaf-and-light background."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#a8532c"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "header",
+      "content": "Video overlay"
+    },
+    {
+      "type": "checkbox",
+      "id": "overlay_enabled",
+      "label": "Open videos in a shoppable overlay",
+      "default": true
+    },
+    {
+      "type": "product",
+      "id": "overlay_product",
+      "label": "Default product",
+      "info": "Shown next to every video unless a video picks its own product."
+    },
+    {
+      "type": "text",
+      "id": "overlay_eyebrow",
+      "label": "Eyebrow",
+      "default": "Featured in video"
+    },
+    {
+      "type": "textarea",
+      "id": "overlay_subtitle",
+      "label": "Product subtitle",
+      "info": "Defaults to the start of the product description."
+    },
+    {
+      "type": "range",
+      "id": "overlay_rating",
+      "label": "Star rating (×10, 0 hides)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "text",
+      "id": "overlay_reviews",
+      "label": "Review count label",
+      "placeholder": "120 Reviews"
+    },
+    {
+      "type": "text",
+      "id": "overlay_button",
+      "label": "Button label",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "textarea",
+      "id": "overlay_features",
+      "label": "Feature row",
+      "info": "One per line: icon | label. Icons: leaf, flask, box, heart, shield, herb, lotus, sun, moon.",
+      "default": "leaf | 100% Natural\nflask | Science-Informed\nbox | Individually Packed\nheart | Daily Wellness Support"
+    },
+    {
+      "type": "textarea",
+      "id": "overlay_trust",
+      "label": "Trust row",
+      "info": "One per line: icon | title | subtitle. Icons: truck, shield, returns.",
+      "default": "truck | Free Shipping | on prepaid orders\nshield | Secure Payment | 100% safe & secure\nreturns | Easy Support | Our team is here to help"
+    },
+    {
+      "type": "text",
+      "id": "overlay_benefits_heading",
+      "label": "Benefits heading",
+      "default": "Key Benefits"
+    },
+    {
+      "type": "textarea",
+      "id": "overlay_benefits",
+      "label": "Benefits",
+      "info": "One per line: icon | label. Icons: bolt, shield, leaf, gut, heart, sun, moon.",
+      "default": "sun | Morning Balance\nbolt | Afternoon Glow\nmoon | Evening Restore\nleaf | Plant-Based Wellness"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "Upload a vertical (9:16) video. It plays inside the card when it's in the centre."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Cover image",
+          "info": "Optional. Defaults to the video's preview frame."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag",
+          "placeholder": "Daily habits"
+        },
+        {
+          "type": "text",
+          "id": "video_asset",
+          "label": "Video file in theme assets (advanced)",
+          "info": "Used when no Shopify video is picked above, e.g. lx-story-1.mp4."
+        },
+        {
+          "type": "text",
+          "id": "duration",
+          "label": "Duration label",
+          "placeholder": "0:45",
+          "info": "Optional. Filled in from the video automatically."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional. Makes the title link somewhere, e.g. a related blog post."
+        },
+        {
+          "type": "header",
+          "content": "Overlay"
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Caption over video",
+          "placeholder": "A simple ritual for more energy every morning ✨"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Featured product",
+          "info": "Leave empty to use the section's default product."
+        },
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Product title override"
+        },
+        {
+          "type": "textarea",
+          "id": "product_subtitle",
+          "label": "Product subtitle override"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video stories",
+      "blocks": [
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

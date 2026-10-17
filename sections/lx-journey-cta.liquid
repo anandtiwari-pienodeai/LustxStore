@@ -1,0 +1,106 @@
+{%- comment -%}
+  Lust Xstore — dark "just the beginning" CTA band.
+  Split from the homepage; styles live in assets/lx-home.css.
+{%- endcomment -%}
+
+<section class="lx-h lx-jr" style="--lx-pad-top: {{ section.settings.padding_top }}px; --lx-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="lx-h__wrap">
+    {%- comment -%} ---------- CTA band ---------- {%- endcomment -%}
+    {% if section.settings.cta_title != blank %}
+      <div class="lx-jr__cta">
+        <span class="lx-jr__cta-badge"><b>45</b><small>Days</small></span>
+        <div class="lx-jr__cta-copy">
+          <p class="lx-jr__cta-title">{{ section.settings.cta_title | escape }} <em>{{ section.settings.cta_title_accent | escape }}</em></p>
+          <p class="lx-jr__cta-text">{{ section.settings.cta_text | escape }}</p>
+        </div>
+        <div class="lx-jr__cta-actions">
+          {% if section.settings.cta_primary_label != blank %}
+            <a class="lx-jr__cta-btn lx-jr__cta-btn--solid" href="{{ section.settings.cta_primary_link | default: '/pages/our-program' }}">{{ section.settings.cta_primary_label | escape }} <span aria-hidden="true">&rarr;</span></a>
+          {% endif %}
+          {% if section.settings.cta_secondary_label != blank %}
+            <a class="lx-jr__cta-btn lx-jr__cta-btn--ghost" href="{{ section.settings.cta_secondary_link | default: '/pages/our-program' }}">{{ section.settings.cta_secondary_label | escape }}</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Journey CTA band",
+  "tag": "div",
+  "class": "section-lx-journey-cta",
+  "settings": [
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "Title",
+      "default": "Your first 45 days are"
+    },
+    {
+      "type": "text",
+      "id": "cta_title_accent",
+      "label": "Title (accent)",
+      "default": "just the beginning."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Text",
+      "default": "Keep the ritual going with the Recommended 90-Day Journey."
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Primary button",
+      "default": "Continue Your Journey"
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_link",
+      "label": "Primary link"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_label",
+      "label": "Secondary button",
+      "default": "Explore 90-Day Plan"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_link",
+      "label": "Secondary link"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    }
+  ],
+  "presets": [
+    {
+      "name": "Journey CTA band"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,77 @@
+{%- comment -%}
+  Lust Xstore — one-line callout pill with a link.
+  Split from the homepage; styles live in assets/lx-home.css.
+{%- endcomment -%}
+
+<section class="lx-h lx-focus" style="--lx-pad-top: {{ section.settings.padding_top }}px; --lx-pad-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="lx-h__wrap">
+    {% if section.settings.pill_text != blank %}
+      <div class="lx-focus__pill">
+        <p><span aria-hidden="true">✿</span> {{ section.settings.pill_text | escape }}</p>
+        {% if section.settings.pill_link_text != blank %}
+          <a href="{{ section.settings.pill_link | default: '/pages/our-program' }}">
+            <span>{{ section.settings.pill_link_text | escape }}</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Callout pill",
+  "tag": "div",
+  "class": "section-lx-callout-pill",
+  "settings": [
+    {
+      "type": "text",
+      "id": "pill_text",
+      "label": "Pill text",
+      "default": "That's why we created a premium wellness program designed to work with your day — not against it."
+    },
+    {
+      "type": "text",
+      "id": "pill_link_text",
+      "label": "Pill link text",
+      "default": "Discover how the BODY अर्क Morning · Afternoon · Evening Wellness System fits naturally into your everyday life."
+    },
+    {
+      "type": "url",
+      "id": "pill_link",
+      "label": "Pill link",
+      "info": "Defaults to Our Program."
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    }
+  ],
+  "presets": [
+    {
+      "name": "Callout pill"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,55 @@
+<section
+  class="arka-sec arka-signoff"
+  style="--arka-hero-bg: {{ section.settings.bg_color }}; --pbs: {{ section.settings.padding_block_start }}px; --pbe: {{ section.settings.padding_block_end }}px;"
+>
+  <div class="arka-wrap">
+    <div class="arka-signoff__inner">
+      {%- if section.settings.tagline != blank -%}
+        <p class="arka-signoff__tagline">{{ section.settings.tagline }}</p>
+      {%- endif -%}
+      {%- if section.settings.legal != blank -%}
+        <p class="arka-signoff__legal">{{ section.settings.legal }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .arka-signoff__inner {
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid var(--arka-line);
+  }
+
+  .arka-signoff__tagline {
+    font-family: var(--arka-font-heading);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--arka-brand);
+    margin: 0 0 8px;
+  }
+
+  .arka-signoff__legal {
+    font-size: 12px;
+    color: var(--arka-muted-3);
+    margin: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Arka PDP — Sign-off",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "A Healthier, Happier You" },
+    { "type": "text", "id": "legal", "label": "Legal line", "default": "BODY अर्क Women · Plant-Based Wellness · Marketed by Lust Xstore Private Limited, Mumbai" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#F5EEE3" },
+    { "type": "range", "id": "padding_block_start", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_block_end", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 40 }
+  ],
+  "presets": [
+    { "name": "Arka PDP — Sign-off" }
+  ]
+}
+{% endschema %}
